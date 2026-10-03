@@ -263,12 +263,13 @@ function localizador(c, { agrupar, id }) {
     </div>`;
 }
 
-function faixa(c, { trilha, eyebrow, titulo, sub, lead }) {
+function faixa(c, { trilha, eyebrow, titulo, sub, lead, deco }) {
   const itens = trilha
     .map((t, i) => (i === trilha.length - 1 ? `<li aria-current="page">${esc(t.rotulo)}</li>` : `<li><a href="${c.u(t.href)}">${esc(t.rotulo)}</a></li>`))
     .join("");
   return `
   <div class="faixa escuro">
+    ${deco ? `<span class="faixa__deco" aria-hidden="true">${icone(deco)}</span>` : ""}
     <div class="container">
       <nav class="trilha" aria-label="Você está em"><ol>${itens}</ol></nav>
       ${eyebrow ? `<p class="eyebrow">${esc(eyebrow)}</p>` : ""}
@@ -381,7 +382,7 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld).replace(
 </head>
 <body>
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
-${rascunho ? `<aside class="aviso-rascunho" aria-label="Aviso sobre esta versão"><div class="container"><strong>Versão de apresentação.</strong> Os documentos e orientações ainda serão validados pelo cartório antes da publicação. Telefone, horário e foto da fachada serão inseridos.</div></aside>` : ""}
+${rascunho ? `<aside class="aviso-rascunho" aria-label="Aviso sobre esta versão"><div class="container"><strong>Site demonstrativo.</strong> Telefones, e-mail e nomes são fictícios, e os documentos e orientações ainda serão validados pelo cartório antes da publicação.</div></aside>` : ""}
 ${cabecalho(c, ativo)}
 <main id="conteudo">
 ${corpo}
@@ -430,7 +431,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
         </div>
       </div>
       <figure class="hero__foto">
-        <img src="${c.u(fachada.src)}" width="1600" height="1100" alt="${esc(fachadaAlt)}" fetchpriority="high">
+        <div class="hero__moldura"><img src="${c.u(fachada.src)}" width="1441" height="642" alt="${esc(fachadaAlt)}" fetchpriority="high"></div>
         <div class="flutuante flutuante--a"><span class="flutuante__icone">${icone("arquivo")}</span><div><strong>5 especialidades</strong><small>no mesmo endereço</small></div></div>
         <div class="flutuante flutuante--b"><span class="flutuante__icone">${icone("check")}</span><div><strong>Documentos antes de vir</strong><small>lista para cada serviço</small></div></div>
       </figure>
@@ -546,7 +547,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
           <p class="nota-pequena">Confira sempre se o contato é um dos canais oficiais divulgados neste site.</p>
         </div>
         <figure class="atend__foto" data-reveal style="--i:1">
-          <img src="${c.u(fachada.src)}" width="1600" height="1100" alt="${esc(fachadaAlt)}" loading="lazy">
+          <img src="${c.u(fachada.src)}" width="1441" height="642" alt="${esc(fachadaAlt)}" loading="lazy">
           <figcaption>${icone("pin")}Procure pela fachada na ${esc(end.logradouro)}, nº ${esc(end.numero)}</figcaption>
         </figure>
       </div>
@@ -613,6 +614,7 @@ for (const esp of especialidades) {
   ${faixa(c, {
     trilha: [{ rotulo: "Início", href: "index.html" }, { rotulo: "Serviços", href: "servicos.html" }, { rotulo: esp.nome }],
     eyebrow: "Especialidade",
+    deco: esp.icone,
     titulo: esp.nomeCompleto,
     lead: esp.descricao,
   })}
@@ -628,6 +630,7 @@ for (const esp of especialidades) {
           .map(
             (a, i) => `
         <li class="ato-card" data-reveal style="--i:${i % 3}">
+          <span class="ato-card__icone">${icone(esp.icone)}</span>
           <h3><a href="${c.u(a.caminho)}">${esc(a.titulo)}</a></h3>
           <p class="ato-card__resumo">${esc(a.resumo)}</p>
           <p class="ato-card__ir">Ver documentos ${icone("seta")}</p>
@@ -696,6 +699,7 @@ for (const ato of atos.values()) {
       { rotulo: ato.titulo },
     ],
     eyebrow: esp.nome,
+    deco: esp.icone,
     titulo: ato.titulo,
     sub: ato.nomeTecnico,
     lead: ato.resumo,
@@ -853,7 +857,7 @@ for (const ato of atos.values()) {
         <p class="nota-pequena">Confira sempre se o contato é um dos canais oficiais divulgados neste site.</p>
       </div>
       <figure class="atend__foto">
-        <img src="${c.u(fachada.src)}" width="1600" height="1100" alt="${esc(fachadaAlt)}" loading="lazy">
+        <img src="${c.u(fachada.src)}" width="1441" height="642" alt="${esc(fachadaAlt)}" loading="lazy">
         <figcaption>${icone("pin")}Procure pela fachada na ${esc(end.logradouro)}, nº ${esc(end.numero)}</figcaption>
       </figure>
     </div>

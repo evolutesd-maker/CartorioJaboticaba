@@ -301,6 +301,55 @@
     pintar();
   }
 
+
+  // ---- Animações com o mouse e a rolagem ---------------------------------------
+  var mouseFino = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+  if (!semMovimento) {
+    // Hero: a foto e os chips se movem de leve com o mouse e com a rolagem.
+    var heroEl = document.querySelector(".hero");
+    if (heroEl) {
+      var fotoEl = heroEl.querySelector(".hero__foto");
+      if (mouseFino) {
+        heroEl.addEventListener("pointermove", function (e) {
+          var r = heroEl.getBoundingClientRect();
+          heroEl.style.setProperty("--mx", ((e.clientX - r.left) / r.width - 0.5) * 2);
+          heroEl.style.setProperty("--my", ((e.clientY - r.top) / r.height - 0.5) * 2);
+        });
+        heroEl.addEventListener("pointerleave", function () { heroEl.style.setProperty("--mx", 0); heroEl.style.setProperty("--my", 0); });
+      }
+      var pend = false;
+      window.addEventListener("scroll", function () {
+        if (pend) return; pend = true;
+        requestAnimationFrame(function () { pend = false; if (fotoEl && window.scrollY < 900) fotoEl.style.setProperty("--py", (window.scrollY * 0.06) + "px"); });
+      }, { passive: true });
+    }
+
+    // Cartões se inclinam em 3D acompanhando o mouse.
+    if (mouseFino) {
+      document.querySelectorAll(".esp-card, .ato-card, .cr-card").forEach(function (card) {
+        card.addEventListener("pointermove", function (e) {
+          var r = card.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+          card.classList.add("is-inclinando");
+          card.style.setProperty("--ry", (x * 7).toFixed(2) + "deg");
+          card.style.setProperty("--rx", (-y * 7).toFixed(2) + "deg");
+        });
+        card.addEventListener("pointerleave", function () {
+          card.classList.remove("is-inclinando");
+          card.style.removeProperty("--rx"); card.style.removeProperty("--ry");
+        });
+      });
+    }
+  }
+
+  // Direção da troca de página: avançar desliza para a esquerda, voltar para a direita.
+  function direcao(e) {
+    var tipo = e && e.activation ? e.activation.navigationType : (window.navigation && navigation.activation ? navigation.activation.navigationType : "push");
+    document.documentElement.classList.toggle("vt-voltar", tipo === "traverse");
+  }
+  window.addEventListener("pageswap", direcao);
+  window.addEventListener("pagereveal", direcao);
+
   // ---- Imprimir ----------------------------------------------------------
   document.querySelectorAll("[data-imprimir]").forEach(function (b) {
     b.addEventListener("click", function () { window.print(); });

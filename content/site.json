@@ -1,10 +1,8 @@
 {
   "rascunho": true,
-
   "nome": "Tabelionato de Jaboticaba",
   "chamada": "Cartório · Jaboticaba/RS",
   "url": null,
-
   "endereco": {
     "logradouro": "Rua Victielo Bisognin",
     "numero": "227",
@@ -13,18 +11,21 @@
     "uf": "RS",
     "cep": "98350-000"
   },
-
-  "telefone": null,
-  "whatsapp": null,
-  "email": null,
-
-  "horario": null,
+  "telefone": "(55) 3000-1234",
+  "whatsapp": "(55) 99999-0000",
+  "email": "contato@tabelionatojaboticaba.exemplo",
+  "horario": [
+    {
+      "dias": "Segunda a sexta",
+      "horas": "8h30 às 11h45 e 13h30 às 17h15"
+    }
+  ],
   "horarioObservacao": null,
-
-  "titular": null,
-  "cns": null,
-
-  "encarregadoLgpd": { "nome": null, "email": null },
-
-  "privacidadeAtualizadaEm": null
+  "titular": "Maria Exemplo de Souza (nome fictício)",
+  "cns": "00.000-0",
+  "encarregadoLgpd": {
+    "nome": "Fulano de Tal (fictício)",
+    "email": "privacidade@tabelionatojaboticaba.exemplo"
+  },
+  "privacidadeAtualizadaEm": "2026-10-03"
 }
