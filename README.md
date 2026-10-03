@@ -70,6 +70,10 @@ e aparece no site com o selo "Em validação pelo cartório".
 4. Quando tudo estiver pronto, mude `"rascunho"` para `false`. A partir daí **o build recusa publicar**
    se faltar qualquer dado obrigatório ou se algum ato ainda não estiver validado.
 
+### Funil "Fale com o cartório"
+
+Aparece no fim de todas as páginas, antes do rodapé: nome → especialidade → documento/serviço → WhatsApp ou e-mail. A mensagem é montada no navegador ("Olá, sou ... Gostaria de falar com o setor de ..., pois preciso de ... Aguardo atendimento."). As opções vêm das especialidades e atos de `content/especialidades/`. O WhatsApp usa `whatsapp` e o e-mail usa `emailFormulario` (ou `email`) de `content/site.json`. Hoje `emailFormulario` é um endereço de teste: troque pelo do cartório antes de publicar.
+
 ### Cartões da página inicial
 
 Cada especialidade (`content/especialidades/*.json`) tem `tagline` (uma linha) e `opcoes` (3 a 4 itens curtos). São só isso que aparece no cartão da home; todo o resto fica na página da especialidade. O build recusa uma especialidade sem esses dois campos.

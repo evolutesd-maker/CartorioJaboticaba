@@ -376,7 +376,7 @@ ${canonical ? `<link rel="canonical" href="${esc(canonical)}">` : ""}
 <link rel="icon" href="${c.u("assets/img/favicon.svg")}" type="image/svg+xml">
 <link rel="preload" href="${c.u(FONTE)}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${c.u("assets/css/style.css")}">
-<script>document.documentElement.classList.add("js")</script>
+<script>document.documentElement.classList.add("js");(function(){var R=document.documentElement;function tipo(e){var a=e&&e.activation?e.activation:(window.navigation&&navigation.activation);R.classList.toggle("vt-voltar",!!a&&a.navigationType==="traverse")}addEventListener("pageswap",tipo);addEventListener("pagereveal",tipo)})()</script>
 <script src="${c.u("assets/js/main.js")}" defer></script>
 ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld).replace(/</g, "\\u003c")}</script>` : ""}
 </head>
@@ -384,14 +384,58 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld).replace(
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
 ${rascunho ? `<aside class="aviso-rascunho" aria-label="Aviso sobre esta versão"><div class="container"><strong>Site demonstrativo.</strong> Telefones, e-mail e nomes são fictícios, e os documentos e orientações ainda serão validados pelo cartório antes da publicação.</div></aside>` : ""}
 ${cabecalho(c, ativo)}
+<div class="pagina-corpo">
 <main id="conteudo">
 ${corpo}
+${funilContato(c)}
 </main>
 ${rodape(c)}
+</div>
 ${botaoFlutuante(c)}
 </body>
 </html>
 `;
+}
+
+
+/** Funil "Fale com o cartório": nome → especialidade → documento/serviço → WhatsApp ou e-mail (a mensagem é montada no navegador). */
+function funilContato(c) {
+  const dados = {
+    wa: site.whatsapp ? comPais(site.whatsapp) : null,
+    mail: site.emailFormulario || site.email || "",
+    esps: especialidades.map((e) => ({ nome: e.nome, atos: e.atos.map((a) => ({ t: a.titulo, d: a.nomeTecnico })) })),
+  };
+  return `
+  <section class="secao secao--azul" id="falar" aria-labelledby="t-funil">
+    <div class="container">
+      <div class="secao__cab secao__cab--centro" data-reveal>
+        <p class="eyebrow">Fale com o cartório</p>
+        <h2 id="t-funil">Conte o que você precisa</h2>
+        <p>Responda em três passos e a sua mensagem sai pronta pelo WhatsApp ou pelo e-mail.</p>
+      </div>
+      <div class="funil" data-funil data-reveal>
+        <p class="funil__sem-js">Para falar com o cartório, use os canais da <a href="${c.u("contato.html")}">página de contato</a>.</p>
+        <form class="funil__form" onsubmit="return false" novalidate>
+          <div class="funil__passos">
+            <div class="funil__passo"><span class="funil__num">1</span><label for="f-nome">Qual é o seu nome?</label><input id="f-nome" type="text" maxlength="80" autocomplete="name" placeholder="Seu nome" data-f-nome></div>
+            <div class="funil__passo"><span class="funil__num">2</span><label for="f-esp">Com qual setor você quer falar?</label><select id="f-esp" data-f-esp><option value="">Escolha a especialidade</option></select></div>
+            <div class="funil__passo"><span class="funil__num">3</span><label for="f-ato">De qual documento ou serviço você precisa?</label><select id="f-ato" disabled data-f-ato><option value="">Escolha antes a especialidade</option></select></div>
+          </div>
+          <div class="funil__previa">
+            <h3>Sua mensagem</h3>
+            <p class="funil__msg is-vazia" role="status" aria-live="polite" data-f-msg>Preencha os passos ao lado e a sua mensagem aparece aqui.</p>
+            <p class="funil__rotulo">4. Como prefere falar?</p>
+            <div class="funil__canais">
+              <a class="btn btn--primario" href="#falar" aria-disabled="true" data-f-whats target="_blank" rel="noopener">${icone("chat")}WhatsApp</a>
+              <a class="btn btn--contorno" href="#falar" aria-disabled="true" data-f-email>${icone("email")}E-mail</a>
+            </div>
+            <p class="funil__dica" role="status" aria-live="polite" data-f-dica></p>
+          </div>
+        </form>
+        <script type="application/json" id="dados-funil">${JSON.stringify(dados).replace(/</g, "\\u003c")}</script>
+      </div>
+    </div>
+  </section>`;
 }
 
 /** Cartão minimalista de especialidade: nome, uma linha e opções curtas; o cartão todo leva à página. */
@@ -427,7 +471,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
         <p>Notas, protesto e registros civis e de documentos em um só endereço. Diga o que você precisa e veja os documentos antes de vir.</p>
         <div class="hero__acoes">
           <a class="btn btn--claro" href="#encontrar">${icone("lupa")}Encontrar um serviço</a>
-          ${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--vidro", rotulo: "Falar com o cartório" })}
+          <a class="btn btn--vidro" href="#falar">${icone("chat")}Falar com o cartório</a>
         </div>
       </div>
       <figure class="hero__foto">

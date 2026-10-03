@@ -305,23 +305,15 @@
   // ---- Animações com o mouse e a rolagem ---------------------------------------
   var mouseFino = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
   if (!semMovimento) {
-    // Hero: a foto e os chips se movem de leve com o mouse e com a rolagem.
-    var heroEl = document.querySelector(".hero");
-    if (heroEl) {
-      var fotoEl = heroEl.querySelector(".hero__foto");
-      if (mouseFino) {
-        heroEl.addEventListener("pointermove", function (e) {
-          var r = heroEl.getBoundingClientRect();
-          heroEl.style.setProperty("--mx", ((e.clientX - r.left) / r.width - 0.5) * 2);
-          heroEl.style.setProperty("--my", ((e.clientY - r.top) / r.height - 0.5) * 2);
-        });
-        heroEl.addEventListener("pointerleave", function () { heroEl.style.setProperty("--mx", 0); heroEl.style.setProperty("--my", 0); });
-      }
-      var pend = false;
-      window.addEventListener("scroll", function () {
-        if (pend) return; pend = true;
-        requestAnimationFrame(function () { pend = false; if (fotoEl && window.scrollY < 900) fotoEl.style.setProperty("--py", (window.scrollY * 0.06) + "px"); });
-      }, { passive: true });
+    // Hero: a foto e os chips só se movem com o mouse SOBRE a foto.
+    var fotoEl = document.querySelector(".hero__foto");
+    if (fotoEl && mouseFino) {
+      fotoEl.addEventListener("pointermove", function (e) {
+        var r = fotoEl.getBoundingClientRect();
+        fotoEl.style.setProperty("--mx", ((e.clientX - r.left) / r.width - 0.5) * 2);
+        fotoEl.style.setProperty("--my", ((e.clientY - r.top) / r.height - 0.5) * 2);
+      });
+      fotoEl.addEventListener("pointerleave", function () { fotoEl.style.setProperty("--mx", 0); fotoEl.style.setProperty("--my", 0); });
     }
 
     // Cartões se inclinam em 3D acompanhando o mouse.
@@ -342,13 +334,72 @@
     }
   }
 
-  // Direção da troca de página: avançar desliza para a esquerda, voltar para a direita.
-  function direcao(e) {
-    var tipo = e && e.activation ? e.activation.navigationType : (window.navigation && navigation.activation ? navigation.activation.navigationType : "push");
-    document.documentElement.classList.toggle("vt-voltar", tipo === "traverse");
+  // (A direção e o ponto de origem da troca de página ficam num script mínimo no <head>.)
+
+  // ---- Funil de contato ----------------------------------------------------------
+  var funilEl = document.querySelector("[data-funil]");
+  var funilDados = document.getElementById("dados-funil");
+  if (funilEl && funilDados) {
+    var d = JSON.parse(funilDados.textContent);
+    var fNome = funilEl.querySelector("[data-f-nome]"), fEsp = funilEl.querySelector("[data-f-esp]"), fAto = funilEl.querySelector("[data-f-ato]");
+    var fMsg = funilEl.querySelector("[data-f-msg]"), fDica = funilEl.querySelector("[data-f-dica]");
+    var bZap = funilEl.querySelector("[data-f-whats]"), bMail = funilEl.querySelector("[data-f-email]");
+    d.esps.forEach(function (e, i) { var o = document.createElement("option"); o.value = i; o.textContent = e.nome; fEsp.appendChild(o); });
+
+    function minuscula(t) { return t.charAt(0).toLowerCase() + t.slice(1); }
+    function atual() {
+      var nome = fNome.value.trim().replace(/\s+/g, " ");
+      var e = fEsp.value !== "" ? d.esps[+fEsp.value] : null;
+      var a = e && fAto.value !== "" ? e.atos[+fAto.value] : null;
+      return { nome: nome, esp: e, ato: a, pronto: !!(nome && e && a) };
+    }
+    function mensagem(x) {
+      return "Olá, sou " + x.nome + ". Gostaria de falar com o setor de " + x.esp.nome + ", pois preciso de " + minuscula(x.ato.d) + ". Aguardo atendimento.";
+    }
+    function marcar(el, feito) { el.closest(".funil__passo").classList.toggle("is-feito", feito); }
+    function liberar(b, sim) { b.setAttribute("aria-disabled", sim ? "false" : "true"); }
+
+    function atualizar() {
+      var x = atual();
+      marcar(fNome, !!x.nome); marcar(fEsp, !!x.esp); marcar(fAto, !!x.ato);
+      if (x.pronto) {
+        var m = mensagem(x);
+        fMsg.textContent = m; fMsg.classList.remove("is-vazia");
+        bZap.href = d.wa ? "https://wa.me/" + d.wa + "?text=" + encodeURIComponent(m) : "#falar";
+        bMail.href = "mailto:" + d.mail + "?subject=" + encodeURIComponent("Atendimento: " + x.ato.d) + "&body=" + encodeURIComponent(m);
+        fDica.textContent = "Tudo pronto. Escolha por onde quer falar.";
+      } else {
+        fMsg.textContent = "Preencha os passos ao lado e a sua mensagem aparece aqui.";
+        fMsg.classList.add("is-vazia");
+        bZap.href = "#falar"; bMail.href = "#falar";
+        fDica.textContent = "";
+      }
+      liberar(bZap, x.pronto && !!d.wa); liberar(bMail, x.pronto);
+    }
+    fEsp.addEventListener("change", function () {
+      fAto.innerHTML = "";
+      var ph = document.createElement("option"); ph.value = ""; fAto.appendChild(ph);
+      if (fEsp.value === "") { ph.textContent = "Escolha antes a especialidade"; fAto.disabled = true; }
+      else {
+        ph.textContent = "Escolha o documento ou serviço"; fAto.disabled = false;
+        d.esps[+fEsp.value].atos.forEach(function (a, i) { var o = document.createElement("option"); o.value = i; o.textContent = a.t; fAto.appendChild(o); });
+        fAto.focus();
+      }
+      atualizar();
+    });
+    fNome.addEventListener("input", atualizar); fAto.addEventListener("change", atualizar);
+    [bZap, bMail].forEach(function (b) {
+      b.addEventListener("click", function (e) {
+        if (b.getAttribute("aria-disabled") === "true") {
+          e.preventDefault();
+          var x = atual();
+          fDica.textContent = !x.nome ? "Diga primeiro o seu nome." : !x.esp ? "Escolha o setor." : !x.ato ? "Escolha o documento ou serviço." : "Este canal ainda não está disponível.";
+          (!x.nome ? fNome : !x.esp ? fEsp : fAto).focus();
+        }
+      });
+    });
+    atualizar();
   }
-  window.addEventListener("pageswap", direcao);
-  window.addEventListener("pagereveal", direcao);
 
   // ---- Imprimir ----------------------------------------------------------
   document.querySelectorAll("[data-imprimir]").forEach(function (b) {

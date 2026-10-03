@@ -16,7 +16,7 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/PlusJakartaSans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
-<script>document.documentElement.classList.add("js")</script>
+<script>document.documentElement.classList.add("js");(function(){var R=document.documentElement;function tipo(e){var a=e&&e.activation?e.activation:(window.navigation&&navigation.activation);R.classList.toggle("vt-voltar",!!a&&a.navigationType==="traverse")}addEventListener("pageswap",tipo);addEventListener("pagereveal",tipo)})()</script>
 <script src="assets/js/main.js" defer></script>
 
 </head>
@@ -42,6 +42,7 @@
       </nav>
     </div>
   </header>
+<div class="pagina-corpo">
 <main id="conteudo">
 
   
@@ -75,6 +76,37 @@
 <h2>Sobre este site</h2>
 <p>As informações deste site são orientações gerais, escritas em linguagem simples para ajudar você a se preparar. Elas não substituem o atendimento: os documentos exigidos podem variar conforme o caso, e o cartório pode pedir documentos adicionais. Em caso de dúvida, fale com o cartório antes de vir.</p>
 </div></section>
+
+  <section class="secao secao--azul" id="falar" aria-labelledby="t-funil">
+    <div class="container">
+      <div class="secao__cab secao__cab--centro" data-reveal>
+        <p class="eyebrow">Fale com o cartório</p>
+        <h2 id="t-funil">Conte o que você precisa</h2>
+        <p>Responda em três passos e a sua mensagem sai pronta pelo WhatsApp ou pelo e-mail.</p>
+      </div>
+      <div class="funil" data-funil data-reveal>
+        <p class="funil__sem-js">Para falar com o cartório, use os canais da <a href="contato.html">página de contato</a>.</p>
+        <form class="funil__form" onsubmit="return false" novalidate>
+          <div class="funil__passos">
+            <div class="funil__passo"><span class="funil__num">1</span><label for="f-nome">Qual é o seu nome?</label><input id="f-nome" type="text" maxlength="80" autocomplete="name" placeholder="Seu nome" data-f-nome></div>
+            <div class="funil__passo"><span class="funil__num">2</span><label for="f-esp">Com qual setor você quer falar?</label><select id="f-esp" data-f-esp><option value="">Escolha a especialidade</option></select></div>
+            <div class="funil__passo"><span class="funil__num">3</span><label for="f-ato">De qual documento ou serviço você precisa?</label><select id="f-ato" disabled data-f-ato><option value="">Escolha antes a especialidade</option></select></div>
+          </div>
+          <div class="funil__previa">
+            <h3>Sua mensagem</h3>
+            <p class="funil__msg is-vazia" role="status" aria-live="polite" data-f-msg>Preencha os passos ao lado e a sua mensagem aparece aqui.</p>
+            <p class="funil__rotulo">4. Como prefere falar?</p>
+            <div class="funil__canais">
+              <a class="btn btn--primario" href="#falar" aria-disabled="true" data-f-whats target="_blank" rel="noopener"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>WhatsApp</a>
+              <a class="btn btn--contorno" href="#falar" aria-disabled="true" data-f-email><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>E-mail</a>
+            </div>
+            <p class="funil__dica" role="status" aria-live="polite" data-f-dica></p>
+          </div>
+        </form>
+        <script type="application/json" id="dados-funil">{"wa":"5555999990000","mail":"jg.fridhein@gmail.com","esps":[{"nome":"Notas","atos":[{"t":"Comprar ou vender um imóvel","d":"Escritura pública de compra e venda"},{"t":"Fazer uma procuração","d":"Procuração pública"},{"t":"Reconhecer firma (confirmar uma assinatura)","d":"Reconhecimento de firma"},{"t":"Autenticar cópias de documentos","d":"Autenticação de cópias"},{"t":"Autorização para criança ou adolescente viajar","d":"Autorização de viagem de menor"},{"t":"Inventário e partilha de herança em cartório","d":"Escritura de inventário e partilha extrajudicial"},{"t":"Fazer um testamento","d":"Testamento público"},{"t":"Divórcio em cartório","d":"Escritura de divórcio consensual"},{"t":"Declarar união estável","d":"Escritura pública de união estável"}]},{"nome":"Protesto de Títulos","atos":[{"t":"Saber se existe protesto em meu nome","d":"Consulta e certidão de protesto"},{"t":"Pagar uma dívida enviada para protesto","d":"Pagamento de título apresentado a protesto"},{"t":"Cancelar um protesto","d":"Cancelamento de protesto"},{"t":"Cobrar uma dívida por protesto (para quem tem a receber)","d":"Apresentação de título para protesto"}]},{"nome":"Registro de Títulos e Documentos","atos":[{"t":"Registrar um contrato ou documento","d":"Registro de documento particular"},{"t":"Notificar alguém formalmente","d":"Notificação extrajudicial"},{"t":"Pedir certidão de documento registrado","d":"Certidão de registro de títulos e documentos"}]},{"nome":"Registro Civil das Pessoas Jurídicas","atos":[{"t":"Registrar uma associação, igreja ou ONG","d":"Registro de estatuto de pessoa jurídica"},{"t":"Registrar mudança de diretoria ou alteração de estatuto","d":"Registro de atas e alterações"},{"t":"Pedir certidão de entidade registrada","d":"Certidão de pessoa jurídica"}]},{"nome":"Registro Civil das Pessoas Naturais","atos":[{"t":"Registrar um filho recém-nascido","d":"Registro de nascimento"},{"t":"Pedir segunda via de certidão","d":"Certidão de nascimento, casamento ou óbito"},{"t":"Casar (habilitação e casamento civil)","d":"Habilitação e celebração de casamento"},{"t":"Registrar um óbito","d":"Registro de óbito"},{"t":"Reconhecer um filho (incluir o nome do pai no registro)","d":"Reconhecimento de paternidade"},{"t":"Corrigir ou atualizar um registro civil","d":"Retificação e averbação"}]}]}</script>
+      </div>
+    </div>
+  </section>
 </main>
 
   <footer class="rodape escuro">
@@ -109,6 +141,7 @@
       <p>© 2026 Tabelionato de Jaboticaba. As orientações deste site são informativas e não substituem o atendimento: os requisitos podem variar conforme o caso.</p>
     </div>
   </footer>
+</div>
 <aside aria-label="Atalho de contato"><a class="fab-whats" href="https://wa.me/5555999990000?text=Ol%C3%A1!%20Gostaria%20de%20uma%20informa%C3%A7%C3%A3o%20sobre%20os%20servi%C3%A7os%20do%20cart%C3%B3rio." target="_blank" rel="noopener"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg><span>Falar no WhatsApp</span></a></aside>
 </body>
 </html>
