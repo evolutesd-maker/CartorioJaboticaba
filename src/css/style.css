@@ -30,7 +30,7 @@
   --azul-200: #c4def5;
 
   --ouro: #b8892b;
-  --ouro-claro: #e8c97d; /* sobre fundo azul escuro */
+  --ouro-claro: #f0d68f; /* sobre fundo azul escuro */
   --ouro-texto: #7d5a10; /* único dourado seguro para texto sobre claro */
   --ouro-fundo: #fbf6ea;
 
@@ -676,7 +676,7 @@ a:hover { color: var(--azul-3); }
 .esp-card__ver .icone { width: 1.05rem; height: 1.05rem; stroke-width: 2.6; transition: transform 0.3s var(--ease); }
 .esp-card:hover .esp-card__ver .icone { transform: translateX(6px); }
 .esp-card__ver:focus-visible { outline: none; }
-.esp-card:has(.esp-card__ver:focus-visible) { outline: 3px solid var(--azul); outline-offset: 4px; }
+.esp-card:has(.esp-card__ver:focus-visible) { outline: 3px solid var(--ouro-claro); outline-offset: 4px; }
 
 /* ============================================================ Atalhos ("Antes de vir") */
 
@@ -701,7 +701,7 @@ a:hover { color: var(--azul-3); }
 .atalho__texto a { display: block; font-weight: 800; font-size: 1.1rem; color: var(--azul-4); text-decoration: none; letter-spacing: -0.01em; }
 .atalho__texto a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
 .atalho__texto a:focus-visible { outline: none; }
-.atalho:has(a:focus-visible) { outline: 3px solid var(--azul); outline-offset: 3px; }
+.atalho:has(a:focus-visible) { outline: 3px solid var(--ouro-claro); outline-offset: 3px; }
 .atalho__texto span { display: block; color: var(--suave); font-size: 0.95rem; margin-top: 0.15rem; }
 .atalho > .icone { width: 1.15rem; height: 1.15rem; color: var(--ouro); stroke-width: 2.6; transition: transform 0.3s var(--ease); }
 .atalho:hover > .icone { transform: translateX(5px); }
@@ -808,7 +808,7 @@ a:hover { color: var(--azul-3); }
 .ato-card h3 a { color: var(--azul-4); text-decoration: none; }
 .ato-card h3 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
 .ato-card h3 a:focus-visible { outline: none; }
-.ato-card:has(a:focus-visible) { outline: 3px solid var(--azul); outline-offset: 3px; }
+.ato-card:has(a:focus-visible) { outline: 3px solid var(--ouro-claro); outline-offset: 3px; }
 .ato-card__resumo { color: var(--suave); font-size: 1rem; line-height: 1.55; margin: 0; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .ato-card__ir { display: inline-flex; align-items: center; gap: 0.45rem; font-weight: 800; color: var(--azul-2); margin: 0.5rem 0 0; }
 .ato-card__ir .icone { width: 1rem; height: 1rem; stroke-width: 2.6; color: var(--ouro); transition: transform 0.3s var(--ease); }
@@ -1132,3 +1132,85 @@ a:hover { color: var(--azul-3); }
 .imprimir-rodape { display: none; }
 .so-js { display: none; }
 .js .so-js { display: inline-flex; }
+
+/* ============================================================ Tema azul (fundo azul, cartões e botões brancos) */
+
+body { background: var(--azul-2); color: #fff; }
+h1, h2, h3, h4 { color: #fff; }
+a { color: #fff; }
+a:hover { color: var(--ouro-claro); }
+:focus-visible { outline-color: var(--ouro-claro); }
+:is(.esp-card, .ato-card, .caixa, .grupo, .cartao-info, .painel, .checklist, .faq, .lateral-card--branco, .finder__vazio, .destaque, .atalho) :focus-visible { outline-color: var(--azul); }
+
+/* Superfícies brancas mantêm texto escuro */
+:is(.esp-card, .ato-card, .caixa, .grupo, .cartao-info, .painel, .lateral-card--branco, .atalho, .faq details, .busca__painel, .finder__vazio, .destaque, .checklist label, .cr-card) { color: var(--tinta); }
+:is(.esp-card, .ato-card, .caixa, .grupo, .cartao-info, .painel, .lateral-card--branco) :is(h2, h3) { color: var(--azul-4); }
+:is(.cartao-info, .caixa, .dados, .busca__painel, .finder__vazio, .destaque, .painel) a:not(.btn) { color: var(--azul-2); }
+:is(.cartao-info, .caixa, .dados, .busca__painel, .finder__vazio, .destaque, .painel) a:not(.btn):hover { color: var(--azul-3); }
+.downloads a { color: var(--azul-4); }
+.downloads a:hover { color: var(--azul-2); }
+.lista-links a { color: var(--azul-2); }
+
+/* Cabeçalho azul */
+.topo { background: rgba(0, 48, 90, 0.9); border-bottom-color: rgba(255, 255, 255, 0.12); }
+.topo--rolou { background: rgba(0, 38, 72, 0.97); box-shadow: 0 8px 30px -12px rgba(0, 10, 30, 0.6); }
+.marca, .marca:hover { color: #fff; }
+.marca__texto small { color: #c4def5; }
+.menu li a:not(.btn) { color: #fff; }
+.menu li a:not(.btn):hover { color: #fff; background: rgba(255, 255, 255, 0.12); }
+.menu li a[aria-current="page"] { color: var(--ouro-claro); }
+.menu li a:not(.btn)::after { background: var(--ouro-claro); }
+@media (max-width: 62rem) {
+  .menu li a:not(.btn) { border-bottom-color: rgba(255, 255, 255, 0.14); }
+  .js .menu-btn { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.4); color: #fff; }
+}
+
+/* Hero: mesma cor de base da página, com brilho no azul da marca */
+.hero {
+  background:
+    radial-gradient(900px 520px at 90% 0%, rgba(0, 120, 215, 0.95), transparent 65%),
+    radial-gradient(700px 420px at -5% 105%, rgba(240, 214, 143, 0.14), transparent 62%),
+    linear-gradient(170deg, var(--azul-4) 0%, var(--azul-2) 85%);
+}
+
+/* Seções em tons de azul */
+.secao, .secao--suave, .secao--azul { background: transparent; }
+.secao--suave { background: var(--azul-3); }
+.secao--azul { background: var(--azul-4); }
+.secao__cab p { color: #d3e6f7; }
+.eyebrow { color: var(--ouro-claro); }
+.eyebrow::before { background: var(--ouro-claro); }
+.nota-pequena { color: var(--suave); }
+.faixa { background:
+    radial-gradient(700px 320px at 92% -20%, rgba(0, 120, 215, 0.9), transparent 62%),
+    radial-gradient(500px 260px at 0% 120%, rgba(240, 214, 143, 0.14), transparent 62%),
+    linear-gradient(135deg, var(--azul-4) 0%, var(--azul-2) 100%); }
+
+/* Textos soltos sobre o azul */
+.resumo-ato, .prosa { color: #fff; }
+.nota-final, .finder__status { color: #d3e6f7; }
+.finder__busca label { color: #fff; }
+.checklist-grupo h3 { color: #c4def5; }
+.progresso { color: #fff; }
+.progresso__barra { background: rgba(255, 255, 255, 0.25); }
+.progresso__barra i { background: linear-gradient(90deg, var(--ouro-claro), #fff); }
+.passos li:not(:last-child)::after { background: rgba(255, 255, 255, 0.3); }
+.passos li::before { box-shadow: 0 0 0 4px var(--azul-2), 0 0 0 5.5px var(--ouro-claro); }
+.lateral-card--ajuda { background: linear-gradient(150deg, var(--azul-3), var(--azul-4)); border: 1px solid rgba(255, 255, 255, 0.18); }
+.lateral-card--ajuda .btn:not(.btn--claro) { color: #fff; }
+.destaque a { color: var(--azul-2); }
+
+/* Botão flutuante branco */
+.fab-whats { background: #fff; color: var(--azul-2); box-shadow: 0 16px 36px -10px rgba(0, 10, 30, 0.65), 0 0 0 4px rgba(255, 255, 255, 0.25); }
+.fab-whats:hover { background: var(--azul-50); color: var(--azul-3); }
+.fab-whats::before { border-color: #fff !important; }
+
+@media print {
+  body { background: #fff; color: #000; }
+  h1, h2, h3, h4, .resumo-ato, .nota-final, .checklist-grupo h3, .passos li, .progresso, .secao__cab p, .prosa { color: #000 !important; }
+  .secao, .secao--suave, .secao--azul { background: none; }
+  .checklist label { color: #000; }
+}
+.prosa > .nota-pequena { color: #d3e6f7; }
+.checklist-grupo h3 { color: #c4def5; }
+section > article[style] .checklist-grupo h3 { color: var(--suave); }

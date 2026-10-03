@@ -305,7 +305,7 @@ function cabecalho(c, ativo) {
           ${item("documentos", "Documentos", "documentos.html")}
           ${item("contato", "Contato", "contato.html")}
         </ul>
-        ${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--primario", rotulo: "WhatsApp" })}
+        ${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--claro", rotulo: "WhatsApp" })}
       </nav>
     </div>
   </header>`;
