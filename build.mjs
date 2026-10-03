@@ -172,8 +172,9 @@ const ctx = (caminho) => {
 
 const FONTE = "assets/fonts/PlusJakartaSans-latin-wght.woff2";
 
-// Único script inline: marca "js" antes da primeira pintura e define a direção da troca de página.
-const SCRIPT_INLINE = 'document.documentElement.classList.add("js");(function(){var R=document.documentElement;function tipo(e){var a=e&&e.activation?e.activation:(window.navigation&&navigation.activation);R.classList.toggle("vt-voltar",!!a&&a.navigationType==="traverse")}addEventListener("pageswap",tipo);addEventListener("pagereveal",tipo)})()';
+// Único script inline: marca "js" antes da primeira pintura, define a direção da troca de página e leva ao topo
+// toda navegação nova sem #âncora (voltar/avançar e recarregar mantêm a posição).
+const SCRIPT_INLINE = 'document.documentElement.classList.add("js");(function(){var R=document.documentElement;function tipo(e){var a=e&&e.activation?e.activation:(window.navigation&&navigation.activation);R.classList.toggle("vt-voltar",!!a&&a.navigationType==="traverse")}addEventListener("pageswap",tipo);addEventListener("pagereveal",tipo);function topo(){var n=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];if(location.hash||(n&&n.type!=="navigate"))return;scrollTo({top:0,left:0,behavior:"instant"});try{R.style.scrollPaddingTop="0";R.scrollIntoView({block:"start",behavior:"instant"});R.style.removeProperty("scroll-padding-top")}catch(_){}}topo();addEventListener("pagereveal",topo);addEventListener("DOMContentLoaded",topo);addEventListener("load",topo)})()';
 const HASH_INLINE = "sha256-" + createHash("sha256").update(SCRIPT_INLINE).digest("base64");
 // Pré-carrega as páginas do próprio site quando o visitante aproxima o mouse ou toca (só links internos).
 const SPECULATION = JSON.stringify({ prefetch: [{ where: { and: [{ href_matches: "/*" }, { not: { selector_matches: "[target=_blank]" } }] }, eagerness: "moderate" }] });
