@@ -1,0 +1,484 @@
+{
+  "id": "notas",
+  "slug": "notas",
+  "nome": "Notas",
+  "nomeCompleto": "Tabelionato de Notas",
+  "icone": "documento",
+  "resumo": "Escrituras, procurações e outros atos notariais.",
+  "explicacao": "Documentos com fé pública: o tabelião confere quem você é, explica o que a lei exige e redige o documento, que passa a valer como prova segura.",
+  "descricao": "O Tabelionato de Notas formaliza a vontade das pessoas em documentos com fé pública. O tabelião confere a identidade de quem assina, orienta sobre o que a lei exige e redige o ato, que passa a ter valor de prova e segurança jurídica. É aqui que se fazem escrituras, procurações, reconhecimentos de firma e autenticações.",
+  "atos": [
+    {
+      "slug": "escritura-compra-venda",
+      "titulo": "Comprar ou vender um imóvel",
+      "nomeTecnico": "Escritura pública de compra e venda",
+      "resumo": "A escritura é o documento em que quem compra e quem vende formalizam a negociação de um imóvel, com a conferência do tabelião.",
+      "palavras": ["casa", "terreno", "apartamento", "lote", "sitio", "chacara", "propriedade", "escritura", "venda", "compra", "comprar", "vender", "imovel", "rural", "urbano"],
+      "quando": "Em regra, a lei exige escritura pública para a compra e venda de imóveis de valor superior a 30 salários mínimos. Para valores menores, consulte o cartório.",
+      "documentos": [
+        {
+          "grupo": "De quem vende e de quem compra (de cada pessoa)",
+          "itens": [
+            "Documento de identificação oficial com foto (RG ou CNH), original",
+            "CPF",
+            { "texto": "Certidão de estado civil atualizada (nascimento, se solteiro; casamento, se casado; casamento com averbação, se divorciado; óbito do cônjuge, se viúvo)", "obs": "O cartório informa o prazo de validade aceito." },
+            "Comprovante de residência recente",
+            "Se for casado(a) ou viver em união estável: documentos do cônjuge ou companheiro(a) e pacto antenupcial, quando houver"
+          ]
+        },
+        {
+          "grupo": "Do imóvel",
+          "itens": [
+            { "texto": "Certidão de matrícula atualizada do imóvel, emitida pelo Registro de Imóveis", "obs": "Deve ter data recente; o cartório informa a validade aceita." },
+            "Certidão negativa de débitos de IPTU e outros tributos municipais do imóvel (imóvel urbano)",
+            { "texto": "Comprovante de pagamento do ITBI (imposto municipal sobre a transferência)", "obs": "O cartório orienta se o pagamento deve ser feito antes ou depois da escritura." },
+            "Imóvel rural: CCIR atualizado, comprovantes do ITR e outros documentos. O cartório informa a lista completa."
+          ]
+        },
+        {
+          "grupo": "Se alguém for representado por procurador",
+          "itens": [
+            "Procuração com poderes específicos para comprar ou vender, e documentos do procurador"
+          ]
+        }
+      ],
+      "passos": [
+        "Reúna os documentos acima. A lista pode variar conforme o caso.",
+        "Fale com o cartório para conferir a documentação e receber o orçamento (emolumentos e impostos).",
+        "Comprador e vendedor (ou seus procuradores) comparecem para a leitura e a assinatura da escritura.",
+        "Leve a escritura ao Registro de Imóveis para registrar a transferência. Só com o registro o imóvel passa a ser do comprador perante a lei."
+      ],
+      "custo": "Os emolumentos são tabelados em lei e variam conforme o valor do imóvel. Há ainda impostos (como o ITBI) e o custo do registro no Registro de Imóveis. O cartório informa o valor exato antes de iniciar.",
+      "perguntas": [
+        {
+          "p": "Preciso de advogado para fazer a escritura?",
+          "r": "Para a escritura de compra e venda, não é obrigatório. O tabelião orienta as duas partes de forma imparcial. Em negócios complexos, você pode consultar um advogado de sua confiança."
+        },
+        {
+          "p": "A escritura já me torna dono do imóvel?",
+          "r": "Ainda não. A escritura é o documento que permite a transferência. A propriedade passa ao comprador quando a escritura é registrada no Registro de Imóveis da região do imóvel. Pergunte ao atendimento onde fazer esse registro."
+        },
+        {
+          "p": "Posso comprar ou vender sem comparecer?",
+          "r": "É possível por meio de procuração com poderes específicos. Alguns cartórios também atendem por videoconferência (e-Notariado). Consulte se este cartório oferece essa opção."
+        }
+      ],
+      "modelos": [],
+      "verTambem": ["notas/procuracao", "notas/reconhecimento-firma"],
+      "validado": false
+    },
+    {
+      "slug": "procuracao",
+      "titulo": "Fazer uma procuração",
+      "nomeTecnico": "Procuração pública",
+      "resumo": "Documento pelo qual você autoriza outra pessoa a agir em seu nome, por exemplo para vender um bem, receber um valor ou resolver um assunto em um órgão.",
+      "palavras": ["procurador", "outorgante", "outorgado", "representar", "representante", "poderes", "autorizar", "em meu nome", "procuracao"],
+      "quando": "Quando você não pode ou não quer comparecer pessoalmente para resolver um assunto. A procuração pública é feita no cartório e costuma ser aceita com mais segurança por bancos, órgãos públicos e outros cartórios.",
+      "documentos": [
+        {
+          "grupo": "De quem concede a procuração",
+          "itens": [
+            "Documento de identificação oficial com foto (RG ou CNH), original",
+            "CPF",
+            "Comprovante de residência recente",
+            "Estado civil e profissão (informações que constam no texto da procuração)",
+            { "texto": "Certidão de casamento atualizada, quando o poder concedido exigir", "obs": "Por exemplo, para vender imóvel." }
+          ]
+        },
+        {
+          "grupo": "De quem vai receber os poderes (procurador)",
+          "itens": [
+            "Nome completo, CPF, RG ou CNH, estado civil, profissão e endereço (uma cópia do documento ajuda a evitar erros)"
+          ]
+        },
+        {
+          "grupo": "Sobre o que o procurador poderá fazer",
+          "itens": [
+            "Descrição clara dos poderes: por exemplo, vender um imóvel, receber um benefício, movimentar uma conta ou representar você em um cartório",
+            "Se envolver um bem específico: dados do bem (matrícula do imóvel, placa e RENAVAM do veículo)"
+          ]
+        }
+      ],
+      "passos": [
+        "Defina quem será o procurador e o que ele poderá fazer.",
+        "Leve ao cartório os seus documentos e os dados do procurador.",
+        "O tabelião redige o texto, lê com você e você assina na presença dele.",
+        "Receba a procuração (traslado), que o procurador poderá usar."
+      ],
+      "perguntas": [
+        {
+          "p": "Preciso comparecer ao cartório?",
+          "r": "Sim, quem concede os poderes precisa comparecer, ou fazer o ato por videoconferência quando o cartório oferecer essa opção. Em caso de dificuldade de locomoção, pergunte ao cartório sobre o atendimento fora da sede."
+        },
+        {
+          "p": "A procuração tem prazo de validade?",
+          "r": "Ela pode ter prazo definido ou valer por tempo indeterminado, conforme o que você decidir. Você pode revogá-la quando quiser. Procure o cartório para formalizar a revogação e avise o procurador."
+        },
+        {
+          "p": "Posso fazer uma procuração particular, sem cartório?",
+          "r": "Em alguns casos sim, mas muitos bancos, órgãos e outros cartórios exigem procuração pública ou assinatura com firma reconhecida. Confirme antes com quem vai receber o documento."
+        }
+      ],
+      "modelos": [],
+      "verTambem": ["notas/reconhecimento-firma", "notas/escritura-compra-venda"],
+      "validado": false
+    },
+    {
+      "slug": "reconhecimento-firma",
+      "titulo": "Reconhecer firma (confirmar uma assinatura)",
+      "nomeTecnico": "Reconhecimento de firma",
+      "resumo": "O cartório confirma que a assinatura em um documento é mesmo da pessoa indicada.",
+      "palavras": ["assinatura", "assinar", "firma", "autenticidade", "semelhanca", "contrato", "recibo", "declaracao", "carta", "documento assinado", "ficha de assinatura"],
+      "quando": "Contratos, recibos, declarações e outros documentos que exigem a confirmação da assinatura. Há duas formas: por autenticidade (você assina na frente do tabelião) e por semelhança (o cartório compara com a assinatura que você deixou cadastrada em ficha).",
+      "documentos": [
+        {
+          "grupo": "Para reconhecer por autenticidade (assinar na frente do tabelião)",
+          "itens": [
+            "Documento de identificação oficial com foto, original",
+            { "texto": "O documento a ser assinado", "obs": "Não assine antes. Assine na presença do atendente." }
+          ]
+        },
+        {
+          "grupo": "Para reconhecer por semelhança",
+          "itens": [
+            "O documento já assinado",
+            "Ficha de assinatura da pessoa cadastrada no cartório. Para cadastrar, é preciso comparecer uma vez com documento de identificação original.",
+            "Documento de identificação de quem apresenta o documento"
+          ]
+        }
+      ],
+      "passos": [
+        "Leve o documento e o seu documento de identificação original.",
+        "Escolha com o atendente a forma de reconhecimento (autenticidade ou semelhança).",
+        "Assine na presença do atendente, se for o caso.",
+        "Retire o documento com o selo de reconhecimento."
+      ],
+      "perguntas": [
+        {
+          "p": "Qual a diferença entre autenticidade e semelhança?",
+          "r": "Na autenticidade, a pessoa assina diante do tabelião, o que é considerado mais seguro e é exigido por muitas instituições. Na semelhança, o cartório compara a assinatura com a ficha cadastrada anteriormente."
+        },
+        {
+          "p": "Posso levar um documento assinado por outra pessoa?",
+          "r": "Por semelhança, sim, desde que essa pessoa tenha ficha de assinatura cadastrada no cartório. Por autenticidade, a própria pessoa precisa comparecer."
+        },
+        {
+          "p": "O cartório reconhece firma em qualquer documento?",
+          "r": "O cartório não reconhece firma em documento em branco ou com espaços para preencher. Leve o documento completo."
+        }
+      ],
+      "modelos": [],
+      "verTambem": ["notas/autenticacao-copias", "notas/procuracao"],
+      "validado": false
+    },
+    {
+      "slug": "autenticacao-copias",
+      "titulo": "Autenticar cópias de documentos",
+      "nomeTecnico": "Autenticação de cópias",
+      "resumo": "O cartório confere a cópia com o documento original e atesta que as duas são iguais.",
+      "palavras": ["copia", "fotocopia", "xerox", "autenticar", "autenticada", "copia autenticada", "conferir copia"],
+      "quando": "Quando um órgão, empresa ou processo pede cópia autenticada de um documento. Não é preciso que o dono do documento compareça: qualquer pessoa pode levar o original e a cópia.",
+      "documentos": [
+        {
+          "grupo": "O que levar",
+          "itens": [
+            "O documento original, para conferência",
+            "A cópia que será autenticada. Pergunte se o cartório faz a cópia no local."
+          ]
+        }
+      ],
+      "passos": [
+        "Leve o original e a cópia ao balcão.",
+        "O atendente confere as duas versões.",
+        "Retire a cópia com o selo de autenticação."
+      ],
+      "perguntas": [
+        {
+          "p": "Posso autenticar uma cópia de outra cópia?",
+          "r": "A autenticação é feita a partir do documento original. Se você só tem uma cópia, explique ao atendente o que precisa e ele orienta o caminho mais adequado."
+        },
+        {
+          "p": "A cópia autenticada tem a mesma validade do original?",
+          "r": "Ela vale como o original para a finalidade a que se destina. Porém, quem vai receber pode exigir uma certidão recente (por exemplo, de nascimento ou casamento). Confirme com o destinatário."
+        }
+      ],
+      "modelos": [],
+      "verTambem": ["notas/reconhecimento-firma"],
+      "validado": false
+    },
+    {
+      "slug": "autorizacao-viagem-menor",
+      "titulo": "Autorização para criança ou adolescente viajar",
+      "nomeTecnico": "Autorização de viagem de menor",
+      "resumo": "Documento em que os pais ou responsáveis autorizam a viagem do menor sem eles, ou acompanhado de apenas um deles.",
+      "palavras": ["viagem", "viajar", "filho", "filha", "crianca", "adolescente", "menor", "autorizacao de viagem", "exterior", "internacional", "avo", "tio"],
+      "quando": "Quando o menor viaja sem os pais ou com apenas um deles. As regras variam entre viagem nacional e internacional e dependem de com quem a criança viaja, por isso converse com o cartório antes de comprar passagens.",
+      "documentos": [
+        {
+          "grupo": "De quem autoriza (pai, mãe ou responsável)",
+          "itens": [
+            "Documento de identificação oficial com foto, original",
+            "CPF"
+          ]
+        },
+        {
+          "grupo": "Da criança ou do adolescente",
+          "itens": [
+            "Certidão de nascimento ou documento de identidade, original, para comprovar a filiação"
+          ]
+        },
+        {
+          "grupo": "Sobre a viagem",
+          "itens": [
+            "Destino, período e quem vai acompanhar o menor (nome completo e documento)",
+            "Se apenas um dos pais comparece: informe a situação (guarda, falecimento, outro) para o cartório orientar os documentos necessários"
+          ]
+        }
+      ],
+      "passos": [
+        "Conte ao cartório os dados da viagem e com quem o menor vai viajar.",
+        "Leve os documentos de quem autoriza e do menor.",
+        "Quem autoriza assina na presença do atendente.",
+        "Retire a autorização e leve-a junto com os documentos do menor na viagem."
+      ],
+      "perguntas": [
+        {
+          "p": "Os dois pais precisam assinar?",
+          "r": "Em regra, quando o menor viaja sem um dos pais, o outro deve autorizar. O cartório orienta conforme o caso (guarda, falecimento, pai ou mãe ausente)."
+        },
+        {
+          "p": "Existe prazo de validade?",
+          "r": "O prazo pode ser definido na própria autorização, conforme a vontade de quem autoriza e as regras aplicáveis. Informe ao cartório o período da viagem."
+        }
+      ],
+      "modelos": [],
+      "verTambem": ["notas/reconhecimento-firma", "rcpn/segunda-via-certidao"],
+      "validado": false
+    },
+    {
+      "slug": "inventario-partilha",
+      "titulo": "Inventário e partilha de herança em cartório",
+      "nomeTecnico": "Escritura de inventário e partilha extrajudicial",
+      "resumo": "Formalização da divisão dos bens de quem faleceu, feita em cartório quando todos os herdeiros estão de acordo.",
+      "palavras": ["heranca", "herdeiro", "inventario", "partilha", "falecimento", "faleceu", "bens", "sucessao", "espolio", "morte", "morreu"],
+      "quando": "Em geral, quando todos os herdeiros são maiores de idade e capazes e estão de acordo. Havendo herdeiro menor ou incapaz, ou desacordo entre os herdeiros, o caso pode precisar ir à Justiça. A presença de advogado é obrigatória, e o cartório avalia cada situação.",
+      "documentos": [
+        {
+          "grupo": "De quem faleceu",
+          "itens": [
+            "Certidão de óbito",
+            "Documento de identificação e CPF",
+            "Certidão de casamento (se era casado) ou de nascimento (se era solteiro), e pacto antenupcial, se houver",
+            { "texto": "Certidão de inexistência de testamento", "obs": "O cartório orienta como obter." }
+          ]
+        },
+        {
+          "grupo": "Dos herdeiros e do cônjuge ou companheiro(a) sobrevivente",
+          "itens": [
+            "Documento de identificação oficial com foto e CPF de cada um",
+            "Certidão de estado civil atualizada",
+            "Comprovante de residência"
+          ]
+        },
+        {
+          "grupo": "Dos bens",
+          "itens": [
+            "Imóveis: certidão de matrícula atualizada",
+            "Veículos: documento do veículo. Contas e investimentos: dados e saldos na data do óbito.",
+            "Comprovantes de quitação de tributos e certidões negativas, conforme os bens",
+            "Comprovante de pagamento do imposto de herança (ITCD no Rio Grande do Sul), quando exigido"
+          ]
+        },
+        {
+          "grupo": "Advogado",
+          "itens": [
+            "Nome e número da OAB do advogado. Ele deve acompanhar o ato. Pode ser um advogado comum a todos os herdeiros."
+          ]
+        }
+      ],
+      "passos": [
+        "Converse com um advogado e reúna a documentação do falecido, dos herdeiros e dos bens.",
+        "Apresente os documentos ao cartório para conferência.",
+        "Herdeiros e advogado comparecem para a leitura e a assinatura da escritura.",
+        "Leve a escritura aos órgãos competentes (Registro de Imóveis, Detran, bancos) para transferir os bens."
+      ],
+      "perguntas": [
+        {
+          "p": "Preciso de advogado?",
+          "r": "Sim. A lei exige a assistência de advogado no inventário feito em cartório. Pode ser um advogado comum a todos os herdeiros ou um para cada um."
+        },
+        {
+          "p": "Há prazo para fazer o inventário?",
+          "r": "A lei prevê prazo para iniciar o inventário e pode haver multa tributária em caso de atraso. Procure orientação o quanto antes."
+        },
+        {
+          "p": "E se houver testamento ou herdeiro menor de idade?",
+          "r": "Nesses casos a regra é mais restrita e o inventário pode precisar passar pela Justiça. Leve o caso ao cartório para avaliação."
+        }
+      ],
+      "modelos": [],
+      "verTambem": ["rcpn/segunda-via-certidao", "rcpn/registro-obito"],
+      "validado": false
+    },
+    {
+      "slug": "testamento",
+      "titulo": "Fazer um testamento",
+      "nomeTecnico": "Testamento público",
+      "resumo": "Documento em que você registra, com segurança, como deseja que seus bens sejam distribuídos depois do seu falecimento.",
+      "palavras": ["testamento", "testar", "deixar bens", "herdeiro", "heranca", "depois da morte", "ultima vontade", "doar bens", "legitima"],
+      "quando": "Quando você quer deixar registrada a sua vontade sobre o destino de parte dos seus bens. O testamento público é feito no cartório, lido ao testador na presença de duas testemunhas, e pode ser alterado ou revogado quando você quiser.",
+      "documentos": [
+        {
+          "grupo": "De quem faz o testamento (testador)",
+          "itens": [
+            "Documento de identificação oficial com foto, original",
+            "CPF",
+            "Certidão de estado civil atualizada (nascimento ou casamento)",
+            "Comprovante de residência recente"
+          ]
+        },
+        {
+          "grupo": "Sobre o que será decidido",
+          "itens": [
+            "Lista dos bens e, quando houver, documentos deles (matrícula do imóvel, documento do veículo)",
+            "Nome completo e CPF das pessoas que receberão os bens, e quanto cada uma receberá",
+            "Dados de herdeiros (filhos, cônjuge, pais), para o cartório verificar o que a lei reserva a eles"
+          ]
+        },
+        {
+          "grupo": "Para a assinatura",
+          "itens": [
+            "Duas testemunhas maiores de idade, com documento de identificação original. O cartório informa quem não pode ser testemunha."
+          ]
+        }
+      ],
+      "passos": [
+        "Anote o que você quer deixar e para quem.",
+        "Converse com o cartório para ver o que a lei permite no seu caso.",
+        "Compareça com os documentos e as testemunhas para a leitura e a assinatura.",
+        "Guarde a cópia que o cartório entregar. O original fica arquivado no cartório."
+      ],
+      "perguntas": [
+        {
+          "p": "Posso deixar todos os meus bens para quem eu quiser?",
+          "r": "Se você tem herdeiros necessários (filhos, pais ou cônjuge), a lei reserva a eles metade do patrimônio. Você pode dispor livremente da outra metade."
+        },
+        {
+          "p": "Posso mudar o testamento depois?",
+          "r": "Sim. O testamento pode ser alterado ou revogado a qualquer momento, por um novo ato feito em cartório."
+        },
+        {
+          "p": "Quem pode fazer testamento?",
+          "r": "Pessoas capazes, a partir dos 16 anos. O cartório confere a situação de cada pessoa no atendimento."
+        }
+      ],
+      "modelos": [],
+      "verTambem": ["notas/inventario-partilha", "notas/procuracao"],
+      "validado": false
+    },
+    {
+      "slug": "divorcio-extrajudicial",
+      "titulo": "Divórcio em cartório",
+      "nomeTecnico": "Escritura de divórcio consensual",
+      "resumo": "Divórcio feito diretamente no cartório quando o casal está de acordo.",
+      "palavras": ["divorcio", "separacao", "separar", "casal", "ex marido", "ex esposa", "dissolver casamento", "desfazer casamento"],
+      "quando": "Quando os dois estão de acordo com o divórcio e com a divisão dos bens. Existem regras específicas quando há filhos menores ou incapazes, e o cartório orienta cada caso. A presença de advogado é obrigatória.",
+      "documentos": [
+        {
+          "grupo": "De cada cônjuge",
+          "itens": [
+            "Documento de identificação oficial com foto, original",
+            "CPF",
+            "Certidão de casamento atualizada",
+            "Pacto antenupcial, se houver",
+            "Se quiser voltar ao nome de solteiro(a): informe no atendimento"
+          ]
+        },
+        {
+          "grupo": "Dos bens, se houver partilha",
+          "itens": [
+            "Documentos dos bens (matrícula do imóvel, documento do veículo, outros)",
+            "Descrição de como os bens serão divididos"
+          ]
+        },
+        {
+          "grupo": "Dos filhos, se houver",
+          "itens": [
+            "Certidão de nascimento dos filhos",
+            "Documentos sobre guarda, visitas e pensão, conforme o caso. O cartório orienta."
+          ]
+        },
+        {
+          "grupo": "Advogado",
+          "itens": [
+            "Nome e número da OAB do advogado. Pode ser um advogado comum ao casal."
+          ]
+        }
+      ],
+      "passos": [
+        "Com o advogado, combinem os termos do divórcio e da divisão dos bens.",
+        "Apresentem os documentos ao cartório para conferência.",
+        "Os dois comparecem para a leitura e a assinatura da escritura.",
+        "Leve a escritura ao Registro Civil onde o casamento foi registrado, para a averbação na certidão de casamento."
+      ],
+      "perguntas": [
+        {
+          "p": "Preciso de advogado?",
+          "r": "Sim. A lei exige a assistência de advogado no divórcio feito em cartório. Pode ser um advogado comum ao casal."
+        },
+        {
+          "p": "O que fazer depois da escritura?",
+          "r": "O divórcio precisa ser averbado (anotado) na certidão de casamento, no Registro Civil onde o casamento foi registrado. Se foi registrado neste cartório, pergunte sobre a averbação."
+        }
+      ],
+      "modelos": [],
+      "verTambem": ["rcpn/retificacao-averbacao", "notas/uniao-estavel"],
+      "validado": false
+    },
+    {
+      "slug": "uniao-estavel",
+      "titulo": "Declarar união estável",
+      "nomeTecnico": "Escritura pública de união estável",
+      "resumo": "Documento em que o casal declara que vive em união estável e pode combinar regras sobre os bens. O fim da união também pode ser formalizado em cartório.",
+      "palavras": ["uniao estavel", "morar junto", "companheiro", "companheira", "convivencia", "viver junto", "regime de bens", "dissolucao"],
+      "quando": "Quando o casal quer comprovar a união e definir o regime de bens. A escritura não é obrigatória para a união existir, mas facilita provar a união em bancos, planos de saúde, previdência e outros casos.",
+      "documentos": [
+        {
+          "grupo": "De cada companheiro(a)",
+          "itens": [
+            "Documento de identificação oficial com foto, original",
+            "CPF",
+            "Certidão de nascimento ou de casamento com averbação (divórcio ou óbito), atualizada",
+            "Comprovante de residência"
+          ]
+        },
+        {
+          "grupo": "Sobre a união",
+          "itens": [
+            "Data de início da união",
+            "Regime de bens que querem adotar (se não escolherem, vale a regra geral da lei; o cartório explica)"
+          ]
+        }
+      ],
+      "passos": [
+        "Os dois reúnem os documentos e combinam o regime de bens.",
+        "Compareçam juntos ao cartório.",
+        "O tabelião redige, lê e colhe as assinaturas.",
+        "Guarde a escritura e peça cópias quando precisar."
+      ],
+      "perguntas": [
+        {
+          "p": "É obrigatório fazer escritura?",
+          "r": "Não. A união estável pode existir sem documento. A escritura ajuda a provar a união e a definir o regime de bens."
+        },
+        {
+          "p": "Posso registrar a união estável também no Registro Civil?",
+          "r": "Existe a possibilidade de registrar a união estável no Registro Civil das Pessoas Naturais. Pergunte ao atendimento como funciona."
+        }
+      ],
+      "modelos": [],
+      "verTambem": ["notas/divorcio-extrajudicial", "rcpn/casamento"],
+      "validado": false
+    }
+  ]
+}

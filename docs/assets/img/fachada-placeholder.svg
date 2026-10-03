@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" role="img" aria-label="Espaço reservado para a foto da fachada">
+  <defs>
+    <linearGradient id="ceu" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cfe3f5"/><stop offset="1" stop-color="#eef5fb"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1100" fill="url(#ceu)"/>
+  <rect y="900" width="1600" height="200" fill="#d9e1e8"/>
+  <rect y="900" width="1600" height="6" fill="#c3ced8"/>
+  <!-- prédio genérico -->
+  <g fill="#fff" stroke="#9db6cc" stroke-width="4">
+    <rect x="360" y="330" width="880" height="570"/>
+    <polygon points="330,330 800,170 1270,330"/>
+    <rect x="330" y="330" width="940" height="34" fill="#f4f7fa"/>
+  </g>
+  <g fill="#0078d7" opacity=".9">
+    <rect x="360" y="364" width="880" height="62"/>
+  </g>
+  <g fill="#fff" stroke="#9db6cc" stroke-width="4">
+    <rect x="430" y="460" width="70" height="400"/><rect x="590" y="460" width="70" height="400"/>
+    <rect x="940" y="460" width="70" height="400"/><rect x="1100" y="460" width="70" height="400"/>
+  </g>
+  <rect x="725" y="540" width="150" height="360" fill="#005a9e"/>
+  <rect x="725" y="540" width="150" height="360" fill="none" stroke="#e3c277" stroke-width="5"/>
+  <g fill="#cfe3f5" stroke="#9db6cc" stroke-width="3">
+    <rect x="520" y="520" width="50" height="110"/><rect x="1030" y="520" width="50" height="110"/>
+  </g>
+  <rect x="690" y="900" width="220" height="14" fill="#c3ced8"/>
+  <rect x="670" y="914" width="260" height="14" fill="#b4c1cd"/>
+  <!-- rótulo -->
+  <rect x="470" y="960" width="660" height="84" rx="12" fill="#fff" opacity=".92"/>
+  <text x="800" y="1015" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="38" font-weight="600" fill="#005a9e">Foto da fachada · a inserir</text>
+</svg>

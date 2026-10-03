@@ -1,0 +1,30 @@
+{
+  "rascunho": true,
+
+  "nome": "Tabelionato de Jaboticaba",
+  "chamada": "Cartório · Jaboticaba/RS",
+  "url": null,
+
+  "endereco": {
+    "logradouro": "Rua Victielo Bisognin",
+    "numero": "227",
+    "bairro": "Centro",
+    "cidade": "Jaboticaba",
+    "uf": "RS",
+    "cep": "98350-000"
+  },
+
+  "telefone": null,
+  "whatsapp": null,
+  "email": null,
+
+  "horario": null,
+  "horarioObservacao": null,
+
+  "titular": null,
+  "cns": null,
+
+  "encarregadoLgpd": { "nome": null, "email": null },
+
+  "privacidadeAtualizadaEm": null
+}

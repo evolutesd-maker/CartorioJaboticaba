@@ -1,0 +1,67 @@
+[
+  {
+    "id": "familia",
+    "titulo": "Família e pessoas",
+    "icone": "pessoas",
+    "descricao": "Nascimento, casamento, óbito, certidões, união estável e divórcio.",
+    "atos": [
+      "rcpn/registro-nascimento",
+      "rcpn/segunda-via-certidao",
+      "rcpn/casamento",
+      "rcpn/registro-obito",
+      "rcpn/reconhecimento-paternidade",
+      "rcpn/retificacao-averbacao",
+      "notas/uniao-estavel",
+      "notas/divorcio-extrajudicial",
+      "notas/autorizacao-viagem-menor"
+    ]
+  },
+  {
+    "id": "imoveis",
+    "titulo": "Imóveis e herança",
+    "icone": "casa",
+    "descricao": "Compra e venda de imóveis, testamento e divisão dos bens de quem faleceu.",
+    "atos": [
+      "notas/escritura-compra-venda",
+      "notas/inventario-partilha",
+      "notas/testamento"
+    ]
+  },
+  {
+    "id": "documentos",
+    "titulo": "Documentos e assinaturas",
+    "icone": "documento",
+    "descricao": "Procurações, reconhecimento de firma, cópias autenticadas, contratos e notificações.",
+    "atos": [
+      "notas/procuracao",
+      "notas/reconhecimento-firma",
+      "notas/autenticacao-copias",
+      "rtd/registro-contrato",
+      "rtd/notificacao-extrajudicial",
+      "rtd/certidao-rtd"
+    ]
+  },
+  {
+    "id": "dividas",
+    "titulo": "Dívidas e protestos",
+    "icone": "protesto",
+    "descricao": "Consultar, pagar ou cancelar um protesto, e cobrar uma dívida por protesto.",
+    "atos": [
+      "protesto/consultar-protesto",
+      "protesto/pagar-titulo",
+      "protesto/cancelar-protesto",
+      "protesto/apresentar-titulo"
+    ]
+  },
+  {
+    "id": "entidades",
+    "titulo": "Associações e entidades",
+    "icone": "predio",
+    "descricao": "Associações, igrejas, ONGs e outras pessoas jurídicas que não são empresas comerciais.",
+    "atos": [
+      "rcpj/registrar-associacao",
+      "rcpj/alteracao-estatuto-ata",
+      "rcpj/certidao-pj"
+    ]
+  }
+]

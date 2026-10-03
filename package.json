@@ -1,0 +1,14 @@
+{
+  "name": "cartorio-jaboticaba",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Site estático do Tabelionato de Jaboticaba/RS",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node scripts/check.mjs",
+    "start": "node build.mjs && node scripts/serve.mjs",
+    "test": "node build.mjs && node scripts/check.mjs"
+  }
+}

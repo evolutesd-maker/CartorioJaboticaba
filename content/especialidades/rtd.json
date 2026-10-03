@@ -1,0 +1,114 @@
+{
+  "id": "rtd",
+  "slug": "registro-de-titulos-e-documentos",
+  "nome": "Registro de Títulos e Documentos",
+  "nomeCompleto": "Registro de Títulos e Documentos",
+  "icone": "arquivo",
+  "resumo": "Registro e conservação de documentos.",
+  "explicacao": "Contratos e outros documentos particulares com prova de data, conservação e notificações formais.",
+  "descricao": "O Registro de Títulos e Documentos dá publicidade, conservação e prova de existência e de data a documentos particulares, como contratos, e realiza notificações formais. Registrar um documento ajuda a provar que ele existia em determinada data e, em alguns casos, é necessário para que ele valha perante terceiros.",
+  "atos": [
+    {
+      "slug": "registro-contrato",
+      "titulo": "Registrar um contrato ou documento",
+      "nomeTecnico": "Registro de documento particular",
+      "resumo": "Dê data certa, conservação e validade perante terceiros a contratos, declarações e outros documentos particulares.",
+      "palavras": ["contrato", "locacao", "aluguel", "comodato", "registrar documento", "guardar documento", "prova de data", "conservacao", "terceiros", "traducao"],
+      "quando": "Contratos de locação, comodato, promessas de compra e venda e outros documentos que você quer guardar com segurança, com prova de existência e data, ou que a lei exige registrar para valer contra terceiros.",
+      "documentos": [
+        {
+          "grupo": "O que levar",
+          "itens": [
+            "O documento a ser registrado, já assinado. O cartório informa quantas vias são necessárias.",
+            "Documento de identificação oficial com foto de quem apresenta, e CPF ou CNPJ",
+            "Se for empresa: documento que comprove os poderes de quem apresenta",
+            "Se o documento estiver em língua estrangeira: tradução juramentada"
+          ]
+        }
+      ],
+      "passos": [
+        "Leve o documento ao cartório.",
+        "O cartório confere os requisitos formais e informa os valores.",
+        "Após o pagamento, o documento é registrado e arquivado.",
+        "Retire a via registrada ou peça certidão quando precisar."
+      ],
+      "perguntas": [
+        {
+          "p": "O registro torna o contrato válido?",
+          "r": "O registro não cria nem corrige o contrato. Ele dá publicidade e prova de existência e de data. A validade depende do conteúdo do próprio documento."
+        },
+        {
+          "p": "O cartório analisa o conteúdo do negócio?",
+          "r": "O cartório confere os requisitos formais. Ele não julga se o negócio é bom ou justo para uma das partes."
+        }
+      ],
+      "modelos": [],
+      "verTambem": ["rtd/certidao-rtd", "rtd/notificacao-extrajudicial"],
+      "validado": false
+    },
+    {
+      "slug": "notificacao-extrajudicial",
+      "titulo": "Notificar alguém formalmente",
+      "nomeTecnico": "Notificação extrajudicial",
+      "resumo": "O cartório entrega à outra pessoa uma comunicação sua e comprova que ela foi entregue. Serve para cobrar, avisar ou encerrar um contrato, entre outros usos.",
+      "palavras": ["notificar", "notificacao", "avisar", "cobrar", "rescindir", "encerrar contrato", "aviso formal", "carta", "inquilino", "comunicar"],
+      "quando": "Quando você precisa comunicar algo a alguém e quer ter prova de que a mensagem foi entregue: por exemplo, cobrar um valor, avisar que um contrato será encerrado ou formalizar um pedido.",
+      "documentos": [
+        {
+          "grupo": "O que levar",
+          "itens": [
+            "O texto da notificação, já redigido. Em geral é elaborado por você ou por seu advogado. O cartório informa quantas vias são necessárias.",
+            "Dados completos de quem será notificado: nome, CPF ou CNPJ e endereço",
+            "Documento de identificação de quem pede e CPF ou CNPJ",
+            "Se for empresa: documento que comprove os poderes de quem assina",
+            "Cópia do contrato ou documento a que a notificação se refere, quando houver"
+          ]
+        }
+      ],
+      "passos": [
+        "Redija o texto da notificação (você ou seu advogado).",
+        "Leve ao cartório com os dados do destinatário.",
+        "O cartório registra e providencia a entrega.",
+        "Receba a certidão com o resultado: recebida, recusada ou não localizada."
+      ],
+      "perguntas": [
+        {
+          "p": "O cartório escreve o texto da notificação?",
+          "r": "Em geral, o texto é elaborado por você ou por seu advogado. O cartório cuida do registro e da entrega."
+        },
+        {
+          "p": "E se a pessoa mora em outra cidade?",
+          "r": "O cartório orienta a melhor forma de entregar, inclusive por meio de outro cartório da cidade do destinatário."
+        }
+      ],
+      "modelos": [],
+      "verTambem": ["rtd/registro-contrato", "protesto/apresentar-titulo"],
+      "validado": false
+    },
+    {
+      "slug": "certidao-rtd",
+      "titulo": "Pedir certidão de documento registrado",
+      "nomeTecnico": "Certidão de registro de títulos e documentos",
+      "resumo": "Peça a certidão de um documento ou notificação que foi registrado no cartório.",
+      "palavras": ["certidao", "segunda via", "documento registrado", "copia do registro", "certidao de notificacao"],
+      "quando": "Quando você precisa comprovar o registro de um contrato, documento ou notificação feito neste cartório.",
+      "documentos": [
+        {
+          "grupo": "O que informar",
+          "itens": [
+            "Dados do registro: número, data e nomes das partes. Se tiver, leve a via registrada.",
+            "Documento de identificação de quem pede"
+          ]
+        }
+      ],
+      "passos": [
+        "Informe ao atendimento os dados do registro.",
+        "Confirme o tipo de certidão que precisa.",
+        "Retire a certidão no prazo informado."
+      ],
+      "modelos": [],
+      "verTambem": ["rtd/registro-contrato"],
+      "validado": false
+    }
+  ]
+}
