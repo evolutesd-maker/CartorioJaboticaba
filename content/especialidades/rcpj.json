@@ -4,8 +4,9 @@
   "nome": "Registro Civil das Pessoas Jurídicas",
   "nomeCompleto": "Registro Civil das Pessoas Jurídicas",
   "icone": "predio",
+  "tagline": "Associações e entidades",
+  "opcoes": ["Igrejas, ONGs e associações", "Mudança de diretoria", "Certidões"],
   "resumo": "Atos relativos às pessoas jurídicas atendidas pela especialidade.",
-  "explicacao": "Associações, igrejas, ONGs e outras entidades: registro, alterações e certidões.",
   "descricao": "O Registro Civil das Pessoas Jurídicas dá existência legal a associações, fundações, organizações religiosas, partidos políticos e sociedades simples. Também registra as alterações (como mudança de diretoria ou de estatuto) e emite certidões.",
   "aviso": "Empresas comerciais (como MEI, empresário individual e sociedade limitada) normalmente são registradas na Junta Comercial ou pelo Portal do Empreendedor, e não aqui. Se tiver dúvida, fale com o atendimento.",
   "atos": [

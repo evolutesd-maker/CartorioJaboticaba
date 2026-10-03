@@ -4,8 +4,9 @@
   "nome": "Registro Civil das Pessoas Naturais",
   "nomeCompleto": "Registro Civil das Pessoas Naturais",
   "icone": "pessoas",
+  "tagline": "Nascimento, casamento e óbito",
+  "opcoes": ["Nascimento", "Casamento", "Óbito", "Certidões e segunda via"],
   "resumo": "Nascimento, casamento, óbito e certidões.",
-  "explicacao": "Os registros da vida de cada pessoa e as certidões usadas em quase todos os documentos.",
   "descricao": "O Registro Civil das Pessoas Naturais registra os fatos mais importantes da vida: nascimento, casamento e óbito. É daqui que saem as certidões usadas em quase todos os documentos, como RG, CPF, passaporte, benefícios e herança.",
   "atos": [
     {

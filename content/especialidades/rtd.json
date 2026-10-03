@@ -4,8 +4,9 @@
   "nome": "Registro de Títulos e Documentos",
   "nomeCompleto": "Registro de Títulos e Documentos",
   "icone": "arquivo",
+  "tagline": "Contratos e documentos",
+  "opcoes": ["Registrar contratos", "Notificar alguém", "Certidões de registro"],
   "resumo": "Registro e conservação de documentos.",
-  "explicacao": "Contratos e outros documentos particulares com prova de data, conservação e notificações formais.",
   "descricao": "O Registro de Títulos e Documentos dá publicidade, conservação e prova de existência e de data a documentos particulares, como contratos, e realiza notificações formais. Registrar um documento ajuda a provar que ele existia em determinada data e, em alguns casos, é necessário para que ele valha perante terceiros.",
   "atos": [
     {

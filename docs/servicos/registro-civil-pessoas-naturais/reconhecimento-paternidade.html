@@ -14,6 +14,7 @@
 <meta property="og:title" content="Reconhecer um filho (incluir o nome do pai no registro): documentos necessários | Tabelionato de Jaboticaba">
 <meta property="og:description" content="O pai declara no cartório que é pai da criança ou do adulto, e passa a constar no registro de nascimento. Veja os documentos necessários e como funciona (Registro Civil das Pessoas Naturais).">
 <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../../assets/fonts/PlusJakartaSans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../assets/css/style.css">
 <script>document.documentElement.classList.add("js")</script>
 <script src="../../assets/js/main.js" defer></script>
@@ -55,11 +56,14 @@
   </div>
   <div class="container pagina">
     <article class="pagina__principal">
-      <section id="quando"><h2>Quando é necessário</h2><p>Pode ser feito para filhos de qualquer idade. Se o filho for maior de idade, é preciso o consentimento dele. Se for menor, o cartório orienta sobre a participação da mãe ou do responsável.</p></section>
+      <nav aria-label="Nesta página"><ul class="ancoras"><li><a href="#documentos">Documentos</a></li><li><a href="#como-funciona">Como funciona</a></li><li><a href="#prazo-custo">Prazo e custo</a></li><li><a href="#duvidas">Dúvidas</a></li></ul></nav>
 
-      <section id="documentos">
+      <section id="quando"><h2>Quando é necessário</h2><p class="resumo-ato">Pode ser feito para filhos de qualquer idade. Se o filho for maior de idade, é preciso o consentimento dele. Se for menor, o cartório orienta sobre a participação da mãe ou do responsável.</p></section>
+
+      <section id="documentos" data-checklist>
         <h2>Documentos necessários <span class="selo selo--validacao no-print">Em validação pelo cartório</span></h2>
-        <div class="checklist-grupo"><h3>Do pai</h3><ul class="checklist"><li>Documento de identificação oficial com foto, original</li><li>CPF</li></ul></div><div class="checklist-grupo"><h3>Do filho</h3><ul class="checklist"><li>Certidão de nascimento, original, ou os dados do registro</li><li>Se for maior de idade: documento de identificação e consentimento do próprio filho</li></ul></div><div class="checklist-grupo"><h3>Da mãe ou do responsável</h3><ul class="checklist"><li>Documento de identificação oficial com foto, quando o cartório exigir a presença ou a concordância</li></ul></div>
+        <div class="progresso"><span data-progresso-texto role="status"></span><span class="progresso__barra"><i data-progresso-barra></i></span></div>
+        <div class="checklist-grupo"><h3>Do pai</h3><ul class="checklist"><li><label><input type="checkbox"><span class="checklist__texto">Documento de identificação oficial com foto, original</span></label></li><li><label><input type="checkbox"><span class="checklist__texto">CPF</span></label></li></ul></div><div class="checklist-grupo"><h3>Do filho</h3><ul class="checklist"><li><label><input type="checkbox"><span class="checklist__texto">Certidão de nascimento, original, ou os dados do registro</span></label></li><li><label><input type="checkbox"><span class="checklist__texto">Se for maior de idade: documento de identificação e consentimento do próprio filho</span></label></li></ul></div><div class="checklist-grupo"><h3>Da mãe ou do responsável</h3><ul class="checklist"><li><label><input type="checkbox"><span class="checklist__texto">Documento de identificação oficial com foto, quando o cartório exigir a presença ou a concordância</span></label></li></ul></div>
         <p class="nota-final">O cartório pode pedir documentos adicionais conforme o caso. Na dúvida, fale com o atendimento antes de vir.</p>
         <p class="no-print"><button class="btn btn--contorno so-js" type="button" data-imprimir><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3h10v6"/><rect x="4" y="9" width="16" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg>Imprimir esta lista</button></p>
       </section>
@@ -85,10 +89,10 @@
     </article>
 
     <aside class="pagina__lateral" aria-label="Ajuda e serviços relacionados">
-      <div class="lateral-card">
+      <div class="lateral-card lateral-card--ajuda">
         <h2>Ficou com dúvida?</h2>
         <p>Fale com o cartório antes de vir. É rápido e evita uma viagem perdida.</p>
-        <a class="btn btn--primario btn--cheio" href="../../contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>Falar pelo WhatsApp</a>
+        <a class="btn btn--claro btn--cheio" href="../../contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>Falar pelo WhatsApp</a>
         
         <p class="nota-pequena">Rua Victielo Bisognin, 227 — Centro<br>Jaboticaba/RS — CEP 98350-000</p>
       </div>
@@ -129,5 +133,6 @@
       <p>© 2026 Tabelionato de Jaboticaba. As orientações deste site são informativas e não substituem o atendimento: os requisitos podem variar conforme o caso.</p>
     </div>
   </footer>
+<aside aria-label="Atalho de contato"><a class="fab-whats" href="../../contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg><span>Falar no WhatsApp</span></a></aside>
 </body>
 </html>

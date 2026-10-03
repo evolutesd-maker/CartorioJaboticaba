@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tabelionato de Jaboticaba · Serviços de cartório em Jaboticaba/RS</title>
-<meta name="description" content="Tabelionato de Jaboticaba: Notas, Protesto de Títulos, Registro de Títulos e Documentos, Registro Civil das Pessoas Jurídicas e Registro Civil das Pessoas Naturais. Rua Victielo Bisognin, 227, Jaboticaba/RS.">
+<meta name="description" content="Tabelionato de Jaboticaba: Notas, Protesto de Títulos, Registro de Títulos e Documentos, Registro Civil das Pessoas Jurídicas e Registro Civil das Pessoas Naturais. Rua Victielo Bisognin, 227 — Centro, Jaboticaba/RS.">
 <meta name="theme-color" content="#0078d7">
 <meta name="robots" content="noindex, nofollow">
 
@@ -12,8 +12,9 @@
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Tabelionato de Jaboticaba">
 <meta property="og:title" content="Tabelionato de Jaboticaba · Serviços de cartório em Jaboticaba/RS">
-<meta property="og:description" content="Tabelionato de Jaboticaba: Notas, Protesto de Títulos, Registro de Títulos e Documentos, Registro Civil das Pessoas Jurídicas e Registro Civil das Pessoas Naturais. Rua Victielo Bisognin, 227, Jaboticaba/RS.">
+<meta property="og:description" content="Tabelionato de Jaboticaba: Notas, Protesto de Títulos, Registro de Títulos e Documentos, Registro Civil das Pessoas Jurídicas e Registro Civil das Pessoas Naturais. Rua Victielo Bisognin, 227 — Centro, Jaboticaba/RS.">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/PlusJakartaSans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 <script>document.documentElement.classList.add("js")</script>
 <script src="assets/js/main.js" defer></script>
@@ -51,153 +52,197 @@
         <p>Notas, protesto e registros civis e de documentos em um só endereço. Diga o que você precisa e veja os documentos antes de vir.</p>
         <div class="hero__acoes">
           <a class="btn btn--claro" href="#encontrar"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg>Encontrar um serviço</a>
-          <a class="btn btn--contorno-claro" href="contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>Falar com o cartório</a>
+          <a class="btn btn--vidro" href="contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>Falar com o cartório</a>
         </div>
       </div>
       <figure class="hero__foto">
         <img src="assets/img/fachada-placeholder.svg" width="1600" height="1100" alt="Espaço reservado para a foto da fachada do cartório" fetchpriority="high">
+        <div class="flutuante flutuante--a"><span class="flutuante__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 4h18v4H3z"/><path d="M5 8v12h14V8"/><path d="M10 12h4"/></svg></span><div><strong>5 especialidades</strong><small>no mesmo endereço</small></div></div>
+        <div class="flutuante flutuante--b"><span class="flutuante__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg></span><div><strong>Documentos antes de vir</strong><small>lista para cada serviço</small></div></div>
       </figure>
     </div>
   </section>
-  <section class="secao secao--suave" id="encontrar" aria-labelledby="t-encontrar">
-    <div class="container">
-      <div class="secao__cab">
-        <p class="eyebrow">Encontrar um serviço</p>
-        <h2 id="t-encontrar">O que você precisa fazer?</h2>
-        <p>Você não precisa saber o nome do serviço. Procure pelo assunto: cada item leva à lista de documentos necessários.</p>
+  <div class="container painel-flutuante" id="encontrar">
+    <div class="painel">
+      <div class="painel__cab">
+        <h2>O que você precisa fazer?</h2>
+        <p>Escreva com suas palavras ou escolha um dos serviços mais procurados.</p>
       </div>
-      
-    <div class="finder" data-finder>
-      <div class="finder__busca">
-        <label for="inicio-busca">Escreva o que você precisa</label>
-        <div class="campo"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><input id="inicio-busca" type="search" autocomplete="off" placeholder="Ex.: certidão, procuração, vender casa, casar" data-finder-input></div>
-        <p class="finder__status" role="status" aria-live="polite" data-finder-status></p>
+      <div class="busca" data-busca-servicos>
+        <label class="sr-only" for="busca-hero">Escreva o que você precisa fazer</label>
+        <div class="busca__campo">
+          <svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg>
+          <input id="busca-hero" type="search" role="combobox" aria-expanded="false" aria-controls="busca-lista" aria-autocomplete="list" autocomplete="off" placeholder="Ex.: certidão, procuração, casar" data-busca-input>
+        </div>
+        <div class="busca__painel" data-busca-painel hidden>
+          <ul class="busca__lista" id="busca-lista" role="listbox" aria-label="Serviços encontrados" data-busca-lista></ul>
+          <div class="busca__vazio" data-busca-vazio hidden>
+            <p><strong>Não encontramos esse assunto.</strong> Tente outras palavras ou fale com o cartório, que indica o serviço certo.</p>
+            <a class="btn btn--contorno" href="contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>Falar com o cartório</a>
+          </div>
+        </div>
+        <p class="sr-only" role="status" aria-live="polite" data-busca-status></p>
       </div>
-      <div class="finder__grupos">
-      <section class="grupo" data-finder-grupo aria-labelledby="inicio-tema-familia">
-        <h3 id="inicio-tema-familia"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2c2.8.4 4.5 2.7 4.5 5.8"/></svg><span>Família e pessoas</span></h3>
-        <p class="grupo__desc">Nascimento, casamento, óbito, certidões, união estável e divórcio.</p>
-        <ul class="lista-links"><li data-finder-item data-busca="registrar um filho recem-nascido registro de nascimento registro civil das pessoas naturais registro civil das pessoas naturais familia e pessoas bebe recem nascido nasceu nascer nascimento certidao de nascimento dnv declaracao de nascido vivo nome do filho registrar crianca filho filha paternidade registro tardio"><a href="servicos/registro-civil-pessoas-naturais/registro-nascimento.html"><span class="lista-links__texto"><span class="lista-links__titulo">Registrar um filho recém-nascido</span><span class="lista-links__meta">Registro Civil das Pessoas Naturais · Registro de nascimento</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="pedir segunda via de certidao certidao de nascimento, casamento ou obito registro civil das pessoas naturais registro civil das pessoas naturais familia e pessoas certidao segunda via perdi perdeu extravio inteiro teor certidao de casamento certidao de obito certidao de nascimento nova certidao outra cidade"><a href="servicos/registro-civil-pessoas-naturais/segunda-via-certidao.html"><span class="lista-links__texto"><span class="lista-links__titulo">Pedir segunda via de certidão</span><span class="lista-links__meta">Registro Civil das Pessoas Naturais · Certidão de nascimento, casamento ou óbito</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="casar (habilitacao e casamento civil) habilitacao e celebracao de casamento registro civil das pessoas naturais registro civil das pessoas naturais familia e pessoas casar casamento noivos habilitacao casamento civil cerimonia juiz de paz regime de bens pacto antenupcial noiva noivo"><a href="servicos/registro-civil-pessoas-naturais/casamento.html"><span class="lista-links__texto"><span class="lista-links__titulo">Casar (habilitação e casamento civil)</span><span class="lista-links__meta">Registro Civil das Pessoas Naturais · Habilitação e celebração de casamento</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="registrar um obito registro de obito registro civil das pessoas naturais registro civil das pessoas naturais familia e pessoas morte faleceu falecimento obito certidao de obito sepultamento enterro velorio declaracao de obito do morreu"><a href="servicos/registro-civil-pessoas-naturais/registro-obito.html"><span class="lista-links__texto"><span class="lista-links__titulo">Registrar um óbito</span><span class="lista-links__meta">Registro Civil das Pessoas Naturais · Registro de óbito</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="reconhecer um filho (incluir o nome do pai no registro) reconhecimento de paternidade registro civil das pessoas naturais registro civil das pessoas naturais familia e pessoas pai paternidade reconhecer filho incluir pai nome do pai pai na certidao reconhecimento dna sobrenome do pai"><a href="servicos/registro-civil-pessoas-naturais/reconhecimento-paternidade.html"><span class="lista-links__texto"><span class="lista-links__titulo">Reconhecer um filho (incluir o nome do pai no registro)</span><span class="lista-links__meta">Registro Civil das Pessoas Naturais · Reconhecimento de paternidade</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="corrigir ou atualizar um registro civil retificacao e averbacao registro civil das pessoas naturais registro civil das pessoas naturais familia e pessoas corrigir erro nome errado mudar nome alterar nome sobrenome retificar averbar divorcio estado civil grafia atualizar certidao troca de nome"><a href="servicos/registro-civil-pessoas-naturais/retificacao-averbacao.html"><span class="lista-links__texto"><span class="lista-links__titulo">Corrigir ou atualizar um registro civil</span><span class="lista-links__meta">Registro Civil das Pessoas Naturais · Retificação e averbação</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="declarar uniao estavel escritura publica de uniao estavel notas tabelionato de notas familia e pessoas uniao estavel morar junto companheiro companheira convivencia viver junto regime de bens dissolucao"><a href="servicos/notas/uniao-estavel.html"><span class="lista-links__texto"><span class="lista-links__titulo">Declarar união estável</span><span class="lista-links__meta">Notas · Escritura pública de união estável</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="divorcio em cartorio escritura de divorcio consensual notas tabelionato de notas familia e pessoas divorcio separacao separar casal ex marido ex esposa dissolver casamento desfazer casamento"><a href="servicos/notas/divorcio-extrajudicial.html"><span class="lista-links__texto"><span class="lista-links__titulo">Divórcio em cartório</span><span class="lista-links__meta">Notas · Escritura de divórcio consensual</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="autorizacao para crianca ou adolescente viajar autorizacao de viagem de menor notas tabelionato de notas familia e pessoas viagem viajar filho filha crianca adolescente menor autorizacao de viagem exterior internacional avo tio"><a href="servicos/notas/autorizacao-viagem-menor.html"><span class="lista-links__texto"><span class="lista-links__titulo">Autorização para criança ou adolescente viajar</span><span class="lista-links__meta">Notas · Autorização de viagem de menor</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li></ul>
+      <section class="carrossel" data-carrossel aria-roledescription="carrossel" aria-label="Serviços mais procurados">
+        <div class="carrossel__cab">
+          <h3>Mais procurados</h3>
+          <div class="carrossel__ctl">
+            <button type="button" data-car-prev aria-label="Ver serviços anteriores"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
+            <button type="button" data-car-next aria-label="Ver mais serviços"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+        <ul class="carrossel__pista" tabindex="0" data-fade="dir" aria-label="Serviços mais procurados. Use as setas do teclado para rolar.">
+          <li class="carrossel__item"><a class="cr-card" href="servicos/registro-civil-pessoas-naturais/registro-nascimento.html" draggable="false">
+            <span class="cr-card__topo"><span class="cr-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2c2.8.4 4.5 2.7 4.5 5.8"/></svg></span><span class="cr-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></span></span>
+            <strong>Registrar um filho recém-nascido</strong>
+            <span class="tag">Registro Civil das Pessoas Naturais</span>
+          </a></li>
+          <li class="carrossel__item"><a class="cr-card" href="servicos/registro-civil-pessoas-naturais/segunda-via-certidao.html" draggable="false">
+            <span class="cr-card__topo"><span class="cr-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2c2.8.4 4.5 2.7 4.5 5.8"/></svg></span><span class="cr-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></span></span>
+            <strong>Pedir segunda via de certidão</strong>
+            <span class="tag">Registro Civil das Pessoas Naturais</span>
+          </a></li>
+          <li class="carrossel__item"><a class="cr-card" href="servicos/notas/procuracao.html" draggable="false">
+            <span class="cr-card__topo"><span class="cr-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg></span><span class="cr-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></span></span>
+            <strong>Fazer uma procuração</strong>
+            <span class="tag">Notas</span>
+          </a></li>
+          <li class="carrossel__item"><a class="cr-card" href="servicos/notas/reconhecimento-firma.html" draggable="false">
+            <span class="cr-card__topo"><span class="cr-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg></span><span class="cr-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></span></span>
+            <strong>Reconhecer firma (confirmar uma assinatura)</strong>
+            <span class="tag">Notas</span>
+          </a></li>
+          <li class="carrossel__item"><a class="cr-card" href="servicos/notas/escritura-compra-venda.html" draggable="false">
+            <span class="cr-card__topo"><span class="cr-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg></span><span class="cr-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></span></span>
+            <strong>Comprar ou vender um imóvel</strong>
+            <span class="tag">Notas</span>
+          </a></li>
+          <li class="carrossel__item"><a class="cr-card" href="servicos/registro-civil-pessoas-naturais/casamento.html" draggable="false">
+            <span class="cr-card__topo"><span class="cr-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2c2.8.4 4.5 2.7 4.5 5.8"/></svg></span><span class="cr-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></span></span>
+            <strong>Casar (habilitação e casamento civil)</strong>
+            <span class="tag">Registro Civil das Pessoas Naturais</span>
+          </a></li>
+          <li class="carrossel__item"><a class="cr-card" href="servicos/protesto-de-titulos/consultar-protesto.html" draggable="false">
+            <span class="cr-card__topo"><span class="cr-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 10v4M17.5 10v4"/></svg></span><span class="cr-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></span></span>
+            <strong>Saber se existe protesto em meu nome</strong>
+            <span class="tag">Protesto de Títulos</span>
+          </a></li>
+          <li class="carrossel__item"><a class="cr-card" href="servicos/notas/autenticacao-copias.html" draggable="false">
+            <span class="cr-card__topo"><span class="cr-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg></span><span class="cr-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></span></span>
+            <strong>Autenticar cópias de documentos</strong>
+            <span class="tag">Notas</span>
+          </a></li>
+        </ul>
       </section>
-      <section class="grupo" data-finder-grupo aria-labelledby="inicio-tema-imoveis">
-        <h3 id="inicio-tema-imoveis"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 11l9-8 9 8"/><path d="M5 10v11h14V10"/><path d="M10 21v-6h4v6"/></svg><span>Imóveis e herança</span></h3>
-        <p class="grupo__desc">Compra e venda de imóveis, testamento e divisão dos bens de quem faleceu.</p>
-        <ul class="lista-links"><li data-finder-item data-busca="comprar ou vender um imovel escritura publica de compra e venda notas tabelionato de notas imoveis e heranca casa terreno apartamento lote sitio chacara propriedade escritura venda compra comprar vender imovel rural urbano"><a href="servicos/notas/escritura-compra-venda.html"><span class="lista-links__texto"><span class="lista-links__titulo">Comprar ou vender um imóvel</span><span class="lista-links__meta">Notas · Escritura pública de compra e venda</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="inventario e partilha de heranca em cartorio escritura de inventario e partilha extrajudicial notas tabelionato de notas imoveis e heranca heranca herdeiro inventario partilha falecimento faleceu bens sucessao espolio morte morreu"><a href="servicos/notas/inventario-partilha.html"><span class="lista-links__texto"><span class="lista-links__titulo">Inventário e partilha de herança em cartório</span><span class="lista-links__meta">Notas · Escritura de inventário e partilha extrajudicial</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="fazer um testamento testamento publico notas tabelionato de notas imoveis e heranca testamento testar deixar bens herdeiro heranca depois da morte ultima vontade doar bens legitima"><a href="servicos/notas/testamento.html"><span class="lista-links__texto"><span class="lista-links__titulo">Fazer um testamento</span><span class="lista-links__meta">Notas · Testamento público</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li></ul>
-      </section>
-      <section class="grupo" data-finder-grupo aria-labelledby="inicio-tema-documentos">
-        <h3 id="inicio-tema-documentos"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg><span>Documentos e assinaturas</span></h3>
-        <p class="grupo__desc">Procurações, reconhecimento de firma, cópias autenticadas, contratos e notificações.</p>
-        <ul class="lista-links"><li data-finder-item data-busca="fazer uma procuracao procuracao publica notas tabelionato de notas documentos e assinaturas procurador outorgante outorgado representar representante poderes autorizar em meu nome procuracao"><a href="servicos/notas/procuracao.html"><span class="lista-links__texto"><span class="lista-links__titulo">Fazer uma procuração</span><span class="lista-links__meta">Notas · Procuração pública</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="reconhecer firma (confirmar uma assinatura) reconhecimento de firma notas tabelionato de notas documentos e assinaturas assinatura assinar firma autenticidade semelhanca contrato recibo declaracao carta documento assinado ficha de assinatura"><a href="servicos/notas/reconhecimento-firma.html"><span class="lista-links__texto"><span class="lista-links__titulo">Reconhecer firma (confirmar uma assinatura)</span><span class="lista-links__meta">Notas · Reconhecimento de firma</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="autenticar copias de documentos autenticacao de copias notas tabelionato de notas documentos e assinaturas copia fotocopia xerox autenticar autenticada copia autenticada conferir copia"><a href="servicos/notas/autenticacao-copias.html"><span class="lista-links__texto"><span class="lista-links__titulo">Autenticar cópias de documentos</span><span class="lista-links__meta">Notas · Autenticação de cópias</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="registrar um contrato ou documento registro de documento particular registro de titulos e documentos registro de titulos e documentos documentos e assinaturas contrato locacao aluguel comodato registrar documento guardar documento prova de data conservacao terceiros traducao"><a href="servicos/registro-de-titulos-e-documentos/registro-contrato.html"><span class="lista-links__texto"><span class="lista-links__titulo">Registrar um contrato ou documento</span><span class="lista-links__meta">Registro de Títulos e Documentos · Registro de documento particular</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="notificar alguem formalmente notificacao extrajudicial registro de titulos e documentos registro de titulos e documentos documentos e assinaturas notificar notificacao avisar cobrar rescindir encerrar contrato aviso formal carta inquilino comunicar"><a href="servicos/registro-de-titulos-e-documentos/notificacao-extrajudicial.html"><span class="lista-links__texto"><span class="lista-links__titulo">Notificar alguém formalmente</span><span class="lista-links__meta">Registro de Títulos e Documentos · Notificação extrajudicial</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="pedir certidao de documento registrado certidao de registro de titulos e documentos registro de titulos e documentos registro de titulos e documentos documentos e assinaturas certidao segunda via documento registrado copia do registro certidao de notificacao"><a href="servicos/registro-de-titulos-e-documentos/certidao-rtd.html"><span class="lista-links__texto"><span class="lista-links__titulo">Pedir certidão de documento registrado</span><span class="lista-links__meta">Registro de Títulos e Documentos · Certidão de registro de títulos e documentos</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li></ul>
-      </section>
-      <section class="grupo" data-finder-grupo aria-labelledby="inicio-tema-dividas">
-        <h3 id="inicio-tema-dividas"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 10v4M17.5 10v4"/></svg><span>Dívidas e protestos</span></h3>
-        <p class="grupo__desc">Consultar, pagar ou cancelar um protesto, e cobrar uma dívida por protesto.</p>
-        <ul class="lista-links"><li data-finder-item data-busca="saber se existe protesto em meu nome consulta e certidao de protesto protesto de titulos tabelionato de protesto de titulos dividas e protestos nome sujo negativado protestado consulta certidao de protesto cpf cnpj divida tenho protesto"><a href="servicos/protesto-de-titulos/consultar-protesto.html"><span class="lista-links__texto"><span class="lista-links__titulo">Saber se existe protesto em meu nome</span><span class="lista-links__meta">Protesto de Títulos · Consulta e certidão de protesto</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="pagar uma divida enviada para protesto pagamento de titulo apresentado a protesto protesto de titulos tabelionato de protesto de titulos dividas e protestos intimacao carta do cartorio pagar quitar divida boleto duplicata cheque nota promissoria evitar protesto"><a href="servicos/protesto-de-titulos/pagar-titulo.html"><span class="lista-links__texto"><span class="lista-links__titulo">Pagar uma dívida enviada para protesto</span><span class="lista-links__meta">Protesto de Títulos · Pagamento de título apresentado a protesto</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="cancelar um protesto cancelamento de protesto protesto de titulos tabelionato de protesto de titulos dividas e protestos tirar protesto limpar nome baixar protesto carta de anuencia quitei paguei cancelamento nome sujo"><a href="servicos/protesto-de-titulos/cancelar-protesto.html"><span class="lista-links__texto"><span class="lista-links__titulo">Cancelar um protesto</span><span class="lista-links__meta">Protesto de Títulos · Cancelamento de protesto</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="cobrar uma divida por protesto (para quem tem a receber) apresentacao de titulo para protesto protesto de titulos tabelionato de protesto de titulos dividas e protestos credor cobrar cobranca receber inadimplente devedor duplicata cheque nota promissoria enviar a protesto protestar"><a href="servicos/protesto-de-titulos/apresentar-titulo.html"><span class="lista-links__texto"><span class="lista-links__titulo">Cobrar uma dívida por protesto (para quem tem a receber)</span><span class="lista-links__meta">Protesto de Títulos · Apresentação de título para protesto</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li></ul>
-      </section>
-      <section class="grupo" data-finder-grupo aria-labelledby="inicio-tema-entidades">
-        <h3 id="inicio-tema-entidades"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 21V4l7-2 7 2v17"/><path d="M3 21h18"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2"/><path d="M10 21v-4h4v4"/></svg><span>Associações e entidades</span></h3>
-        <p class="grupo__desc">Associações, igrejas, ONGs e outras pessoas jurídicas que não são empresas comerciais.</p>
-        <ul class="lista-links"><li data-finder-item data-busca="registrar uma associacao, igreja ou ong registro de estatuto de pessoa juridica registro civil das pessoas juridicas registro civil das pessoas juridicas associacoes e entidades associacao igreja ong entidade fundacao sindicato partido clube estatuto abrir associacao fundar cnpj organizacao religiosa sociedade simples"><a href="servicos/registro-civil-pessoas-juridicas/registrar-associacao.html"><span class="lista-links__texto"><span class="lista-links__titulo">Registrar uma associação, igreja ou ONG</span><span class="lista-links__meta">Registro Civil das Pessoas Jurídicas · Registro de estatuto de pessoa jurídica</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="registrar mudanca de diretoria ou alteracao de estatuto registro de atas e alteracoes registro civil das pessoas juridicas registro civil das pessoas juridicas associacoes e entidades ata diretoria eleicao posse alteracao estatuto mudanca endereco da sede assembleia presidente"><a href="servicos/registro-civil-pessoas-juridicas/alteracao-estatuto-ata.html"><span class="lista-links__texto"><span class="lista-links__titulo">Registrar mudança de diretoria ou alteração de estatuto</span><span class="lista-links__meta">Registro Civil das Pessoas Jurídicas · Registro de atas e alterações</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li><li data-finder-item data-busca="pedir certidao de entidade registrada certidao de pessoa juridica registro civil das pessoas juridicas registro civil das pessoas juridicas associacoes e entidades certidao existencia comprovar diretoria atual estatuto registrado entidade associacao"><a href="servicos/registro-civil-pessoas-juridicas/certidao-pj.html"><span class="lista-links__texto"><span class="lista-links__titulo">Pedir certidão de entidade registrada</span><span class="lista-links__meta">Registro Civil das Pessoas Jurídicas · Certidão de pessoa jurídica</span></span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a></li></ul>
-      </section></div>
-      <div class="finder__vazio" hidden data-finder-vazio>
-        <p><strong>Não encontramos esse assunto.</strong> Tente outras palavras (por exemplo: certidão, casamento, imóvel, dívida) ou fale com o cartório, que orienta qual serviço é o certo.</p>
-        <p><a class="btn btn--contorno" href="contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>Falar com o cartório</a></p>
-      </div>
     </div>
-    </div>
-  </section>
+    <script type="application/json" id="indice-busca">[{"t":"Comprar ou vender um imóvel","e":"Notas","u":"servicos/notas/escritura-compra-venda.html","b":"comprar ou vender um imovel escritura publica de compra e venda notas tabelionato de notas imoveis e heranca casa terreno apartamento lote sitio chacara propriedade escritura venda compra comprar vender imovel rural urbano"},{"t":"Fazer uma procuração","e":"Notas","u":"servicos/notas/procuracao.html","b":"fazer uma procuracao procuracao publica notas tabelionato de notas documentos e assinaturas procurador outorgante outorgado representar representante poderes autorizar em meu nome procuracao"},{"t":"Reconhecer firma (confirmar uma assinatura)","e":"Notas","u":"servicos/notas/reconhecimento-firma.html","b":"reconhecer firma (confirmar uma assinatura) reconhecimento de firma notas tabelionato de notas documentos e assinaturas assinatura assinar firma autenticidade semelhanca contrato recibo declaracao carta documento assinado ficha de assinatura"},{"t":"Autenticar cópias de documentos","e":"Notas","u":"servicos/notas/autenticacao-copias.html","b":"autenticar copias de documentos autenticacao de copias notas tabelionato de notas documentos e assinaturas copia fotocopia xerox autenticar autenticada copia autenticada conferir copia"},{"t":"Autorização para criança ou adolescente viajar","e":"Notas","u":"servicos/notas/autorizacao-viagem-menor.html","b":"autorizacao para crianca ou adolescente viajar autorizacao de viagem de menor notas tabelionato de notas familia e pessoas viagem viajar filho filha crianca adolescente menor autorizacao de viagem exterior internacional avo tio"},{"t":"Inventário e partilha de herança em cartório","e":"Notas","u":"servicos/notas/inventario-partilha.html","b":"inventario e partilha de heranca em cartorio escritura de inventario e partilha extrajudicial notas tabelionato de notas imoveis e heranca heranca herdeiro inventario partilha falecimento faleceu bens sucessao espolio morte morreu"},{"t":"Fazer um testamento","e":"Notas","u":"servicos/notas/testamento.html","b":"fazer um testamento testamento publico notas tabelionato de notas imoveis e heranca testamento testar deixar bens herdeiro heranca depois da morte ultima vontade doar bens legitima"},{"t":"Divórcio em cartório","e":"Notas","u":"servicos/notas/divorcio-extrajudicial.html","b":"divorcio em cartorio escritura de divorcio consensual notas tabelionato de notas familia e pessoas divorcio separacao separar casal ex marido ex esposa dissolver casamento desfazer casamento"},{"t":"Declarar união estável","e":"Notas","u":"servicos/notas/uniao-estavel.html","b":"declarar uniao estavel escritura publica de uniao estavel notas tabelionato de notas familia e pessoas uniao estavel morar junto companheiro companheira convivencia viver junto regime de bens dissolucao"},{"t":"Saber se existe protesto em meu nome","e":"Protesto de Títulos","u":"servicos/protesto-de-titulos/consultar-protesto.html","b":"saber se existe protesto em meu nome consulta e certidao de protesto protesto de titulos tabelionato de protesto de titulos dividas e protestos nome sujo negativado protestado consulta certidao de protesto cpf cnpj divida tenho protesto"},{"t":"Pagar uma dívida enviada para protesto","e":"Protesto de Títulos","u":"servicos/protesto-de-titulos/pagar-titulo.html","b":"pagar uma divida enviada para protesto pagamento de titulo apresentado a protesto protesto de titulos tabelionato de protesto de titulos dividas e protestos intimacao carta do cartorio pagar quitar divida boleto duplicata cheque nota promissoria evitar protesto"},{"t":"Cancelar um protesto","e":"Protesto de Títulos","u":"servicos/protesto-de-titulos/cancelar-protesto.html","b":"cancelar um protesto cancelamento de protesto protesto de titulos tabelionato de protesto de titulos dividas e protestos tirar protesto limpar nome baixar protesto carta de anuencia quitei paguei cancelamento nome sujo"},{"t":"Cobrar uma dívida por protesto (para quem tem a receber)","e":"Protesto de Títulos","u":"servicos/protesto-de-titulos/apresentar-titulo.html","b":"cobrar uma divida por protesto (para quem tem a receber) apresentacao de titulo para protesto protesto de titulos tabelionato de protesto de titulos dividas e protestos credor cobrar cobranca receber inadimplente devedor duplicata cheque nota promissoria enviar a protesto protestar"},{"t":"Registrar um contrato ou documento","e":"Registro de Títulos e Documentos","u":"servicos/registro-de-titulos-e-documentos/registro-contrato.html","b":"registrar um contrato ou documento registro de documento particular registro de titulos e documentos registro de titulos e documentos documentos e assinaturas contrato locacao aluguel comodato registrar documento guardar documento prova de data conservacao terceiros traducao"},{"t":"Notificar alguém formalmente","e":"Registro de Títulos e Documentos","u":"servicos/registro-de-titulos-e-documentos/notificacao-extrajudicial.html","b":"notificar alguem formalmente notificacao extrajudicial registro de titulos e documentos registro de titulos e documentos documentos e assinaturas notificar notificacao avisar cobrar rescindir encerrar contrato aviso formal carta inquilino comunicar"},{"t":"Pedir certidão de documento registrado","e":"Registro de Títulos e Documentos","u":"servicos/registro-de-titulos-e-documentos/certidao-rtd.html","b":"pedir certidao de documento registrado certidao de registro de titulos e documentos registro de titulos e documentos registro de titulos e documentos documentos e assinaturas certidao segunda via documento registrado copia do registro certidao de notificacao"},{"t":"Registrar uma associação, igreja ou ONG","e":"Registro Civil das Pessoas Jurídicas","u":"servicos/registro-civil-pessoas-juridicas/registrar-associacao.html","b":"registrar uma associacao, igreja ou ong registro de estatuto de pessoa juridica registro civil das pessoas juridicas registro civil das pessoas juridicas associacoes e entidades associacao igreja ong entidade fundacao sindicato partido clube estatuto abrir associacao fundar cnpj organizacao religiosa sociedade simples"},{"t":"Registrar mudança de diretoria ou alteração de estatuto","e":"Registro Civil das Pessoas Jurídicas","u":"servicos/registro-civil-pessoas-juridicas/alteracao-estatuto-ata.html","b":"registrar mudanca de diretoria ou alteracao de estatuto registro de atas e alteracoes registro civil das pessoas juridicas registro civil das pessoas juridicas associacoes e entidades ata diretoria eleicao posse alteracao estatuto mudanca endereco da sede assembleia presidente"},{"t":"Pedir certidão de entidade registrada","e":"Registro Civil das Pessoas Jurídicas","u":"servicos/registro-civil-pessoas-juridicas/certidao-pj.html","b":"pedir certidao de entidade registrada certidao de pessoa juridica registro civil das pessoas juridicas registro civil das pessoas juridicas associacoes e entidades certidao existencia comprovar diretoria atual estatuto registrado entidade associacao"},{"t":"Registrar um filho recém-nascido","e":"Registro Civil das Pessoas Naturais","u":"servicos/registro-civil-pessoas-naturais/registro-nascimento.html","b":"registrar um filho recem-nascido registro de nascimento registro civil das pessoas naturais registro civil das pessoas naturais familia e pessoas bebe recem nascido nasceu nascer nascimento certidao de nascimento dnv declaracao de nascido vivo nome do filho registrar crianca filho filha paternidade registro tardio"},{"t":"Pedir segunda via de certidão","e":"Registro Civil das Pessoas Naturais","u":"servicos/registro-civil-pessoas-naturais/segunda-via-certidao.html","b":"pedir segunda via de certidao certidao de nascimento, casamento ou obito registro civil das pessoas naturais registro civil das pessoas naturais familia e pessoas certidao segunda via perdi perdeu extravio inteiro teor certidao de casamento certidao de obito certidao de nascimento nova certidao outra cidade"},{"t":"Casar (habilitação e casamento civil)","e":"Registro Civil das Pessoas Naturais","u":"servicos/registro-civil-pessoas-naturais/casamento.html","b":"casar (habilitacao e casamento civil) habilitacao e celebracao de casamento registro civil das pessoas naturais registro civil das pessoas naturais familia e pessoas casar casamento noivos habilitacao casamento civil cerimonia juiz de paz regime de bens pacto antenupcial noiva noivo"},{"t":"Registrar um óbito","e":"Registro Civil das Pessoas Naturais","u":"servicos/registro-civil-pessoas-naturais/registro-obito.html","b":"registrar um obito registro de obito registro civil das pessoas naturais registro civil das pessoas naturais familia e pessoas morte faleceu falecimento obito certidao de obito sepultamento enterro velorio declaracao de obito do morreu"},{"t":"Reconhecer um filho (incluir o nome do pai no registro)","e":"Registro Civil das Pessoas Naturais","u":"servicos/registro-civil-pessoas-naturais/reconhecimento-paternidade.html","b":"reconhecer um filho (incluir o nome do pai no registro) reconhecimento de paternidade registro civil das pessoas naturais registro civil das pessoas naturais familia e pessoas pai paternidade reconhecer filho incluir pai nome do pai pai na certidao reconhecimento dna sobrenome do pai"},{"t":"Corrigir ou atualizar um registro civil","e":"Registro Civil das Pessoas Naturais","u":"servicos/registro-civil-pessoas-naturais/retificacao-averbacao.html","b":"corrigir ou atualizar um registro civil retificacao e averbacao registro civil das pessoas naturais registro civil das pessoas naturais familia e pessoas corrigir erro nome errado mudar nome alterar nome sobrenome retificar averbar divorcio estado civil grafia atualizar certidao troca de nome"}]</script>
+  </div>
   <section class="secao" id="servicos" aria-labelledby="t-servicos">
     <div class="container">
-      <div class="secao__cab">
+      <div class="secao__cab secao__cab--centro" data-reveal>
         <p class="eyebrow">Serviços</p>
-        <h2 id="t-servicos">Cinco especialidades no mesmo endereço</h2>
-        <p>Se você já sabe qual procura, escolha abaixo e veja os serviços de cada uma.</p>
+        <h2 id="t-servicos">Escolha a especialidade</h2>
+        <p>Cinco atendimentos no mesmo endereço. Toque em um deles para ver os serviços e os documentos.</p>
       </div>
-      <ul class="cartoes">
-        
-        <li class="cartao">
-          <span class="cartao__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg></span>
-          <h3>Notas</h3>
-          <p class="cartao__resumo">Escrituras, procurações e outros atos notariais.</p>
-          <p class="cartao__explica">Documentos com fé pública: o tabelião confere quem você é, explica o que a lei exige e redige o documento, que passa a valer como prova segura.</p>
-          <a class="btn btn--contorno btn--cheio" href="servicos/notas.html">Ver serviços e documentos<span class="sr-only"> de Notas</span></a>
+      <ul class="esp-grade">
+        <li class="esp-card" data-reveal style="--i:0">
+          <div class="esp-card__topo">
+            <span class="esp-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg></span>
+            <span class="esp-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></span>
+          </div>
+          <h3>Tabelionato de Notas</h3>
+          <p class="esp-card__tag">Documentos com fé pública</p>
+          <ul class="esp-card__lista"><li>Escrituras de imóveis</li><li>Procurações</li><li>Reconhecimento de firma</li><li>Cópias autenticadas</li></ul>
+          <a class="esp-card__ver" href="servicos/notas.html">Ver serviços e documentos<span class="sr-only"> de Notas</span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a>
         </li>
-        <li class="cartao">
-          <span class="cartao__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 10v4M17.5 10v4"/></svg></span>
-          <h3>Protesto de Títulos</h3>
-          <p class="cartao__resumo">Informações sobre apresentação, pagamento e cancelamento.</p>
-          <p class="cartao__explica">Dívidas em cheques, duplicatas e outros documentos: como pagar, cancelar ou cobrar.</p>
-          <a class="btn btn--contorno btn--cheio" href="servicos/protesto-de-titulos.html">Ver serviços e documentos<span class="sr-only"> de Protesto de Títulos</span></a>
+        <li class="esp-card" data-reveal style="--i:1">
+          <div class="esp-card__topo">
+            <span class="esp-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 10v4M17.5 10v4"/></svg></span>
+            <span class="esp-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></span>
+          </div>
+          <h3>Tabelionato de Protesto de Títulos</h3>
+          <p class="esp-card__tag">Dívidas e títulos</p>
+          <ul class="esp-card__lista"><li>Consultar um protesto</li><li>Pagar uma dívida</li><li>Cancelar um protesto</li><li>Cobrar um devedor</li></ul>
+          <a class="esp-card__ver" href="servicos/protesto-de-titulos.html">Ver serviços e documentos<span class="sr-only"> de Protesto de Títulos</span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a>
         </li>
-        <li class="cartao">
-          <span class="cartao__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 4h18v4H3z"/><path d="M5 8v12h14V8"/><path d="M10 12h4"/></svg></span>
+        <li class="esp-card" data-reveal style="--i:2">
+          <div class="esp-card__topo">
+            <span class="esp-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 4h18v4H3z"/><path d="M5 8v12h14V8"/><path d="M10 12h4"/></svg></span>
+            <span class="esp-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></span>
+          </div>
           <h3>Registro de Títulos e Documentos</h3>
-          <p class="cartao__resumo">Registro e conservação de documentos.</p>
-          <p class="cartao__explica">Contratos e outros documentos particulares com prova de data, conservação e notificações formais.</p>
-          <a class="btn btn--contorno btn--cheio" href="servicos/registro-de-titulos-e-documentos.html">Ver serviços e documentos<span class="sr-only"> de Registro de Títulos e Documentos</span></a>
+          <p class="esp-card__tag">Contratos e documentos</p>
+          <ul class="esp-card__lista"><li>Registrar contratos</li><li>Notificar alguém</li><li>Certidões de registro</li></ul>
+          <a class="esp-card__ver" href="servicos/registro-de-titulos-e-documentos.html">Ver serviços e documentos<span class="sr-only"> de Registro de Títulos e Documentos</span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a>
         </li>
-        <li class="cartao">
-          <span class="cartao__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 21V4l7-2 7 2v17"/><path d="M3 21h18"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2"/><path d="M10 21v-4h4v4"/></svg></span>
+        <li class="esp-card" data-reveal style="--i:0">
+          <div class="esp-card__topo">
+            <span class="esp-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 21V4l7-2 7 2v17"/><path d="M3 21h18"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2"/><path d="M10 21v-4h4v4"/></svg></span>
+            <span class="esp-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></span>
+          </div>
           <h3>Registro Civil das Pessoas Jurídicas</h3>
-          <p class="cartao__resumo">Atos relativos às pessoas jurídicas atendidas pela especialidade.</p>
-          <p class="cartao__explica">Associações, igrejas, ONGs e outras entidades: registro, alterações e certidões.</p>
-          <a class="btn btn--contorno btn--cheio" href="servicos/registro-civil-pessoas-juridicas.html">Ver serviços e documentos<span class="sr-only"> de Registro Civil das Pessoas Jurídicas</span></a>
+          <p class="esp-card__tag">Associações e entidades</p>
+          <ul class="esp-card__lista"><li>Igrejas, ONGs e associações</li><li>Mudança de diretoria</li><li>Certidões</li></ul>
+          <a class="esp-card__ver" href="servicos/registro-civil-pessoas-juridicas.html">Ver serviços e documentos<span class="sr-only"> de Registro Civil das Pessoas Jurídicas</span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a>
         </li>
-        <li class="cartao">
-          <span class="cartao__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2c2.8.4 4.5 2.7 4.5 5.8"/></svg></span>
+        <li class="esp-card" data-reveal style="--i:1">
+          <div class="esp-card__topo">
+            <span class="esp-card__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2c2.8.4 4.5 2.7 4.5 5.8"/></svg></span>
+            <span class="esp-card__seta" aria-hidden="true"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></span>
+          </div>
           <h3>Registro Civil das Pessoas Naturais</h3>
-          <p class="cartao__resumo">Nascimento, casamento, óbito e certidões.</p>
-          <p class="cartao__explica">Os registros da vida de cada pessoa e as certidões usadas em quase todos os documentos.</p>
-          <a class="btn btn--contorno btn--cheio" href="servicos/registro-civil-pessoas-naturais.html">Ver serviços e documentos<span class="sr-only"> de Registro Civil das Pessoas Naturais</span></a>
+          <p class="esp-card__tag">Nascimento, casamento e óbito</p>
+          <ul class="esp-card__lista"><li>Nascimento</li><li>Casamento</li><li>Óbito</li><li>Certidões e segunda via</li></ul>
+          <a class="esp-card__ver" href="servicos/registro-civil-pessoas-naturais.html">Ver serviços e documentos<span class="sr-only"> de Registro Civil das Pessoas Naturais</span><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg></a>
         </li>
       </ul>
     </div>
   </section>
   <section class="secao secao--azul" id="antes-de-vir" aria-labelledby="t-antes">
     <div class="container">
-      <div class="secao__cab">
+      <div class="secao__cab secao__cab--centro" data-reveal>
         <p class="eyebrow">Antes de vir ao cartório</p>
         <h2 id="t-antes">Venha preparado e evite idas e vindas</h2>
         <p>Consulte os documentos necessários, as orientações e os modelos disponíveis.</p>
       </div>
-      <div class="trio">
-        <div class="caixa">
-          <h3><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg>Documentos necessários</h3>
-          <p>Escolha o serviço e veja a lista do que levar, ato por ato, sem misturar com o de outros serviços.</p>
-          <p><a class="btn btn--primario" href="documentos.html#consultar">Consultar por serviço</a></p>
-        </div>
-        <div class="caixa">
-          <h3><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg>Orientações</h3>
-          <ul class="lista-pontos">
-            <li>Leve documentos originais, com foto.</li>
-            <li>Confira nomes e números antes de sair de casa.</li>
-            <li>Na dúvida, fale com o cartório antes de vir.</li>
-          </ul>
-        </div>
-        <div class="caixa">
-          <h3><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>Modelos e formulários</h3>
-          <p>Os modelos e formulários em PDF serão disponibilizados aqui para você baixar e preencher antes do atendimento.</p>
-        </div>
-      </div>
+      <ul class="atalhos">
+        <li class="atalho" data-reveal style="--i:0">
+          <span class="atalho__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg></span>
+          <span class="atalho__texto"><a href="documentos.html#consultar">Documentos necessários</a><span>Veja o que levar, serviço por serviço</span></span>
+          <svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>
+        </li>
+        <li class="atalho" data-reveal style="--i:1">
+          <span class="atalho__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg></span>
+          <span class="atalho__texto"><a href="documentos.html#orientacoes">Orientações</a><span>O que conferir antes de sair de casa</span></span>
+          <svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>
+        </li>
+        <li class="atalho" data-reveal style="--i:2">
+          <span class="atalho__icone"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg></span>
+          <span class="atalho__texto"><a href="documentos.html#modelos">Modelos e formulários</a><span>Em breve, para baixar e preencher</span></span>
+          <svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>
+        </li>
+      </ul>
     </div>
   </section>
   <section class="secao" id="atendimento" aria-labelledby="t-atendimento">
     <div class="container">
-      <div class="secao__cab">
+      <div class="secao__cab" data-reveal>
         <p class="eyebrow">Localização e atendimento</p>
         <h2 id="t-atendimento">Como chegar e quando ir</h2>
       </div>
-      <div class="atendimento">
-        <div class="caixa"><dl class="dados"><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Endereço</dt><dd><address>Rua Victielo Bisognin, 227 — Centro<br>Jaboticaba/RS — CEP 98350-000</address></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Horário de atendimento</dt><dd><span class="pendente">Horário a confirmar com o cartório</span></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Telefone</dt><dd><span class="pendente">Telefone a confirmar</span></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>WhatsApp</dt><dd><span class="pendente">WhatsApp a confirmar</span></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>E-mail</dt><dd><span class="pendente">E-mail a confirmar</span></dd></div></dl></div>
-        <div class="caixa">
-          <h3>Fale ou venha até nós</h3>
-          <div class="atendimento__acoes">
-            <a class="btn btn--primario btn--cheio" href="https://www.google.com/maps/dir/?api=1&amp;destination=Rua%20Victielo%20Bisognin%2C%20227%2C%20Centro%2C%20Jaboticaba%20-%20RS%2C%2098350-000%2C%20Brasil" target="_blank" rel="noopener"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M7 17h7a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h7"/></svg>Abrir a rota no mapa<span class="sr-only"> (abre em nova aba)</span></a>
+      <div class="atend">
+        <div class="cartao-info" data-reveal>
+          <dl class="dados"><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Endereço</dt><dd><address>Rua Victielo Bisognin, 227 — Centro<br>Jaboticaba/RS — CEP 98350-000</address></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Horário de atendimento</dt><dd><span class="pendente">Horário a confirmar com o cartório</span></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Telefone</dt><dd><span class="pendente">Telefone a confirmar</span></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>WhatsApp</dt><dd><span class="pendente">WhatsApp a confirmar</span></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>E-mail</dt><dd><span class="pendente">E-mail a confirmar</span></dd></div></dl>
+          <div class="atend__acoes">
+            <a class="btn btn--primario" href="https://www.google.com/maps/dir/?api=1&amp;destination=Rua%20Victielo%20Bisognin%2C%20227%2C%20Centro%2C%20Jaboticaba%20-%20RS%2C%2098350-000%2C%20Brasil" target="_blank" rel="noopener"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M7 17h7a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h7"/></svg>Abrir a rota no mapa<span class="sr-only"> (abre em nova aba)</span></a>
             
-            <a class="btn btn--contorno btn--cheio" href="contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>Falar pelo WhatsApp</a>
           </div>
           <p class="nota-pequena">Confira sempre se o contato é um dos canais oficiais divulgados neste site.</p>
         </div>
+        <figure class="atend__foto" data-reveal style="--i:1">
+          <img src="assets/img/fachada-placeholder.svg" width="1600" height="1100" alt="Espaço reservado para a foto da fachada do cartório" loading="lazy">
+          <figcaption><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Procure pela fachada na Rua Victielo Bisognin, nº 227</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -235,5 +280,6 @@
       <p>© 2026 Tabelionato de Jaboticaba. As orientações deste site são informativas e não substituem o atendimento: os requisitos podem variar conforme o caso.</p>
     </div>
   </footer>
+<aside aria-label="Atalho de contato"><a class="fab-whats" href="contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg><span>Falar no WhatsApp</span></a></aside>
 </body>
 </html>

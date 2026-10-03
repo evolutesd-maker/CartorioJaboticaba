@@ -4,8 +4,9 @@
   "nome": "Notas",
   "nomeCompleto": "Tabelionato de Notas",
   "icone": "documento",
+  "tagline": "Documentos com fé pública",
+  "opcoes": ["Escrituras de imóveis", "Procurações", "Reconhecimento de firma", "Cópias autenticadas"],
   "resumo": "Escrituras, procurações e outros atos notariais.",
-  "explicacao": "Documentos com fé pública: o tabelião confere quem você é, explica o que a lei exige e redige o documento, que passa a valer como prova segura.",
   "descricao": "O Tabelionato de Notas formaliza a vontade das pessoas em documentos com fé pública. O tabelião confere a identidade de quem assina, orienta sobre o que a lei exige e redige o ato, que passa a ter valor de prova e segurança jurídica. É aqui que se fazem escrituras, procurações, reconhecimentos de firma e autenticações.",
   "atos": [
     {

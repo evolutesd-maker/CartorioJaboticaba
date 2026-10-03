@@ -3,8 +3,11 @@
 Site estático (HTML + CSS + um pouco de JavaScript opcional), sem banco de dados, sem cookies e sem serviços de terceiros.
 Foi pensado para que a pessoa **encontre o serviço pelo assunto**, sem precisar saber os nomes jurídicos, e veja **os documentos necessários ato por ato** antes de ir ao cartório.
 
-- Azul `#0078d7` predominante, branco e detalhes discretos em dourado.
-- Funciona sem JavaScript (a busca e o menu recolhível são melhorias).
+- Azul `#0078d7` predominante, branco e detalhes discretos em dourado. Fonte Plus Jakarta Sans (licença OFL), hospedada no próprio site.
+- Leve: cerca de 49 KB compactados no primeiro acesso (HTML, CSS, JS e fonte), sem nenhuma requisição a terceiros.
+- Interface: cabeçalho translúcido, painel de busca flutuante sobre o hero, carrossel "Mais procurados" (setas, arrastar, teclado e toque), cartões com hover, chips flutuantes sobre a foto, botão flutuante de WhatsApp e lista de documentos que o visitante vai marcando.
+- Movimento só para quem não pede "reduzir movimento" no sistema.
+- Funciona sem JavaScript (busca, carrossel por botões, revelar ao rolar e menu recolhível são melhorias).
 - Passa na auditoria automática de acessibilidade (axe-core, WCAG 2.1 AA) em todas as páginas.
 
 ## Como funciona
@@ -15,12 +18,13 @@ O conteúdo fica em `content/` e o gerador (`build.mjs`, sem dependências) escr
 ```
 content/
   site.json              dados do cartório (telefone, horário, titular, CNS...) e o modo rascunho
-  temas.json             os 5 temas do localizador "O que você precisa fazer?"
+  temas.json             os 5 assuntos da página "Todos os serviços" (e do índice de busca)
+  destaques.json         os serviços do carrossel "Mais procurados" da página inicial
   especialidades/*.json  as 5 especialidades e, dentro de cada, os atos (serviços) com os documentos
   paginas/*.html         textos de "Institucional" e "Privacidade"
   modelos/               PDFs para download (opcional)
 src/
-  css/style.css  js/main.js  img/   aparência, comportamento e imagens (foto da fachada)
+  css/style.css  js/main.js  fonts/  img/   aparência, comportamento, fonte e imagens (foto da fachada)
 build.mjs                gerador
 scripts/check.mjs        verificador de links, âncoras, ids e alt de imagens
 scripts/serve.mjs        servidor local para pré-visualizar
@@ -65,6 +69,10 @@ e aparece no site com o selo "Em validação pelo cartório".
 3. Quando o cartório aprovar um ato, mude para `"validado": true` e, se quiser, `"revisadoEm": "AAAA-MM-DD"`.
 4. Quando tudo estiver pronto, mude `"rascunho"` para `false`. A partir daí **o build recusa publicar**
    se faltar qualquer dado obrigatório ou se algum ato ainda não estiver validado.
+
+### Cartões da página inicial
+
+Cada especialidade (`content/especialidades/*.json`) tem `tagline` (uma linha) e `opcoes` (3 a 4 itens curtos). São só isso que aparece no cartão da home; todo o resto fica na página da especialidade. O build recusa uma especialidade sem esses dois campos.
 
 ### Como editar um ato
 

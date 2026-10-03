@@ -14,6 +14,7 @@
 <meta property="og:title" content="Contato e localização | Tabelionato de Jaboticaba">
 <meta property="og:description" content="Endereço, horário de atendimento, telefone e rota até o Tabelionato de Jaboticaba, Rua Victielo Bisognin, 227 — Centro, Jaboticaba/RS.">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/PlusJakartaSans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 <script>document.documentElement.classList.add("js")</script>
 <script src="assets/js/main.js" defer></script>
@@ -54,19 +55,19 @@
     </div>
   </div>
   <section class="secao">
-    <div class="container atendimento">
-      <div>
-        <div class="caixa"><dl class="dados"><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Endereço</dt><dd><address>Rua Victielo Bisognin, 227 — Centro<br>Jaboticaba/RS — CEP 98350-000</address></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Horário de atendimento</dt><dd><span class="pendente">Horário a confirmar com o cartório</span></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Telefone</dt><dd><span class="pendente">Telefone a confirmar</span></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>WhatsApp</dt><dd><span class="pendente">WhatsApp a confirmar</span></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>E-mail</dt><dd><span class="pendente">E-mail a confirmar</span></dd></div></dl></div>
-        <div class="atendimento__acoes" style="margin-top:1.25rem">
+    <div class="container atend">
+      <div class="cartao-info">
+        <dl class="dados"><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Endereço</dt><dd><address>Rua Victielo Bisognin, 227 — Centro<br>Jaboticaba/RS — CEP 98350-000</address></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Horário de atendimento</dt><dd><span class="pendente">Horário a confirmar com o cartório</span></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Telefone</dt><dd><span class="pendente">Telefone a confirmar</span></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>WhatsApp</dt><dd><span class="pendente">WhatsApp a confirmar</span></dd></div><div><dt><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>E-mail</dt><dd><span class="pendente">E-mail a confirmar</span></dd></div></dl>
+        <div class="atend__acoes">
           <a class="btn btn--primario" href="https://www.google.com/maps/dir/?api=1&amp;destination=Rua%20Victielo%20Bisognin%2C%20227%2C%20Centro%2C%20Jaboticaba%20-%20RS%2C%2098350-000%2C%20Brasil" target="_blank" rel="noopener"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M7 17h7a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h7"/></svg>Abrir a rota no mapa<span class="sr-only"> (abre em nova aba)</span></a>
           
           <a class="btn btn--contorno" href="contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>Falar pelo WhatsApp</a>
         </div>
         <p class="nota-pequena">Confira sempre se o contato é um dos canais oficiais divulgados neste site.</p>
       </div>
-      <figure style="margin:0">
-        <img src="assets/img/fachada-placeholder.svg" width="1600" height="1100" alt="Espaço reservado para a foto da fachada do cartório" loading="lazy" style="border-radius:var(--raio);width:100%;aspect-ratio:16/11;object-fit:cover;box-shadow:var(--sombra)">
-        <figcaption class="nota-pequena">Procure pela fachada na Rua Victielo Bisognin, nº 227.</figcaption>
+      <figure class="atend__foto">
+        <img src="assets/img/fachada-placeholder.svg" width="1600" height="1100" alt="Espaço reservado para a foto da fachada do cartório" loading="lazy">
+        <figcaption><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Procure pela fachada na Rua Victielo Bisognin, nº 227</figcaption>
       </figure>
     </div>
   </section>
@@ -104,5 +105,6 @@
       <p>© 2026 Tabelionato de Jaboticaba. As orientações deste site são informativas e não substituem o atendimento: os requisitos podem variar conforme o caso.</p>
     </div>
   </footer>
+<aside aria-label="Atalho de contato"><a class="fab-whats" href="contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg><span>Falar no WhatsApp</span></a></aside>
 </body>
 </html>

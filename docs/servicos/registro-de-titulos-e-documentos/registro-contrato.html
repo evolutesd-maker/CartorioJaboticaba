@@ -14,6 +14,7 @@
 <meta property="og:title" content="Registrar um contrato ou documento: documentos necessários | Tabelionato de Jaboticaba">
 <meta property="og:description" content="Dê data certa, conservação e validade perante terceiros a contratos, declarações e outros documentos particulares. Veja os documentos necessários e como funciona (Registro de Títulos e Documentos).">
 <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../../assets/fonts/PlusJakartaSans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../../assets/css/style.css">
 <script>document.documentElement.classList.add("js")</script>
 <script src="../../assets/js/main.js" defer></script>
@@ -55,11 +56,14 @@
   </div>
   <div class="container pagina">
     <article class="pagina__principal">
-      <section id="quando"><h2>Quando é necessário</h2><p>Contratos de locação, comodato, promessas de compra e venda e outros documentos que você quer guardar com segurança, com prova de existência e data, ou que a lei exige registrar para valer contra terceiros.</p></section>
+      <nav aria-label="Nesta página"><ul class="ancoras"><li><a href="#documentos">Documentos</a></li><li><a href="#como-funciona">Como funciona</a></li><li><a href="#prazo-custo">Prazo e custo</a></li><li><a href="#duvidas">Dúvidas</a></li></ul></nav>
 
-      <section id="documentos">
+      <section id="quando"><h2>Quando é necessário</h2><p class="resumo-ato">Contratos de locação, comodato, promessas de compra e venda e outros documentos que você quer guardar com segurança, com prova de existência e data, ou que a lei exige registrar para valer contra terceiros.</p></section>
+
+      <section id="documentos" data-checklist>
         <h2>Documentos necessários <span class="selo selo--validacao no-print">Em validação pelo cartório</span></h2>
-        <div class="checklist-grupo"><h3>O que levar</h3><ul class="checklist"><li>O documento a ser registrado, já assinado. O cartório informa quantas vias são necessárias.</li><li>Documento de identificação oficial com foto de quem apresenta, e CPF ou CNPJ</li><li>Se for empresa: documento que comprove os poderes de quem apresenta</li><li>Se o documento estiver em língua estrangeira: tradução juramentada</li></ul></div>
+        <div class="progresso"><span data-progresso-texto role="status"></span><span class="progresso__barra"><i data-progresso-barra></i></span></div>
+        <div class="checklist-grupo"><h3>O que levar</h3><ul class="checklist"><li><label><input type="checkbox"><span class="checklist__texto">O documento a ser registrado, já assinado. O cartório informa quantas vias são necessárias.</span></label></li><li><label><input type="checkbox"><span class="checklist__texto">Documento de identificação oficial com foto de quem apresenta, e CPF ou CNPJ</span></label></li><li><label><input type="checkbox"><span class="checklist__texto">Se for empresa: documento que comprove os poderes de quem apresenta</span></label></li><li><label><input type="checkbox"><span class="checklist__texto">Se o documento estiver em língua estrangeira: tradução juramentada</span></label></li></ul></div>
         <p class="nota-final">O cartório pode pedir documentos adicionais conforme o caso. Na dúvida, fale com o atendimento antes de vir.</p>
         <p class="no-print"><button class="btn btn--contorno so-js" type="button" data-imprimir><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3h10v6"/><rect x="4" y="9" width="16" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg>Imprimir esta lista</button></p>
       </section>
@@ -85,10 +89,10 @@
     </article>
 
     <aside class="pagina__lateral" aria-label="Ajuda e serviços relacionados">
-      <div class="lateral-card">
+      <div class="lateral-card lateral-card--ajuda">
         <h2>Ficou com dúvida?</h2>
         <p>Fale com o cartório antes de vir. É rápido e evita uma viagem perdida.</p>
-        <a class="btn btn--primario btn--cheio" href="../../contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>Falar pelo WhatsApp</a>
+        <a class="btn btn--claro btn--cheio" href="../../contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>Falar pelo WhatsApp</a>
         
         <p class="nota-pequena">Rua Victielo Bisognin, 227 — Centro<br>Jaboticaba/RS — CEP 98350-000</p>
       </div>
@@ -129,5 +133,6 @@
       <p>© 2026 Tabelionato de Jaboticaba. As orientações deste site são informativas e não substituem o atendimento: os requisitos podem variar conforme o caso.</p>
     </div>
   </footer>
+<aside aria-label="Atalho de contato"><a class="fab-whats" href="../../contato.html"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11h-9l-4 4v-4H4z"/></svg><span>Falar no WhatsApp</span></a></aside>
 </body>
 </html>

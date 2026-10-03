@@ -4,8 +4,9 @@
   "nome": "Protesto de Títulos",
   "nomeCompleto": "Tabelionato de Protesto de Títulos",
   "icone": "protesto",
+  "tagline": "Dívidas e títulos",
+  "opcoes": ["Consultar um protesto", "Pagar uma dívida", "Cancelar um protesto", "Cobrar um devedor"],
   "resumo": "Informações sobre apresentação, pagamento e cancelamento.",
-  "explicacao": "Dívidas em cheques, duplicatas e outros documentos: como pagar, cancelar ou cobrar.",
   "descricao": "O Tabelionato de Protesto recebe títulos e documentos de dívida (como cheques, duplicatas, notas promissórias e certidões de dívida) e comunica o devedor para que pague. O protesto serve para comprovar publicamente que a dívida não foi paga. Aqui você pode consultar se há protesto em seu nome, pagar uma dívida, pedir o cancelamento ou cobrar o que tem a receber.",
   "atos": [
     {
