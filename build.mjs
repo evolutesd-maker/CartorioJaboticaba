@@ -13,6 +13,7 @@
  */
 import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const RAIZ = dirname(fileURLToPath(import.meta.url));
@@ -103,7 +104,7 @@ const ICONES = {
   rota: '<path d="M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M7 17h7a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h7"/>',
 };
 const icone = (nome) =>
-  `<svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICONES[nome] || ""}</svg>`;
+  `<svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${(ICONES[nome] || "").replace(/<(path|circle|rect)\b/g, '<$1 pathLength="1"')}</svg>`;
 
 const SELO = `<svg class="marca__selo" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="22" fill="#0078d7"/><circle cx="24" cy="24" r="19" fill="none" stroke="#e3c277" stroke-width="1.5"/><text x="24" y="32" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="23" font-weight="700" fill="#fff">J</text></svg>`;
 
@@ -124,6 +125,12 @@ const fotoReal = FOTO_EXT.map((x) => `fachada.${x}`).find((n) => existsSync(join
 const fachada = fotoReal
   ? { src: `assets/img/${fotoReal}`, real: true }
   : { src: "assets/img/fachada-placeholder.svg", real: false };
+const fachadaPequena = fachada.real && existsSync(join(RAIZ, "src/img", fotoReal.replace(/(\.\w+)$/, "-720$1")))
+  ? fachada.src.replace(/(\.\w+)$/, "-720$1")
+  : null;
+/** <img> da fachada; com a versão "-720" disponível, o celular baixa só ~20 KB. */
+const imgFachada = (c, { sizes, eager = false }) =>
+  `<img src="${c.u(fachada.src)}"${fachadaPequena ? ` srcset="${c.u(fachadaPequena)} 720w, ${c.u(fachada.src)} 1441w" sizes="${sizes}"` : ""} width="1441" height="642" alt="${esc(fachadaAlt)}" ${eager ? 'fetchpriority="high" decoding="async"' : 'loading="lazy" decoding="async"'}>`;
 const fachadaAlt = fachada.real
   ? `Fachada do ${site.nome}, na ${end.logradouro}, ${end.numero}`
   : "Espaço reservado para a foto da fachada do cartório";
@@ -165,15 +172,52 @@ const ctx = (caminho) => {
 
 const FONTE = "assets/fonts/PlusJakartaSans-latin-wght.woff2";
 
+// Único script inline: marca "js" antes da primeira pintura e define a direção da troca de página.
+const SCRIPT_INLINE = 'document.documentElement.classList.add("js");(function(){var R=document.documentElement;function tipo(e){var a=e&&e.activation?e.activation:(window.navigation&&navigation.activation);R.classList.toggle("vt-voltar",!!a&&a.navigationType==="traverse")}addEventListener("pageswap",tipo);addEventListener("pagereveal",tipo)})()';
+const HASH_INLINE = "sha256-" + createHash("sha256").update(SCRIPT_INLINE).digest("base64");
+// Pré-carrega as páginas do próprio site quando o visitante aproxima o mouse ou toca (só links internos).
+const SPECULATION = JSON.stringify({ prefetch: [{ where: { and: [{ href_matches: "/*" }, { not: { selector_matches: "[target=_blank]" } }] }, eagerness: "moderate" }] });
+const HASH_SPECULATION = "sha256-" + createHash("sha256").update(SPECULATION).digest("base64");
+// Política de segurança de conteúdo: nada de terceiros, nada de estilo ou script inline além do hash acima.
+const CSP_DIRETIVAS = [
+  "default-src 'none'",
+  `script-src 'self' '${HASH_INLINE}' '${HASH_SPECULATION}'`,
+  "style-src 'self'",
+  "img-src 'self'",
+  "font-src 'self'",
+  "connect-src 'none'",
+  "media-src 'none'",
+  "object-src 'none'",
+  "frame-src 'none'",
+  "worker-src 'none'",
+  "manifest-src 'none'",
+  "form-action 'none'",
+  "base-uri 'none'",
+];
+const CSP_META = CSP_DIRETIVAS.join("; ");
+const CSP_CABECALHO = [...CSP_DIRETIVAS, "frame-ancestors 'none'", "upgrade-insecure-requests"].join("; ");
+
+// Minificação simples e segura (sem dependências): tira comentários e espaços sobrando.
+const minCss = (s) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\s+/g, " ").replace(/\s*([{};])\s*/g, "$1").replace(/;}/g, "}").replace(/,\s+/g, ",").trim();
+const minJs = (s) => s.replace(/\/\*[\s\S]*?\*\//g, "").split("\n").filter((l) => !/^\s*\/\//.test(l)).map((l) => l.trim()).filter(Boolean).join("\n");
+const MINIFICAR = process.env.MINIFICAR !== "0";
+const cssFonte = lerTexto("src/css/style.css");
+const jsFonte = lerTexto("src/js/main.js");
+const CSS_SAIDA = MINIFICAR ? minCss(cssFonte) : cssFonte;
+const JS_SAIDA = MINIFICAR ? minJs(jsFonte) : jsFonte;
+const versao = (s) => createHash("sha256").update(s).digest("hex").slice(0, 10);
+const V_CSS = versao(CSS_SAIDA);
+const V_JS = versao(JS_SAIDA);
+
 function botaoWhats(c, msg, { classe = "btn btn--primario", rotulo = "Falar pelo WhatsApp" } = {}) {
   const href = waUrl(msg);
-  if (href) return `<a class="${classe}" href="${esc(href)}" target="_blank" rel="noopener">${icone("chat")}${esc(rotulo)}</a>`;
+  if (href) return `<a class="${classe}" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${icone("chat")}${esc(rotulo)}</a>`;
   return `<a class="${classe}" href="${c.u("contato.html")}">${icone("chat")}${esc(rotulo)}</a>`;
 }
 const botaoLigar = (classe = "btn btn--contorno") =>
   telHref ? `<a class="${classe}" href="${telHref}">${icone("telefone")}Ligar para o cartório</a>` : "";
 const botaoRota = (classe = "btn btn--primario") =>
-  `<a class="${classe}" href="${esc(rotaUrl)}" target="_blank" rel="noopener">${icone("rota")}Abrir a rota no mapa<span class="sr-only"> (abre em nova aba)</span></a>`;
+  `<a class="${classe}" href="${esc(rotaUrl)}" target="_blank" rel="noopener noreferrer">${icone("rota")}Abrir a rota no mapa<span class="sr-only"> (abre em nova aba)</span></a>`;
 
 function dadosContato({ email = true } = {}) {
   const linhas = [];
@@ -193,7 +237,7 @@ function dadosContato({ email = true } = {}) {
   if (tel) linhas.push(`<div><dt>${icone("telefone")}Telefone</dt><dd>${tel}</dd></div>`);
 
   const zap = site.whatsapp
-    ? `<a href="${esc(waUrl(MSG_PADRAO))}" target="_blank" rel="noopener">${esc(site.whatsapp)}</a>`
+    ? `<a href="${esc(waUrl(MSG_PADRAO))}" target="_blank" rel="noopener noreferrer">${esc(site.whatsapp)}</a>`
     : aConfirmar("WhatsApp a confirmar");
   if (zap) linhas.push(`<div><dt>${icone("chat")}WhatsApp</dt><dd>${zap}</dd></div>`);
 
@@ -240,7 +284,7 @@ function localizador(c, { agrupar, id }) {
   const html = grupos
     .map(
       (g, i) => `
-      <section class="grupo" data-finder-grupo aria-labelledby="${id}-${g.id}" data-reveal style="--i:${i % 3}">
+      <section class="grupo" data-finder-grupo aria-labelledby="${id}-${g.id}" data-reveal>
         <h3 id="${id}-${g.id}">${icone(g.icone)}<span>${g.href ? `<a href="${g.href}">${esc(g.titulo)}</a>` : esc(g.titulo)}</span></h3>
         <p class="grupo__desc">${esc(g.descricao)}</p>
         <ul class="lista-links">${g.itens.join("")}</ul>
@@ -283,7 +327,7 @@ function faixa(c, { trilha, eyebrow, titulo, sub, lead, deco }) {
 const rodapeCanais = () => {
   const l = [];
   l.push(site.telefone ? `<li>Telefone: <a href="${telHref}">${esc(site.telefone)}</a></li>` : rascunho ? `<li>${aConfirmar("Telefone a confirmar")}</li>` : "");
-  l.push(site.whatsapp ? `<li>WhatsApp: <a href="${esc(waUrl(MSG_PADRAO))}" target="_blank" rel="noopener">${esc(site.whatsapp)}</a></li>` : rascunho ? `<li>${aConfirmar("WhatsApp a confirmar")}</li>` : "");
+  l.push(site.whatsapp ? `<li>WhatsApp: <a href="${esc(waUrl(MSG_PADRAO))}" target="_blank" rel="noopener noreferrer">${esc(site.whatsapp)}</a></li>` : rascunho ? `<li>${aConfirmar("WhatsApp a confirmar")}</li>` : "");
   l.push(site.email ? `<li>E-mail: <a href="mailto:${esc(site.email)}">${esc(site.email)}</a></li>` : rascunho ? `<li>${aConfirmar("E-mail a confirmar")}</li>` : "");
   return l.join("");
 };
@@ -350,8 +394,10 @@ function rodape(c) {
 
 function botaoFlutuante(c) {
   const href = waUrl(MSG_PADRAO);
-  const alvo = href ? `href="${esc(href)}" target="_blank" rel="noopener"` : `href="${c.u("contato.html")}"`;
-  return `<aside aria-label="Atalho de contato"><a class="fab-whats" ${alvo}>${icone("chat")}<span>Falar no WhatsApp</span></a></aside>`;
+  const alvo = href ? `href="${esc(href)}" target="_blank" rel="noopener noreferrer"` : `href="${c.u("contato.html")}"`;
+  return `<aside aria-label="Atalhos de contato e navegação">
+<button class="topo-voltar" type="button" hidden aria-label="Voltar ao topo"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle class="topo-voltar__trilho" cx="24" cy="24" r="21" pathLength="100"/><circle class="topo-voltar__prog" cx="24" cy="24" r="21" pathLength="100"/><path d="M17 27l7-7 7 7" pathLength="1"/></svg></button>
+<a class="fab-whats" ${alvo}>${icone("chat")}<span>Falar no WhatsApp</span></a></aside>`;
 }
 
 function layout(c, { titulo, descricao, corpo, ativo = "", noindex = false, jsonld = null, home = false }) {
@@ -366,6 +412,8 @@ function layout(c, { titulo, descricao, corpo, ativo = "", noindex = false, json
 <title>${esc(tituloCompleto)}</title>
 <meta name="description" content="${esc(descricao)}">
 <meta name="theme-color" content="#0078d7">
+<meta http-equiv="Content-Security-Policy" content="${esc(CSP_META)}">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 ${bloquear ? '<meta name="robots" content="noindex, nofollow">' : ""}
 ${canonical ? `<link rel="canonical" href="${esc(canonical)}">` : ""}
 <meta property="og:type" content="website">
@@ -375,9 +423,10 @@ ${canonical ? `<link rel="canonical" href="${esc(canonical)}">` : ""}
 <meta property="og:description" content="${esc(descricao)}">
 <link rel="icon" href="${c.u("assets/img/favicon.svg")}" type="image/svg+xml">
 <link rel="preload" href="${c.u(FONTE)}" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${c.u("assets/css/style.css")}">
-<script>document.documentElement.classList.add("js");(function(){var R=document.documentElement;function tipo(e){var a=e&&e.activation?e.activation:(window.navigation&&navigation.activation);R.classList.toggle("vt-voltar",!!a&&a.navigationType==="traverse")}addEventListener("pageswap",tipo);addEventListener("pagereveal",tipo)})()</script>
-<script src="${c.u("assets/js/main.js")}" defer></script>
+<link rel="stylesheet" href="${c.u("assets/css/style.css")}?v=${V_CSS}">
+<script>${SCRIPT_INLINE}</script>
+<script src="${c.u("assets/js/main.js")}?v=${V_JS}" defer></script>
+<script type="speculationrules">${SPECULATION}</script>
 ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld).replace(/</g, "\\u003c")}</script>` : ""}
 </head>
 <body>
@@ -415,7 +464,7 @@ function funilContato(c) {
       </div>
       <div class="funil" data-funil data-reveal>
         <p class="funil__sem-js">Para falar com o cartório, use os canais da <a href="${c.u("contato.html")}">página de contato</a>.</p>
-        <form class="funil__form" onsubmit="return false" novalidate>
+        <form class="funil__form" novalidate>
           <div class="funil__passos">
             <div class="funil__passo"><span class="funil__num">1</span><label for="f-nome">Qual é o seu nome?</label><input id="f-nome" type="text" maxlength="80" autocomplete="name" placeholder="Seu nome" data-f-nome></div>
             <div class="funil__passo"><span class="funil__num">2</span><label for="f-esp">Com qual setor você quer falar?</label><select id="f-esp" data-f-esp><option value="">Escolha a especialidade</option></select></div>
@@ -426,7 +475,7 @@ function funilContato(c) {
             <p class="funil__msg is-vazia" role="status" aria-live="polite" data-f-msg>Preencha os passos ao lado e a sua mensagem aparece aqui.</p>
             <p class="funil__rotulo">4. Como prefere falar?</p>
             <div class="funil__canais">
-              <a class="btn btn--primario" href="#falar" aria-disabled="true" data-f-whats target="_blank" rel="noopener">${icone("chat")}WhatsApp</a>
+              <a class="btn btn--primario" href="#falar" aria-disabled="true" data-f-whats target="_blank" rel="noopener noreferrer">${icone("chat")}WhatsApp</a>
               <a class="btn btn--contorno" href="#falar" aria-disabled="true" data-f-email>${icone("email")}E-mail</a>
             </div>
             <p class="funil__dica" role="status" aria-live="polite" data-f-dica></p>
@@ -441,7 +490,7 @@ function funilContato(c) {
 /** Cartão minimalista de especialidade: nome, uma linha e opções curtas; o cartão todo leva à página. */
 function cartaoEspecialidade(c, esp, i) {
   return `
-        <li class="esp-card" data-reveal style="--i:${i % 3}">
+        <li class="esp-card" data-reveal>
           <div class="esp-card__topo">
             <span class="esp-card__icone">${icone(esp.icone)}</span>
             <span class="esp-card__seta" aria-hidden="true">${icone("diagonal")}</span>
@@ -475,7 +524,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
         </div>
       </div>
       <figure class="hero__foto">
-        <div class="hero__moldura"><img src="${c.u(fachada.src)}" width="1441" height="642" alt="${esc(fachadaAlt)}" fetchpriority="high"></div>
+        <div class="hero__moldura">${imgFachada(c, { sizes: "(max-width: 52rem) 100vw, 45vw", eager: true })}</div>
         <div class="flutuante flutuante--a"><span class="flutuante__icone">${icone("arquivo")}</span><div><strong>5 especialidades</strong><small>no mesmo endereço</small></div></div>
         <div class="flutuante flutuante--b"><span class="flutuante__icone">${icone("check")}</span><div><strong>Documentos antes de vir</strong><small>lista para cada serviço</small></div></div>
       </figure>
@@ -555,17 +604,17 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
         <p>Consulte os documentos necessários, as orientações e os modelos disponíveis.</p>
       </div>
       <ul class="atalhos">
-        <li class="atalho" data-reveal style="--i:0">
+        <li class="atalho" data-reveal>
           <span class="atalho__icone">${icone("documento")}</span>
           <span class="atalho__texto"><a href="${c.u("documentos.html#consultar")}">Documentos necessários</a><span>Veja o que levar, serviço por serviço</span></span>
           ${icone("seta")}
         </li>
-        <li class="atalho" data-reveal style="--i:1">
+        <li class="atalho" data-reveal>
           <span class="atalho__icone">${icone("check")}</span>
           <span class="atalho__texto"><a href="${c.u("documentos.html#orientacoes")}">Orientações</a><span>O que conferir antes de sair de casa</span></span>
           ${icone("seta")}
         </li>
-        <li class="atalho" data-reveal style="--i:2">
+        <li class="atalho" data-reveal>
           <span class="atalho__icone">${icone("baixar")}</span>
           <span class="atalho__texto"><a href="${c.u("documentos.html#modelos")}">Modelos e formulários</a><span>${totalModelos ? "Baixe e preencha antes do atendimento" : "Em breve, para baixar e preencher"}</span></span>
           ${icone("seta")}
@@ -590,8 +639,8 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
           </div>
           <p class="nota-pequena">Confira sempre se o contato é um dos canais oficiais divulgados neste site.</p>
         </div>
-        <figure class="atend__foto" data-reveal style="--i:1">
-          <img src="${c.u(fachada.src)}" width="1441" height="642" alt="${esc(fachadaAlt)}" loading="lazy">
+        <figure class="atend__foto" data-reveal>
+          ${imgFachada(c, { sizes: "(max-width: 52rem) 100vw, 50vw" })}
           <figcaption>${icone("pin")}Procure pela fachada na ${esc(end.logradouro)}, nº ${esc(end.numero)}</figcaption>
         </figure>
       </div>
@@ -673,7 +722,7 @@ for (const esp of especialidades) {
         ${esp.atos
           .map(
             (a, i) => `
-        <li class="ato-card" data-reveal style="--i:${i % 3}">
+        <li class="ato-card" data-reveal>
           <span class="ato-card__icone">${icone(esp.icone)}</span>
           <h3><a href="${c.u(a.caminho)}">${esc(a.titulo)}</a></h3>
           <p class="ato-card__resumo">${esc(a.resumo)}</p>
@@ -682,13 +731,13 @@ for (const esp of especialidades) {
           )
           .join("")}
       </ul>
-      <div class="duas-colunas" style="margin-top:3.5rem">
+      <div class="duas-colunas duas-colunas--espaco">
         <div class="caixa" data-reveal>
           <h3>Não encontrou o que procura?</h3>
           <p>Fale com o cartório. O atendimento indica qual serviço atende o seu caso.</p>
           ${botaoWhats(c, `Olá! Preciso de informação sobre ${esp.nome}.`, { classe: "btn btn--primario", rotulo: "Falar com o cartório" })}
         </div>
-        <div class="caixa" data-reveal style="--i:1">
+        <div class="caixa" data-reveal>
           <h3>Outras especialidades</h3>
           <ul class="lista-links">
             ${outras.map((e) => `<li><a href="${c.u(e.caminho)}"><span class="lista-links__texto"><span class="lista-links__titulo">${esc(e.nomeCompleto)}</span><span class="lista-links__meta">${esc(e.tagline)}</span></span>${icone("seta")}</a></li>`).join("")}
@@ -844,7 +893,7 @@ for (const ato of atos.values()) {
             <li>Procuração, se for representar outra pessoa.</li>
           </ul>
         </div>
-        <div class="caixa" data-reveal style="--i:1">
+        <div class="caixa" data-reveal>
           <h3>${icone("documento")}Antes de sair de casa</h3>
           <ul class="lista-pontos">
             <li>Leve os documentos originais. Cópias só quando o cartório pedir.</li>
@@ -869,10 +918,10 @@ for (const ato of atos.values()) {
       <div class="secao__cab" data-reveal><p class="eyebrow">Modelos</p><h2 id="t-modelos">Modelos e formulários</h2></div>
       ${
         todosModelos.length
-          ? `<ul class="downloads" style="max-width:46rem">${todosModelos
+          ? `<ul class="downloads downloads--estreito">${todosModelos
               .map((m) => `<li><a href="${c.u("modelos/" + m.arquivo)}" download>${icone("baixar")}<span>${esc(m.titulo)}<small>PDF · ${esc(m.ato.esp.nome)} → ${esc(m.ato.titulo)}</small></span></a></li>`)
               .join("")}</ul>`
-          : `<div class="destaque" style="max-width:46rem"><p>Os modelos e formulários em PDF serão disponibilizados aqui assim que o cartório validar o conteúdo. Enquanto isso, fale com o atendimento para receber o modelo do seu caso.</p></div>`
+          : `<div class="destaque destaque--estreito"><p>Os modelos e formulários em PDF serão disponibilizados aqui assim que o cartório validar o conteúdo. Enquanto isso, fale com o atendimento para receber o modelo do seu caso.</p></div>`
       }
     </div>
   </section>`;
@@ -901,7 +950,7 @@ for (const ato of atos.values()) {
         <p class="nota-pequena">Confira sempre se o contato é um dos canais oficiais divulgados neste site.</p>
       </div>
       <figure class="atend__foto">
-        <img src="${c.u(fachada.src)}" width="1441" height="642" alt="${esc(fachadaAlt)}" loading="lazy">
+        ${imgFachada(c, { sizes: "(max-width: 52rem) 100vw, 50vw" })}
         <figcaption>${icone("pin")}Procure pela fachada na ${esc(end.logradouro)}, nº ${esc(end.numero)}</figcaption>
       </figure>
     </div>
@@ -945,16 +994,16 @@ for (const [arquivo, titulo, descricao] of [
 // ---------- Folha de revisão (só em rascunho): reúne todo o conteúdo para o cartório validar
 if (rascunho) {
   const c = ctx("revisao.html");
-  const linha = '<span style="display:block;border-bottom:1px solid var(--suave);height:1.6rem"></span>';
+  const linha = '<span class="rev-linha"></span>';
   const blocos = especialidades
     .map(
       (e) => `
-    <section style="margin-bottom:3rem"><h2>${esc(e.nomeCompleto)}</h2>
+    <section class="rev-sec"><h2>${esc(e.nomeCompleto)}</h2>
     ${e.atos
       .map(
         (a) => `
-      <article style="border:1px solid var(--linha);border-radius:var(--r-md);padding:1.25rem;margin-bottom:1.5rem;background:#fff;break-inside:avoid">
-        <h3>${esc(a.titulo)} <small style="font-weight:400;color:var(--suave)">(${esc(a.nomeTecnico)})</small></h3>
+      <article class="rev-art">
+        <h3>${esc(a.titulo)} <small class="rev-tec">(${esc(a.nomeTecnico)})</small></h3>
         <p>${esc(a.resumo)}</p>
         ${a.quando ? `<p><strong>Quando:</strong> ${esc(a.quando)}</p>` : ""}
         ${blocoDocumentos(a)}
@@ -990,8 +1039,10 @@ for (const p of paginas) {
 }
 
 // Ativos estáticos
-cpSync(join(RAIZ, "src/css"), join(SAIDA, "assets/css"), { recursive: true });
-cpSync(join(RAIZ, "src/js"), join(SAIDA, "assets/js"), { recursive: true });
+mkdirSync(join(SAIDA, "assets/css"), { recursive: true });
+mkdirSync(join(SAIDA, "assets/js"), { recursive: true });
+writeFileSync(join(SAIDA, "assets/css/style.css"), CSS_SAIDA);
+writeFileSync(join(SAIDA, "assets/js/main.js"), JS_SAIDA);
 cpSync(join(RAIZ, "src/img"), join(SAIDA, "assets/img"), { recursive: true });
 cpSync(join(RAIZ, "src/fonts"), join(SAIDA, "assets/fonts"), { recursive: true });
 if (existsSync(join(RAIZ, "src/public"))) cpSync(join(RAIZ, "src/public"), SAIDA, { recursive: true });
@@ -999,6 +1050,34 @@ const pastaModelos = join(RAIZ, "content/modelos");
 for (const arq of (existsSync(pastaModelos) ? readdirSync(pastaModelos) : []).filter((f) => /\.(pdf|docx?|odt)$/i.test(f))) {
   mkdirSync(join(SAIDA, "modelos"), { recursive: true });
   cpSync(join(pastaModelos, arq), join(SAIDA, "modelos", arq));
+}
+
+// Cabeçalhos de segurança para hospedagens que os aceitam (Netlify/Cloudflare Pages: _headers; Apache: .htaccess).
+const PERMISSOES = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), interest-cohort=()";
+const CABECALHOS = {
+  "Content-Security-Policy": CSP_CABECALHO,
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": PERMISSOES,
+  "Cross-Origin-Opener-Policy": "same-origin",
+  "Cross-Origin-Resource-Policy": "same-origin",
+  "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+};
+writeFileSync(
+  join(SAIDA, "_headers"),
+  `/*\n${Object.entries(CABECALHOS).map(([k, v]) => `  ${k}: ${v}`).join("\n")}\n\n/assets/css/*\n  Cache-Control: public, max-age=31536000, immutable\n/assets/js/*\n  Cache-Control: public, max-age=31536000, immutable\n/assets/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n/assets/img/*\n  Cache-Control: public, max-age=2592000\n`
+);
+writeFileSync(
+  join(SAIDA, ".htaccess"),
+  `# Gerado por build.mjs. Requer mod_headers e mod_rewrite.\nOptions -Indexes\n<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteCond %{HTTP_HOST} !^localhost(:\\d+)?$\nRewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\nRewriteRule (^|/)\\.(?!well-known) - [F]\n</IfModule>\n<IfModule mod_headers.c>\n${Object.entries(CABECALHOS).map(([k, v]) => `Header always set ${k} "${v}"`).join("\n")}\n<FilesMatch "\\.(css|js|woff2)$">\nHeader set Cache-Control "public, max-age=31536000, immutable"\n</FilesMatch>\n<FilesMatch "\\.(webp|svg|png|jpe?g)$">\nHeader set Cache-Control "public, max-age=2592000"\n</FilesMatch>\n</IfModule>\n`
+);
+writeFileSync(join(SAIDA, ".nojekyll"), "");
+const contatoSeg = site.emailSeguranca || site.email;
+if (contatoSeg) {
+  mkdirSync(join(SAIDA, ".well-known"), { recursive: true });
+  const expira = new Date(Date.now() + 365 * 24 * 3600 * 1000).toISOString();
+  writeFileSync(join(SAIDA, ".well-known/security.txt"), `Contact: mailto:${contatoSeg}\nExpires: ${expira}\nPreferred-Languages: pt-BR\n${site.url ? `Canonical: ${site.url.replace(/\/?$/, "/")}.well-known/security.txt\n` : ""}`);
 }
 
 // robots e sitemap

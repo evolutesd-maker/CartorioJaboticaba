@@ -1,0 +1,25 @@
+# Gerado por build.mjs. Requer mod_headers e mod_rewrite.
+Options -Indexes
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} !^localhost(:\d+)?$
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteRule (^|/)\.(?!well-known) - [F]
+</IfModule>
+<IfModule mod_headers.c>
+Header always set Content-Security-Policy "default-src 'none'; script-src 'self' 'sha256-s6OVGB0gLqXtvIWz4GT6V3Z70U3LIqF6e5AKbTrJuqM=' 'sha256-d4bT/6OpDGnIXBTr/SxPhvE4PrJjdmchMBJYaVh8els='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "DENY"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), interest-cohort=()"
+Header always set Cross-Origin-Opener-Policy "same-origin"
+Header always set Cross-Origin-Resource-Policy "same-origin"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+<FilesMatch "\.(css|js|woff2)$">
+Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+<FilesMatch "\.(webp|svg|png|jpe?g)$">
+Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+</IfModule>

@@ -39,7 +39,6 @@
   --linha: #e1e8ef;
   --fundo: #f6f9fc;
 
-  --r-sm: 10px;
   --r-md: 16px;
   --r-lg: 24px;
 
@@ -1213,7 +1212,6 @@ a:hover { color: var(--ouro-claro); }
 }
 .prosa > .nota-pequena { color: #d3e6f7; }
 .checklist-grupo h3 { color: #c4def5; }
-section > article[style] .checklist-grupo h3 { color: var(--suave); }
 
 /* ============================================================ Animações e refinamentos */
 
@@ -1269,7 +1267,6 @@ section > article[style] .checklist-grupo h3 { color: var(--suave); }
 @keyframes sobe { from { opacity: 0; translate: 0 26px; } to { opacity: 1; translate: 0 0; } }
 @keyframes foto-entra { from { opacity: 0; scale: 0.94; } to { opacity: 1; scale: 1; } }
 @keyframes pop { from { opacity: 0; scale: 0.7; } to { opacity: 1; scale: 1; } }
-@keyframes zoom-lento { from { transform: scale(1) translateX(0); } to { transform: scale(1.1) translateX(-2%); } }
 @keyframes deriva { from { transform: translate(0, 0) scale(1); } to { transform: translate(-6rem, 4rem) scale(1.15); } }
 @keyframes gira-entrada { from { transform: rotate(-120deg) scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
 
@@ -1343,3 +1340,83 @@ section > article[style] .checklist-grupo h3 { color: var(--suave); }
 .funil__canais .btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
 .funil__dica { margin: 0; font-size: 0.95rem; color: var(--suave); min-height: 1.4rem; }
 @media (max-width: 52rem) { .funil { grid-template-columns: 1fr; } .funil__canais { grid-template-columns: 1fr; } }
+
+/* ============================================================ Sem estilos inline (CSP): classes que os substituem */
+
+[data-reveal]:nth-child(3n + 2) { --i: 1; }
+[data-reveal]:nth-child(3n + 3) { --i: 2; }
+.duas-colunas--espaco { margin-top: 3.5rem; }
+.downloads--estreito, .destaque--estreito { max-width: 46rem; }
+.rev-sec { margin-bottom: 3rem; }
+.rev-art { border: 1px solid var(--linha); border-radius: var(--r-md); padding: 1.25rem; margin-bottom: 1.5rem; background: #fff; color: var(--tinta); break-inside: avoid; }
+.rev-art :is(h3, h4) { color: var(--azul-4); }
+.rev-art .checklist-grupo h3 { color: var(--suave); }
+.rev-tec { font-weight: 400; color: var(--suave); }
+.rev-linha { display: block; border-bottom: 1px solid var(--suave); height: 1.6rem; }
+
+/* ============================================================ Voltar ao topo (com anel de progresso de leitura) */
+
+.topo-voltar {
+  position: fixed;
+  right: clamp(1rem, 2.5vw, 1.75rem);
+  bottom: calc(clamp(1rem, 2.5vw, 1.75rem) + 4.7rem);
+  z-index: 59;
+  display: grid;
+  place-items: center;
+  width: 3.3rem; height: 3.3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--azul-2);
+  cursor: pointer;
+  box-shadow: 0 14px 30px -10px rgba(0, 10, 30, 0.65);
+  opacity: 0;
+  translate: 0 14px;
+  pointer-events: none;
+  transition: opacity 0.3s, translate 0.35s var(--ease), background-color 0.2s, color 0.2s;
+}
+.topo-voltar[hidden] { display: none; }
+.topo-voltar.is-visivel { opacity: 1; translate: 0 0; pointer-events: auto; }
+.topo-voltar:hover { background: var(--azul-2); color: #fff; translate: 0 -3px; }
+.topo-voltar svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+.topo-voltar__trilho { stroke: var(--azul-100); stroke-width: 3; }
+.topo-voltar__prog { stroke: var(--azul); stroke-width: 3; stroke-dasharray: 100; stroke-dashoffset: calc(100 - var(--prog, 0)); transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.15s linear; }
+.topo-voltar:hover .topo-voltar__trilho { stroke: rgba(255, 255, 255, 0.3); }
+.topo-voltar:hover .topo-voltar__prog { stroke: #fff; }
+.topo-voltar path { stroke-width: 3.2; }
+.topo-voltar:focus-visible { outline: 3px solid var(--ouro-claro); outline-offset: 3px; }
+@media (max-width: 40rem) { .topo-voltar { width: 3rem; height: 3rem; bottom: calc(clamp(1rem, 2.5vw, 1.75rem) + 4.4rem); } }
+@media print { .topo-voltar { display: none !important; } }
+
+/* ============================================================ Mais animações (todas desligadas com "reduzir movimento") */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Barra dourada de progresso de leitura no cabeçalho (CSS puro, onde há suporte) */
+  @supports (animation-timeline: scroll()) {
+    .topo::before { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; z-index: 1; height: 3px; background: linear-gradient(90deg, var(--ouro), var(--ouro-claro)); transform: scaleX(0); transform-origin: 0 50%; animation: leitura linear both; animation-timeline: scroll(root block); }
+  }
+  /* Brilho que varre os botões principais */
+  .btn--primario, .btn--claro { position: relative; overflow: hidden; }
+  .btn--primario::after, .btn--claro::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%); translate: -130% 0; transition: translate 0.8s var(--ease); pointer-events: none; }
+  .btn--primario:hover::after, .btn--claro:hover::after { translate: 130% 0; }
+  /* Botões "magnéticos": o JS define o translate; aqui só a suavização */
+  .hero__acoes .btn, .funil__canais .btn { transition-property: transform, box-shadow, background-color, color, border-color, translate; }
+  /* Ícones dos cartões se desenham ao aparecer */
+  .esp-card__icone :is(path, circle, rect) { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 1.2s var(--ease) 0.3s; }
+  .js .esp-card[data-reveal]:not(.is-visivel) :is(path, circle, rect) { stroke-dashoffset: 1; }
+  .faixa__deco :is(path, circle, rect) { stroke-dasharray: 1; animation: desenha 1.8s var(--ease) 0.3s both; }
+  /* Títulos das páginas internas entram em sequência */
+  .faixa .eyebrow, .faixa h1, .faixa__sub, .faixa__lead { animation: sobe 0.8s var(--ease) both; }
+  .faixa h1 { animation-delay: 0.08s; }
+  .faixa__sub { animation-delay: 0.16s; }
+  .faixa__lead { animation-delay: 0.22s; }
+  /* Filete dourado que cresce sob os títulos de seção */
+  .secao__cab h2::after { content: ""; display: block; width: 3.5rem; height: 3px; margin-top: 0.8rem; border-radius: 2px; background: var(--ouro-claro); transform-origin: 0 50%; transition: transform 0.9s var(--ease) 0.35s; }
+  .secao__cab--centro h2::after { margin-inline: auto; transform-origin: 50% 50%; }
+  .js .secao__cab[data-reveal]:not(.is-visivel) h2::after { transform: scaleX(0); }
+}
+@keyframes leitura { to { transform: scaleX(1); } }
+@keyframes desenha { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .secao__cab h2::after { content: ""; display: block; width: 3.5rem; height: 3px; margin-top: 0.8rem; background: var(--ouro-claro); } .secao__cab--centro h2::after { margin-inline: auto; } }
+.esp-card::before { background: radial-gradient(360px circle at var(--sx, 100%) var(--sy, 0%), var(--azul-100), transparent 65%), linear-gradient(180deg, #fff, var(--azul-50)); }

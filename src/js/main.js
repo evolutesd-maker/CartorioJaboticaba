@@ -316,6 +316,17 @@
       fotoEl.addEventListener("pointerleave", function () { fotoEl.style.setProperty("--mx", 0); fotoEl.style.setProperty("--my", 0); });
     }
 
+    // Botões principais "puxam" levemente na direção do mouse.
+    if (mouseFino) {
+      document.querySelectorAll(".hero__acoes .btn, .funil__canais .btn").forEach(function (btn) {
+        btn.addEventListener("pointermove", function (e) {
+          var r = btn.getBoundingClientRect();
+          btn.style.translate = ((e.clientX - r.left - r.width / 2) * 0.14).toFixed(1) + "px " + ((e.clientY - r.top - r.height / 2) * 0.22).toFixed(1) + "px";
+        });
+        btn.addEventListener("pointerleave", function () { btn.style.translate = ""; });
+      });
+    }
+
     // Cartões se inclinam em 3D acompanhando o mouse.
     if (mouseFino) {
       document.querySelectorAll(".esp-card, .ato-card, .cr-card").forEach(function (card) {
@@ -325,10 +336,12 @@
           card.classList.add("is-inclinando");
           card.style.setProperty("--ry", (x * 7).toFixed(2) + "deg");
           card.style.setProperty("--rx", (-y * 7).toFixed(2) + "deg");
+          card.style.setProperty("--sx", (e.clientX - r.left).toFixed(0) + "px");
+          card.style.setProperty("--sy", (e.clientY - r.top).toFixed(0) + "px");
         });
         card.addEventListener("pointerleave", function () {
           card.classList.remove("is-inclinando");
-          card.style.removeProperty("--rx"); card.style.removeProperty("--ry");
+          ["--rx", "--ry", "--sx", "--sy"].forEach(function (v) { card.style.removeProperty(v); });
         });
       });
     }
@@ -344,11 +357,13 @@
     var fNome = funilEl.querySelector("[data-f-nome]"), fEsp = funilEl.querySelector("[data-f-esp]"), fAto = funilEl.querySelector("[data-f-ato]");
     var fMsg = funilEl.querySelector("[data-f-msg]"), fDica = funilEl.querySelector("[data-f-dica]");
     var bZap = funilEl.querySelector("[data-f-whats]"), bMail = funilEl.querySelector("[data-f-email]");
+    funilEl.querySelector("form").addEventListener("submit", function (e) { e.preventDefault(); });
     d.esps.forEach(function (e, i) { var o = document.createElement("option"); o.value = i; o.textContent = e.nome; fEsp.appendChild(o); });
 
     function minuscula(t) { return t.charAt(0).toLowerCase() + t.slice(1); }
     function atual() {
-      var nome = fNome.value.trim().replace(/\s+/g, " ");
+      // Só letras, espaços, apóstrofo, ponto e hífen: nada de símbolos, links ou quebras de linha na mensagem.
+      var nome = fNome.value.replace(/[^\p{L}\p{M}\s'.-]/gu, "").replace(/\s+/g, " ").trim().slice(0, 80);
       var e = fEsp.value !== "" ? d.esps[+fEsp.value] : null;
       var a = e && fAto.value !== "" ? e.atos[+fAto.value] : null;
       return { nome: nome, esp: e, ato: a, pronto: !!(nome && e && a) };
@@ -399,6 +414,28 @@
       });
     });
     atualizar();
+  }
+
+  // ---- Voltar ao topo (com anel de progresso de leitura) ---------------------------
+  var voltar = document.querySelector(".topo-voltar");
+  if (voltar) {
+    var anel = voltar;
+    voltar.hidden = false;
+    var pendente = false;
+    var medir = function () {
+      pendente = false;
+      var altura = document.documentElement.scrollHeight - window.innerHeight;
+      anel.style.setProperty("--prog", altura > 0 ? Math.min(100, (window.scrollY / altura) * 100).toFixed(1) : 0);
+      voltar.classList.toggle("is-visivel", window.scrollY > 700);
+    };
+    window.addEventListener("scroll", function () { if (!pendente) { pendente = true; requestAnimationFrame(medir); } }, { passive: true });
+    window.addEventListener("resize", medir);
+    voltar.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: semMovimento ? "auto" : "smooth" });
+      var marca = document.querySelector(".marca");
+      if (marca) marca.focus({ preventScroll: true });
+    });
+    medir();
   }
 
   // ---- Imprimir ----------------------------------------------------------

@@ -35,7 +35,7 @@ for (const arq of paginas) {
   for (const m of html.matchAll(/\s(?:href|src)="([^"]*)"/g)) {
     const alvo = m[1];
     if (!alvo || /^(https?:|mailto:|tel:|data:|javascript:)/i.test(alvo)) continue;
-    const [caminhoBruto, ancora] = alvo.split("#");
+    const [caminhoBruto, ancora] = alvo.split("#").map((x, i) => (i === 0 ? x.split("?")[0] : x));
     const destino = caminhoBruto ? resolve(dirname(arq), caminhoBruto) : arq;
     const real = existsSync(destino) && statSync(destino).isDirectory() ? join(destino, "index.html") : destino;
     if (!existsSync(real)) { falha(`link quebrado → ${alvo}`); continue; }

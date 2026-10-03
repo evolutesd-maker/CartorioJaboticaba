@@ -4,7 +4,7 @@ Site estático (HTML + CSS + um pouco de JavaScript opcional), sem banco de dado
 Foi pensado para que a pessoa **encontre o serviço pelo assunto**, sem precisar saber os nomes jurídicos, e veja **os documentos necessários ato por ato** antes de ir ao cartório.
 
 - Azul `#0078d7` predominante, branco e detalhes discretos em dourado. Fonte Plus Jakarta Sans (licença OFL), hospedada no próprio site.
-- Leve: cerca de 49 KB compactados no primeiro acesso (HTML, CSS, JS e fonte), sem nenhuma requisição a terceiros.
+- Leve: cerca de 50 KB compactados no primeiro acesso (HTML, CSS, JS e fonte; a foto da fachada tem versão menor para celular), sem nenhuma requisição a terceiros. CSS e JS são minificados no build, com versão na URL para cache longo.
 - Interface: cabeçalho translúcido, painel de busca flutuante sobre o hero, carrossel "Mais procurados" (setas, arrastar, teclado e toque), cartões com hover, chips flutuantes sobre a foto, botão flutuante de WhatsApp e lista de documentos que o visitante vai marcando.
 - Movimento só para quem não pede "reduzir movimento" no sistema.
 - Funciona sem JavaScript (busca, carrossel por botões, revelar ao rolar e menu recolhível são melhorias).
@@ -27,6 +27,7 @@ src/
   css/style.css  js/main.js  fonts/  img/   aparência, comportamento, fonte e imagens (foto da fachada)
 build.mjs                gerador
 scripts/check.mjs        verificador de links, âncoras, ids e alt de imagens
+scripts/seguranca.mjs    verificador de segurança (CSP, inline, links externos, JS perigoso)
 scripts/serve.mjs        servidor local para pré-visualizar
 docs/                    SAÍDA, pronta para publicar
 ```
@@ -37,7 +38,7 @@ Comandos (Node 18 ou superior; nada para instalar):
 npm run build    # gera docs/ e lista as pendências
 npm run check    # verifica links e estrutura de docs/
 npm start        # gera e abre em http://localhost:8080
-npm test         # build + check
+npm test         # build + check (links) + seguranca
 ```
 
 ## O que ainda falta preencher
@@ -52,7 +53,7 @@ bloqueia buscadores (`noindex` + `robots.txt`) e gera `docs/revisao.html`.
 | **Horário de atendimento confirmado** | `content/site.json` → `horario`, ex.: `[{"dias": "Segunda a sexta", "horas": "8h às 11h30 e 13h às 17h"}]` |
 | Titular, CNS | `content/site.json` → `titular`, `cns` |
 | Encarregado de dados (LGPD) e data da política | `content/site.json` → `encarregadoLgpd`, `privacidadeAtualizadaEm` |
-| **Foto real da fachada** | salve em `src/img/fachada.jpg` (paisagem, cerca de 1600×1100). Substitui o espaço reservado sozinho. |
+| **Foto da fachada** | `src/img/fachada.webp` (1441 px) e `src/img/fachada-720.webp` (versão para celular, usada automaticamente). O original fica em `content/originais/`, que não é publicado. |
 | Logotipo | hoje é um selo "J" provisório (`SELO` em `build.mjs` e `src/img/favicon.svg`) |
 | Endereço público do site | `content/site.json` → `url` (gera `sitemap.xml` e links canônicos) |
 | Modelos em PDF | coloque o arquivo em `content/modelos/` e liste no ato: `"modelos": [{"titulo": "Modelo de procuração", "arquivo": "procuracao.pdf"}]` |
@@ -85,6 +86,21 @@ Cada ato em `content/especialidades/*.json` tem: `titulo` (como a pessoa fala), 
 `{"texto": "...", "obs": "..."}`), `passos`, `prazo`, `custo`, `perguntas`, `modelos` e `verTambem`.
 Para criar um ato novo: acrescente-o em `atos` e liste-o em um tema de `content/temas.json`
 (o build avisa se um ato não for encontrável pelo localizador).
+
+## Segurança
+
+O site é estático (sem servidor, banco ou login) e não usa nenhuma biblioteca de terceiros, o que elimina as classes de ataque mais comuns. Além disso:
+
+- **CSP estrita** em todas as páginas (`<meta http-equiv>`) e nos cabeçalhos gerados: `default-src 'none'`; scripts só do próprio site e dois hashes (o script inline mínimo e as regras de pré-carregamento); estilos só de arquivo; **nenhum** `unsafe-inline`/`unsafe-eval`; sem iframes, objetos, conexões externas nem `form-action`. Por isso o HTML não tem `style=`, `onclick=` etc.
+- **Cabeçalhos** (gerados em `docs/_headers` para Netlify/Cloudflare Pages e `docs/.htaccess` para Apache): CSP completa com `frame-ancestors 'none'`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy` (câmera, microfone, localização etc. desligados), COOP/CORP, HSTS e redirecionamento para HTTPS. **GitHub Pages não aceita cabeçalhos**: lá só vale a CSP em `<meta>`; para a proteção completa prefira Cloudflare Pages ou Netlify (ou seu servidor Apache/nginx).
+- **Entrada do visitante**: o único campo digitável (nome, no funil de contato) é limitado a 80 caracteres e só mantém letras, espaços, apóstrofo, ponto e hífen; vai para a tela como texto (nunca como HTML) e para o link com `encodeURIComponent`.
+- **Links externos** só para `wa.me` e Google Maps, sempre com `rel="noopener noreferrer"`. Nada é carregado de terceiros ao abrir uma página.
+- **Cache**: CSS e JS levam a versão do conteúdo na URL (`?v=...`) e podem ser guardados por 1 ano.
+- `/.well-known/security.txt` (contato para relatar falhas; usa `emailSeguranca` ou `email` de `content/site.json`; expira em 1 ano e é renovado a cada build).
+
+`npm run seguranca` (também parte de `npm test`) reprova o build se aparecer: página sem CSP ou com `unsafe-*`, script/estilo/evento inline, link `http://` ou para domínio fora da lista, `target=_blank` sem `noopener noreferrer`, `eval`/`innerHTML` dinâmico no JS ou cabeçalhos ausentes.
+
+Antes de publicar: use HTTPS (os cabeçalhos assumem isso), mantenha `docs/` como única pasta publicada (não publique `content/` nem `build.mjs`), troque `emailFormulario` e os dados de demonstração e, se o endereço do site mudar de domínio, preencha `url` em `content/site.json`.
 
 ## Publicação
 
