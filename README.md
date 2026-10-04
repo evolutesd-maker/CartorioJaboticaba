@@ -102,6 +102,12 @@ O site é estático (sem servidor, banco ou login) e não usa nenhuma biblioteca
 
 Antes de publicar: use HTTPS (os cabeçalhos assumem isso), mantenha `docs/` como única pasta publicada (não publique `content/` nem `build.mjs`), troque `emailFormulario` e os dados de demonstração e, se o endereço do site mudar de domínio, preencha `url` em `content/site.json`.
 
+## Skills de design e avaliação
+
+- `AVALIACAO-FRONTEND.md` traz a avaliação do front-end (pontos fortes medidos, achados priorizados, o que foi descartado por segurança).
+- `CLAUDE.md` fixa as regras para agentes: segurança acima de estética, zero dependências, skills só como sugestão.
+- Skills em `.agents/skills`: só a `frontend-design` (Apache-2.0) é versionada. As do pacote `taste-skill` (sem licença declarada) são reinstaladas com `npx skills add Leonxlnx/taste-skill -y`. **Sempre rode `npm run skills`** depois: ele compara cada arquivo com `.agents/skills.manifest.json` (hashes auditados) e reprova alteração, arquivo novo, script ou padrão de risco. Atualizar uma skill exige nova auditoria e novo manifesto.
+
 ## Publicação
 
 `docs/` é um site estático comum: pode ser enviado por FTP, ou servido por GitHub Pages (Settings → Pages →

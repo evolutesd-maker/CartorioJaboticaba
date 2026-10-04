@@ -11,7 +11,8 @@
     "build": "node build.mjs",
     "check": "node scripts/check.mjs",
     "start": "node build.mjs && node scripts/serve.mjs",
-    "test": "node build.mjs && node scripts/check.mjs && node scripts/seguranca.mjs",
-    "seguranca": "node scripts/seguranca.mjs"
+    "test": "node build.mjs && node scripts/check.mjs && node scripts/seguranca.mjs && node scripts/skills.mjs",
+    "seguranca": "node scripts/seguranca.mjs",
+    "skills": "node scripts/skills.mjs"
   }
 }
