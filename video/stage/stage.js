@@ -198,6 +198,7 @@ function cenaCamadas(cfg) {
         const n = el(`<div class="slab" style="width:${cfg.sw}px;height:${h}px;background-image:url(${l.img});background-size:${cfg.sw}px ${cfg.imgH * cfg.sw / 1920}px;background-position:0 ${-(l.y ?? 0) * cfg.sw / 1920}px"></div>`, c.stack);
         n.__h = h; return n;
       });
+      c.fundo = el(`<div class="abs" style="inset:0;opacity:0;background:radial-gradient(ellipse at 35% 55%,rgba(2,16,34,.35),rgba(2,16,34,.9))"></div>`, r);
       const CW = cfg.cw || 880;
       c.cards = cfg.camadas.map((l, i) => {
         const h = (l.h ?? cfg.sw * 9 / 16) * CW / cfg.sw;
@@ -213,26 +214,32 @@ function cenaCamadas(cfg) {
       const ativo = lt < cfg.t0 ? -1 : Math.min(n - 1, Math.floor((lt - cfg.t0) / cfg.por));
       const fim = lt > cfg.t0 + n * cfg.por;
       c.stack.style.transform = `rotateX(${lerp(8, cfg.rx, rot)}deg) rotateZ(${lerp(0, cfg.rz, rot)}deg) scale(${lerp(0.9, 1, rot)})`;
+      const PIN = cfg.pin || 1.1, POUT = 0.55;
+      const pcs = c.slabs.map((_, i) => { const u = lt - (cfg.t0 + i * cfg.por); if (u < 0) return 0; return seg(u, 0, PIN, E.io3) * (1 - seg(u, cfg.por - POUT, cfg.por, E.io3)); });
+      const foco = Math.max(0, ...pcs);
+      c.fundo.style.opacity = foco * 0.62;
       c.slabs.forEach((s, i) => {
         const z = (n - 1 - i) * cfg.gap;
         const drop = seg(lt, 0.3 + i * 0.16, 1.4 + i * 0.16, E.out5);
         const sep = seg(lt, 1.6, 3.0, E.io3);
-        const u = lt - (cfg.t0 + i * cfg.por);
-        const pin = seg(u, 0, 0.8, E.out5), pout = seg(u, cfg.por - 0.55, cfg.por, E.io3);
-        const pc = u < 0 ? 0 : pin * (1 - pout);
-        s.style.transform = `translateZ(${z * (0.18 + 0.82 * sep) + (1 - drop) * 380}px)`;
-        s.style.opacity = drop * (1 - 0.8 * pc) * (ativo >= 0 && !fim ? 0.7 : 1);
+        const pc = pcs[i];
+        // camadas acima da escolhida se abrem para o cartão sair do meio da pilha
+        let abre = 0; for (let j = i + 1; j < n; j++) abre = Math.max(abre, pcs[j]);
+        s.style.transform = `translateZ(${z * (0.18 + 0.82 * sep) + (1 - drop) * 380 + abre * 150}px)`;
+        s.style.opacity = drop * (1 - 0.85 * pc) * (1 - 0.55 * abre) * (ativo >= 0 && !fim ? 0.75 : 1);
         s.style.filter = "none";
-        // cartão que sai da pilha e vem à frente, nítido e de frente
         const cd = c.cards[i];
         if (pc <= 0.001) { cd.style.opacity = 0; return; }
-        const bb = s.getBoundingClientRect(); cd.__x = { cx: bb.left + bb.width / 2, cy: bb.top + bb.height / 2, w: bb.width };
-        const o = cd.__x; if (!o) return;
+        const bb = s.getBoundingClientRect();
+        const o = { cx: bb.left + bb.width / 2, cy: bb.top + bb.height / 2, w: bb.width };
         const tx = cfg.cx + cd.__w / 2, ty = cfg.cy + cd.__h / 2;
         const a = 1 - pc;
-        const sc = lerp(Math.min(1, o.w / cd.__w * 0.9), 1, pc);
-        cd.style.opacity = Math.min(1, pc * 2.2);
-        cd.style.transform = `translate(${(o.cx - tx) * a}px,${(o.cy - ty) * a}px) perspective(2600px) rotateX(${a * cfg.rx}deg) rotateZ(${a * cfg.rz}deg) scale(${sc})`;
+        const uu = lt - (cfg.t0 + i * cfg.por), vida = 1 + 0.025 * clamp((uu - PIN) / Math.max(0.1, cfg.por - PIN - POUT));
+        const sc = vida * lerp(Math.min(1, o.w / cd.__w * 0.85), 1, pc) * (1 + 0.035 * Math.sin(Math.PI * Math.min(1, pc)) * (a > 0 ? 1 : 0));
+        const arco = -Math.sin(Math.PI * pc) * 70 * (1 - Math.abs(pc - 0.5) * 0.0);
+        cd.style.opacity = seg(pc, 0, 0.3, E.out3);
+        cd.style.transform = `translate(${(o.cx - tx) * a}px,${(o.cy - ty) * a + (pc < 1 ? arco * (a > 0 ? 1 : 0) : 0)}px) perspective(2600px) rotateX(${a * cfg.rx}deg) rotateZ(${a * cfg.rz}deg) scale(${sc})`;
+        cd.style.filter = `brightness(${1 + 0.1 * a})`;
       });
       c.itEls.forEach((it, i) => {
         aparece(it, lt, 1.8 + i * 0.12, 2.5 + i * 0.12, { dx: 50, dy: 0 });
@@ -243,9 +250,9 @@ function cenaCamadas(cfg) {
 }
 // 6. Camadas: as 4 abas
 cenaCamadas({
-  id: "camadas-abas", cap: "Por dentro do site", titulo: "As quatro abas, uma a uma", dur: 15, imgH: 1080,
+  id: "camadas-abas", cap: "Por dentro do site", titulo: "As quatro abas, uma a uma", dur: 15.5, imgH: 1080,
   texto: "O site é dividido em camadas. Cada aba tem uma função clara dentro da jornada do cidadão.",
-  sx: 320, sy: 560, sw: 640, sh: 360, rx: 56, rz: -32, gap: 112, ix: 1180, iy: 250, iw: 640, t0: 4.2, por: 2.4, cx: 180, cy: 400, cw: 860,
+  sx: 320, sy: 560, sw: 640, sh: 360, rx: 56, rz: -32, gap: 112, ix: 1180, iy: 250, iw: 640, t0: 4.2, por: 2.5, pin: 1.2, cx: 110, cy: 350, cw: 1000, dur2: 0,
   camadas: [
     { img: "../.work/img/aba-inicio.png", nome: "Início", desc: "Apresenta o cartório, a busca e os serviços mais procurados." },
     { img: "../.work/img/aba-servicos.png", nome: "Serviços", desc: "Todos os atendimentos, por assunto ou por especialidade." },
@@ -269,9 +276,9 @@ cenaCamadas({
     ["Rodapé", "Links úteis e informações institucionais.", 4619, dados.altura - 4619],
   ];
   cenaCamadas({
-    id: "camadas-home", cap: "Por dentro do site", titulo: "Anatomia da página inicial", dur: 19, imgH: dados.altura,
+    id: "camadas-home", cap: "Por dentro do site", titulo: "Anatomia da página inicial", dur: 20.5, imgH: dados.altura,
     texto: "Cada seção da página tem um objetivo: informar, orientar ou levar o cidadão ao atendimento.",
-    sx: 360, sy: 600, sw: 520, sh: 349, rx: 54, rz: -34, gap: 66, ix: 1130, iy: 160, iw: 700, t0: 4.0, por: 1.75, cx: 150, cy: 360, cw: 860,
+    sx: 360, sy: 600, sw: 520, sh: 349, rx: 54, rz: -34, gap: 66, ix: 1130, iy: 160, iw: 700, t0: 4.0, por: 1.95, pin: 1.0, cx: 110, cy: 345, cw: 940,
     camadas: fatias.map(([nome, desc, y, h]) => ({ img: "../.work/img/home-inteira.png", nome, desc, y, h: Math.max(26, h * k) })),
   });
 }
