@@ -1,6 +1,6 @@
 // Sintetiza uma trilha instrumental suave (pad + arpejo + reverb) em WAV, 100% em JavaScript.
 import { writeFileSync } from "node:fs";
-const SR = 44100, DUR = Number(process.argv[2] || 150), N = SR * DUR;
+const SR = 44100, DUR = Number(process.argv[2] || 152), CHIME = Number(process.argv[4] || 143), N = SR * DUR;
 const L = new Float32Array(N), R = new Float32Array(N);
 const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
 const prog = [[57, 60, 64, 67], [53, 57, 60, 64], [48, 55, 60, 64], [55, 59, 62, 67]]; // Am7, Fmaj7, C, G
@@ -23,15 +23,27 @@ for (let i = 0; i < N; i++) {
   });
   // baixo
   const b = 0.12 * Math.sin(2 * Math.PI * hz(acorde[0] - 12) * t) * swell; l += b; r += b;
-  // arpejo (a cada 0,5 s)
-  const bt = Math.floor(t / 0.5), bl = t - bt * 0.5;
-  const nota = acorde[[0, 2, 1, 3, 2, 1, 3, 2][bt % 8]] + 24 + (bt % 16 === 6 ? 12 : 0);
-  const pl = 0.05 * env(bl, 0.005, 0.35) * Math.sin(2 * Math.PI * hz(nota) * t) * Math.min(1, Math.max(0, (t - 9) / 6));
-  const pan = 0.5 + 0.35 * Math.sin(bt * 0.9);
+  // arpejo em colcheias (0,25 s), entra aos poucos
+  const bt = Math.floor(t / 0.25), bl = t - bt * 0.25;
+  const idx = [0, 2, 1, 3, 2, 1, 3, 2, 0, 3, 1, 2, 3, 1, 2, 1][bt % 16];
+  const nota = acorde[idx] + 24 + (bt % 32 === 14 ? 12 : 0);
+  const pl = 0.06 * env(bl, 0.004, 0.22) * (Math.sin(2 * Math.PI * hz(nota) * t) + 0.25 * Math.sin(4 * Math.PI * hz(nota) * t)) * Math.min(1, Math.max(0, (t - 4) / 5));
+  const pan = 0.5 + 0.35 * Math.sin(bt * 0.7);
   l += pl * (1 - pan) * 1.6; r += pl * pan * 1.6;
+  // batida leve: bumbo nos tempos, chimbal nos contratempos, palma suave nos tempos 2 e 4
+  const ritmo = t > 10 && t < CHIME - 2.5 ? Math.min(1, (t - 10) / 8) : 0;
+  if (ritmo > 0) {
+    const be = Math.floor(t / 0.5), bk = t - be * 0.5;
+    const kick = 0.34 * Math.sin(2 * Math.PI * (50 * bk + (90 * (1 - Math.exp(-bk * 35))) / 35)) * Math.exp(-bk / 0.1);
+    const hk = ((t % 0.5) - 0.25); const chimbal = hk >= 0 ? (rnd() * 2 - 1) * 0.05 * Math.exp(-hk / 0.03) : 0;
+    const palma = be % 2 === 1 && ritmo > 0.6 ? (rnd() * 2 - 1) * 0.07 * Math.exp(-bk / 0.07) : 0;
+    const pulso = 0.05 * Math.sin(2 * Math.PI * hz(acorde[0] - 12) * t) * (bk < 0.25 ? 1 : 0.6);
+    const x = ritmo * (kick + palma + pulso);
+    l += x + chimbal * ritmo; r += x - chimbal * ritmo * 0.6;
+  }
   // brilho final (assinatura): acorde de C aberto + sinos quando a logo aparece
-  if (t > 140.8) {
-    const dt = t - 140.8;
+  if (t > CHIME) {
+    const dt = t - CHIME;
     for (const [m, o] of [[72, 0], [76, 0.18], [79, 0.36], [84, 0.54]]) {
       const x = dt - o; if (x > 0) { const s = 0.07 * env(x, 0.004, 1.6) * Math.sin(2 * Math.PI * hz(m) * t); l += s; r += s; }
     }

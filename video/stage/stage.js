@@ -21,6 +21,9 @@ async function carregarInfos() {
 }
 
 await carregarInfos();
+for (const u of ["aba-inicio", "aba-servicos", "aba-documentos", "aba-contato", "home-inteira"]) {
+  const im = new Image(); im.src = `/.work/img/${u}.png`; await im.decode().catch(() => {});
+}
 // ---------- fundo permanente ----------
 const bg = el(`<div class="bg"><div class="bg__grade"></div><div class="orb" style="width:700px;height:700px;background:#1a7be0;left:-150px;top:-200px"></div><div class="orb" style="width:600px;height:600px;background:#d9b45c;opacity:.18;right:-100px;bottom:-200px"></div></div>`, stage);
 const orbs = bg.querySelectorAll(".orb");
@@ -191,6 +194,12 @@ function cenaCamadas(cfg) {
         const n = el(`<div class="slab" style="width:${cfg.sw}px;height:${h}px;background-image:url(${l.img});background-size:${cfg.sw}px ${cfg.imgH * cfg.sw / 1920}px;background-position:0 ${-(l.y ?? 0) * cfg.sw / 1920}px"></div>`, c.stack);
         n.__h = h; return n;
       });
+      const CW = cfg.cw || 880;
+      c.cards = cfg.camadas.map((l, i) => {
+        const h = (l.h ?? cfg.sw * 9 / 16) * CW / cfg.sw;
+        const n = el(`<div class="destaque" style="width:${CW}px;height:${h}px;left:${cfg.cx}px;top:${cfg.cy}px;opacity:0;background-image:url(${l.img});background-size:${CW}px ${cfg.imgH * CW / 1920}px;background-position:0 ${-(l.y ?? 0) * CW / 1920}px"><span class="destaque__tag"><b>${i + 1}</b>${l.nome}</span></div>`, r);
+        n.__w = CW; n.__h = h; return n;
+      });
       c.itens = el(`<div class="itens" style="left:${cfg.ix}px;top:${cfg.iy}px;width:${cfg.iw}px"></div>`, r);
       c.itEls = cfg.camadas.map((l, i) => el(`<div class="item"><b>${i + 1}</b><div><strong>${l.nome}</strong><span>${l.desc}</span></div></div>`, c.itens));
     },
@@ -204,10 +213,22 @@ function cenaCamadas(cfg) {
         const z = (n - 1 - i) * cfg.gap;
         const drop = seg(lt, 0.3 + i * 0.16, 1.4 + i * 0.16, E.out5);
         const sep = seg(lt, 1.6, 3.0, E.io3);
-        const pop = ativo === i ? seg(lt, cfg.t0 + i * cfg.por, cfg.t0 + i * cfg.por + 0.5, E.out5) * (1 - seg(lt, cfg.t0 + (i + 1) * cfg.por - 0.4, cfg.t0 + (i + 1) * cfg.por)) : 0;
-        s.style.transform = `translateZ(${z * (0.18 + 0.82 * sep) + (1 - drop) * 380}px) translateX(${pop * 70}px)`;
-        s.style.opacity = drop * (ativo >= 0 && !fim && ativo !== i ? 0.58 : 1);
-        s.style.filter = ativo === i ? `brightness(${1 + 0.06 * pop}) drop-shadow(0 0 ${pop * 22}px rgba(240,214,143,.9))` : "none";
+        const u = lt - (cfg.t0 + i * cfg.por);
+        const pin = seg(u, 0, 0.8, E.out5), pout = seg(u, cfg.por - 0.55, cfg.por, E.io3);
+        const pc = u < 0 ? 0 : pin * (1 - pout);
+        s.style.transform = `translateZ(${z * (0.18 + 0.82 * sep) + (1 - drop) * 380}px)`;
+        s.style.opacity = drop * (1 - 0.8 * pc) * (ativo >= 0 && !fim ? 0.7 : 1);
+        s.style.filter = "none";
+        // cartão que sai da pilha e vem à frente, nítido e de frente
+        const cd = c.cards[i];
+        if (pc <= 0.001) { cd.style.opacity = 0; return; }
+        const bb = s.getBoundingClientRect(); cd.__x = { cx: bb.left + bb.width / 2, cy: bb.top + bb.height / 2, w: bb.width };
+        const o = cd.__x; if (!o) return;
+        const tx = cfg.cx + cd.__w / 2, ty = cfg.cy + cd.__h / 2;
+        const a = 1 - pc;
+        const sc = lerp(Math.min(1, o.w / cd.__w * 0.9), 1, pc);
+        cd.style.opacity = Math.min(1, pc * 2.2);
+        cd.style.transform = `translate(${(o.cx - tx) * a}px,${(o.cy - ty) * a}px) perspective(2600px) rotateX(${a * cfg.rx}deg) rotateZ(${a * cfg.rz}deg) scale(${sc})`;
       });
       c.itEls.forEach((it, i) => {
         aparece(it, lt, 1.8 + i * 0.12, 2.5 + i * 0.12, { dx: 50, dy: 0 });
@@ -220,7 +241,7 @@ function cenaCamadas(cfg) {
 cenaCamadas({
   id: "camadas-abas", cap: "Por dentro do site", titulo: "As quatro abas, uma a uma", dur: 15, imgH: 1080,
   texto: "O site é dividido em camadas. Cada aba tem uma função clara dentro da jornada do cidadão.",
-  sx: 320, sy: 560, sw: 640, sh: 360, rx: 56, rz: -32, gap: 112, ix: 1180, iy: 250, iw: 640, t0: 4.2, por: 2.4,
+  sx: 320, sy: 560, sw: 640, sh: 360, rx: 56, rz: -32, gap: 112, ix: 1180, iy: 250, iw: 640, t0: 4.2, por: 2.4, cx: 180, cy: 400, cw: 860,
   camadas: [
     { img: "../.work/img/aba-inicio.png", nome: "Início", desc: "Apresenta o cartório, a busca e os serviços mais procurados." },
     { img: "../.work/img/aba-servicos.png", nome: "Serviços", desc: "Todos os atendimentos, por assunto ou por especialidade." },
@@ -244,9 +265,9 @@ cenaCamadas({
     ["Rodapé", "Links úteis e informações institucionais.", 4619, dados.altura - 4619],
   ];
   cenaCamadas({
-    id: "camadas-home", cap: "Por dentro do site", titulo: "Anatomia da página inicial", dur: 17, imgH: dados.altura,
+    id: "camadas-home", cap: "Por dentro do site", titulo: "Anatomia da página inicial", dur: 19, imgH: dados.altura,
     texto: "Cada seção da página tem um objetivo: informar, orientar ou levar o cidadão ao atendimento.",
-    sx: 360, sy: 600, sw: 520, sh: 349, rx: 54, rz: -34, gap: 66, ix: 1130, iy: 160, iw: 700, t0: 4.0, por: 1.5,
+    sx: 360, sy: 600, sw: 520, sh: 349, rx: 54, rz: -34, gap: 66, ix: 1130, iy: 160, iw: 700, t0: 4.0, por: 1.75, cx: 150, cy: 360, cw: 860,
     camadas: fatias.map(([nome, desc, y, h]) => ({ img: "../.work/img/home-inteira.png", nome, desc, y, h: Math.max(26, h * k) })),
   });
 }
