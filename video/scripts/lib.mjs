@@ -57,7 +57,7 @@ export async function abrir({ largura = 1920, altura = 1080, movel = false } = {
 
 // Gravação por screencast (CDP): salva cada quadro com seu carimbo de tempo e depois
 // reamostra para 30 fps constantes (quadros repetidos onde nada mudou).
-export async function gravar(page, nome, fn, { fps = 30, qualidade = 94, largura = 1920, altura = 1080 } = {}) {
+export async function gravar(page, nome, fn, { fps = 60, qualidade = 94, largura = 1920, altura = 1080 } = {}) {
   const dir = join(CLIPES, nome);
   rmSync(dir, { recursive: true, force: true });
   mkdirSync(join(dir, "raw"), { recursive: true });
@@ -73,7 +73,8 @@ export async function gravar(page, nome, fn, { fps = 30, qualidade = 94, largura
   await cdp.send("Page.startScreencast", { format: "jpeg", quality: qualidade, maxWidth: largura, maxHeight: altura, everyNthFrame: 1 });
   await sleep(250);
   const t0 = Date.now();
-  await fn();
+  const eventos = [];
+  await fn((nomeEv) => eventos.push({ nome: nomeEv, t: +(0.25 + (Date.now() - t0) / 1000).toFixed(2) }));
   await sleep(300);
   const dur = (Date.now() - t0) / 1000;
   await cdp.send("Page.stopScreencast");
@@ -97,7 +98,8 @@ export async function gravar(page, nome, fn, { fps = 30, qualidade = 94, largura
   const total = readdirSync(join(dir, "f")).length;
   const real = fim - ini;
   console.log(`${nome}: ${quadros.length} quadros brutos (${(quadros.length / real).toFixed(1)}/s) -> ${total} quadros a ${fps} fps (${(total / fps).toFixed(1)} s; cena ${dur.toFixed(1)} s)`);
-  writeFileSync(join(dir, "info.json"), JSON.stringify({ quadros: total, fps, bruto: quadros.length }));
+  writeFileSync(join(dir, "info.json"), JSON.stringify({ quadros: total, fps, bruto: quadros.length, eventos }));
+  console.log(JSON.stringify(eventos));
   return total;
 }
 

@@ -49,11 +49,12 @@ const cenas = {
     await page.goto(SITE); await sleep(1200);
     await rolar(page, 480, 0.01);
     await sleep(300);
-    await gravar(page, "carrossel", async () => {
+    await gravar(page, "carrossel", async (m) => {
       await sleep(700);
       await irPara(page, ".carrossel__item:nth-child(2) .cr-card", 1100, -40, -30);
       await deslizar(page, pos.x + 80, pos.y + 40, 1000);
       await deslizar(page, pos.x - 60, pos.y + 10, 800);
+      m("seta-ini");
       await clicar(page, "[data-car-next]", 1000);
       await sleep(1300);
       await clicar(page, "[data-car-next]", 700);
@@ -62,6 +63,7 @@ const cenas = {
       await deslizar(page, pos.x + 100, pos.y + 30, 1000);
       await sleep(500);
       await clicar(page, "[data-car-prev]", 900);
+      m("seta-fim");
       await sleep(1500);
     });
   },
@@ -147,7 +149,7 @@ const cenas = {
     await page.goto(SITE); await sleep(1200);
     await rolar(page, "#atendimento", 0.01);
     await sleep(300);
-    await gravar(page, "funil", async () => {
+    await gravar(page, "funil", async (m) => {
       await sleep(400);
       await rolar(page, "#falar", 1900);
       await sleep(1300);
@@ -162,12 +164,18 @@ const cenas = {
       await irPara(page, "[data-f-ato]", 700);
       await sleep(250);
       await page.locator("[data-f-ato]").selectOption({ index: 2 });
+      m("msg-ini");
       await sleep(1700);
+      m("canais-ini");
       await irPara(page, "[data-f-whats]", 1000);
       await sleep(1500);
       await irPara(page, "[data-f-email]", 700);
       await sleep(1000);
-      await clicar(page, ".topo-voltar", 1100);
+      m("canais-fim");
+      await irPara(page, ".topo-voltar", 1100);
+      m("topo-ini");
+      await sleep(200);
+      await page.mouse.down(); await sleep(70); await page.mouse.up();
       await sleep(2600);
     });
   },

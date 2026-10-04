@@ -1,5 +1,5 @@
 // Palco do vídeo: renderiza qualquer quadro f de forma determinística (tempo = f / 30).
-const W = 1920, H = 1080, FPS = 30;
+const W = 1920, H = 1080, FPS = 60;
 const stage = document.getElementById("stage");
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const E = {
@@ -103,7 +103,7 @@ function cenaClipe(cfg) {
     },
     update(lt, c) {
       // quadro do clipe (com aceleração opcional)
-      const fi = Math.min(infos[cfg.clip].quadros - 1, Math.max(0, Math.round((cfg.from + lt * cfg.speed) * FPS)));
+      const fi = Math.min(infos[cfg.clip].quadros - 1, Math.max(0, Math.round((cfg.from + lt * cfg.speed) * infos[cfg.clip].fps)));
       setImg(c.img, frameUrl(cfg.clip, fi));
       // câmera
       const ks = cfg.cam || [{ t: 0, cx: 960, cy: 540, s: 1 }];
@@ -160,7 +160,11 @@ cenaClipe({
   clip: "carrossel", from: 0.8, speed: 1.3,
   bullets: [{ t: 1.8, txt: "Setas, arrastar com o mouse ou deslizar no celular" }, { t: 4.2, txt: "Cada cartão leva direto ao serviço" }, { t: 6.6, txt: "Os cartões se inclinam em 3D ao passar o mouse" }],
   cam: [{ t: 0, cx: 960, cy: 540, s: 1 }, { t: 1.4, cx: 960, cy: 600, s: 1.2 }, { t: 9, cx: 960, cy: 600, s: 1.2 }],
-  marks: [{ t0: 2.4, t1: 7.0, x: 1480, y: 760, dx: -300, dy: -110, text: "Navegação do carrossel", n: 1 }],
+  marks: [
+    { t0: 2.6, t1: 5.8, x: 1481, y: 325, dx: -300, dy: 0, text: "Avançar nos serviços", n: 1 },
+    { t0: 5.9, t1: 8.0, box: [411, 354, 1097, 205], text: "Cada cartão leva direto ao serviço", n: 2, dx: 0, dy: 158 },
+    { t0: 8.2, t1: 9.9, x: 1429, y: 325, dx: -300, dy: 0, text: "Voltar", n: 3 },
+  ],
 });
 // 4. Especialidades
 cenaClipe({
@@ -283,12 +287,16 @@ cenaClipe({
 });
 // 9. Funil de contato
 cenaClipe({
-  id: "funil", n: "07", cap: "Fale com o cartório", titulo: "Atendimento em três passos", dur: 15,
+  id: "funil", n: "07", cap: "Fale com o cartório", titulo: "Atendimento em três passos", dur: 16.5,
   texto: "O cidadão responde a três perguntas e a mensagem sai pronta, por WhatsApp ou e-mail.",
-  clip: "funil", from: 1.4, speed: 1.12,
-  bullets: [{ t: 3.0, txt: "Nome, setor e serviço desejado" }, { t: 7.0, txt: "A mensagem é montada automaticamente" }, { t: 10.4, txt: "Botão “voltar ao topo” com anel de progresso de leitura" }],
-  cam: [{ t: 0, cx: 960, cy: 540, s: 1 }, { t: 1.6, cx: 960, cy: 620, s: 1.3 }, { t: 11, cx: 960, cy: 620, s: 1.3 }, { t: 12.2, cx: 960, cy: 540, s: 1 }],
-  marks: [{ t0: 8.0, t1: 12.0, box: [1000, 440, 460, 120], text: "Mensagem pronta para enviar", n: "★", dx: -120, dy: -70 }],
+  clip: "funil", from: 1.4, speed: 1.2,
+  bullets: [{ t: 3.0, txt: "Nome, setor e serviço desejado" }, { t: 7.6, txt: "A mensagem é montada automaticamente" }, { t: 13.0, txt: "Botão “voltar ao topo” com anel de progresso de leitura" }],
+  cam: [{ t: 0, cx: 960, cy: 540, s: 1 }, { t: 1.6, cx: 960, cy: 620, s: 1.3 }, { t: 12.4, cx: 960, cy: 620, s: 1.3 }, { t: 13.4, cx: 960, cy: 540, s: 1 }],
+  marks: [
+    { t0: 8.0, t1: 11.6, box: [1045, 529, 354, 120], text: "Mensagem pronta", n: 1, dx: 262, dy: 30 },
+    { t0: 9.5, t1: 12.6, box: [1045, 705, 354, 52], text: "WhatsApp ou e-mail", n: 2, dx: 120, dy: 66 },
+    { t0: 13.5, t1: 15.8, x: 1865, y: 950, dx: -330, dy: -90, text: "Voltar ao topo", n: 3 },
+  ],
 });
 
 // 10. Celular e qualidades
@@ -313,7 +321,7 @@ add({
     c.cards = defs.map(([x, y, i, t, d]) => el(`<div class="card" style="left:${x}px;top:${y}px"><i><svg viewBox="0 0 24 24">${ic[i]}</svg></i><strong>${t}</strong><span>${d}</span></div>`, r));
   },
   update(lt, c) {
-    const fi = Math.min(infos.celular.quadros - 1, Math.max(0, Math.round((0.2 + lt * 0.95) * FPS)));
+    const fi = Math.min(infos.celular.quadros - 1, Math.max(0, Math.round((0.2 + lt * 0.95) * infos.celular.fps)));
     setImg(c.img, frameUrl("celular", fi));
     const p = seg(lt, 0.3, 1.5, E.out5);
     c.fone.style.opacity = p; c.fone.style.transform = `translateY(${(1 - p) * 80}px) scale(${0.9})`;

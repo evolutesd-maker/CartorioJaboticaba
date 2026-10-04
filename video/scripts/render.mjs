@@ -33,7 +33,7 @@ await Promise.all(pages.map(async (p, w) => {
   for (let k = w; k < frames.length; k += NW) {
     const f = frames[k];
     await p.evaluate((f) => window.renderFrame(f), f);
-    await p.screenshot({ path: join(outDir, String(f).padStart(5, "0") + ".jpg"), type: "jpeg", quality: 95 });
+    await p.screenshot({ path: join(outDir, String(f).padStart(5, "0") + ".jpg"), type: "jpeg", quality: 92 });
     if (++feitos % 100 === 0) console.log(`${feitos}/${frames.length}  ${((Date.now() - t0) / 1000).toFixed(0)}s`);
   }
 }));
