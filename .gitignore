@@ -1,3 +1,8 @@
 node_modules/
 .DS_Store
 *.log
+
+# Skills de terceiros instaladas localmente (npx skills add); não fazem parte do site
+.agents/
+.claude/skills/
+skills-lock.json
