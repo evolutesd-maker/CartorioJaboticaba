@@ -141,51 +141,85 @@
     atualizar();
   });
 
-  // ---- Busca com sugestões (combobox acessível) -----------------------------
-  var campoBusca = document.querySelector("[data-busca-input]");
-  var dadosBusca = document.getElementById("indice-busca");
-  if (campoBusca && dadosBusca) {
-    var servicos = [];
-    try { servicos = JSON.parse(dadosBusca.textContent); } catch (_) { servicos = []; }
-    servicos.forEach(function (s) { s.i = prepara(s.b).join(" "); });
+  // ---- Avisos discretos (toast) ------------------------------------------------
+  var areaAvisos = null;
+  function aviso(texto) {
+    if (!areaAvisos) {
+      areaAvisos = document.createElement("div");
+      areaAvisos.className = "avisos";
+      areaAvisos.setAttribute("role", "status");
+      areaAvisos.setAttribute("aria-live", "polite");
+      (document.querySelector('aside[aria-label^="Atalhos"]') || document.body).appendChild(areaAvisos);
+    }
+    var t = document.createElement("p");
+    t.className = "aviso";
+    t.textContent = texto;
+    areaAvisos.appendChild(t);
+    requestAnimationFrame(function () { t.classList.add("is-visivel"); });
+    setTimeout(function () { t.classList.remove("is-visivel"); setTimeout(function () { t.remove(); }, 400); }, 3500);
+  }
 
-    var painel = document.querySelector("[data-busca-painel]");
-    var lista = document.querySelector("[data-busca-lista]");
-    var vazio = document.querySelector("[data-busca-vazio]");
-    var status = document.querySelector("[data-busca-status]");
-    var ativo = -1;
-    var opcoes = [];
+  // ---- Índice de serviços ---------------------------------------------------------
+  // Na página inicial ele vem embutido; nas demais, é carregado só quando alguém abre a busca.
+  var indiceServicos = null;
+  var carregandoIndice = false;
+  var esperando = [];
+  function prepararIndice(lista, raiz) {
+    return lista.map(function (s) { return { t: s.t, e: s.e, u: raiz + s.u, d: s.d, i: prepara(s.b).join(" ") }; });
+  }
+  function obterIndice(pronto) {
+    if (indiceServicos) return pronto(indiceServicos);
+    var embutido = document.getElementById("indice-busca");
+    if (embutido) {
+      var bruto = [];
+      try { bruto = JSON.parse(embutido.textContent); } catch (_) { bruto = []; }
+      indiceServicos = prepararIndice(bruto, "");
+      return pronto(indiceServicos);
+    }
+    var caixa = document.querySelector("[data-paleta]");
+    if (!caixa) return pronto([]);
+    esperando.push(pronto);
+    if (carregandoIndice) return;
+    carregandoIndice = true;
+    var sc = document.createElement("script");
+    sc.src = caixa.getAttribute("data-indice");
+    var terminar = function (lista) {
+      indiceServicos = prepararIndice(lista, caixa.getAttribute("data-raiz") || "");
+      esperando.splice(0).forEach(function (f) { f(indiceServicos); });
+    };
+    sc.onload = function () { terminar(window.CJ_INDICE || []); };
+    sc.onerror = function () { carregandoIndice = false; terminar([]); indiceServicos = null; };
+    document.head.appendChild(sc);
+  }
+
+  // ---- Busca com sugestões (combobox acessível), usada no hero e na paleta -----------
+  function montarBusca(cfg) {
+    var campo = cfg.campo, painel = cfg.painel, lista = cfg.lista, vazio = cfg.vazio, status = cfg.status;
+    var ativo = -1, opcoes = [];
+    var prefixo = cfg.prefixo;
 
     function abrir(sim) {
+      if (cfg.fixo) return;
       painel.hidden = !sim;
-      campoBusca.setAttribute("aria-expanded", String(sim));
-      if (!sim) { ativo = -1; campoBusca.removeAttribute("aria-activedescendant"); }
+      campo.setAttribute("aria-expanded", String(sim));
+      if (!sim) { ativo = -1; campo.removeAttribute("aria-activedescendant"); }
     }
     function marcar(i) {
       opcoes.forEach(function (o, k) { o.setAttribute("aria-selected", k === i ? "true" : "false"); });
       ativo = i;
       if (i >= 0) {
-        campoBusca.setAttribute("aria-activedescendant", opcoes[i].id);
+        campo.setAttribute("aria-activedescendant", opcoes[i].id);
         opcoes[i].scrollIntoView({ block: "nearest" });
-      } else campoBusca.removeAttribute("aria-activedescendant");
+      } else campo.removeAttribute("aria-activedescendant");
     }
     function ir(el) { if (el && el.getAttribute("data-url")) window.location.href = el.getAttribute("data-url"); }
 
-    function desenhar() {
-      var termos = termosDaBusca(campoBusca.value);
-      if (!campoBusca.value.trim()) { abrir(false); status.textContent = ""; return; }
-
-      var pontos = servicos.map(function (s) { return pontuar(termos, s.i); });
-      var melhor = Math.max.apply(null, pontos.concat([0]));
-      var achados = [];
-      if (melhor > 0) servicos.forEach(function (s, i) { if (pontos[i] === melhor) achados.push(s); });
-      achados = achados.slice(0, 8);
-
+    function mostrar(achados, mensagem) {
       lista.innerHTML = "";
       achados.forEach(function (s, i) {
         var li = document.createElement("li");
         li.className = "busca__op";
-        li.id = "busca-op-" + i;
+        li.id = prefixo + "-op-" + i;
         li.setAttribute("role", "option");
         li.setAttribute("aria-selected", "false");
         li.setAttribute("data-url", s.u);
@@ -199,22 +233,43 @@
       });
       opcoes = Array.prototype.slice.call(lista.children);
       lista.hidden = achados.length === 0;
-      vazio.hidden = achados.length !== 0;
+      vazio.hidden = achados.length !== 0 || !!cfg.semVazio;
       ativo = -1;
-      abrir(true);
-      status.textContent = achados.length
-        ? achados.length + (achados.length === 1 ? " serviço encontrado." : " serviços encontrados.") + " Use as setas para escolher."
-        : "Nenhum serviço encontrado.";
+      campo.removeAttribute("aria-activedescendant");
+      status.textContent = mensagem;
     }
 
-    campoBusca.addEventListener("input", desenhar);
-    campoBusca.addEventListener("focus", function () { if (campoBusca.value.trim()) desenhar(); });
-    campoBusca.addEventListener("keydown", function (e) {
-      var aberto = !painel.hidden;
+    function desenhar() {
+      obterIndice(function (indice) {
+        var consulta = campo.value.trim();
+        if (!consulta) {
+          if (cfg.sugestoes) {
+            mostrar(indice.filter(function (s) { return s.d; }).slice(0, 6), "Serviços mais procurados.");
+            vazio.hidden = true;
+          } else { abrir(false); status.textContent = ""; }
+          return;
+        }
+        var termos = termosDaBusca(campo.value);
+        var pontos = indice.map(function (s) { return pontuar(termos, s.i); });
+        var melhor = Math.max.apply(null, pontos.concat([0]));
+        var achados = [];
+        if (melhor > 0) indice.forEach(function (s, i) { if (pontos[i] === melhor) achados.push(s); });
+        achados = achados.slice(0, 8);
+        mostrar(achados, achados.length
+          ? achados.length + (achados.length === 1 ? " serviço encontrado." : " serviços encontrados.") + " Use as setas para escolher."
+          : "Nenhum serviço encontrado.");
+        abrir(true);
+      });
+    }
+
+    campo.addEventListener("input", desenhar);
+    campo.addEventListener("focus", function () { if (campo.value.trim()) desenhar(); });
+    campo.addEventListener("keydown", function (e) {
+      var aberto = cfg.fixo || !painel.hidden;
       if (e.key === "ArrowDown" && opcoes.length) { e.preventDefault(); if (!aberto) abrir(true); marcar((ativo + 1) % opcoes.length); }
       else if (e.key === "ArrowUp" && opcoes.length) { e.preventDefault(); marcar(ativo <= 0 ? opcoes.length - 1 : ativo - 1); }
-      else if (e.key === "Enter") { if (aberto && opcoes.length) { e.preventDefault(); ir(opcoes[ativo >= 0 ? ativo : 0]); } else e.preventDefault(); }
-      else if (e.key === "Escape") { if (aberto) { e.preventDefault(); abrir(false); } }
+      else if (e.key === "Enter") { e.preventDefault(); if (aberto && opcoes.length) ir(opcoes[ativo >= 0 ? ativo : 0]); }
+      else if (e.key === "Escape" && !cfg.fixo && aberto) { e.preventDefault(); abrir(false); }
     });
     // mousedown (e não click) mantém o foco no campo e evita fechar antes de navegar.
     lista.addEventListener("mousedown", function (e) { e.preventDefault(); });
@@ -223,10 +278,20 @@
       var op = e.target.closest(".busca__op");
       if (op) marcar(opcoes.indexOf(op));
     });
-    document.addEventListener("click", function (e) {
-      if (!e.target.closest("[data-busca-servicos]")) abrir(false);
-    });
+    return { abrir: abrir, desenhar: desenhar, fechar: function () { abrir(false); } };
+  }
 
+  // Busca do hero (página inicial)
+  var campoBusca = document.querySelector("[data-busca-input]");
+  if (campoBusca) {
+    var buscaHero = montarBusca({
+      campo: campoBusca, prefixo: "busca",
+      painel: document.querySelector("[data-busca-painel]"), lista: document.querySelector("[data-busca-lista]"),
+      vazio: document.querySelector("[data-busca-vazio]"), status: document.querySelector("[data-busca-status]"),
+    });
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest("[data-busca-servicos]")) buscaHero.fechar();
+    });
     // O botão "Encontrar um serviço" leva ao campo e já o deixa pronto para digitar.
     document.querySelectorAll('a[href$="#encontrar"]').forEach(function (a) {
       a.addEventListener("click", function () {
@@ -234,6 +299,67 @@
       });
     });
   }
+
+  // ---- Paleta de busca (atalhos "/" e Ctrl/⌘+K, em qualquer página) --------------------
+  var paleta = document.querySelector("[data-paleta]");
+  if (paleta && typeof paleta.showModal === "function") {
+    var campoPaleta = paleta.querySelector("[data-paleta-input]");
+    var buscaPaleta = montarBusca({
+      campo: campoPaleta, prefixo: "paleta", fixo: true, sugestoes: true,
+      painel: paleta.querySelector("[data-paleta-painel]"), lista: paleta.querySelector("[data-paleta-lista]"),
+      vazio: paleta.querySelector("[data-paleta-vazio]"), status: paleta.querySelector("[data-paleta-status]"),
+    });
+    var abrirPaleta = function () {
+      if (paleta.open) return;
+      campoPaleta.value = "";
+      paleta.showModal();
+      buscaPaleta.desenhar();
+      campoPaleta.focus();
+    };
+    document.querySelectorAll("[data-abrir-paleta]").forEach(function (b) { b.hidden = false; b.addEventListener("click", abrirPaleta); });
+    paleta.addEventListener("click", function (e) { if (e.target === paleta) paleta.close(); }); // clique no fundo fecha
+    document.addEventListener("keydown", function (e) {
+      var digitando = e.target.closest && e.target.closest("input, textarea, select, [contenteditable]");
+      if ((e.key === "k" || e.key === "K") && (e.ctrlKey || e.metaKey) && !e.altKey) { e.preventDefault(); paleta.open ? paleta.close() : abrirPaleta(); }
+      else if (e.key === "/" && !digitando && !e.ctrlKey && !e.metaKey && !e.altKey) { e.preventDefault(); abrirPaleta(); }
+    });
+  }
+
+  // ---- "Aberto agora" ----------------------------------------------------------------
+  var DIAS = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
+  function hm(min) { var h = Math.floor(min / 60), m = min % 60; return h + "h" + (m ? (m < 10 ? "0" : "") + m : ""); }
+  function situacao(cfg, agora) {
+    var f = new Intl.DateTimeFormat("en-US", { timeZone: cfg.z, weekday: "short", hour: "numeric", minute: "numeric", hourCycle: "h23" }).formatToParts(agora);
+    var v = {}; f.forEach(function (p) { v[p.type] = p.value; });
+    var dia = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(v.weekday);
+    var min = (+v.hour % 24) * 60 + +v.minute;
+    if (cfg.d.indexOf(dia) !== -1) {
+      for (var i = 0; i < cfg.t.length; i++) {
+        if (min >= cfg.t[i][0] && min < cfg.t[i][1]) return { aberto: true, texto: "Fecha às " + hm(cfg.t[i][1]) };
+        if (min < cfg.t[i][0]) return { aberto: false, texto: "Abre hoje às " + hm(cfg.t[i][0]) };
+      }
+    }
+    for (var k = 1; k <= 7; k++) {
+      var d = (dia + k) % 7;
+      if (cfg.d.indexOf(d) !== -1) return { aberto: false, texto: "Abre " + (k === 1 ? "amanhã" : DIAS[d]) + " às " + hm(cfg.t[0][0]) };
+    }
+    return null;
+  }
+  var blocosAberto = [];
+  document.querySelectorAll("[data-expediente]").forEach(function (el) {
+    try { blocosAberto.push({ el: el, cfg: JSON.parse(el.getAttribute("data-expediente")) }); } catch (_) { /* sem expediente válido: mantém o texto estático */ }
+  });
+  function atualizarAberto() {
+    blocosAberto.forEach(function (b) {
+      var r = situacao(b.cfg, new Date());
+      if (!r) return;
+      b.el.setAttribute("data-estado", r.aberto ? "aberto" : "fechado");
+      var tit = b.el.querySelector("[data-aberto-titulo]"), det = b.el.querySelector("[data-aberto-detalhe]");
+      if (tit) tit.textContent = r.aberto ? "Aberto agora" : "Fechado agora";
+      if (det) det.textContent = r.texto;
+    });
+  }
+  if (blocosAberto.length) { atualizarAberto(); setInterval(atualizarAberto, 60000); }
 
   // ---- Filtro das listas de serviços (páginas Serviços e Documentos) -----------
   document.querySelectorAll("[data-finder]").forEach(function (finder) {
@@ -356,7 +482,8 @@
     var d = JSON.parse(funilDados.textContent);
     var fNome = funilEl.querySelector("[data-f-nome]"), fEsp = funilEl.querySelector("[data-f-esp]"), fAto = funilEl.querySelector("[data-f-ato]");
     var fMsg = funilEl.querySelector("[data-f-msg]"), fDica = funilEl.querySelector("[data-f-dica]");
-    var bZap = funilEl.querySelector("[data-f-whats]"), bMail = funilEl.querySelector("[data-f-email]");
+    var bZap = funilEl.querySelector("[data-f-whats]"), bMail = funilEl.querySelector("[data-f-email]"), bCopiar = funilEl.querySelector("[data-f-copiar]");
+    var ultimaMsg = "";
     funilEl.querySelector("form").addEventListener("submit", function (e) { e.preventDefault(); });
     d.esps.forEach(function (e, i) { var o = document.createElement("option"); o.value = i; o.textContent = e.nome; fEsp.appendChild(o); });
 
@@ -379,17 +506,19 @@
       marcar(fNome, !!x.nome); marcar(fEsp, !!x.esp); marcar(fAto, !!x.ato);
       if (x.pronto) {
         var m = mensagem(x);
+        ultimaMsg = m;
         fMsg.textContent = m; fMsg.classList.remove("is-vazia");
         bZap.href = d.wa ? "https://wa.me/" + d.wa + "?text=" + encodeURIComponent(m) : "#falar";
         bMail.href = "mailto:" + d.mail + "?subject=" + encodeURIComponent("Atendimento: " + x.ato.d) + "&body=" + encodeURIComponent(m);
         fDica.textContent = "Tudo pronto. Escolha por onde quer falar.";
       } else {
+        ultimaMsg = "";
         fMsg.textContent = "Preencha os passos ao lado e a sua mensagem aparece aqui.";
         fMsg.classList.add("is-vazia");
         bZap.href = "#falar"; bMail.href = "#falar";
         fDica.textContent = "";
       }
-      liberar(bZap, x.pronto && !!d.wa); liberar(bMail, x.pronto);
+      liberar(bZap, x.pronto && !!d.wa); liberar(bMail, x.pronto); liberar(bCopiar, x.pronto);
     }
     fEsp.addEventListener("change", function () {
       fAto.innerHTML = "";
@@ -412,6 +541,19 @@
           (!x.nome ? fNome : !x.esp ? fEsp : fAto).focus();
         }
       });
+    });
+    bCopiar.addEventListener("click", function () {
+      if (!ultimaMsg) { fDica.textContent = "Preencha os passos para copiar a mensagem."; return; }
+      var ok = function () { aviso("Mensagem copiada"); };
+      var falha = function () {
+        // Alternativa para navegadores sem permissão de área de transferência: seleciona o texto para copiar à mão.
+        var r = document.createRange(); r.selectNodeContents(fMsg);
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        var copiou = false;
+        try { copiou = document.execCommand("copy"); } catch (_) { copiou = false; }
+        aviso(copiou ? "Mensagem copiada" : "Texto selecionado: use Ctrl+C para copiar");
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ultimaMsg).then(ok, falha); else falha();
     });
     atualizar();
   }

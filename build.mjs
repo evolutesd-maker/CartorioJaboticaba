@@ -232,7 +232,7 @@ function dadosContato({ email = true } = {}) {
       `</dl>` +
       (site.horarioObservacao ? `<p class="nota-pequena">${esc(site.horarioObservacao)}</p>` : "");
   } else horario = aConfirmar("Horário a confirmar com o cartório");
-  if (horario) linhas.push(`<div><dt>${icone("relogio")}Horário de atendimento</dt><dd>${horario}</dd></div>`);
+  if (horario) linhas.push(`<div><dt>${icone("relogio")}Horário de atendimento</dt><dd>${horario}${seloAberto()}</dd></div>`);
 
   const tel = site.telefone ? `<a href="${telHref}">${esc(site.telefone)}</a>` : aConfirmar("Telefone a confirmar");
   if (tel) linhas.push(`<div><dt>${icone("telefone")}Telefone</dt><dd>${tel}</dd></div>`);
@@ -251,6 +251,22 @@ function dadosContato({ email = true } = {}) {
 
 const buscaIndexada = (ato) =>
   norm([ato.titulo, ato.nomeTecnico, ato.esp.nome, ato.esp.nomeCompleto, ato.tema && ato.tema.titulo, ...(ato.palavras || [])].filter(Boolean).join(" "));
+
+// Índice de busca (usado pela paleta em todas as páginas e embutido na página inicial)
+const INDICE = [...atos.values()].map((a) => ({ t: a.titulo, e: a.esp.nome, u: a.caminho, d: destaques.includes(a.id) ? 1 : 0, b: buscaIndexada(a) }));
+const INDICE_JS = `window.CJ_INDICE=${JSON.stringify(INDICE)};`;
+const V_INDICE = versao(INDICE_JS);
+
+// "Aberto agora": o navegador compara a hora de Brasília com este expediente (não considera feriados).
+const paraMinutos = (hhmm) => { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; };
+const EXPEDIENTE = site.expediente
+  ? JSON.stringify({ d: site.expediente.dias, t: site.expediente.turnos.map(([i, f]) => [paraMinutos(i), paraMinutos(f)]), z: site.expediente.fuso || "America/Sao_Paulo" })
+  : null;
+const horasTexto = site.horario && site.horario[0] ? site.horario[0].horas : "";
+const seloAberto = () =>
+  EXPEDIENTE
+    ? `<p class="aberto" data-expediente="${esc(EXPEDIENTE)}"><span class="aberto__ponto" aria-hidden="true"></span><strong data-aberto-titulo>Atendimento</strong><span data-aberto-detalhe>${esc(horasTexto)}</span></p>`
+    : "";
 
 function itemLocalizador(c, ato, meta) {
   return (
@@ -351,6 +367,7 @@ function cabecalho(c, ativo) {
           ${item("documentos", "Documentos", "documentos.html")}
           ${item("contato", "Contato", "contato.html")}
         </ul>
+        <button class="busca-btn" type="button" hidden data-abrir-paleta aria-label="Buscar serviço ou documento">${icone("lupa")}<span>Buscar</span><kbd aria-hidden="true">/</kbd></button>
         ${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--claro", rotulo: "WhatsApp" })}
       </nav>
     </div>
@@ -391,6 +408,21 @@ function rodape(c) {
       <p>© ${new Date().getFullYear()} ${esc(site.nome)}. As orientações deste site são informativas e não substituem o atendimento: os requisitos podem variar conforme o caso.</p>
     </div>
   </footer>`;
+}
+
+/** Paleta de busca (padrão "Command"): abre com "/" ou Ctrl/⌘+K; o índice é carregado só na primeira abertura. */
+function paletaBusca(c) {
+  return `<dialog class="paleta" data-paleta aria-label="Buscar serviço ou documento" data-indice="${c.u("assets/js/indice.js")}?v=${V_INDICE}" data-raiz="${c.raiz}">
+  <div class="paleta__caixa">
+    <div class="busca__campo">${icone("lupa")}<input id="paleta-busca" type="search" role="combobox" aria-expanded="true" aria-controls="paleta-lista" aria-autocomplete="list" autocomplete="off" placeholder="Buscar serviço ou documento" aria-label="Buscar serviço ou documento" data-paleta-input></div>
+    <div class="busca__painel paleta__painel" data-paleta-painel>
+      <ul class="busca__lista" id="paleta-lista" role="listbox" aria-label="Serviços" data-paleta-lista></ul>
+      <div class="busca__vazio" hidden data-paleta-vazio><p><strong>Não encontramos esse assunto.</strong> Tente outras palavras ou fale com o cartório, que indica o serviço certo.</p></div>
+    </div>
+    <p class="sr-only" role="status" aria-live="polite" data-paleta-status></p>
+    <p class="paleta__dica" aria-hidden="true"><kbd>↑</kbd><kbd>↓</kbd> navegar <kbd>Enter</kbd> abrir <kbd>Esc</kbd> fechar</p>
+  </div>
+</dialog>`;
 }
 
 function botaoFlutuante(c) {
@@ -441,6 +473,7 @@ ${funilContato(c)}
 </main>
 ${rodape(c)}
 </div>
+${paletaBusca(c)}
 ${botaoFlutuante(c)}
 </body>
 </html>
@@ -474,6 +507,7 @@ function funilContato(c) {
           <div class="funil__previa">
             <h3>Sua mensagem</h3>
             <p class="funil__msg is-vazia" role="status" aria-live="polite" data-f-msg>Preencha os passos ao lado e a sua mensagem aparece aqui.</p>
+            <button class="funil__copiar" type="button" aria-disabled="true" data-f-copiar>${icone("documento")}Copiar mensagem</button>
             <p class="funil__rotulo">4. Como prefere falar?</p>
             <div class="funil__canais">
               <a class="btn btn--primario" href="#falar" aria-disabled="true" data-f-whats target="_blank" rel="noopener noreferrer">${icone("chat")}WhatsApp</a>
@@ -527,7 +561,11 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
       <figure class="hero__foto">
         <div class="hero__moldura">${imgFachada(c, { sizes: "(max-width: 52rem) 100vw, 45vw", eager: true })}</div>
         <div class="flutuante flutuante--a"><span class="flutuante__icone">${icone("arquivo")}</span><div><strong>5 especialidades</strong><small>no mesmo endereço</small></div></div>
-        <div class="flutuante flutuante--b"><span class="flutuante__icone">${icone("check")}</span><div><strong>Documentos antes de vir</strong><small>lista para cada serviço</small></div></div>
+        ${
+          EXPEDIENTE
+            ? `<div class="flutuante flutuante--b" data-expediente="${esc(EXPEDIENTE)}"><span class="flutuante__icone">${icone("relogio")}</span><div><strong data-aberto-titulo>Atendimento</strong><small data-aberto-detalhe>${esc(horasTexto)}</small></div></div>`
+            : `<div class="flutuante flutuante--b"><span class="flutuante__icone">${icone("check")}</span><div><strong>Documentos antes de vir</strong><small>lista para cada serviço</small></div></div>`
+        }
       </figure>
     </div>
   </section>`;
@@ -544,7 +582,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
     )
     .join("");
 
-  const indiceBusca = JSON.stringify([...atos.values()].map((a) => ({ t: a.titulo, e: a.esp.nome, u: c.u(a.caminho), b: buscaIndexada(a) }))).replace(/</g, "\\u003c");
+  const indiceBusca = JSON.stringify(INDICE.map((x) => ({ ...x, u: c.u(x.u) }))).replace(/</g, "\\u003c");
 
   const painel = `
   <div class="container painel-flutuante" id="encontrar">
@@ -1044,6 +1082,7 @@ mkdirSync(join(SAIDA, "assets/css"), { recursive: true });
 mkdirSync(join(SAIDA, "assets/js"), { recursive: true });
 writeFileSync(join(SAIDA, "assets/css/style.css"), CSS_SAIDA);
 writeFileSync(join(SAIDA, "assets/js/main.js"), JS_SAIDA);
+writeFileSync(join(SAIDA, "assets/js/indice.js"), INDICE_JS);
 cpSync(join(RAIZ, "src/img"), join(SAIDA, "assets/img"), { recursive: true });
 cpSync(join(RAIZ, "src/fonts"), join(SAIDA, "assets/fonts"), { recursive: true });
 if (existsSync(join(RAIZ, "src/public"))) cpSync(join(RAIZ, "src/public"), SAIDA, { recursive: true });

@@ -17,9 +17,9 @@
 <meta property="og:description" content="O cartório entrega à outra pessoa uma comunicação sua e comprova que ela foi entregue. Serve para cobrar, avisar ou encerrar um contrato, entre outros usos. Veja os documentos necessários e como funciona (Registro de Títulos e Documentos).">
 <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../../assets/fonts/PlusJakartaSans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/style.css?v=a16c189734">
+<link rel="stylesheet" href="../../assets/css/style.css?v=f2dc98362a">
 <script>document.documentElement.classList.add("js");(function(){var R=document.documentElement;function tipo(e){var a=e&&e.activation?e.activation:(window.navigation&&navigation.activation);R.classList.toggle("vt-voltar",!!a&&a.navigationType==="traverse")}addEventListener("pageswap",tipo);addEventListener("pagereveal",tipo);function topo(){var n=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];if(location.hash||(n&&n.type!=="navigate"))return;scrollTo({top:0,left:0,behavior:"instant"});try{R.style.scrollPaddingTop="0";R.scrollIntoView({block:"start",behavior:"instant"});R.style.removeProperty("scroll-padding-top")}catch(_){}}topo();addEventListener("pagereveal",topo);addEventListener("DOMContentLoaded",topo);addEventListener("load",topo)})()</script>
-<script src="../../assets/js/main.js?v=dc8e6d93c9" defer></script>
+<script src="../../assets/js/main.js?v=6fdeb4e08c" defer></script>
 <script type="speculationrules">{"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank]"}}]},"eagerness":"moderate"}]}</script>
 
 </head>
@@ -41,6 +41,7 @@
           <li><a href="../../documentos.html">Documentos</a></li>
           <li><a href="../../contato.html">Contato</a></li>
         </ul>
+        <button class="busca-btn" type="button" hidden data-abrir-paleta aria-label="Buscar serviço ou documento"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle pathLength="1" cx="11" cy="11" r="6.5"/><path pathLength="1" d="M16 16l5 5"/></svg><span>Buscar</span><kbd aria-hidden="true">/</kbd></button>
         <a class="btn btn--claro" href="https://wa.me/5555999990000?text=Ol%C3%A1!%20Gostaria%20de%20uma%20informa%C3%A7%C3%A3o%20sobre%20os%20servi%C3%A7os%20do%20cart%C3%B3rio." target="_blank" rel="noopener noreferrer"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path pathLength="1" d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>WhatsApp</a>
       </nav>
     </div>
@@ -123,6 +124,7 @@
           <div class="funil__previa">
             <h3>Sua mensagem</h3>
             <p class="funil__msg is-vazia" role="status" aria-live="polite" data-f-msg>Preencha os passos ao lado e a sua mensagem aparece aqui.</p>
+            <button class="funil__copiar" type="button" aria-disabled="true" data-f-copiar><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path pathLength="1" d="M6 3h8l4 4v14H6z"/><path pathLength="1" d="M14 3v4h4"/><path pathLength="1" d="M9 12h6M9 16h6"/></svg>Copiar mensagem</button>
             <p class="funil__rotulo">4. Como prefere falar?</p>
             <div class="funil__canais">
               <a class="btn btn--primario" href="#falar" aria-disabled="true" data-f-whats target="_blank" rel="noopener noreferrer"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path pathLength="1" d="M4 5h16v11h-9l-4 4v-4H4z"/></svg>WhatsApp</a>
@@ -170,6 +172,17 @@
     </div>
   </footer>
 </div>
+<dialog class="paleta" data-paleta aria-label="Buscar serviço ou documento" data-indice="../../assets/js/indice.js?v=5cb2024961" data-raiz="../../">
+  <div class="paleta__caixa">
+    <div class="busca__campo"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle pathLength="1" cx="11" cy="11" r="6.5"/><path pathLength="1" d="M16 16l5 5"/></svg><input id="paleta-busca" type="search" role="combobox" aria-expanded="true" aria-controls="paleta-lista" aria-autocomplete="list" autocomplete="off" placeholder="Buscar serviço ou documento" aria-label="Buscar serviço ou documento" data-paleta-input></div>
+    <div class="busca__painel paleta__painel" data-paleta-painel>
+      <ul class="busca__lista" id="paleta-lista" role="listbox" aria-label="Serviços" data-paleta-lista></ul>
+      <div class="busca__vazio" hidden data-paleta-vazio><p><strong>Não encontramos esse assunto.</strong> Tente outras palavras ou fale com o cartório, que indica o serviço certo.</p></div>
+    </div>
+    <p class="sr-only" role="status" aria-live="polite" data-paleta-status></p>
+    <p class="paleta__dica" aria-hidden="true"><kbd>↑</kbd><kbd>↓</kbd> navegar <kbd>Enter</kbd> abrir <kbd>Esc</kbd> fechar</p>
+  </div>
+</dialog>
 <aside aria-label="Atalhos de contato e navegação">
 <button class="topo-voltar" type="button" hidden aria-label="Voltar ao topo"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle class="topo-voltar__trilho" cx="24" cy="24" r="21" pathLength="100"/><circle class="topo-voltar__prog" cx="24" cy="24" r="21" pathLength="100"/><path d="M17 27l7-7 7 7" pathLength="1"/></svg></button>
 <a class="fab-whats" href="https://wa.me/5555999990000?text=Ol%C3%A1!%20Gostaria%20de%20uma%20informa%C3%A7%C3%A3o%20sobre%20os%20servi%C3%A7os%20do%20cart%C3%B3rio." target="_blank" rel="noopener noreferrer"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path pathLength="1" d="M4 5h16v11h-9l-4 4v-4H4z"/></svg><span>Falar no WhatsApp</span></a></aside>

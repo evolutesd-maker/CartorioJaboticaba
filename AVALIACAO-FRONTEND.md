@@ -31,7 +31,7 @@ Ordem sugerida por **impacto ÷ esforço**, já filtrada pela segurança. "Risco
 |---|---|---|---|---|---|
 | 1 | **Sem prévia de compartilhamento.** Não há `og:image` nem `twitter:card`; colar o link no WhatsApp (principal canal no Brasil) mostra um cartão pobre. | Gerar uma imagem 1200×630 a partir da fachada e declarar as meta tags (precisa do endereço público em `url`). | Alto | Baixo | Nenhum |
 | 2 | **Faltam acabamentos:** página 404 própria (hoje é a do provedor), favicon PNG e `apple-touch-icon`. | Criar `404.html` com a identidade e caminho de volta; favicons PNG 32/180/512. | Médio | Baixo | Nenhum |
-| 3 | **Informação útil que o visitante procura e não vê:** se o cartório está aberto agora. | Indicador "Aberto agora · fecha às 17h15" no hero e no contato, calculado no navegador a partir do `horario` já cadastrado (sem dependências). Mostra "Fechado · abre amanhã às 8h30" fora do expediente. | Alto | Baixo | Baixo |
+| 3 | ✅ **Feito.** **Informação útil que o visitante procura e não vê:** se o cartório está aberto agora. | Indicador "Aberto agora · fecha às 17h15" no hero e no contato, calculado no navegador a partir do `horario` já cadastrado (sem dependências). Mostra "Fechado · abre amanhã às 8h30" fora do expediente. | Alto | Baixo | Baixo |
 | 4 | **"Letras fáceis de ler" pode ir além:** hoje o tamanho é fixo (18 px) e só o zoom do navegador ajuda. | Botões **A− / A / A+** e alto contraste, salvos no navegador (JS local). É o recurso mais valioso para o público idoso de cartório. | Alto | Médio | Baixo |
 | 5 | **Cartões iguais demais.** Há 8 variações do mesmo cartão branco arredondado (`esp-card`, `ato-card`, `atalho`, `caixa`, `cr-card`, `grupo`, `painel`, `cartao-info`) com a mesma sombra e raio parecido. Tudo "pesa" igual, o que achata a hierarquia. | Na home, trocar os 5 cartões por uma grade assimétrica (bento): **Notas** e **Registro Civil PN** maiores (mais procurados), as outras menores. Reservar o cartão branco para o que é clicável e deixar as demais caixas só com espaço ou fundo. | Alto | Médio | Médio |
 | 6 | **Rótulos em CAIXA-ALTA acima de títulos** são o "sinal de template" nº 1 nas duas skills. Há 5 na home e 77 no site. | Manter só onde informam (por exemplo, o nome da especialidade nas páginas internas) e tirar o resto. Títulos ganham força sozinhos. | Médio | Baixo | Baixo |
@@ -40,7 +40,7 @@ Ordem sugerida por **impacto ÷ esforço**, já filtrada pela segurança. "Risco
 | 9 | **Identidade ainda provisória.** O logotipo é um "J" provisório. Tipografia é uma família só (sem contraste), correta e legível, mas sem a "gravidade" institucional de um cartório. | Pedir o logotipo real ao cliente. Opcional: títulos em serifada autoral (fonte livre, hospedada no site) com a atual no texto corrido. Decisão estética do cliente. | Médio | Médio | Baixo |
 | 10 | **Seções planas** ("Antes de vir", "Contato") são só texto sobre fundo liso. | Usar a fachada em baixa opacidade, ou um grão discreto, como textura (arquivo local, não `data:` por causa da CSP). | Baixo | Baixo | Nenhum |
 | 11 | **Rodapé com 4 colunas de links** (padrão genérico). | Reduzir a 3 grupos e priorizar contato e localização. | Baixo | Baixo | Nenhum |
-| 12 | **Funil de contato:** ótimo, mas só abre WhatsApp ou e-mail. | Acrescentar "copiar mensagem" para quem prefere ligar ou colar em outro lugar. | Baixo | Baixo | Nenhum |
+| 12 | ✅ **Feito.** **Funil de contato:** ótimo, mas só abre WhatsApp ou e-mail. | Acrescentar "copiar mensagem" para quem prefere ligar ou colar em outro lugar. | Baixo | Baixo | Nenhum |
 
 ## 4. Dívidas conhecidas (já combinadas, não são do front-end)
 
@@ -68,9 +68,22 @@ Ordem sugerida por **impacto ÷ esforço**, já filtrada pela segurança. "Risco
 - **`npm run skills`** (também dentro de `npm test`) reprova se qualquer arquivo for alterado, aparecer arquivo novo ou algo suspeito. Foi testado com adulterações plantadas.
 - **`CLAUDE.md`** na raiz fixa as regras: skills são sugestão, e segurança vem primeiro.
 
-## 7. Próximos passos sugeridos
+## 7. Referência consultada: biblioteca shadcn/ui
 
-1. Itens 1, 2 e 3 (prévia de compartilhamento, 404/favicons, "aberto agora"): ganho alto, sem risco.
+Consultei o catálogo público (64 componentes e blocos de página) só como **referência de padrões**. Nada foi instalado: a biblioteca é para React/Tailwind e o MCP dela executaria código do npm sem versão fixa, o que contraria as regras de segurança do projeto. Padrões recriados em HTML/CSS/JS próprios, sem dependências:
+
+| Padrão (shadcn) | No site | Estado |
+|---|---|---|
+| **Command** (paleta de comandos) + **Kbd** | Busca de serviços em qualquer página: botão "Buscar" no cabeçalho, atalhos `/` e `Ctrl/⌘+K`, `<dialog>` nativo (foco preso, Esc fecha), mais procurados quando vazio. O índice (~3 KB compactados) só é baixado na primeira abertura. | Feito |
+| **Toast** (Sonner) | Aviso "Mensagem copiada" no novo botão "Copiar mensagem" do funil. | Feito |
+| **Badge** com status | Selo "Aberto agora · Fecha às 11h45" (hero e contato), calculado pelo horário de Brasília a partir de `expediente` em `content/site.json`. Não considera feriados. | Feito |
+| Alert, Empty, Progress, Accordion, Breadcrumb, Carousel, Item, Button Group | Já existiam de forma equivalente. | Já havia |
+| Sheet (painel lateral do menu no celular), Hover Card | Possíveis, mas sem ganho claro agora. | Descartado |
+| Sidebar, Data Table, Chart, Calendar, Dialog de ação, formulários de login | Feitos para aplicações; não se aplicam a um site institucional. | Descartado |
+
+## 8. Próximos passos sugeridos
+
+1. Itens 1 e 2 (prévia de compartilhamento, 404/favicons): ganho alto, sem risco (o 3 já foi feito).
 2. Item 4 (tamanho do texto e contraste): maior valor para o público.
 3. Itens 5 a 8 (hierarquia dos cartões, rótulos, movimento, chips): refinamento visual, com revisão do cliente.
 4. Itens 9 a 12 conforme o logotipo e a preferência do cliente.

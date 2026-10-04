@@ -7,6 +7,7 @@ Foi pensado para que a pessoa **encontre o serviço pelo assunto**, sem precisar
 - Leve: cerca de 50 KB compactados no primeiro acesso (HTML, CSS, JS e fonte; a foto da fachada tem versão menor para celular), sem nenhuma requisição a terceiros. CSS e JS são minificados no build, com versão na URL para cache longo.
 - Interface: cabeçalho translúcido, painel de busca flutuante sobre o hero, carrossel "Mais procurados" (setas, arrastar, teclado e toque), cartões com hover, chips flutuantes sobre a foto, botão flutuante de WhatsApp e lista de documentos que o visitante vai marcando.
 - Movimento só para quem não pede "reduzir movimento" no sistema.
+- Busca de serviços em qualquer página (`/` ou `Ctrl/⌘+K`), botão "Copiar mensagem" no funil e selo "Aberto agora" (usa `expediente` de `content/site.json`: dias da semana 0=domingo, turnos em HH:MM e fuso; não considera feriados).
 - Funciona sem JavaScript (busca, carrossel por botões, revelar ao rolar e menu recolhível são melhorias).
 - Passa na auditoria automática de acessibilidade (axe-core, WCAG 2.1 AA) em todas as páginas.
 
