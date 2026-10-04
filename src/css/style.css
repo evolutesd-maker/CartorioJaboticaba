@@ -425,7 +425,6 @@ a:hover { color: var(--azul-3); }
 .flutuante__icone .icone { width: 1.35rem; height: 1.35rem; }
 .flutuante strong { display: block; font-size: 0.98rem; font-weight: 800; }
 .flutuante small { font-size: 0.82rem; color: var(--suave); }
-.flutuante--a { left: -1.75rem; top: 12%; }
 .flutuante--b { right: -1.25rem; bottom: 18%; }
 @media (prefers-reduced-motion: no-preference) {
   .flutuante { animation: flutuar 7s ease-in-out infinite; }
@@ -441,7 +440,6 @@ a:hover { color: var(--azul-3); }
   .hero__foto { margin-right: 1.1rem; }
   .hero__foto::before { inset: 0.8rem -0.8rem -0.8rem 0.8rem; }
   .hero__acoes .btn { flex: 1 1 14rem; }
-  .flutuante--a { left: 0.75rem; top: 0.75rem; }
   .flutuante--b { right: -0.5rem; bottom: 0.75rem; }
 }
 
@@ -1072,38 +1070,8 @@ a:hover { color: var(--azul-3); }
 .rodape__fim { border-top: 1px solid rgba(255, 255, 255, 0.16); padding: 1.4rem 0 2rem; font-size: 0.9rem; color: #b9d3ea; }
 .rodape__fim p { margin: 0; font-size: 0.9rem; max-width: 48rem; }
 @media (max-width: 62rem) { .rodape__grade { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 40rem) { .rodape__grade { grid-template-columns: 1fr; padding-top: 2.5rem; } .rodape__fim { padding-bottom: 5.5rem; } }
+@media (max-width: 40rem) { .rodape__grade { grid-template-columns: 1fr; padding-top: 2.5rem; } .rodape__fim { padding-bottom: 4.5rem; } }
 
-/* ============================================================ Botão flutuante de WhatsApp */
-
-.fab-whats {
-  position: fixed;
-  right: clamp(1rem, 2.5vw, 1.75rem);
-  bottom: clamp(1rem, 2.5vw, 1.75rem);
-  z-index: 60;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  min-height: 3.6rem;
-  padding: 0 1.4rem 0 1.15rem;
-  border-radius: 999px;
-  background: var(--azul-2);
-  color: #fff;
-  font: 700 1.0625rem/1 var(--fonte);
-  text-decoration: none;
-  box-shadow: 0 16px 36px -10px rgba(0, 50, 100, 0.65), 0 0 0 4px rgba(255, 255, 255, 0.9);
-  transition: transform 0.3s var(--ease), background-color 0.2s, box-shadow 0.3s;
-}
-.fab-whats:hover { background: var(--azul-3); color: #fff; transform: translateY(-4px) scale(1.03); }
-.fab-whats .icone { width: 1.5rem; height: 1.5rem; }
-@media (prefers-reduced-motion: no-preference) {
-  .fab-whats::before { content: ""; position: absolute; inset: 0; border-radius: inherit; border: 2px solid var(--azul); animation: pulso 3s ease-out infinite; }
-}
-@keyframes pulso { 0% { transform: scale(1); opacity: 0.7; } 70%, 100% { transform: scale(1.35); opacity: 0; } }
-@media (max-width: 40rem) {
-  .fab-whats { width: 3.6rem; padding: 0; justify-content: center; }
-  .fab-whats span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-}
 
 /* ============================================================ Impressão */
 
@@ -1111,7 +1079,7 @@ a:hover { color: var(--azul-3); }
   html { font-size: 90%; }
   body { color: #000; }
   [data-reveal] { opacity: 1 !important; translate: none !important; }
-  .skip, .topo, .rodape, .aviso-rascunho, .fab-whats, .faixa .btn, .pagina__lateral, .no-print, .menu-btn, .ancoras, .progresso { display: none !important; }
+  .skip, .topo, .rodape, .aviso-rascunho, .faixa .btn, .pagina__lateral, .no-print, .menu-btn, .ancoras, .progresso { display: none !important; }
   .faixa { background: none; color: #000; padding: 0 0 1rem; border-bottom: 1px solid #000; }
   .faixa::before, .faixa::after { display: none; }
   .faixa h1, .faixa__lead, .faixa__sub, .faixa a, .trilha li { color: #000; }
@@ -1199,10 +1167,6 @@ a:hover { color: var(--ouro-claro); }
 .lateral-card--ajuda .btn:not(.btn--claro) { color: #fff; }
 .destaque a { color: var(--azul-2); }
 
-/* Botão flutuante branco */
-.fab-whats { background: #fff; color: var(--azul-2); box-shadow: 0 16px 36px -10px rgba(0, 10, 30, 0.65), 0 0 0 4px rgba(255, 255, 255, 0.25); }
-.fab-whats:hover { background: var(--azul-50); color: var(--azul-3); }
-.fab-whats::before { border-color: #fff !important; }
 
 @media print {
   body { background: #fff; color: #000; }
@@ -1255,7 +1219,6 @@ a:hover { color: var(--ouro-claro); }
   .hero__texto > :nth-child(3) { animation-delay: 0.28s; }
   .hero__texto > :nth-child(4) { animation-delay: 0.4s; }
   .hero__foto { animation: foto-entra 1.1s var(--ease) 0.2s both; }
-  .flutuante--a { animation: flutuar 7s ease-in-out 1.2s infinite, pop 0.7s var(--ease) 1s both; }
   .flutuante--b { animation: flutuar 8.5s ease-in-out -3s infinite, pop 0.7s var(--ease) 1.25s both; }
   /* Brilho do azul da marca que passeia pelo fundo */
   .hero::after { content: ""; position: absolute; z-index: -1; width: 38rem; height: 38rem; right: -12rem; top: -14rem; border-radius: 50%; background: radial-gradient(circle, rgba(0, 120, 215, 0.75), transparent 65%); animation: deriva 16s ease-in-out infinite alternate; }
@@ -1274,7 +1237,6 @@ a:hover { color: var(--ouro-claro); }
 @media (prefers-reduced-motion: no-preference) {
   @view-transition { navigation: auto; }
   .topo { view-transition-name: topo; }
-  .fab-whats { view-transition-name: fab; }
   ::view-transition-group(root) { animation: none; }
   ::view-transition-old(root) { animation: vt-sai 0.6s cubic-bezier(0.4, 0, 0.2, 1) both; }
   ::view-transition-new(root) { animation: vt-entra 0.8s var(--ease) both; }
@@ -1359,7 +1321,7 @@ a:hover { color: var(--ouro-claro); }
 .topo-voltar {
   position: fixed;
   right: clamp(1rem, 2.5vw, 1.75rem);
-  bottom: calc(clamp(1rem, 2.5vw, 1.75rem) + 4.7rem);
+  bottom: clamp(1rem, 2.5vw, 1.75rem);
   z-index: 59;
   display: grid;
   place-items: center;
@@ -1386,7 +1348,7 @@ a:hover { color: var(--ouro-claro); }
 .topo-voltar:hover .topo-voltar__prog { stroke: #fff; }
 .topo-voltar path { stroke-width: 3.2; }
 .topo-voltar:focus-visible { outline: 3px solid var(--ouro-claro); outline-offset: 3px; }
-@media (max-width: 40rem) { .topo-voltar { width: 3rem; height: 3rem; bottom: calc(clamp(1rem, 2.5vw, 1.75rem) + 4.4rem); } }
+@media (max-width: 40rem) { .topo-voltar { width: 3rem; height: 3rem; } }
 @media print { .topo-voltar { display: none !important; } }
 
 /* ============================================================ Mais animações (todas desligadas com "reduzir movimento") */
@@ -1452,7 +1414,7 @@ kbd {
 .busca-btn[hidden] { display: none; }
 .busca-btn:hover { background: rgba(255, 255, 255, 0.18); border-color: #fff; }
 .busca-btn .icone { width: 1.2rem; height: 1.2rem; }
-@media (max-width: 62rem) { .busca-btn { justify-content: flex-start; } .busca-btn kbd { display: none; } }
+@media (max-width: 62rem) { .busca-btn { justify-content: flex-start; } }
 
 .paleta { margin: 10vh auto 0; padding: 0; width: min(40rem, calc(100% - 2rem)); border: 0; background: transparent; color: var(--tinta); overflow: visible; }
 .paleta::backdrop { background: rgba(0, 24, 48, 0.62); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); }

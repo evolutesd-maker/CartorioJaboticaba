@@ -5,7 +5,7 @@ Foi pensado para que a pessoa **encontre o serviço pelo assunto**, sem precisar
 
 - Azul `#0078d7` predominante, branco e detalhes discretos em dourado. Fonte Plus Jakarta Sans (licença OFL), hospedada no próprio site.
 - Leve: cerca de 50 KB compactados no primeiro acesso (HTML, CSS, JS e fonte; a foto da fachada tem versão menor para celular), sem nenhuma requisição a terceiros. CSS e JS são minificados no build, com versão na URL para cache longo.
-- Interface: cabeçalho translúcido, painel de busca flutuante sobre o hero, carrossel "Mais procurados" (setas, arrastar, teclado e toque), cartões com hover, chips flutuantes sobre a foto, botão flutuante de WhatsApp e lista de documentos que o visitante vai marcando.
+- Interface: cabeçalho translúcido, painel de busca flutuante sobre o hero, carrossel "Mais procurados" (setas, arrastar, teclado e toque), cartões com hover, chips flutuantes sobre a foto, lista de documentos que o visitante vai marcando.
 - Movimento só para quem não pede "reduzir movimento" no sistema.
 - Busca de serviços em qualquer página (`/` ou `Ctrl/⌘+K`), botão "Copiar mensagem" no funil e selo "Aberto agora" (usa `expediente` de `content/site.json`: dias da semana 0=domingo, turnos em HH:MM e fuso; não considera feriados).
 - Funciona sem JavaScript (busca, carrossel por botões, revelar ao rolar e menu recolhível são melhorias).
@@ -122,4 +122,4 @@ devem ficar em `src/public/`, que é copiado para `docs/` a cada build.
   Botões usam negrito 700 em ~18,8 px porque branco sobre `#0078d7` é 4,49:1, o que passa em AA como texto grande.
 - Fontes do sistema (Segoe UI no Windows, Georgia nos títulos): nada é baixado de terceiros.
 - O mapa é apenas um botão que abre a rota no Google Maps em outra aba; nenhum mapa é incorporado.
-- O botão do WhatsApp leva uma mensagem inicial com o nome do serviço consultado.
+- Os botões do WhatsApp levam uma mensagem inicial com o nome do serviço consultado.

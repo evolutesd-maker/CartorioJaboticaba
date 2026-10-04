@@ -367,7 +367,7 @@ function cabecalho(c, ativo) {
           ${item("documentos", "Documentos", "documentos.html")}
           ${item("contato", "Contato", "contato.html")}
         </ul>
-        <button class="busca-btn" type="button" hidden data-abrir-paleta aria-label="Buscar serviço ou documento">${icone("lupa")}<span>Buscar</span><kbd aria-hidden="true">/</kbd></button>
+        <button class="busca-btn" type="button" hidden data-abrir-paleta aria-label="Buscar serviço ou documento">${icone("lupa")}<span>Buscar</span></button>
         ${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--claro", rotulo: "WhatsApp" })}
       </nav>
     </div>
@@ -425,12 +425,9 @@ function paletaBusca(c) {
 </dialog>`;
 }
 
-function botaoFlutuante(c) {
-  const href = waUrl(MSG_PADRAO);
-  const alvo = href ? `href="${esc(href)}" target="_blank" rel="noopener noreferrer"` : `href="${c.u("contato.html")}"`;
-  return `<aside aria-label="Atalhos de contato e navegação">
-<button class="topo-voltar" type="button" hidden aria-label="Voltar ao topo"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle class="topo-voltar__trilho" cx="24" cy="24" r="21" pathLength="100"/><circle class="topo-voltar__prog" cx="24" cy="24" r="21" pathLength="100"/><path d="M17 27l7-7 7 7" pathLength="1"/></svg></button>
-<a class="fab-whats" ${alvo}>${icone("chat")}<span>Falar no WhatsApp</span></a></aside>`;
+function botaoFlutuante() {
+  return `<aside aria-label="Atalho de navegação">
+<button class="topo-voltar" type="button" hidden aria-label="Voltar ao topo"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle class="topo-voltar__trilho" cx="24" cy="24" r="21" pathLength="100"/><circle class="topo-voltar__prog" cx="24" cy="24" r="21" pathLength="100"/><path d="M17 27l7-7 7 7" pathLength="1"/></svg></button></aside>`;
 }
 
 function layout(c, { titulo, descricao, corpo, ativo = "", noindex = false, jsonld = null, home = false }) {
@@ -474,7 +471,7 @@ ${funilContato(c)}
 ${rodape(c)}
 </div>
 ${paletaBusca(c)}
-${botaoFlutuante(c)}
+${botaoFlutuante()}
 </body>
 </html>
 `;
@@ -560,7 +557,6 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
       </div>
       <figure class="hero__foto">
         <div class="hero__moldura">${imgFachada(c, { sizes: "(max-width: 52rem) 100vw, 45vw", eager: true })}</div>
-        <div class="flutuante flutuante--a"><span class="flutuante__icone">${icone("arquivo")}</span><div><strong>5 especialidades</strong><small>no mesmo endereço</small></div></div>
         ${
           EXPEDIENTE
             ? `<div class="flutuante flutuante--b" data-expediente="${esc(EXPEDIENTE)}"><span class="flutuante__icone">${icone("relogio")}</span><div><strong data-aberto-titulo>Atendimento</strong><small data-aberto-detalhe>${esc(horasTexto)}</small></div></div>`
