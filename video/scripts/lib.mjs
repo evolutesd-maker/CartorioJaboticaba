@@ -42,7 +42,7 @@ const CURSOR_JS = `
   if (document.readyState === "loading") addEventListener("DOMContentLoaded", montar); else montar();
 })();`;
 
-export async function abrir({ largura = 1920, altura = 1080, movel = false } = {}) {
+export async function abrir({ largura = 1366, altura = 768, movel = false, relogio = true } = {}) {
   const browser = await chromium.launch({ args: ["--force-device-scale-factor=1", "--hide-scrollbars"] });
   const ctx = await browser.newContext({
     viewport: { width: largura, height: altura },
@@ -51,13 +51,16 @@ export async function abrir({ largura = 1920, altura = 1080, movel = false } = {
     bypassCSP: true, locale: "pt-BR", timezoneId: "America/Sao_Paulo",
   });
   await ctx.addInitScript(movel ? "" : CURSOR_JS);
+  // Relógio fixo numa segunda-feira, 10h30 (horário de Brasília): mostra o selo "Aberto agora" do site.
+  if (relogio) await ctx.clock.setFixedTime(new Date("2026-10-05T10:30:00-03:00"));
+  await ctx.grantPermissions(["clipboard-read", "clipboard-write"]).catch(() => {});
   const page = await ctx.newPage();
   return { browser, ctx, page };
 }
 
 // Gravação por screencast (CDP): salva cada quadro com seu carimbo de tempo e depois
 // reamostra para 30 fps constantes (quadros repetidos onde nada mudou).
-export async function gravar(page, nome, fn, { fps = 60, qualidade = 94, largura = 1920, altura = 1080 } = {}) {
+export async function gravar(page, nome, fn, { fps = 60, qualidade = 94, largura = 1366, altura = 768 } = {}) {
   const dir = join(CLIPES, nome);
   rmSync(dir, { recursive: true, force: true });
   mkdirSync(join(dir, "raw"), { recursive: true });
@@ -73,8 +76,19 @@ export async function gravar(page, nome, fn, { fps = 60, qualidade = 94, largura
   await cdp.send("Page.startScreencast", { format: "jpeg", quality: qualidade, maxWidth: largura, maxHeight: altura, everyNthFrame: 1 });
   await sleep(250);
   const t0 = Date.now();
-  const eventos = [];
-  await fn((nomeEv) => eventos.push({ nome: nomeEv, t: +(0.25 + (Date.now() - t0) / 1000).toFixed(2) }));
+  const eventos = [], trilhas = {};
+  const ativos = new Set();
+  const amostrar = async () => {
+    for (const [nomeT, sel] of [...ativos]) {
+      const r = await page.evaluate((sl) => { const e = document.querySelector(sl); if (!e) return null; const b = e.getBoundingClientRect(); return b.width > 2 && b.height > 2 ? [b.x, b.y, b.width, b.height] : null; }, sel).catch(() => null);
+      if (r) (trilhas[nomeT] ||= []).push([+(0.25 + (Date.now() - t0) / 1000).toFixed(3), ...r.map((v) => +v.toFixed(1))]);
+    }
+  };
+  let rodando = true;
+  const laco = (async () => { while (rodando) { await amostrar(); await sleep(25); } })();
+  const acompanhar = (nomeT, sel) => { const tupla = [nomeT, sel]; ativos.add(tupla); return () => ativos.delete(tupla); };
+  await fn((nomeEv) => eventos.push({ nome: nomeEv, t: +(0.25 + (Date.now() - t0) / 1000).toFixed(2) }), acompanhar);
+  rodando = false; await laco;
   await sleep(300);
   const dur = (Date.now() - t0) / 1000;
   await cdp.send("Page.stopScreencast");
@@ -98,7 +112,7 @@ export async function gravar(page, nome, fn, { fps = 60, qualidade = 94, largura
   const total = readdirSync(join(dir, "f")).length;
   const real = fim - ini;
   console.log(`${nome}: ${quadros.length} quadros brutos (${(quadros.length / real).toFixed(1)}/s) -> ${total} quadros a ${fps} fps (${(total / fps).toFixed(1)} s; cena ${dur.toFixed(1)} s)`);
-  writeFileSync(join(dir, "info.json"), JSON.stringify({ quadros: total, fps, bruto: quadros.length, eventos }));
+  writeFileSync(join(dir, "info.json"), JSON.stringify({ quadros: total, fps, bruto: quadros.length, eventos, trilhas, largura, altura }));
   console.log(JSON.stringify(eventos));
   return total;
 }
