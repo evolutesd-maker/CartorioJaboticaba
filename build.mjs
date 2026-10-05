@@ -351,7 +351,23 @@ const rodapeCanais = () => {
 
 function cabecalho(c, ativo) {
   const item = (chave, rotulo, href) =>
-    `<li><a href="${c.u(href)}"${ativo === chave ? ' aria-current="page"' : ""}>${rotulo}</a></li>`;
+    `<li><a class="menu__link" href="${c.u(href)}"${ativo === chave ? ' aria-current="page"' : ""}>${rotulo}</a></li>`;
+  // Submenu "O que você procura?": serviços mais procurados e as especialidades (sem JavaScript, o item é um link para Serviços).
+  const procura = `
+          <li class="menu__sub" data-sub>
+            <a class="menu__link" href="${c.u("servicos.html")}"${ativo === "servicos" ? ' aria-current="page"' : ""} data-sub-link>O que você procura?${icone("seta")}</a>
+            <div class="submenu" id="submenu-procura" role="group" aria-label="O que você procura?">
+              <div class="submenu__col">
+                <p class="submenu__tit">Mais procurados</p>
+                <ul>${destaques.map((ref) => atos.get(ref)).map((a) => `<li><a href="${c.u(a.caminho)}">${esc(a.titulo)}</a></li>`).join("")}</ul>
+              </div>
+              <div class="submenu__col">
+                <p class="submenu__tit">Especialidades</p>
+                <ul>${especialidades.map((e) => `<li><a href="${c.u("servicos.html")}#esp-${e.id}">${icone(e.icone)}<span>${esc(e.nomeCompleto)}</span></a></li>`).join("")}</ul>
+              </div>
+              <p class="submenu__rodape"><a href="${c.u("servicos.html")}">Ver todos os serviços</a><button class="submenu__buscar" type="button" hidden data-abrir-paleta>${icone("lupa")}Buscar pelo nome</button></p>
+            </div>
+          </li>`;
   return `
   <header class="topo">
     <div class="container topo__linha">
@@ -362,8 +378,7 @@ function cabecalho(c, ativo) {
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-principal">${icone("menu")}Menu</button>
       <nav class="menu" id="menu-principal" aria-label="Principal">
         <ul>
-          ${item("inicio", "Início", "index.html")}
-          ${item("servicos", "Serviços", "servicos.html")}
+          ${item("inicio", "Início", "index.html")}${procura}
           ${item("documentos", "Documentos", "documentos.html")}
           ${item("contato", "Contato", "contato.html")}
         </ul>

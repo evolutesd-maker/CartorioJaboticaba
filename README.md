@@ -130,3 +130,8 @@ devem ficar em `src/public/`, que é copiado para `docs/` a cada build.
 - **Mosaico das especialidades** (início, `servicos.html` e `documentos.html`): cinco cartões de tamanhos diferentes. Ao tocar em um, ele abre os serviços daquela especialidade (com filtro se tiver 8 ou mais) e os outros encolhem numa fileira; tocar em outro troca direto, Esc ou "Ver todas as especialidades" fecha. O endereço guarda `#esp-notas` etc., então dá para linkar já aberto. Sem JavaScript, cada cartão é um link para a página da especialidade.
 - `content/temas.json` não aparece mais como lista na tela, mas continua alimentando a busca; todo serviço novo precisa estar em um tema (o build avisa se faltar).
 - Arquivos para baixar usam sempre a mesma linha: título, tipo, tamanho, data (opcional).
+
+### Vidro e submenu
+
+- Os cartões das especialidades são de **vidro**: todos iguais, translúcidos, com um brilho azul atrás (o texto secundário mantém pelo menos 4,5:1 de contraste). Em `src/css/style.css`, bloco "Mosaico das especialidades".
+- O menu tem **"O que você procura?"** no lugar de "Serviços": abre um painel com os serviços mais procurados (`content/destaques.json`) e as especialidades (cada uma leva a `servicos.html#esp-...` já aberta), mais "Ver todos os serviços" e "Buscar pelo nome". No celular vira uma sanfona dentro do menu. Sem JavaScript, é um link para Serviços.
