@@ -277,74 +277,51 @@ const itemLocalizador = (c, ato, meta) =>
 
 const rotuloServicos = (n) => `${n} ${n === 1 ? "serviço" : "serviços"}`;
 
-/** Lista de serviços com filtro (funciona sem JavaScript: a busca some, a lista fica). */
-function localizador(c, { agrupar, id }) {
-  let grupos;
-  if (agrupar === "az") {
-    const ordenados = [...atos.values()].sort((x, y) => x.titulo.localeCompare(y.titulo, "pt-BR"));
-    const porLetra = new Map();
-    for (const a of ordenados) {
-      const letra = norm(a.titulo).charAt(0).toUpperCase();
-      if (!porLetra.has(letra)) porLetra.set(letra, []);
-      porLetra.get(letra).push(a);
-    }
-    grupos = [...porLetra].map(([letra, lista]) => ({
-      id: `az-${letra}`,
-      titulo: letra,
-      letra: true,
-      itens: lista.map((a) => itemLocalizador(c, a, a.esp.nome)),
-    }));
-  } else {
-    grupos = temas.map((t) => ({
-      id: `tema-${t.id}`,
-      titulo: t.titulo,
-      descricao: t.descricao,
-      itens: t.atos.map((ref) => itemLocalizador(c, atos.get(ref), atos.get(ref).esp.nome)),
-    }));
-  }
-  const html = grupos
-    .map(
-      (g) => `
-      <section class="grupo${g.letra ? " grupo--letra" : ""}" data-finder-grupo aria-labelledby="${id}-${g.id}">
-        <h3 id="${id}-${g.id}">${esc(g.titulo)}</h3>
-        ${g.descricao ? `<p class="grupo__desc">${esc(g.descricao)}</p>` : ""}
-        <ul class="lista-aberta">${g.itens.join("")}</ul>
-      </section>`
-    )
-    .join("");
-  const letras =
-    agrupar === "az"
-      ? `<nav class="az" aria-label="Ir para a letra"><ul>${grupos.map((g) => `<li><a href="#${id}-${g.id}">${esc(g.titulo)}</a></li>`).join("")}</ul></nav>`
-      : "";
-
-  return `
-    <div class="finder" data-finder>
-      <div class="finder__busca">
-        <label for="${id}-busca">Escreva o que você precisa</label>
-        <div class="campo">${icone("lupa")}<input id="${id}-busca" type="search" autocomplete="off" placeholder="Ex.: certidão, procuração, casar" data-finder-input></div>
-        <p class="finder__status" role="status" aria-live="polite" data-finder-status></p>
-      </div>
-      <p class="finder__total">${rotuloServicos(atos.size)}</p>
-      ${letras}
-      <div class="finder__grupos">${html}</div>
-      <div class="finder__vazio" hidden data-finder-vazio>
-        <p><strong>Não encontramos esse assunto.</strong> Tente outras palavras (por exemplo: certidão, casamento, imóvel, dívida) ou fale com o cartório, que orienta qual serviço é o certo.</p>
-        <p>${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--claro", rotulo: "Falar com o cartório" })}</p>
-      </div>
-    </div>`;
-}
-
 /** Lista dos serviços de uma especialidade; com 8 ou mais, ganha filtro e contagem. */
-function listaAtos(c, esp) {
+function listaAtos(c, esp, { id = "esp-busca", duas = false } = {}) {
   const linhas = esp.atos.map((a) => itemLocalizador(c, a, a.resumo)).join("");
   const filtro = esp.atos.length >= 8;
   return `
     <div class="finder" data-finder>
-      ${filtro ? `<div class="finder__busca"><label for="esp-busca">Filtrar os serviços desta especialidade</label><div class="campo">${icone("lupa")}<input id="esp-busca" type="search" autocomplete="off" placeholder="Ex.: certidão, procuração" data-finder-input></div><p class="finder__status" role="status" aria-live="polite" data-finder-status></p></div>` : ""}
+      ${filtro ? `<div class="finder__busca"><label for="${id}">Filtrar os serviços desta especialidade</label><div class="campo">${icone("lupa")}<input id="${id}" type="search" autocomplete="off" placeholder="Ex.: certidão, procuração" data-finder-input></div><p class="finder__status" role="status" aria-live="polite" data-finder-status></p></div>` : ""}
       <p class="finder__total">${rotuloServicos(esp.atos.length)}</p>
-      <section class="grupo" data-finder-grupo aria-label="Serviços de ${esc(esp.nome)}"><ul class="lista-aberta">${linhas}</ul></section>
+      <section class="grupo" data-finder-grupo aria-label="Serviços de ${esc(esp.nome)}"><ul class="lista-aberta${duas ? " lista-aberta--duas" : ""}">${linhas}</ul></section>
       <div class="finder__vazio" hidden data-finder-vazio><p><strong>Não encontramos esse assunto nesta especialidade.</strong> Tente outras palavras ou <a href="${c.u("servicos.html")}">veja todos os serviços</a>.</p></div>
     </div>`;
+}
+
+/**
+ * Mosaico das especialidades. Sem JavaScript cada cartão é um link para a página da especialidade.
+ * Com JavaScript o cartão vira botão: ao tocar, ele abre os serviços (filtrados) e os outros encolhem.
+ */
+function espBento(c) {
+  const itens = especialidades
+    .map((e) => {
+      const n = e.atos.length;
+      return `
+        <li class="eb__item eb--${e.id}" id="esp-${e.id}" data-eb-item>
+          <a class="eb__cartao" href="${c.u(e.caminho)}" data-eb-cartao>
+            <span class="eb__icone">${icone(e.icone)}</span>
+            <span class="eb__texto">
+              <strong class="eb__nome">${esc(e.nomeCompleto)}</strong>
+              <span class="eb__tag">${esc(e.tagline)}</span>
+              <span class="eb__prev">${e.opcoes.map((o) => `<span>${esc(o)}</span>`).join("")}</span>
+            </span>
+            <span class="eb__rodape"><span class="eb__n">${rotuloServicos(n)}</span>${icone("seta")}</span>
+          </a>
+          <div class="eb__painel" id="eb-${e.id}" role="region" aria-labelledby="eb-t-${e.id}">
+            <div class="eb__cab">
+              <h3 id="eb-t-${e.id}">Serviços de ${esc(e.nome)}</h3>
+              <p>${esc(e.resumo)}</p>
+              <p class="eb__acoes"><a href="${c.u(e.caminho)}">Ver a página da especialidade</a><button class="eb__fechar" type="button" data-eb-fechar>Ver todas as especialidades</button></p>
+            </div>
+            ${listaAtos(c, e, { id: `eb-busca-${e.id}`, duas: true })}
+          </div>
+        </li>`;
+    })
+    .join("");
+  return `<div class="eb" data-eb><ul class="eb__grade">${itens}
+  </ul></div>`;
 }
 
 function faixa(c, { trilha, eyebrow, titulo, sub, lead, deco }) {
@@ -537,9 +514,6 @@ function funilContato(c) {
   </section>`;
 }
 
-/** Linha de especialidade na página inicial: nome e o que se resolve ali. */
-const linhaEspecialidade = (c, esp) => linhaLista(c.u(esp.caminho), esp.nomeCompleto, esp.opcoes.join(" · "));
-
 /* ===================================================================== páginas */
 
 const paginas = []; // { caminho, html, noindex? }
@@ -611,12 +585,13 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
 
   const servicos = `
   <section class="secao" id="servicos" aria-labelledby="t-servicos">
-    <div class="container container--estreito">
+    <div class="container">
       <div class="secao__cab" data-reveal>
         <p class="eyebrow">Serviços</p>
         <h2 id="t-servicos">Escolha a especialidade</h2>
+        <p>Toque em uma especialidade para ver os serviços dela.</p>
       </div>
-      <ul class="lista-aberta lista-aberta--grande" data-reveal>${especialidades.map((e) => linhaEspecialidade(c, e)).join("")}</ul>
+      <div data-reveal>${espBento(c)}</div>
       <p class="antes" id="antes-de-vir" data-reveal><strong>Antes de vir ao cartório:</strong>
         <a href="${c.u("documentos.html#consultar")}">Documentos necessários</a>
         <a href="${c.u("documentos.html#orientacoes")}">Orientações</a>
@@ -685,19 +660,15 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
   ${faixa(c, {
     trilha: [{ rotulo: "Início", href: "index.html" }, { rotulo: "Serviços" }],
     titulo: "Todos os serviços",
-    lead: "Escolha pelo assunto ou pela especialidade. Cada serviço tem a sua própria lista de documentos.",
+    lead: "Cada serviço tem a sua própria lista de documentos. Comece pela especialidade ou use a busca.",
   })}
-  <section class="secao secao--suave" aria-label="Serviços por assunto">
+  <section class="secao" aria-labelledby="t-todos">
     <div class="container">
-      <p class="eyebrow">Já sabe a especialidade?</p>
-      <ul class="espec-atalhos">
-        ${especialidades.map((e) => `<li><a href="${c.u(e.caminho)}">${icone(e.icone)}${esc(e.nome)}</a></li>`).join("")}
-      </ul>
-      <h2 class="sr-only">Serviços por assunto</h2>
-      ${localizador(c, { agrupar: "tema", id: "servicos" })}
+      <div class="secao__cab" data-reveal><h2 id="t-todos">Escolha a especialidade</h2><p>Toque em uma para ver os serviços dela. Não sabe qual é? <button class="link-botao so-js" type="button" data-abrir-paleta hidden>Busque pelo que você precisa</button><span class="sem-js">Use a busca da página inicial.</span></p></div>
+      ${espBento(c)}
     </div>
   </section>`;
-  adicionar(c.caminho, layout(c, { ativo: "servicos", titulo: "Todos os serviços do cartório", descricao: "Veja todos os serviços do cartório por assunto: família, imóveis, documentos, dívidas e entidades. Cada um com os documentos necessários.", corpo }));
+  adicionar(c.caminho, layout(c, { ativo: "servicos", titulo: "Todos os serviços do cartório", descricao: "Veja todos os serviços do cartório por especialidade: Notas, Protesto, Registro de Títulos e Documentos e Registro Civil. Cada um com os documentos necessários.", corpo }));
 }
 
 // ---------- Páginas de especialidade
@@ -909,8 +880,8 @@ for (const ato of atos.values()) {
 
   <section class="secao secao--suave" id="consultar" aria-labelledby="t-consultar">
     <div class="container">
-      <div class="secao__cab" data-reveal><p class="eyebrow">Consultar por serviço</p><h2 id="t-consultar">Qual serviço você precisa?</h2><p>De A a Z, com a especialidade de cada um. Escolha o serviço para ver a lista exata de documentos.</p></div>
-      ${localizador(c, { agrupar: "az", id: "docs" })}
+      <div class="secao__cab" data-reveal><p class="eyebrow">Consultar por serviço</p><h2 id="t-consultar">Qual serviço você precisa?</h2><p>Toque na especialidade e escolha o serviço para ver a lista exata de documentos.</p></div>
+      ${espBento(c)}
     </div>
   </section>
 

@@ -299,6 +299,46 @@ else status.textContent = visiveis + (visiveis === 1 ? " serviço encontrado." :
 campo.addEventListener("input", filtrar);
 campo.addEventListener("keydown", function (e) { if (e.key === "Enter") e.preventDefault(); });
 });
+document.querySelectorAll("[data-eb]").forEach(function (eb) {
+var itens = Array.prototype.slice.call(eb.querySelectorAll("[data-eb-item]"));
+var atual = null;
+function aplicar(item, rolar) {
+atual = item;
+eb.classList.toggle("eb--aberto", !!item);
+itens.forEach(function (it) {
+var aberto = it === item;
+it.classList.toggle("is-aberto", aberto);
+it.querySelector("[data-eb-cartao]").setAttribute("aria-expanded", aberto ? "true" : "false");
+it.querySelector(".eb__painel").hidden = !aberto;
+});
+try {
+history.replaceState(null, "", item ? "#" + item.id : location.pathname + location.search);
+} catch (_) {  }
+if (rolar) eb.scrollIntoView({ behavior: semMovimento ? "auto" : "smooth", block: "start" });
+}
+itens.forEach(function (item) {
+var link = item.querySelector("[data-eb-cartao]");
+var painel = item.querySelector(".eb__painel");
+var botao = document.createElement("button");
+botao.type = "button";
+botao.className = link.className;
+botao.setAttribute("data-eb-cartao", "");
+botao.setAttribute("aria-controls", painel.id);
+botao.setAttribute("aria-expanded", "false");
+while (link.firstChild) botao.appendChild(link.firstChild);
+link.replaceWith(botao);
+painel.hidden = true;
+botao.addEventListener("click", function () { aplicar(atual === item ? null : item, true); });
+});
+eb.querySelectorAll("[data-eb-fechar]").forEach(function (b) {
+b.addEventListener("click", function () { aplicar(null, true); });
+});
+eb.addEventListener("keydown", function (e) {
+if (e.key === "Escape" && atual) { var ant = atual; aplicar(null, false); ant.querySelector("[data-eb-cartao]").focus(); }
+});
+var alvo = location.hash && itens.filter(function (it) { return "#" + it.id === location.hash; })[0];
+if (alvo) { aplicar(alvo, false); setTimeout(function () { eb.scrollIntoView({ block: "start" }); }, 0); }
+});
 var painelDocs = document.querySelector("[data-checklist]");
 if (painelDocs) {
 var caixas = painelDocs.querySelectorAll('.checklist input[type="checkbox"]');

@@ -127,6 +127,6 @@ devem ficar em `src/public/`, que é copiado para `docs/` a cada build.
 ### Listas grandes (muitos serviços e links)
 
 - Página de especialidade: com **8 ou mais** serviços aparece um filtro e a contagem ("9 serviços"); com menos, só a lista.
-- `documentos.html`: lista **de A a Z** com barra de letras, filtro e a especialidade de cada serviço. `servicos.html`: por assunto (`content/temas.json`).
-- Todo serviço novo precisa estar em um tema de `temas.json` (o build avisa se faltar).
+- **Mosaico das especialidades** (início, `servicos.html` e `documentos.html`): cinco cartões de tamanhos diferentes. Ao tocar em um, ele abre os serviços daquela especialidade (com filtro se tiver 8 ou mais) e os outros encolhem numa fileira; tocar em outro troca direto, Esc ou "Ver todas as especialidades" fecha. O endereço guarda `#esp-notas` etc., então dá para linkar já aberto. Sem JavaScript, cada cartão é um link para a página da especialidade.
+- `content/temas.json` não aparece mais como lista na tela, mas continua alimentando a busca; todo serviço novo precisa estar em um tema (o build avisa se faltar).
 - Arquivos para baixar usam sempre a mesma linha: título, tipo, tamanho, data (opcional).

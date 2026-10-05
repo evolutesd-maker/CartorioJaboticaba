@@ -92,7 +92,8 @@ Cada passo passa por: `npm test`, axe, teste de largura (320–1440 px), e eu ol
 - **A. Página de serviço:** uma folha branca com linhas no lugar de caixas (documentos, prazo e custo, perguntas, "Veja também"); a lateral ficou só com o contato.
 - **B. Início:** "Mais procurados" em lista (sem carrossel); especialidades em lista aberta; "Antes de vir" virou uma linha de links; a faixa escura extra saiu.
 - **C. Contato:** horário e canais direto sobre o azul; rodapé em 3 colunas, com contato uma única vez.
-- **D. Listas grandes:** filtro e contagem nas especialidades com 8+ serviços; Documentos de A a Z com letras; linha padrão de arquivo (tipo, tamanho, data).
+- **D. Listas grandes:** filtro e contagem nas especialidades com 8+ serviços; linha padrão de arquivo (tipo, tamanho, data). O índice A–Z foi retirado a pedido do cliente.
+- **Mosaico por especialidade (pedido posterior):** as cinco especialidades em cartões de tamanhos diferentes; ao tocar, abre os serviços filtrados e os outros encolhem (funciona no celular e sem JavaScript).
 - **E. Movimento:** saíram o brilho que varre os botões, o desenho dos ícones e o brilho que seguia o mouse nos cartões. Ficam: entrada do hero, troca de página, levantar no hover, chips flutuantes e barra de leitura.
 - CSS: cerca de 13 KB de regras antigas (cartões e carrossel) removidas; o JS do carrossel também.
 - Testes: `npm test`, axe (0 violações em 37 páginas × 2 larguras), sem estouro de 320 a 1440 px, e os testes de comportamento (busca, funil, "aberto agora", topo ao navegar, troca de página, filtros e A–Z).
