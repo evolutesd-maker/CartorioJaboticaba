@@ -5,16 +5,36 @@
   "nomeCompleto": "Registro Civil das Pessoas Naturais",
   "icone": "pessoas",
   "tagline": "Nascimento, casamento e óbito",
-  "opcoes": ["Nascimento", "Casamento", "Óbito", "Certidões e segunda via"],
+  "opcoes": [
+    "Nascimento",
+    "Casamento",
+    "Óbito",
+    "Certidões e segunda via"
+  ],
   "resumo": "Nascimento, casamento, óbito e certidões.",
-  "descricao": "O Registro Civil das Pessoas Naturais registra os fatos mais importantes da vida: nascimento, casamento e óbito. É daqui que saem as certidões usadas em quase todos os documentos, como RG, CPF, passaporte, benefícios e herança.",
+  "descricao": "O Registro Civil das Pessoas Naturais (RCPN) é o cartório responsável por registrar os principais atos da vida civil de uma pessoa: nascimentos (o primeiro registro, que dá origem à certidão de nascimento), casamentos (a habilitação e a celebração do casamento civil) e óbitos (o registro de falecimento, necessário para a certidão de óbito). É daqui que saem as certidões usadas em quase todos os documentos.",
   "atos": [
     {
       "slug": "registro-nascimento",
       "titulo": "Registrar um filho recém-nascido",
       "nomeTecnico": "Registro de nascimento",
       "resumo": "Registro do nascimento e emissão da primeira certidão de nascimento, que é gratuita.",
-      "palavras": ["bebe", "recem nascido", "nasceu", "nascer", "nascimento", "certidao de nascimento", "dnv", "declaracao de nascido vivo", "nome do filho", "registrar crianca", "filho", "filha", "paternidade", "registro tardio"],
+      "palavras": [
+        "bebe",
+        "recem nascido",
+        "nasceu",
+        "nascer",
+        "nascimento",
+        "certidao de nascimento",
+        "dnv",
+        "declaracao de nascido vivo",
+        "nome do filho",
+        "registrar crianca",
+        "filho",
+        "filha",
+        "paternidade",
+        "registro tardio"
+      ],
       "quando": "O prazo legal para registrar o nascimento é de 15 dias, ampliado em até três meses para quem mora a mais de 30 km do cartório. Mesmo depois do prazo é possível registrar. Fale com o cartório que ele orienta.",
       "documentos": [
         {
@@ -66,7 +86,10 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["rcpn/reconhecimento-paternidade", "rcpn/segunda-via-certidao"],
+      "verTambem": [
+        "rcpn/reconhecimento-paternidade",
+        "rcpn/segunda-via-certidao"
+      ],
       "validado": false
     },
     {
@@ -74,7 +97,19 @@
       "titulo": "Pedir segunda via de certidão",
       "nomeTecnico": "Certidão de nascimento, casamento ou óbito",
       "resumo": "Nova cópia de certidão de nascimento, casamento ou óbito, inclusive de registros feitos em outras cidades.",
-      "palavras": ["certidao", "segunda via", "perdi", "perdeu", "extravio", "inteiro teor", "certidao de casamento", "certidao de obito", "certidao de nascimento", "nova certidao", "outra cidade"],
+      "palavras": [
+        "certidao",
+        "segunda via",
+        "perdi",
+        "perdeu",
+        "extravio",
+        "inteiro teor",
+        "certidao de casamento",
+        "certidao de obito",
+        "certidao de nascimento",
+        "nova certidao",
+        "outra cidade"
+      ],
       "quando": "Quando você perdeu a certidão, precisa de uma versão mais recente ou de uma cópia para algum órgão. Se o registro foi feito neste cartório, a emissão é direta. Se foi em outra cidade, em geral é possível pedir por sistema eletrônico. Pergunte ao atendimento.",
       "documentos": [
         {
@@ -110,7 +145,10 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["rcpn/registro-nascimento", "rcpn/retificacao-averbacao"],
+      "verTambem": [
+        "rcpn/registro-nascimento",
+        "rcpn/retificacao-averbacao"
+      ],
       "validado": false
     },
     {
@@ -118,7 +156,19 @@
       "titulo": "Casar (habilitação e casamento civil)",
       "nomeTecnico": "Habilitação e celebração de casamento",
       "resumo": "Passo a passo para se casar no civil: os documentos da habilitação e como funciona a cerimônia.",
-      "palavras": ["casar", "casamento", "noivos", "habilitacao", "casamento civil", "cerimonia", "juiz de paz", "regime de bens", "pacto antenupcial", "noiva", "noivo"],
+      "palavras": [
+        "casar",
+        "casamento",
+        "noivos",
+        "habilitacao",
+        "casamento civil",
+        "cerimonia",
+        "juiz de paz",
+        "regime de bens",
+        "pacto antenupcial",
+        "noiva",
+        "noivo"
+      ],
       "quando": "Quando duas pessoas querem se casar no civil. Primeiro é feita a habilitação, depois a cerimônia. A habilitação aprovada vale por 90 dias.",
       "documentos": [
         {
@@ -134,7 +184,10 @@
         {
           "grupo": "Sobre o regime de bens",
           "itens": [
-            { "texto": "Se quiserem um regime diferente da comunhão parcial, que é a regra geral: pacto antenupcial", "obs": "O pacto é feito em escritura, no Tabelionato de Notas." }
+            {
+              "texto": "Se quiserem um regime diferente da comunhão parcial, que é a regra geral: pacto antenupcial",
+              "obs": "O pacto é feito em escritura, no Tabelionato de Notas."
+            }
           ]
         },
         {
@@ -165,7 +218,10 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["notas/uniao-estavel", "rcpn/segunda-via-certidao"],
+      "verTambem": [
+        "notas/uniao-estavel",
+        "rcpn/segunda-via-certidao"
+      ],
       "validado": false
     },
     {
@@ -173,7 +229,19 @@
       "titulo": "Registrar um óbito",
       "nomeTecnico": "Registro de óbito",
       "resumo": "Registro do falecimento e emissão da certidão de óbito, necessária para o sepultamento e outras providências.",
-      "palavras": ["morte", "faleceu", "falecimento", "obito", "certidao de obito", "sepultamento", "enterro", "velorio", "declaracao de obito", "do", "morreu"],
+      "palavras": [
+        "morte",
+        "faleceu",
+        "falecimento",
+        "obito",
+        "certidao de obito",
+        "sepultamento",
+        "enterro",
+        "velorio",
+        "declaracao de obito",
+        "do",
+        "morreu"
+      ],
       "quando": "Logo após o falecimento, pois a certidão de óbito é exigida para o sepultamento. Em regra, o registro é feito no cartório do local do falecimento. A lei prevê outras possibilidades, por isso pergunte ao atendimento.",
       "documentos": [
         {
@@ -216,7 +284,10 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["notas/inventario-partilha", "rcpn/segunda-via-certidao"],
+      "verTambem": [
+        "notas/inventario-partilha",
+        "rcpn/segunda-via-certidao"
+      ],
       "validado": false
     },
     {
@@ -224,7 +295,17 @@
       "titulo": "Reconhecer um filho (incluir o nome do pai no registro)",
       "nomeTecnico": "Reconhecimento de paternidade",
       "resumo": "O pai declara no cartório que é pai da criança ou do adulto, e passa a constar no registro de nascimento.",
-      "palavras": ["pai", "paternidade", "reconhecer filho", "incluir pai", "nome do pai", "pai na certidao", "reconhecimento", "dna", "sobrenome do pai"],
+      "palavras": [
+        "pai",
+        "paternidade",
+        "reconhecer filho",
+        "incluir pai",
+        "nome do pai",
+        "pai na certidao",
+        "reconhecimento",
+        "dna",
+        "sobrenome do pai"
+      ],
       "quando": "Pode ser feito para filhos de qualquer idade. Se o filho for maior de idade, é preciso o consentimento dele. Se for menor, o cartório orienta sobre a participação da mãe ou do responsável.",
       "documentos": [
         {
@@ -265,7 +346,10 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["rcpn/registro-nascimento", "rcpn/retificacao-averbacao"],
+      "verTambem": [
+        "rcpn/registro-nascimento",
+        "rcpn/retificacao-averbacao"
+      ],
       "validado": false
     },
     {
@@ -273,7 +357,21 @@
       "titulo": "Corrigir ou atualizar um registro civil",
       "nomeTecnico": "Retificação e averbação",
       "resumo": "Erros de grafia, mudança de nome após casamento ou divórcio e outras atualizações nas certidões.",
-      "palavras": ["corrigir", "erro", "nome errado", "mudar nome", "alterar nome", "sobrenome", "retificar", "averbar", "divorcio", "estado civil", "grafia", "atualizar certidao", "troca de nome"],
+      "palavras": [
+        "corrigir",
+        "erro",
+        "nome errado",
+        "mudar nome",
+        "alterar nome",
+        "sobrenome",
+        "retificar",
+        "averbar",
+        "divorcio",
+        "estado civil",
+        "grafia",
+        "atualizar certidao",
+        "troca de nome"
+      ],
       "quando": "Alguns ajustes podem ser feitos diretamente no cartório, sem processo judicial: por exemplo, erros evidentes de grafia, anotação de divórcio ou de casamento e, em certos casos, alteração de nome. Outros dependem de decisão da Justiça. O cartório avalia o seu caso.",
       "documentos": [
         {
@@ -309,8 +407,14 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["rcpn/segunda-via-certidao", "notas/divorcio-extrajudicial"],
+      "verTambem": [
+        "rcpn/segunda-via-certidao",
+        "notas/divorcio-extrajudicial"
+      ],
       "validado": false
     }
+  ],
+  "linksOnline": [
+    "registro-civil"
   ]
 }

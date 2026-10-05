@@ -465,6 +465,7 @@
     var d = JSON.parse(funilDados.textContent);
     var fNome = funilEl.querySelector("[data-f-nome]"), fEsp = funilEl.querySelector("[data-f-esp]"), fAto = funilEl.querySelector("[data-f-ato]");
     var fMsg = funilEl.querySelector("[data-f-msg]"), fDica = funilEl.querySelector("[data-f-dica]");
+    var fModo = funilEl.querySelector("[data-f-modo]");
     var bZap = funilEl.querySelector("[data-f-whats]"), bMail = funilEl.querySelector("[data-f-email]"), bCopiar = funilEl.querySelector("[data-f-copiar]");
     var ultimaMsg = "";
     funilEl.querySelector("form").addEventListener("submit", function (e) { e.preventDefault(); });
@@ -476,16 +477,21 @@
       var nome = fNome.value.replace(/[^\p{L}\p{M}\s'.-]/gu, "").replace(/\s+/g, " ").trim().slice(0, 80);
       var e = fEsp.value !== "" ? d.esps[+fEsp.value] : null;
       var a = e && fAto.value !== "" ? e.atos[+fAto.value] : null;
-      return { nome: nome, esp: e, ato: a, pronto: !!(nome && e && a) };
+      var modoEl = fModo ? fModo.querySelector('input[name="f-modo"]:checked') : null;
+      var modo = a && a.e && modoEl ? modoEl.value : "";
+      return { nome: nome, esp: e, ato: a, modo: modo, pronto: !!(nome && e && a) };
     }
     function mensagem(x) {
-      return "Olá, sou " + x.nome + ". Gostaria de falar com o setor de " + x.esp.nome + ", pois preciso de " + minuscula(x.ato.d) + ". Aguardo atendimento.";
+      // Em escrituras, a pessoa pode dizer se prefere fazer digitalmente (e-Notariado) ou presencialmente.
+      var preferencia = x.modo === "d" ? " Prefiro fazer de forma digital, pelo e-Notariado." : x.modo === "p" ? " Prefiro fazer de forma presencial." : "";
+      return "Olá, sou " + x.nome + ". Gostaria de falar com o setor de " + x.esp.nome + ", pois preciso de " + minuscula(x.ato.d) + "." + preferencia + " Aguardo atendimento.";
     }
     function marcar(el, feito) { el.closest(".funil__passo").classList.toggle("is-feito", feito); }
     function liberar(b, sim) { b.setAttribute("aria-disabled", sim ? "false" : "true"); }
 
     function atualizar() {
       var x = atual();
+      if (fModo) fModo.hidden = !(x.ato && x.ato.e);
       marcar(fNome, !!x.nome); marcar(fEsp, !!x.esp); marcar(fAto, !!x.ato);
       if (x.pronto) {
         var m = mensagem(x);
@@ -514,7 +520,12 @@
       }
       atualizar();
     });
-    fNome.addEventListener("input", atualizar); fAto.addEventListener("change", atualizar);
+    fNome.addEventListener("input", atualizar);
+    fAto.addEventListener("change", function () {
+      if (fModo) fModo.querySelectorAll("input").forEach(function (r) { r.checked = false; });
+      atualizar();
+    });
+    if (fModo) fModo.addEventListener("change", atualizar);
     [bZap, bMail].forEach(function (b) {
       b.addEventListener("click", function (e) {
         if (b.getAttribute("aria-disabled") === "true") {

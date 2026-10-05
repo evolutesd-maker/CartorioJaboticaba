@@ -17,9 +17,9 @@
 <meta property="og:description" content="O cartório confere a cópia com o documento original e atesta que as duas são iguais. Veja os documentos necessários e como funciona (Notas).">
 <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../../assets/fonts/PlusJakartaSans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/style.css?v=a6b52930b6">
+<link rel="stylesheet" href="../../assets/css/style.css?v=b1ad1a79be">
 <script>document.documentElement.classList.add("js");(function(){var R=document.documentElement;function tipo(e){var a=e&&e.activation?e.activation:(window.navigation&&navigation.activation);R.classList.toggle("vt-voltar",!!a&&a.navigationType==="traverse")}addEventListener("pageswap",tipo);addEventListener("pagereveal",tipo);function topo(){var n=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];if(location.hash||(n&&n.type!=="navigate"))return;scrollTo({top:0,left:0,behavior:"instant"});try{R.style.scrollPaddingTop="0";R.scrollIntoView({block:"start",behavior:"instant"});R.style.removeProperty("scroll-padding-top")}catch(_){}}topo();addEventListener("pagereveal",topo);addEventListener("DOMContentLoaded",topo);addEventListener("load",topo)})()</script>
-<script src="../../assets/js/main.js?v=73e177c8b5" defer></script>
+<script src="../../assets/js/main.js?v=ee8391edaf" defer></script>
 <script type="speculationrules">{"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"selector_matches":"[target=_blank]"}}]},"eagerness":"moderate"}]}</script>
 
 </head>
@@ -89,6 +89,7 @@
 
       <section id="como-funciona">
         <h2>Como funciona</h2>
+        
         <ol class="passos"><li>Leve o original e a cópia ao balcão.</li><li>O atendente confere as duas versões.</li><li>Retire a cópia com o selo de autenticação.</li></ol>
       </section>
 
@@ -99,6 +100,8 @@
           <div><dt>Custo</dt><dd>Os valores (emolumentos) são fixados por lei e variam conforme o ato. O cartório informa o valor exato antes de você iniciar.</dd></div>
         </dl>
       </section>
+
+      
 
       <section id="duvidas"><h2>Perguntas frequentes</h2><div class="faq"><details><summary>Posso autenticar uma cópia de outra cópia?</summary><div><p>A autenticação é feita a partir do documento original. Se você só tem uma cópia, explique ao atendente o que precisa e ele orienta o caminho mais adequado.</p></div></details><details><summary>A cópia autenticada tem a mesma validade do original?</summary><div><p>Ela vale como o original para a finalidade a que se destina. Porém, quem vai receber pode exigir uma certidão recente (por exemplo, de nascimento ou casamento). Confirme com o destinatário.</p></div></details></div></section>
 
@@ -134,6 +137,10 @@
             <div class="funil__passo"><span class="funil__num">1</span><label for="f-nome">Qual é o seu nome?</label><input id="f-nome" type="text" maxlength="80" autocomplete="name" placeholder="Seu nome" data-f-nome></div>
             <div class="funil__passo"><span class="funil__num">2</span><label for="f-esp">Com qual setor você quer falar?</label><select id="f-esp" data-f-esp><option value="">Escolha a especialidade</option></select></div>
             <div class="funil__passo"><span class="funil__num">3</span><label for="f-ato">De qual documento ou serviço você precisa?</label><select id="f-ato" disabled data-f-ato><option value="">Escolha antes a especialidade</option></select></div>
+            <fieldset class="funil__modo" hidden data-f-modo><legend>Como prefere fazer a escritura? <span>(opcional)</span></legend>
+              <label><input type="radio" name="f-modo" value="p"><span>Presencialmente, no cartório</span></label>
+              <label><input type="radio" name="f-modo" value="d"><span>Digitalmente, pelo e-Notariado</span></label>
+            </fieldset>
           </div>
           <div class="funil__previa">
             <h3>Sua mensagem</h3>
@@ -147,7 +154,7 @@
             <p class="funil__dica" role="status" aria-live="polite" data-f-dica></p>
           </div>
         </form>
-        <script type="application/json" id="dados-funil">{"wa":"5555999990000","mail":"jg.fridhein@gmail.com","esps":[{"nome":"Notas","atos":[{"t":"Comprar ou vender um imóvel","d":"Escritura pública de compra e venda"},{"t":"Fazer uma procuração","d":"Procuração pública"},{"t":"Reconhecer firma (confirmar uma assinatura)","d":"Reconhecimento de firma"},{"t":"Autenticar cópias de documentos","d":"Autenticação de cópias"},{"t":"Autorização para criança ou adolescente viajar","d":"Autorização de viagem de menor"},{"t":"Inventário e partilha de herança em cartório","d":"Escritura de inventário e partilha extrajudicial"},{"t":"Fazer um testamento","d":"Testamento público"},{"t":"Divórcio em cartório","d":"Escritura de divórcio consensual"},{"t":"Declarar união estável","d":"Escritura pública de união estável"}]},{"nome":"Protesto de Títulos","atos":[{"t":"Saber se existe protesto em meu nome","d":"Consulta e certidão de protesto"},{"t":"Pagar uma dívida enviada para protesto","d":"Pagamento de título apresentado a protesto"},{"t":"Cancelar um protesto","d":"Cancelamento de protesto"},{"t":"Cobrar uma dívida por protesto (para quem tem a receber)","d":"Apresentação de título para protesto"}]},{"nome":"Registro de Títulos e Documentos","atos":[{"t":"Registrar um contrato ou documento","d":"Registro de documento particular"},{"t":"Notificar alguém formalmente","d":"Notificação extrajudicial"},{"t":"Pedir certidão de documento registrado","d":"Certidão de registro de títulos e documentos"}]},{"nome":"Registro Civil das Pessoas Jurídicas","atos":[{"t":"Registrar uma associação, igreja ou ONG","d":"Registro de estatuto de pessoa jurídica"},{"t":"Registrar mudança de diretoria ou alteração de estatuto","d":"Registro de atas e alterações"},{"t":"Pedir certidão de entidade registrada","d":"Certidão de pessoa jurídica"}]},{"nome":"Registro Civil das Pessoas Naturais","atos":[{"t":"Registrar um filho recém-nascido","d":"Registro de nascimento"},{"t":"Pedir segunda via de certidão","d":"Certidão de nascimento, casamento ou óbito"},{"t":"Casar (habilitação e casamento civil)","d":"Habilitação e celebração de casamento"},{"t":"Registrar um óbito","d":"Registro de óbito"},{"t":"Reconhecer um filho (incluir o nome do pai no registro)","d":"Reconhecimento de paternidade"},{"t":"Corrigir ou atualizar um registro civil","d":"Retificação e averbação"}]}]}</script>
+        <script type="application/json" id="dados-funil">{"wa":"5555999990000","mail":"jg.fridhein@gmail.com","esps":[{"nome":"Notas","atos":[{"t":"Comprar ou vender um imóvel","d":"Escritura pública de compra e venda","e":1},{"t":"Doar um bem mantendo o usufruto","d":"Doação com reserva de usufruto","e":1},{"t":"Doar um bem (doação pura e simples)","d":"Doação pura e simples","e":1},{"t":"Fazer uma procuração","d":"Procuração pública","e":1},{"t":"Reconhecer firma (confirmar uma assinatura)","d":"Reconhecimento de firma","e":0},{"t":"Autenticar cópias de documentos","d":"Autenticação de cópias","e":0},{"t":"Regularizar um imóvel por usucapião (ata notarial)","d":"Ata notarial para usucapião","e":0},{"t":"Registrar um fato por escrito (ata notarial)","d":"Ata notarial","e":0},{"t":"Autorização para criança ou adolescente viajar","d":"Autorização de viagem de menor","e":0},{"t":"Inventário e partilha de herança em cartório","d":"Escritura de inventário e partilha extrajudicial","e":1},{"t":"Ceder a parte da herança inteira","d":"Cessão de direitos hereditários — toda a herança","e":1},{"t":"Ceder direitos da herança sobre um bem específico","d":"Cessão de direitos hereditários — bem específico","e":1},{"t":"Fazer um testamento","d":"Testamento público","e":1},{"t":"Divórcio ou fim de união estável em cartório","d":"Escritura de divórcio e dissolução de união estável","e":1},{"t":"Declarar união estável","d":"Escritura pública de união estável","e":1}]},{"nome":"Protesto de Títulos","atos":[{"t":"Saber se existe protesto em meu nome","d":"Consulta e certidão de protesto","e":0},{"t":"Pagar uma dívida enviada para protesto","d":"Pagamento de título apresentado a protesto","e":0},{"t":"Cancelar um protesto","d":"Cancelamento de protesto","e":0},{"t":"Cobrar uma dívida por protesto (para quem tem a receber)","d":"Apresentação de título para protesto","e":0}]},{"nome":"Registro de Títulos e Documentos","atos":[{"t":"Registrar um contrato ou documento","d":"Registro de documento particular","e":0},{"t":"Notificar alguém formalmente","d":"Notificação extrajudicial","e":0},{"t":"Pedir certidão de documento registrado","d":"Certidão de registro de títulos e documentos","e":0}]},{"nome":"Registro Civil das Pessoas Jurídicas","atos":[{"t":"Registrar uma associação, igreja ou ONG","d":"Registro de estatuto de pessoa jurídica","e":0},{"t":"Registrar mudança de diretoria ou alteração de estatuto","d":"Registro de atas e alterações","e":0},{"t":"Pedir certidão de entidade registrada","d":"Certidão de pessoa jurídica","e":0}]},{"nome":"Registro Civil das Pessoas Naturais","atos":[{"t":"Registrar um filho recém-nascido","d":"Registro de nascimento","e":0},{"t":"Pedir segunda via de certidão","d":"Certidão de nascimento, casamento ou óbito","e":0},{"t":"Casar (habilitação e casamento civil)","d":"Habilitação e celebração de casamento","e":0},{"t":"Registrar um óbito","d":"Registro de óbito","e":0},{"t":"Reconhecer um filho (incluir o nome do pai no registro)","d":"Reconhecimento de paternidade","e":0},{"t":"Corrigir ou atualizar um registro civil","d":"Retificação e averbação","e":0}]}]}</script>
       </div>
     </div>
   </section>
@@ -170,6 +177,8 @@
         <h2>Informações</h2>
         <ul>
           <li><a href="../../documentos.html">Documentos e orientações</a></li>
+          <li><a href="../../documentos.html#online">Certidões online</a></li>
+          <li><a href="../../e-notariado.html">Atos online (e-Notariado)</a></li>
           <li><a href="../../contato.html">Localização e atendimento</a></li>
           <li><a href="../../institucional.html">Institucional</a></li>
           <li><a href="../../privacidade.html">Política de privacidade</a></li>
@@ -181,7 +190,7 @@
     </div>
   </footer>
 </div>
-<dialog class="paleta" data-paleta aria-label="Buscar serviço ou documento" data-indice="../../assets/js/indice.js?v=5cb2024961" data-raiz="../../">
+<dialog class="paleta" data-paleta aria-label="Buscar serviço ou documento" data-indice="../../assets/js/indice.js?v=b4492535a7" data-raiz="../../">
   <div class="paleta__caixa">
     <div class="busca__campo"><svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle pathLength="1" cx="11" cy="11" r="6.5"/><path pathLength="1" d="M16 16l5 5"/></svg><input id="paleta-busca" type="search" role="combobox" aria-expanded="true" aria-controls="paleta-lista" aria-autocomplete="list" autocomplete="off" placeholder="Buscar serviço ou documento" aria-label="Buscar serviço ou documento" data-paleta-input></div>
     <div class="busca__painel paleta__painel" data-paleta-painel>

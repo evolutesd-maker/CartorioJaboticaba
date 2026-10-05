@@ -10,7 +10,9 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 const DOCS = join(fileURLToPath(new URL(".", import.meta.url)), "..", "docs");
-const DOMINIOS_PERMITIDOS = ["https://wa.me/", "https://www.google.com/maps/"];
+// Lista FECHADA: wa.me, Google Maps e os sites oficiais aprovados em scripts/dominios-aprovados.json.
+const APROVADOS = JSON.parse(readFileSync(join(DOCS, "..", "scripts", "dominios-aprovados.json"), "utf8"));
+const DOMINIOS_PERMITIDOS = ["https://wa.me/", "https://www.google.com/maps/", ...APROVADOS.map((h) => `https://${h}/`)];
 const problemas = [];
 const listar = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? listar(join(d, e.name)) : [join(d, e.name)]));
 const hash = (s) => "sha256-" + createHash("sha256").update(s).digest("base64");
@@ -77,4 +79,4 @@ if (existsSync(sec)) {
 }
 
 if (problemas.length) { console.error(`✗ ${problemas.length} problema(s) de segurança:\n` + problemas.map((p) => "  " + p).join("\n")); process.exit(1); }
-console.log(`✓ segurança: ${paginas.length} páginas com CSP estrita (sem unsafe-*), sem script/estilo/evento inline fora do hash, links externos só para ${DOMINIOS_PERMITIDOS.join(" e ")}, JS sem padrões perigosos, cabeçalhos de hospedagem presentes`);
+console.log(`✓ segurança: ${paginas.length} páginas com CSP estrita (sem unsafe-*), sem script/estilo/evento inline fora do hash, links externos só para wa.me, Google Maps e ${APROVADOS.length} sites oficiais aprovados, JS sem padrões perigosos, cabeçalhos de hospedagem presentes`);

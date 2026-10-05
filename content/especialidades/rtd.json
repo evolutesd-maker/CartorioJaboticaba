@@ -5,16 +5,31 @@
   "nomeCompleto": "Registro de Títulos e Documentos",
   "icone": "arquivo",
   "tagline": "Contratos e documentos",
-  "opcoes": ["Registrar contratos", "Notificar alguém", "Certidões de registro"],
+  "opcoes": [
+    "Registrar contratos",
+    "Notificar alguém",
+    "Certidões de registro"
+  ],
   "resumo": "Registro e conservação de documentos.",
-  "descricao": "O Registro de Títulos e Documentos dá publicidade, conservação e prova de existência e de data a documentos particulares, como contratos, e realiza notificações formais. Registrar um documento ajuda a provar que ele existia em determinada data e, em alguns casos, é necessário para que ele valha perante terceiros.",
+  "descricao": "O Registro de Títulos e Documentos, também chamado de RTD, faz parte dos Registros Especiais. É aqui que as atas de condomínios são registradas e que são encaminhadas as notificações extrajudiciais, por exemplo. Registrar um documento dá publicidade, conservação e prova de existência e de data, e em alguns casos é necessário para que ele valha perante terceiros.",
   "atos": [
     {
       "slug": "registro-contrato",
       "titulo": "Registrar um contrato ou documento",
       "nomeTecnico": "Registro de documento particular",
       "resumo": "Dê data certa, conservação e validade perante terceiros a contratos, declarações e outros documentos particulares.",
-      "palavras": ["contrato", "locacao", "aluguel", "comodato", "registrar documento", "guardar documento", "prova de data", "conservacao", "terceiros", "traducao"],
+      "palavras": [
+        "contrato",
+        "locacao",
+        "aluguel",
+        "comodato",
+        "registrar documento",
+        "guardar documento",
+        "prova de data",
+        "conservacao",
+        "terceiros",
+        "traducao"
+      ],
       "quando": "Contratos de locação, comodato, promessas de compra e venda e outros documentos que você quer guardar com segurança, com prova de existência e data, ou que a lei exige registrar para valer contra terceiros.",
       "documentos": [
         {
@@ -44,7 +59,10 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["rtd/certidao-rtd", "rtd/notificacao-extrajudicial"],
+      "verTambem": [
+        "rtd/certidao-rtd",
+        "rtd/notificacao-extrajudicial"
+      ],
       "validado": false
     },
     {
@@ -52,7 +70,18 @@
       "titulo": "Notificar alguém formalmente",
       "nomeTecnico": "Notificação extrajudicial",
       "resumo": "O cartório entrega à outra pessoa uma comunicação sua e comprova que ela foi entregue. Serve para cobrar, avisar ou encerrar um contrato, entre outros usos.",
-      "palavras": ["notificar", "notificacao", "avisar", "cobrar", "rescindir", "encerrar contrato", "aviso formal", "carta", "inquilino", "comunicar"],
+      "palavras": [
+        "notificar",
+        "notificacao",
+        "avisar",
+        "cobrar",
+        "rescindir",
+        "encerrar contrato",
+        "aviso formal",
+        "carta",
+        "inquilino",
+        "comunicar"
+      ],
       "quando": "Quando você precisa comunicar algo a alguém e quer ter prova de que a mensagem foi entregue: por exemplo, cobrar um valor, avisar que um contrato será encerrado ou formalizar um pedido.",
       "documentos": [
         {
@@ -83,7 +112,10 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["rtd/registro-contrato", "protesto/apresentar-titulo"],
+      "verTambem": [
+        "rtd/registro-contrato",
+        "protesto/apresentar-titulo"
+      ],
       "validado": false
     },
     {
@@ -91,7 +123,13 @@
       "titulo": "Pedir certidão de documento registrado",
       "nomeTecnico": "Certidão de registro de títulos e documentos",
       "resumo": "Peça a certidão de um documento ou notificação que foi registrado no cartório.",
-      "palavras": ["certidao", "segunda via", "documento registrado", "copia do registro", "certidao de notificacao"],
+      "palavras": [
+        "certidao",
+        "segunda via",
+        "documento registrado",
+        "copia do registro",
+        "certidao de notificacao"
+      ],
       "quando": "Quando você precisa comprovar o registro de um contrato, documento ou notificação feito neste cartório.",
       "documentos": [
         {
@@ -108,8 +146,13 @@
         "Retire a certidão no prazo informado."
       ],
       "modelos": [],
-      "verTambem": ["rtd/registro-contrato"],
+      "verTambem": [
+        "rtd/registro-contrato"
+      ],
       "validado": false
     }
+  ],
+  "linksOnline": [
+    "rtdpj"
   ]
 }

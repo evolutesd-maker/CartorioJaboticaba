@@ -1423,3 +1423,29 @@ kbd {
   .submenu { grid-template-columns: 1fr; gap: 1rem; margin: 0.25rem 0 0.5rem; padding: 1rem 0.85rem; background: rgba(255, 255, 255, 0.07); border-radius: 14px; }
 }
 @media print { .submenu { display: none !important; } }
+
+
+/* ============================================================ Links externos, e-Notariado e escolha digital/presencial */
+
+.container--leitura { width: min(100% - 2.5rem, 52rem); }
+.container--leitura .bloco { margin-bottom: 2rem; }
+.lista-aberta--externa .icone { color: var(--ouro-claro); }
+:is(.painel, .folha, .eb__painel) .lista-aberta--externa .icone { color: var(--azul); }
+.folha .lista-aberta--externa { margin-bottom: 0.5rem; }
+.folha section > p:first-of-type { color: var(--tinta); }
+.nota-pequena + .antes { margin-top: 1.5rem; }
+
+.funil__modo { grid-column: 1 / -1; margin: 0; padding: 0.9rem 1rem; border: 1px solid var(--azul-200); border-radius: 14px; background: var(--azul-50); }
+.funil__modo[hidden] { display: none; }
+.funil__modo legend { padding: 0 0.4rem; font-weight: 800; color: var(--azul-4); }
+.funil__modo legend span { font-weight: 600; color: var(--suave); }
+.funil__modo label { display: flex; align-items: center; gap: 0.7rem; min-height: 2.75rem; padding: 0.3rem 0.2rem; font-weight: 600; color: var(--tinta); cursor: pointer; }
+.funil__modo input { appearance: none; -webkit-appearance: none; flex: none; width: 1.4rem; height: 1.4rem; margin: 0; border: 2px solid var(--azul); border-radius: 50%; background: #fff; cursor: pointer; }
+.funil__modo input:checked { background: radial-gradient(circle, var(--azul) 0 42%, #fff 46%); }
+.funil__modo input:focus-visible { outline: 3px solid var(--azul); outline-offset: 3px; }
+
+.secao .nota-pequena { color: #d3e6f7; }
+.folha .nota-pequena { color: var(--suave); }
+.destaque a.btn--primario { color: #fff; }
+.destaque a.btn--primario:hover { color: #fff; }
+.destaque .btn { margin-top: 0.25rem; }

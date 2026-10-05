@@ -1,0 +1,90 @@
+{
+  "grupos": [
+    {
+      "id": "certidoes",
+      "titulo": "Certidões e consultas para imóveis e negócios",
+      "intro": "Sites oficiais onde você mesmo emite certidões e consulta situações. Pergunte ao cartório quais delas o seu caso exige.",
+      "itens": [
+        "cpf",
+        "cib",
+        "ccir",
+        "cndt",
+        "sefaz-rs"
+      ]
+    },
+    {
+      "id": "impostos",
+      "titulo": "Impostos",
+      "intro": "",
+      "itens": [
+        "doacao-rs"
+      ]
+    },
+    {
+      "id": "pedidos",
+      "titulo": "Peça certidões pela internet",
+      "intro": "Pedidos digitais de certidão, em portais nacionais dos cartórios.",
+      "itens": [
+        "cenprot",
+        "registro-civil",
+        "rtdpj"
+      ]
+    }
+  ],
+  "itens": {
+    "cpf": {
+      "titulo": "Certidão do CPF",
+      "orgao": "Receita Federal",
+      "descricao": "Emita a certidão do CPF no site da Receita Federal.",
+      "url": "https://servicos.receitafederal.gov.br/servico/certidoes/#/home/cpf"
+    },
+    "cib": {
+      "titulo": "Certidão do CIB (Cadastro Imobiliário Brasileiro)",
+      "orgao": "Receita Federal",
+      "descricao": "Emita a certidão do CIB no site da Receita Federal.",
+      "url": "https://servicos.receitafederal.gov.br/servico/certidoes/#/home/cib"
+    },
+    "ccir": {
+      "titulo": "CCIR (Certificado de Cadastro de Imóvel Rural)",
+      "orgao": "SNCR / Serpro",
+      "descricao": "Emissão do CCIR, usado em negócios com imóvel rural.",
+      "url": "https://sncr.serpro.gov.br/ccir/emissao"
+    },
+    "cndt": {
+      "titulo": "Certidão Negativa de Débitos Trabalhistas (CNDT)",
+      "orgao": "Tribunal Superior do Trabalho",
+      "descricao": "Emita a certidão no site do TST.",
+      "url": "https://www.tst.jus.br/certidao1"
+    },
+    "sefaz-rs": {
+      "titulo": "Certidão de Situação Fiscal do RS",
+      "orgao": "Receita Estadual do RS (Sefaz)",
+      "descricao": "Solicite a certidão de situação fiscal no site da Sefaz-RS.",
+      "url": "https://www.sefaz.rs.gov.br/sat/CertidaoSitFiscalSolic.aspx"
+    },
+    "doacao-rs": {
+      "titulo": "Doação em dinheiro para filhos",
+      "orgao": "Receita Estadual do RS",
+      "descricao": "Serviço da Receita Estadual do RS para doação em dinheiro para filhos.",
+      "url": "https://receita.fazenda.rs.gov.br/servicos-a-empresas/servicos?servico=1798"
+    },
+    "cenprot": {
+      "titulo": "CENPROT: certidões e pesquisa de protestos",
+      "orgao": "Central Nacional de Protesto",
+      "descricao": "Pedidos de certidões e protestos pela internet.",
+      "url": "https://www.pesquisaprotesto.com.br/"
+    },
+    "registro-civil": {
+      "titulo": "Certidão de nascimento, casamento ou óbito pela internet",
+      "orgao": "Portal do Registro Civil",
+      "descricao": "Pedido de certidão pela internet, de forma digital, do Registro Civil das Pessoas Naturais.",
+      "url": "https://www.registrocivil.org.br/"
+    },
+    "rtdpj": {
+      "titulo": "Certidões e registros de Títulos e Documentos e Pessoas Jurídicas",
+      "orgao": "RTDPJ Brasil",
+      "descricao": "Pedidos digitais de certidões e registros de Títulos e Documentos (RTD) e de Pessoas Jurídicas (RCPJ).",
+      "url": "https://www.rtdbrasil.org.br/onrtdpj/pedido/cartorios/busca"
+    }
+  }
+}

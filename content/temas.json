@@ -20,10 +20,15 @@
     "id": "imoveis",
     "titulo": "Imóveis e herança",
     "icone": "casa",
-    "descricao": "Compra e venda de imóveis, testamento e divisão dos bens de quem faleceu.",
+    "descricao": "Compra e venda, doação e usucapião de imóveis, herança, cessão de direitos e testamento.",
     "atos": [
       "notas/escritura-compra-venda",
+      "notas/ata-notarial-usucapiao",
+      "notas/doacao-simples",
+      "notas/doacao-usufruto",
       "notas/inventario-partilha",
+      "notas/cessao-heranca-toda",
+      "notas/cessao-heranca-bem",
       "notas/testamento"
     ]
   },
@@ -31,11 +36,12 @@
     "id": "documentos",
     "titulo": "Documentos e assinaturas",
     "icone": "documento",
-    "descricao": "Procurações, reconhecimento de firma, cópias autenticadas, contratos e notificações.",
+    "descricao": "Procurações, reconhecimento de firma, cópias autenticadas, atas notariais, contratos e notificações.",
     "atos": [
       "notas/procuracao",
       "notas/reconhecimento-firma",
       "notas/autenticacao-copias",
+      "notas/atas-notariais",
       "rtd/registro-contrato",
       "rtd/notificacao-extrajudicial",
       "rtd/certidao-rtd"

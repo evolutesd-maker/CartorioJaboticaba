@@ -5,16 +5,37 @@
   "nomeCompleto": "Tabelionato de Notas",
   "icone": "documento",
   "tagline": "Documentos com fé pública",
-  "opcoes": ["Escrituras de imóveis", "Procurações", "Reconhecimento de firma", "Cópias autenticadas"],
-  "resumo": "Escrituras, procurações e outros atos notariais.",
+  "opcoes": [
+    "Escrituras de imóveis",
+    "Procurações",
+    "Reconhecimento de firma",
+    "Atas notariais"
+  ],
+  "resumo": "Escrituras, procurações, atas notariais e outros atos notariais.",
   "descricao": "O Tabelionato de Notas formaliza a vontade das pessoas em documentos com fé pública. O tabelião confere a identidade de quem assina, orienta sobre o que a lei exige e redige o ato, que passa a ter valor de prova e segurança jurídica. É aqui que se fazem escrituras, procurações, reconhecimentos de firma e autenticações.",
   "atos": [
     {
       "slug": "escritura-compra-venda",
       "titulo": "Comprar ou vender um imóvel",
       "nomeTecnico": "Escritura pública de compra e venda",
-      "resumo": "A escritura é o documento em que quem compra e quem vende formalizam a negociação de um imóvel, com a conferência do tabelião.",
-      "palavras": ["casa", "terreno", "apartamento", "lote", "sitio", "chacara", "propriedade", "escritura", "venda", "compra", "comprar", "vender", "imovel", "rural", "urbano"],
+      "resumo": "A escritura de compra e venda é feita quando uma pessoa vende um bem (móvel ou imóvel) a outra, pagando o preço em dinheiro. É obrigatória para transferir imóveis de valor superior a 30 salários mínimos e, depois de lavrada, deve ser registrada no Registro de Imóveis.",
+      "palavras": [
+        "casa",
+        "terreno",
+        "apartamento",
+        "lote",
+        "sitio",
+        "chacara",
+        "propriedade",
+        "escritura",
+        "venda",
+        "compra",
+        "comprar",
+        "vender",
+        "imovel",
+        "rural",
+        "urbano"
+      ],
       "quando": "Em regra, a lei exige escritura pública para a compra e venda de imóveis de valor superior a 30 salários mínimos. Para valores menores, consulte o cartório.",
       "documentos": [
         {
@@ -22,7 +43,10 @@
           "itens": [
             "Documento de identificação oficial com foto (RG ou CNH), original",
             "CPF",
-            { "texto": "Certidão de estado civil atualizada (nascimento, se solteiro; casamento, se casado; casamento com averbação, se divorciado; óbito do cônjuge, se viúvo)", "obs": "O cartório informa o prazo de validade aceito." },
+            {
+              "texto": "Certidão de estado civil atualizada (nascimento, se solteiro; casamento, se casado; casamento com averbação, se divorciado; óbito do cônjuge, se viúvo)",
+              "obs": "O cartório informa o prazo de validade aceito."
+            },
             "Comprovante de residência recente",
             "Se for casado(a) ou viver em união estável: documentos do cônjuge ou companheiro(a) e pacto antenupcial, quando houver"
           ]
@@ -30,9 +54,15 @@
         {
           "grupo": "Do imóvel",
           "itens": [
-            { "texto": "Certidão de matrícula atualizada do imóvel, emitida pelo Registro de Imóveis", "obs": "Deve ter data recente; o cartório informa a validade aceita." },
+            {
+              "texto": "Certidão de matrícula atualizada do imóvel, emitida pelo Registro de Imóveis",
+              "obs": "Deve ter data recente; o cartório informa a validade aceita."
+            },
             "Certidão negativa de débitos de IPTU e outros tributos municipais do imóvel (imóvel urbano)",
-            { "texto": "Comprovante de pagamento do ITBI (imposto municipal sobre a transferência)", "obs": "O cartório orienta se o pagamento deve ser feito antes ou depois da escritura." },
+            {
+              "texto": "Comprovante de pagamento do ITBI (imposto municipal sobre a transferência)",
+              "obs": "O cartório orienta se o pagamento deve ser feito antes ou depois da escritura."
+            },
             "Imóvel rural: CCIR atualizado, comprovantes do ITR e outros documentos. O cartório informa a lista completa."
           ]
         },
@@ -44,10 +74,10 @@
         }
       ],
       "passos": [
-        "Reúna os documentos acima. A lista pode variar conforme o caso.",
-        "Fale com o cartório para conferir a documentação e receber o orçamento (emolumentos e impostos).",
-        "Comprador e vendedor (ou seus procuradores) comparecem para a leitura e a assinatura da escritura.",
-        "Leve a escritura ao Registro de Imóveis para registrar a transferência. Só com o registro o imóvel passa a ser do comprador perante a lei."
+        "Entregue a documentação ao cartório, pessoalmente ou por meios eletrônicos.",
+        "Depois do recebimento dos documentos, o cartório faz o encaminhamento e o pagamento do imposto de transmissão que incide no caso.",
+        "O cartório agenda o dia para os interessados comparecerem, com os documentos pessoais originais, para assinar a escritura.",
+        "Leve a escritura ao Registro de Imóveis competente para registrar a transferência. Só com o registro o imóvel passa a ser do comprador perante a lei."
       ],
       "custo": "Os emolumentos são tabelados em lei e variam conforme o valor do imóvel. Há ainda impostos (como o ITBI) e o custo do registro no Registro de Imóveis. O cartório informa o valor exato antes de iniciar.",
       "perguntas": [
@@ -65,16 +95,93 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["notas/procuracao", "notas/reconhecimento-firma"],
-      "validado": false
+      "verTambem": [
+        "notas/procuracao",
+        "notas/reconhecimento-firma"
+      ],
+      "validado": false,
+      "escritura": true,
+      "links": [
+        "cpf",
+        "cib",
+        "ccir",
+        "cndt",
+        "sefaz-rs"
+      ]
+    },
+    {
+      "slug": "doacao-usufruto",
+      "titulo": "Doar um bem mantendo o usufruto",
+      "nomeTecnico": "Doação com reserva de usufruto",
+      "resumo": "A doação com reserva de usufruto (ou doação com usufruto vitalício) é muito usada no planejamento sucessório e patrimonial: o doador passa a propriedade do bem ao donatário, mas mantém o direito de usar, gozar e fruir do bem durante toda a vida (ou por um prazo determinado).",
+      "palavras": [
+        "doacao",
+        "usufruto",
+        "doar",
+        "planejamento",
+        "sucessorio",
+        "filhos",
+        "imovel"
+      ],
+      "quando": "Quando você quer passar um bem a alguém, em vida, mas continuar usando ou recebendo os frutos dele.",
+      "documentos": [],
+      "passos": [],
+      "perguntas": [],
+      "verTambem": [
+        "notas/doacao-simples",
+        "notas/testamento"
+      ],
+      "validado": false,
+      "escritura": true,
+      "links": [
+        "doacao-rs"
+      ]
+    },
+    {
+      "slug": "doacao-simples",
+      "titulo": "Doar um bem (doação pura e simples)",
+      "nomeTecnico": "Doação pura e simples",
+      "resumo": "A doação pura e simples é dar um bem sem pedir nada em troca e sem impor regras. É a forma mais comum, sobretudo entre familiares, e a única possível para doar a pessoas incapazes, como crianças e adolescentes.",
+      "palavras": [
+        "doacao",
+        "doar",
+        "presente",
+        "filhos",
+        "familia",
+        "dinheiro",
+        "imovel"
+      ],
+      "quando": "Para transferir bens entre familiares, por exemplo. Deve ser feita com cuidado para não prejudicar os direitos dos herdeiros necessários nem a subsistência de quem doa.",
+      "documentos": [],
+      "passos": [],
+      "perguntas": [],
+      "verTambem": [
+        "notas/doacao-usufruto",
+        "notas/testamento"
+      ],
+      "validado": false,
+      "escritura": true,
+      "links": [
+        "doacao-rs"
+      ]
     },
     {
       "slug": "procuracao",
       "titulo": "Fazer uma procuração",
       "nomeTecnico": "Procuração pública",
-      "resumo": "Documento pelo qual você autoriza outra pessoa a agir em seu nome, por exemplo para vender um bem, receber um valor ou resolver um assunto em um órgão.",
-      "palavras": ["procurador", "outorgante", "outorgado", "representar", "representante", "poderes", "autorizar", "em meu nome", "procuracao"],
-      "quando": "Quando você não pode ou não quer comparecer pessoalmente para resolver um assunto. A procuração pública é feita no cartório e costuma ser aceita com mais segurança por bancos, órgãos públicos e outros cartórios.",
+      "resumo": "A procuração é uma escritura pública usada como instrumento do mandato: o mandante (outorgante) transfere ao mandatário (outorgado) poderes para representá-lo em determinados atos ou negócios.",
+      "palavras": [
+        "procurador",
+        "outorgante",
+        "outorgado",
+        "representar",
+        "representante",
+        "poderes",
+        "autorizar",
+        "em meu nome",
+        "procuracao"
+      ],
+      "quando": "Quando você não pode ou não quer comparecer pessoalmente para resolver um assunto. O mandante indica o mandatário de sua confiança e os poderes que dá a ele, e é identificado pelo tabelião ou seu preposto na hora da assinatura. A procuração pública costuma ser aceita com mais segurança por bancos, órgãos públicos e outros cartórios.",
       "documentos": [
         {
           "grupo": "De quem concede a procuração",
@@ -83,7 +190,10 @@
             "CPF",
             "Comprovante de residência recente",
             "Estado civil e profissão (informações que constam no texto da procuração)",
-            { "texto": "Certidão de casamento atualizada, quando o poder concedido exigir", "obs": "Por exemplo, para vender imóvel." }
+            {
+              "texto": "Certidão de casamento atualizada, quando o poder concedido exigir",
+              "obs": "Por exemplo, para vender imóvel."
+            }
           ]
         },
         {
@@ -121,22 +231,41 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["notas/reconhecimento-firma", "notas/escritura-compra-venda"],
-      "validado": false
+      "verTambem": [
+        "notas/reconhecimento-firma",
+        "notas/escritura-compra-venda"
+      ],
+      "validado": false,
+      "escritura": true
     },
     {
       "slug": "reconhecimento-firma",
       "titulo": "Reconhecer firma (confirmar uma assinatura)",
       "nomeTecnico": "Reconhecimento de firma",
-      "resumo": "O cartório confirma que a assinatura em um documento é mesmo da pessoa indicada.",
-      "palavras": ["assinatura", "assinar", "firma", "autenticidade", "semelhanca", "contrato", "recibo", "declaracao", "carta", "documento assinado", "ficha de assinatura"],
+      "resumo": "É o ato em que o tabelião declara a autoria de uma assinatura em um documento.",
+      "palavras": [
+        "assinatura",
+        "assinar",
+        "firma",
+        "autenticidade",
+        "semelhanca",
+        "contrato",
+        "recibo",
+        "declaracao",
+        "carta",
+        "documento assinado",
+        "ficha de assinatura"
+      ],
       "quando": "Contratos, recibos, declarações e outros documentos que exigem a confirmação da assinatura. Há duas formas: por autenticidade (você assina na frente do tabelião) e por semelhança (o cartório compara com a assinatura que você deixou cadastrada em ficha).",
       "documentos": [
         {
           "grupo": "Para reconhecer por autenticidade (assinar na frente do tabelião)",
           "itens": [
             "Documento de identificação oficial com foto, original",
-            { "texto": "O documento a ser assinado", "obs": "Não assine antes. Assine na presença do atendente." }
+            {
+              "texto": "O documento a ser assinado",
+              "obs": "Não assine antes. Assine na presença do atendente."
+            }
           ]
         },
         {
@@ -169,15 +298,27 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["notas/autenticacao-copias", "notas/procuracao"],
-      "validado": false
+      "verTambem": [
+        "notas/autenticacao-copias",
+        "notas/procuracao"
+      ],
+      "validado": false,
+      "escritura": false
     },
     {
       "slug": "autenticacao-copias",
       "titulo": "Autenticar cópias de documentos",
       "nomeTecnico": "Autenticação de cópias",
       "resumo": "O cartório confere a cópia com o documento original e atesta que as duas são iguais.",
-      "palavras": ["copia", "fotocopia", "xerox", "autenticar", "autenticada", "copia autenticada", "conferir copia"],
+      "palavras": [
+        "copia",
+        "fotocopia",
+        "xerox",
+        "autenticar",
+        "autenticada",
+        "copia autenticada",
+        "conferir copia"
+      ],
       "quando": "Quando um órgão, empresa ou processo pede cópia autenticada de um documento. Não é preciso que o dono do documento compareça: qualquer pessoa pode levar o original e a cópia.",
       "documentos": [
         {
@@ -204,15 +345,80 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["notas/reconhecimento-firma"],
-      "validado": false
+      "verTambem": [
+        "notas/reconhecimento-firma"
+      ],
+      "validado": false,
+      "escritura": false
+    },
+    {
+      "slug": "ata-notarial-usucapiao",
+      "titulo": "Regularizar um imóvel por usucapião (ata notarial)",
+      "nomeTecnico": "Ata notarial para usucapião",
+      "resumo": "A ata notarial para usucapião é um documento público, feito por um tabelião de notas, que registra e descreve fatos que comprovam a posse de um imóvel, para que ele possa ser regularizado pela via extrajudicial (direto no Registro de Imóveis).",
+      "palavras": [
+        "usucapiao",
+        "posse",
+        "imovel",
+        "regularizar",
+        "terreno",
+        "casa",
+        "escritura"
+      ],
+      "quando": "É uma peça-chave do usucapião extrajudicial: serve como um retrato da situação do imóvel e da posse exercida pelo requerente em determinado momento.",
+      "documentos": [],
+      "passos": [],
+      "perguntas": [],
+      "verTambem": [
+        "notas/escritura-compra-venda",
+        "notas/atas-notariais"
+      ],
+      "validado": false,
+      "escritura": false
+    },
+    {
+      "slug": "atas-notariais",
+      "titulo": "Registrar um fato por escrito (ata notarial)",
+      "nomeTecnico": "Ata notarial",
+      "resumo": "A ata notarial é um instrumento público em que o tabelião documenta, de forma imparcial, um fato, uma situação ou uma circunstância que ele ou seus prepostos presenciaram.",
+      "palavras": [
+        "ata",
+        "fato",
+        "prova",
+        "registrar",
+        "constatar",
+        "testemunho"
+      ],
+      "quando": "A ata tem eficácia de prova: os fatos nela contidos são presumidos verdadeiros e ela pode ser usada em processos judiciais, nos termos do artigo 384 do Código de Processo Civil (Lei 13.105/2015).",
+      "documentos": [],
+      "passos": [],
+      "perguntas": [],
+      "verTambem": [
+        "notas/ata-notarial-usucapiao",
+        "notas/reconhecimento-firma"
+      ],
+      "validado": false,
+      "escritura": false
     },
     {
       "slug": "autorizacao-viagem-menor",
       "titulo": "Autorização para criança ou adolescente viajar",
       "nomeTecnico": "Autorização de viagem de menor",
       "resumo": "Documento em que os pais ou responsáveis autorizam a viagem do menor sem eles, ou acompanhado de apenas um deles.",
-      "palavras": ["viagem", "viajar", "filho", "filha", "crianca", "adolescente", "menor", "autorizacao de viagem", "exterior", "internacional", "avo", "tio"],
+      "palavras": [
+        "viagem",
+        "viajar",
+        "filho",
+        "filha",
+        "crianca",
+        "adolescente",
+        "menor",
+        "autorizacao de viagem",
+        "exterior",
+        "internacional",
+        "avo",
+        "tio"
+      ],
       "quando": "Quando o menor viaja sem os pais ou com apenas um deles. As regras variam entre viagem nacional e internacional e dependem de com quem a criança viaja, por isso converse com o cartório antes de comprar passagens.",
       "documentos": [
         {
@@ -253,16 +459,32 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["notas/reconhecimento-firma", "rcpn/segunda-via-certidao"],
-      "validado": false
+      "verTambem": [
+        "notas/reconhecimento-firma",
+        "rcpn/segunda-via-certidao"
+      ],
+      "validado": false,
+      "escritura": false
     },
     {
       "slug": "inventario-partilha",
       "titulo": "Inventário e partilha de herança em cartório",
       "nomeTecnico": "Escritura de inventário e partilha extrajudicial",
-      "resumo": "Formalização da divisão dos bens de quem faleceu, feita em cartório quando todos os herdeiros estão de acordo.",
-      "palavras": ["heranca", "herdeiro", "inventario", "partilha", "falecimento", "faleceu", "bens", "sucessao", "espolio", "morte", "morreu"],
-      "quando": "Em geral, quando todos os herdeiros são maiores de idade e capazes e estão de acordo. Havendo herdeiro menor ou incapaz, ou desacordo entre os herdeiros, o caso pode precisar ir à Justiça. A presença de advogado é obrigatória, e o cartório avalia cada situação.",
+      "resumo": "O inventário apura os bens, direitos e dívidas de quem faleceu; a partilha transfere a propriedade dos bens aos herdeiros. Desde a Lei 11.441/07, isso pode ser feito em cartório, por escritura pública.",
+      "palavras": [
+        "heranca",
+        "herdeiro",
+        "inventario",
+        "partilha",
+        "falecimento",
+        "faleceu",
+        "bens",
+        "sucessao",
+        "espolio",
+        "morte",
+        "morreu"
+      ],
+      "quando": "Para fazer em cartório: 1) deve haver consenso entre os herdeiros quanto à partilha dos bens; 2) as partes devem estar representadas por advogado, que envia o pedido de abertura do inventário e a documentação e acompanha a assinatura da escritura. Havendo herdeiro menor ou incapaz, ou desacordo, o caso pode precisar ir à Justiça; o cartório avalia cada situação.",
       "documentos": [
         {
           "grupo": "De quem faleceu",
@@ -270,7 +492,10 @@
             "Certidão de óbito",
             "Documento de identificação e CPF",
             "Certidão de casamento (se era casado) ou de nascimento (se era solteiro), e pacto antenupcial, se houver",
-            { "texto": "Certidão de inexistência de testamento", "obs": "O cartório orienta como obter." }
+            {
+              "texto": "Certidão de inexistência de testamento",
+              "obs": "O cartório orienta como obter."
+            }
           ]
         },
         {
@@ -318,16 +543,77 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["rcpn/segunda-via-certidao", "rcpn/registro-obito"],
-      "validado": false
+      "verTambem": [
+        "rcpn/segunda-via-certidao",
+        "rcpn/registro-obito"
+      ],
+      "validado": false,
+      "escritura": true
+    },
+    {
+      "slug": "cessao-heranca-toda",
+      "titulo": "Ceder a parte da herança inteira",
+      "nomeTecnico": "Cessão de direitos hereditários — toda a herança",
+      "resumo": "A cessão de direitos hereditários sobre a herança toda (o quinhão hereditário) permite a um herdeiro transferir, antes da partilha, a sua quota-parte ideal sobre todo o patrimônio deixado pelo falecido.",
+      "palavras": [
+        "heranca",
+        "herdeiro",
+        "cessao",
+        "quinhao",
+        "partilha",
+        "ceder"
+      ],
+      "quando": "Antes da partilha, quando um herdeiro quer transferir a sua parte da herança a outra pessoa.",
+      "documentos": [],
+      "passos": [],
+      "perguntas": [],
+      "verTambem": [
+        "notas/inventario-partilha",
+        "notas/cessao-heranca-bem"
+      ],
+      "validado": false,
+      "escritura": true
+    },
+    {
+      "slug": "cessao-heranca-bem",
+      "titulo": "Ceder direitos da herança sobre um bem específico",
+      "nomeTecnico": "Cessão de direitos hereditários — bem específico",
+      "resumo": "Cessão de direitos hereditários sobre um bem específico da herança, feita por um herdeiro.",
+      "palavras": [
+        "heranca",
+        "herdeiro",
+        "cessao",
+        "bem",
+        "ceder"
+      ],
+      "quando": "Quando um herdeiro quer ceder os seus direitos sobre um bem determinado da herança. O cartório orienta se e como isso pode ser feito no seu caso.",
+      "documentos": [],
+      "passos": [],
+      "perguntas": [],
+      "verTambem": [
+        "notas/cessao-heranca-toda",
+        "notas/inventario-partilha"
+      ],
+      "validado": false,
+      "escritura": true
     },
     {
       "slug": "testamento",
       "titulo": "Fazer um testamento",
       "nomeTecnico": "Testamento público",
-      "resumo": "Documento em que você registra, com segurança, como deseja que seus bens sejam distribuídos depois do seu falecimento.",
-      "palavras": ["testamento", "testar", "deixar bens", "herdeiro", "heranca", "depois da morte", "ultima vontade", "doar bens", "legitima"],
-      "quando": "Quando você quer deixar registrada a sua vontade sobre o destino de parte dos seus bens. O testamento público é feito no cartório, lido ao testador na presença de duas testemunhas, e pode ser alterado ou revogado quando você quiser.",
+      "resumo": "Declaração de última vontade em que o testador, respeitados os limites legais, dispõe do seu patrimônio para depois do falecimento.",
+      "palavras": [
+        "testamento",
+        "testar",
+        "deixar bens",
+        "herdeiro",
+        "heranca",
+        "depois da morte",
+        "ultima vontade",
+        "doar bens",
+        "legitima"
+      ],
+      "quando": "Quando você quer deixar registrada a sua vontade sobre o destino dos seus bens. A declaração pode ser alterada ou revogada pelo testador a qualquer tempo, pois só tem efeito jurídico depois da morte. O testamento público é feito no cartório, lido ao testador na presença de testemunhas.",
       "documentos": [
         {
           "grupo": "De quem faz o testamento (testador)",
@@ -374,16 +660,31 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["notas/inventario-partilha", "notas/procuracao"],
-      "validado": false
+      "verTambem": [
+        "notas/inventario-partilha",
+        "notas/procuracao"
+      ],
+      "validado": false,
+      "escritura": true
     },
     {
       "slug": "divorcio-extrajudicial",
-      "titulo": "Divórcio em cartório",
-      "nomeTecnico": "Escritura de divórcio consensual",
-      "resumo": "Divórcio feito diretamente no cartório quando o casal está de acordo.",
-      "palavras": ["divorcio", "separacao", "separar", "casal", "ex marido", "ex esposa", "dissolver casamento", "desfazer casamento"],
-      "quando": "Quando os dois estão de acordo com o divórcio e com a divisão dos bens. Existem regras específicas quando há filhos menores ou incapazes, e o cartório orienta cada caso. A presença de advogado é obrigatória.",
+      "titulo": "Divórcio ou fim de união estável em cartório",
+      "nomeTecnico": "Escritura de divórcio e dissolução de união estável",
+      "resumo": "Divórcio e dissolução de união estável feitos diretamente no cartório, quando as partes estão de acordo.",
+      "palavras": [
+        "casal",
+        "desfazer casamento",
+        "dissolucao",
+        "dissolver casamento",
+        "divorcio",
+        "ex esposa",
+        "ex marido",
+        "separacao",
+        "separar",
+        "uniao estavel"
+      ],
+      "quando": "Requisitos: i) as partes estão de acordo com todos os termos da escritura; ii) não há filhos menores ou incapazes, ou as questões dos menores já foram resolvidas judicialmente; iii) há acompanhamento de pelo menos um advogado, que envia petição com a qualificação das partes, a data da separação de fato, a indicação dos bens e seus valores e a forma de partilha.",
       "documentos": [
         {
           "grupo": "De cada cônjuge",
@@ -433,15 +734,28 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["rcpn/retificacao-averbacao", "notas/uniao-estavel"],
-      "validado": false
+      "verTambem": [
+        "rcpn/retificacao-averbacao",
+        "notas/uniao-estavel"
+      ],
+      "validado": false,
+      "escritura": true
     },
     {
       "slug": "uniao-estavel",
       "titulo": "Declarar união estável",
       "nomeTecnico": "Escritura pública de união estável",
       "resumo": "Documento em que o casal declara que vive em união estável e pode combinar regras sobre os bens. O fim da união também pode ser formalizado em cartório.",
-      "palavras": ["uniao estavel", "morar junto", "companheiro", "companheira", "convivencia", "viver junto", "regime de bens", "dissolucao"],
+      "palavras": [
+        "uniao estavel",
+        "morar junto",
+        "companheiro",
+        "companheira",
+        "convivencia",
+        "viver junto",
+        "regime de bens",
+        "dissolucao"
+      ],
       "quando": "Quando o casal quer comprovar a união e definir o regime de bens. A escritura não é obrigatória para a união existir, mas facilita provar a união em bancos, planos de saúde, previdência e outros casos.",
       "documentos": [
         {
@@ -478,8 +792,13 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["notas/divorcio-extrajudicial", "rcpn/casamento"],
-      "validado": false
+      "verTambem": [
+        "notas/divorcio-extrajudicial",
+        "rcpn/casamento"
+      ],
+      "validado": false,
+      "escritura": true
     }
-  ]
+  ],
+  "linksOnline": []
 }

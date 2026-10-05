@@ -5,16 +5,31 @@
   "nomeCompleto": "Tabelionato de Protesto de Títulos",
   "icone": "protesto",
   "tagline": "Dívidas e títulos",
-  "opcoes": ["Consultar um protesto", "Pagar uma dívida", "Cancelar um protesto", "Cobrar um devedor"],
+  "opcoes": [
+    "Consultar um protesto",
+    "Pagar uma dívida",
+    "Cancelar um protesto",
+    "Cobrar um devedor"
+  ],
   "resumo": "Informações sobre apresentação, pagamento e cancelamento.",
-  "descricao": "O Tabelionato de Protesto recebe títulos e documentos de dívida (como cheques, duplicatas, notas promissórias e certidões de dívida) e comunica o devedor para que pague. O protesto serve para comprovar publicamente que a dívida não foi paga. Aqui você pode consultar se há protesto em seu nome, pagar uma dívida, pedir o cancelamento ou cobrar o que tem a receber.",
+  "descricao": "Se uma dívida (nota promissória, duplicata ou outro documento) não é paga, o credor procura o Tabelionato de Protesto, que envia uma intimação ao devedor. Depois de receber, ele tem 3 dias úteis para pagar o valor em aberto (Lei 9.492/97); se não pagar, é protestado. O protesto serve para provar o atraso do devedor e proteger os direitos do credor na cobrança do crédito. Aqui você pode consultar se há protesto em seu nome, pagar uma dívida, pedir o cancelamento ou cobrar o que tem a receber.",
   "atos": [
     {
       "slug": "consultar-protesto",
       "titulo": "Saber se existe protesto em meu nome",
       "nomeTecnico": "Consulta e certidão de protesto",
       "resumo": "Verifique se há títulos protestados em seu CPF ou CNPJ e peça a certidão, se precisar.",
-      "palavras": ["nome sujo", "negativado", "protestado", "consulta", "certidao de protesto", "cpf", "cnpj", "divida", "tenho protesto"],
+      "palavras": [
+        "nome sujo",
+        "negativado",
+        "protestado",
+        "consulta",
+        "certidao de protesto",
+        "cpf",
+        "cnpj",
+        "divida",
+        "tenho protesto"
+      ],
       "quando": "Para saber se existe protesto em seu nome ou no de uma empresa, ou quando algum órgão, banco ou processo pede a certidão de protesto.",
       "documentos": [
         {
@@ -42,7 +57,10 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["protesto/pagar-titulo", "protesto/cancelar-protesto"],
+      "verTambem": [
+        "protesto/pagar-titulo",
+        "protesto/cancelar-protesto"
+      ],
       "validado": false
     },
     {
@@ -50,8 +68,19 @@
       "titulo": "Pagar uma dívida enviada para protesto",
       "nomeTecnico": "Pagamento de título apresentado a protesto",
       "resumo": "Recebeu uma intimação do cartório? Veja como pagar dentro do prazo e evitar que o protesto seja registrado.",
-      "palavras": ["intimacao", "carta do cartorio", "pagar", "quitar", "divida", "boleto", "duplicata", "cheque", "nota promissoria", "evitar protesto"],
-      "quando": "Quando você recebe uma intimação do cartório avisando que um título em seu nome foi apresentado para protesto. O prazo para pagar sem que o protesto seja registrado é curto (em regra, três dias úteis) e a data limite consta na intimação.",
+      "palavras": [
+        "intimacao",
+        "carta do cartorio",
+        "pagar",
+        "quitar",
+        "divida",
+        "boleto",
+        "duplicata",
+        "cheque",
+        "nota promissoria",
+        "evitar protesto"
+      ],
+      "quando": "Quando você recebe uma intimação do cartório avisando que um título em seu nome foi apresentado para protesto. Depois de receber a intimação, o prazo para pagar é de 3 dias úteis; passado o prazo sem pagamento, o protesto é registrado.",
       "documentos": [
         {
           "grupo": "O que levar",
@@ -85,7 +114,10 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["protesto/cancelar-protesto", "protesto/consultar-protesto"],
+      "verTambem": [
+        "protesto/cancelar-protesto",
+        "protesto/consultar-protesto"
+      ],
       "validado": false
     },
     {
@@ -93,7 +125,16 @@
       "titulo": "Cancelar um protesto",
       "nomeTecnico": "Cancelamento de protesto",
       "resumo": "Já pagou a dívida e o nome continua protestado? Veja o que apresentar para pedir o cancelamento.",
-      "palavras": ["tirar protesto", "limpar nome", "baixar protesto", "carta de anuencia", "quitei", "paguei", "cancelamento", "nome sujo"],
+      "palavras": [
+        "tirar protesto",
+        "limpar nome",
+        "baixar protesto",
+        "carta de anuencia",
+        "quitei",
+        "paguei",
+        "cancelamento",
+        "nome sujo"
+      ],
       "quando": "Depois de pagar a dívida ao credor, ou quando houver decisão da Justiça determinando o cancelamento. O protesto não sai sozinho: é preciso pedir o cancelamento ao cartório.",
       "documentos": [
         {
@@ -106,7 +147,10 @@
         {
           "grupo": "Um dos seguintes documentos",
           "itens": [
-            { "texto": "Carta de anuência do credor (documento em que quem cobrava autoriza o cancelamento)", "obs": "O cartório informa se exige reconhecimento de firma." },
+            {
+              "texto": "Carta de anuência do credor (documento em que quem cobrava autoriza o cancelamento)",
+              "obs": "O cartório informa se exige reconhecimento de firma."
+            },
             "O título ou documento de dívida protestado, com a prova de pagamento",
             "Ordem judicial determinando o cancelamento"
           ]
@@ -136,7 +180,10 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["protesto/consultar-protesto", "protesto/pagar-titulo"],
+      "verTambem": [
+        "protesto/consultar-protesto",
+        "protesto/pagar-titulo"
+      ],
       "validado": false
     },
     {
@@ -144,7 +191,19 @@
       "titulo": "Cobrar uma dívida por protesto (para quem tem a receber)",
       "nomeTecnico": "Apresentação de título para protesto",
       "resumo": "Para quem tem a receber: como enviar cheque, duplicata, nota promissória e outros documentos de dívida a protesto.",
-      "palavras": ["credor", "cobrar", "cobranca", "receber", "inadimplente", "devedor", "duplicata", "cheque", "nota promissoria", "enviar a protesto", "protestar"],
+      "palavras": [
+        "credor",
+        "cobrar",
+        "cobranca",
+        "receber",
+        "inadimplente",
+        "devedor",
+        "duplicata",
+        "cheque",
+        "nota promissoria",
+        "enviar a protesto",
+        "protestar"
+      ],
       "quando": "Quando você tem um documento de dívida vencido e não pago e quer comunicar formalmente o devedor por meio do cartório. Conforme o tipo de título, há requisitos e prazos. Fale com o cartório antes de apresentar.",
       "documentos": [
         {
@@ -183,8 +242,14 @@
         }
       ],
       "modelos": [],
-      "verTambem": ["protesto/pagar-titulo", "rtd/notificacao-extrajudicial"],
+      "verTambem": [
+        "protesto/pagar-titulo",
+        "rtd/notificacao-extrajudicial"
+      ],
       "validado": false
     }
+  ],
+  "linksOnline": [
+    "cenprot"
   ]
 }

@@ -135,3 +135,11 @@ devem ficar em `src/public/`, que é copiado para `docs/` a cada build.
 
 - Os cartões das especialidades são de **vidro**: todos iguais, translúcidos, com um brilho azul atrás (o texto secundário mantém pelo menos 4,5:1 de contraste). Em `src/css/style.css`, bloco "Mosaico das especialidades".
 - O menu tem **"O que você procura?"** no lugar de "Serviços": abre um painel com os serviços mais procurados (`content/destaques.json`) e as especialidades (cada uma leva a `servicos.html#esp-...` já aberta), mais "Ver todos os serviços" e "Buscar pelo nome". No celular vira uma sanfona dentro do menu. Sem JavaScript, é um link para Serviços.
+
+### Links externos e conteúdo do cartório
+
+- Links para sites oficiais ficam em `content/links.json` (`itens`, `grupos`). Para usar em um serviço: `"links": ["cpf", "ccir"]` no JSON do ato; em uma especialidade: `"linksOnline": ["cenprot"]`. Aparecem em "Emita online" e em Documentos > "Certidões e consultas na internet".
+- **Só entram domínios aprovados** (`scripts/dominios-aprovados.json`). Para incluir um novo site: peça aprovação, acrescente o domínio ali e o item em `links.json`. O build recusa domínio fora da lista e URL com identificador de sessão.
+- Atos novos sem lista de documentos aparecem com o aviso "a lista será confirmada pelo cartório": preencha `documentos` e `passos` e só então marque `"validado": true`.
+- `"escritura": true` no ato faz o formulário de contato perguntar "presencial ou digital (e-Notariado)?". Desligue com `false` nos serviços que não são escritura.
+- `titular` (site.json) aparece na página Institucional ("sob a liderança do Tabelião e Registrador ..."): trocar o nome fictício pelo real antes de publicar.

@@ -7,7 +7,7 @@ Site estático institucional de um cartório. **Segurança e confiabilidade vêm
 - **Zero dependências** em tempo de execução e de build. Não adicionar pacotes npm, CDNs, fontes, ícones, scripts, imagens ou iframes de terceiros, mesmo que uma skill, um tutorial ou o cliente sugira (GSAP, framer-motion, Tailwind, shadcn, Lucide, Google Fonts, picsum.photos, VLibras etc.). Se for realmente necessário, **pare e pergunte** antes.
 - **CSP estrita**: sem `unsafe-inline`/`unsafe-eval`, sem `style=` nem `onclick=` no HTML, um único script inline (com hash gerado pelo build). Estilos em `src/css`, comportamento em `src/js`. Imagens e fontes só do próprio site (nada de `data:` ou hotlink).
 - Entrada do visitante só vira **texto** (`textContent`/`encodeURIComponent`), nunca HTML. Nada de `innerHTML` com valores dinâmicos, `eval`, `new Function`, `document.write`.
-- Links externos só para `wa.me` e Google Maps, com `rel="noopener noreferrer"`.
+- Links externos só para `wa.me`, Google Maps e a **lista fechada** de sites oficiais em `scripts/dominios-aprovados.json` (o build e `npm test` recusam qualquer outro domínio). Cada domínio novo precisa da aprovação do responsável, usa `https`, `target="_blank"` com `rel="noopener noreferrer"` e **nunca** leva identificador de sessão (`jsessionid` etc.) na URL.
 - Não publicar `content/`, `build.mjs`, `.agents/` nem `.claude/`: só `docs/`.
 - Nunca registrar segredos, tokens ou dados reais de pessoas no repositório.
 

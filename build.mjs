@@ -26,6 +26,9 @@ const lerTexto = (p) => readFileSync(join(RAIZ, p), "utf8");
 const site = lerJson("content/site.json");
 const temas = lerJson("content/temas.json");
 const destaques = lerJson("content/destaques.json");
+const linksDados = lerJson("content/links.json");
+// Lista FECHADA de sites externos além de wa.me e Google Maps. Só entra aqui o que o responsável aprovou.
+const DOMINIOS_APROVADOS = lerJson("scripts/dominios-aprovados.json");
 const ORDEM_ESPECIALIDADES = ["notas", "protesto", "rtd", "rcpj", "rcpn"];
 const especialidades = ORDEM_ESPECIALIDADES.map((id) => lerJson(`content/especialidades/${id}.json`));
 
@@ -56,7 +59,17 @@ for (const tema of temas) {
   }
 }
 for (const ref of destaques) if (!atos.has(ref)) erros.push(`destaques.json: o ato "${ref}" não existe.`);
+for (const [id, l] of Object.entries(linksDados.itens)) {
+  let u = null;
+  try { u = new URL(l.url); } catch (_) { erros.push(`links.json: "${id}" não é uma URL válida.`); }
+  if (u && (u.protocol !== "https:" || !DOMINIOS_APROVADOS.includes(u.host))) erros.push(`links.json: "${id}" aponta para ${u.host}, que não está em scripts/dominios-aprovados.json.`);
+  if (u && /jsessionid|sessionid|token|senha/i.test(l.url)) erros.push(`links.json: "${id}" tem identificador de sessão ou segredo na URL; use o endereço limpo.`);
+}
+for (const g of linksDados.grupos) for (const id of g.itens) if (!linksDados.itens[id]) erros.push(`links.json: o grupo "${g.id}" cita "${id}", que não existe.`);
+for (const esp of especialidades) for (const id of esp.linksOnline || []) if (!linksDados.itens[id]) erros.push(`${esp.id}: linksOnline cita "${id}", que não existe em links.json.`);
 for (const ato of atos.values()) {
+  for (const id of ato.links || []) if (!linksDados.itens[id]) erros.push(`${ato.id}: "links" cita "${id}", que não existe em links.json.`);
+  if (ato.validado && (!(ato.documentos || []).length || !(ato.passos || []).length)) erros.push(`${ato.id}: marcado como validado, mas sem documentos ou passos.`);
   if (!ato.tema) erros.push(`O ato ${ato.id} não aparece em nenhum tema de content/temas.json (ninguém o encontraria pelo localizador).`);
   for (const ref of ato.verTambem || []) {
     if (!atos.has(ref)) erros.push(`${ato.id}: "verTambem" aponta para "${ref}", que não existe.`);
@@ -272,6 +285,14 @@ const seloAberto = () =>
 const linhaLista = (href, titulo, apoio, extra = "") =>
   `<li${extra}><a href="${href}"><span class="lista-aberta__texto"><strong>${esc(titulo)}</strong>${apoio ? `<span>${esc(apoio)}</span>` : ""}</span>${icone("seta")}</a></li>`;
 
+/** Link para site oficial externo: abre em nova aba, com rel seguro e aviso para leitor de tela. */
+const linhaExterna = (id) => {
+  const l = linksDados.itens[id];
+  return `<li><a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer"><span class="lista-aberta__texto"><strong>${esc(l.titulo)}</strong><span>${esc(l.orgao)}. ${esc(l.descricao)}</span></span>${icone("diagonal")}<span class="sr-only"> (abre em nova aba, site externo)</span></a></li>`;
+};
+const listaExterna = (ids) => `<ul class="lista-aberta lista-aberta--externa">${ids.map(linhaExterna).join("")}</ul>`;
+const AVISO_EXTERNO = `<p class="nota-pequena">Estes links levam a sites oficiais, fora deste site. Confira o endereço antes de informar dados pessoais.</p>`;
+
 const itemLocalizador = (c, ato, meta) =>
   linhaLista(c.u(ato.caminho), ato.titulo, meta, ` data-finder-item data-busca="${esc(buscaIndexada(ato))}"`);
 
@@ -408,6 +429,8 @@ function rodape(c) {
         <h2>Informações</h2>
         <ul>
           <li><a href="${c.u("documentos.html")}">Documentos e orientações</a></li>
+          <li><a href="${c.u("documentos.html#online")}">Certidões online</a></li>
+          <li><a href="${c.u("e-notariado.html")}">Atos online (e-Notariado)</a></li>
           <li><a href="${c.u("contato.html")}">Localização e atendimento</a></li>
           <li><a href="${c.u("institucional.html")}">Institucional</a></li>
           <li><a href="${c.u("privacidade.html")}">Política de privacidade</a></li>
@@ -493,7 +516,7 @@ function funilContato(c) {
   const dados = {
     wa: site.whatsapp ? comPais(site.whatsapp) : null,
     mail: site.emailFormulario || site.email || "",
-    esps: especialidades.map((e) => ({ nome: e.nome, atos: e.atos.map((a) => ({ t: a.titulo, d: a.nomeTecnico })) })),
+    esps: especialidades.map((e) => ({ nome: e.nome, atos: e.atos.map((a) => ({ t: a.titulo, d: a.nomeTecnico, e: a.escritura ? 1 : 0 })) })),
   };
   return `
   <section class="secao secao--azul" id="falar" aria-labelledby="t-funil">
@@ -510,6 +533,10 @@ function funilContato(c) {
             <div class="funil__passo"><span class="funil__num">1</span><label for="f-nome">Qual é o seu nome?</label><input id="f-nome" type="text" maxlength="80" autocomplete="name" placeholder="Seu nome" data-f-nome></div>
             <div class="funil__passo"><span class="funil__num">2</span><label for="f-esp">Com qual setor você quer falar?</label><select id="f-esp" data-f-esp><option value="">Escolha a especialidade</option></select></div>
             <div class="funil__passo"><span class="funil__num">3</span><label for="f-ato">De qual documento ou serviço você precisa?</label><select id="f-ato" disabled data-f-ato><option value="">Escolha antes a especialidade</option></select></div>
+            <fieldset class="funil__modo" hidden data-f-modo><legend>Como prefere fazer a escritura? <span>(opcional)</span></legend>
+              <label><input type="radio" name="f-modo" value="p"><span>Presencialmente, no cartório</span></label>
+              <label><input type="radio" name="f-modo" value="d"><span>Digitalmente, pelo e-Notariado</span></label>
+            </fieldset>
           </div>
           <div class="funil__previa">
             <h3>Sua mensagem</h3>
@@ -611,6 +638,8 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
         <a href="${c.u("documentos.html#consultar")}">Documentos necessários</a>
         <a href="${c.u("documentos.html#orientacoes")}">Orientações</a>
         <a href="${c.u("documentos.html#modelos")}">Modelos e formulários</a>
+        <a href="${c.u("documentos.html#online")}">Certidões online</a>
+        <a href="${c.u("e-notariado.html")}">Atos online (e-Notariado)</a>
       </p>
     </div>
   </section>`;
@@ -706,6 +735,19 @@ for (const esp of especialidades) {
         <p>Escolha o serviço para ver os documentos e como funciona.</p>
       </div>
       ${listaAtos(c, esp)}
+      ${
+        (esp.linksOnline || []).length || esp.id === "notas"
+          ? `<div class="duas-colunas duas-colunas--espaco">${
+              esp.id === "notas"
+                ? `<div class="bloco" data-reveal><h3>Prefere fazer pelo computador?</h3><p>O e-Notariado permite realizar atos de cartórios de notas de forma online, com videoconferência com o tabelião e assinatura por certificado digital. Ao pedir uma escritura, diga se prefere digital ou presencial.</p><p><a class="btn btn--claro" href="${c.u("e-notariado.html")}">Conheça o e-Notariado</a></p></div>`
+                : ""
+            }${
+              (esp.linksOnline || []).length
+                ? `<div class="bloco" data-reveal><h3>Peça pela internet</h3>${listaExterna(esp.linksOnline)}${AVISO_EXTERNO}</div>`
+                : ""
+            }</div>`
+          : ""
+      }
       <div class="duas-colunas duas-colunas--espaco">
         <div class="bloco" data-reveal>
           <h3>Não encontrou o que procura?</h3>
@@ -746,10 +788,10 @@ const itemDoc = (i) =>
     ? `<li><label><input type="checkbox"><span class="checklist__texto">${esc(i)}</span></label></li>`
     : `<li><label><input type="checkbox"><span class="checklist__texto">${esc(i.texto)}${i.obs ? `<span class="checklist__obs">${esc(i.obs)}</span>` : ""}</span></label></li>`;
 const blocoDocumentos = (a) =>
-  a.documentos
+  (a.documentos || [])
     .map((g) => `<div class="checklist-grupo"><h3>${esc(g.grupo)}</h3><ul class="checklist">${g.itens.map(itemDoc).join("")}</ul></div>`)
     .join("");
-const blocoPassos = (a) => `<ol class="passos">${a.passos.map((p) => `<li>${esc(p)}</li>`).join("")}</ol>`;
+const blocoPassos = (a) => ((a.passos || []).length ? `<ol class="passos">${a.passos.map((p) => `<li>${esc(p)}</li>`).join("")}</ol>` : "");
 const blocoFaq = (a) =>
   (a.perguntas || []).length
     ? `<div class="faq">${a.perguntas.map((q) => `<details><summary>${esc(q.p)}</summary><div><p>${esc(q.r)}</p></div></details>`).join("")}</div>`
@@ -765,8 +807,9 @@ for (const ato of atos.values()) {
 
   const ancoras = [
     ["documentos", "Documentos"],
-    ["como-funciona", "Como funciona"],
+    ...((ato.passos || []).length ? [["como-funciona", "Como funciona"]] : []),
     ["prazo-custo", "Prazo e custo"],
+    ...((ato.links || []).length ? [["online", "Emitir online"]] : []),
     ...((ato.perguntas || []).length ? [["duvidas", "Dúvidas"]] : []),
     ...((ato.modelos || []).length ? [["modelos", "Modelos"]] : []),
   ];
@@ -791,18 +834,30 @@ for (const ato of atos.values()) {
 
       ${ato.quando ? `<section id="quando"><h2>Quando é necessário</h2><p class="resumo-ato">${esc(ato.quando)}</p></section>` : ""}
 
-      <section id="documentos" data-checklist>
+      ${
+        (ato.documentos || []).length
+          ? `<section id="documentos" data-checklist>
         <h2>Documentos necessários ${selo}</h2>
         <div class="progresso"><span data-progresso-texto role="status"></span><span class="progresso__barra"><i data-progresso-barra></i></span></div>
         ${blocoDocumentos(ato)}
         <p class="nota-final">O cartório pode pedir documentos adicionais conforme o caso. Na dúvida, fale com o atendimento antes de vir.</p>
         <p class="no-print"><button class="btn btn--contorno so-js" type="button" data-imprimir>${icone("imprimir")}Imprimir esta lista</button></p>
-      </section>
+      </section>`
+          : `<section id="documentos">
+        <h2>Documentos necessários ${selo}</h2>
+        <div class="destaque"><p><strong>A lista de documentos deste serviço será confirmada pelo cartório.</strong> Enquanto isso, fale com o atendimento para saber o que levar no seu caso.</p>${botaoWhats(c, msg, { classe: "btn btn--primario", rotulo: "Perguntar ao cartório" })}</div>
+      </section>`
+      }
 
-      <section id="como-funciona">
+      ${
+        (ato.passos || []).length
+          ? `<section id="como-funciona">
         <h2>Como funciona</h2>
+        ${ato.escritura ? `<div class="destaque"><p><strong>Digital ou presencial?</strong> Ao solicitar a escritura, diga se pretende fazer digitalmente, pelo <a href="${c.u("e-notariado.html")}">e-Notariado</a>, ou assinar de forma presencial.</p></div>` : ""}
         ${blocoPassos(ato)}
-      </section>
+      </section>`
+          : ""
+      }
 
       <section id="prazo-custo">
         <h2>Prazo e custo</h2>
@@ -811,6 +866,8 @@ for (const ato of atos.values()) {
           <div><dt>Custo</dt><dd>${esc(ato.custo || DEFAULT_CUSTO)}</dd></div>
         </dl>
       </section>
+
+      ${(ato.links || []).length ? `<section id="online"><h2>Emita online</h2><p>Certidões e serviços que você mesmo pode pedir na internet. Pergunte ao cartório quais deles o seu caso exige.</p>${listaExterna(ato.links)}${AVISO_EXTERNO}</section>` : ""}
 
       ${(ato.perguntas || []).length ? `<section id="duvidas"><h2>Perguntas frequentes</h2>${blocoFaq(ato)}</section>` : ""}
 
@@ -900,7 +957,16 @@ for (const ato of atos.values()) {
     </div>
   </section>
 
-  <section class="secao" id="modelos" aria-labelledby="t-modelos">
+  <section class="secao" id="online" aria-labelledby="t-online">
+    <div class="container container--leitura">
+      <div class="secao__cab" data-reveal><p class="eyebrow">Emita online</p><h2 id="t-online">Certidões e consultas na internet</h2><p>Sites oficiais onde você pode emitir certidões e fazer pedidos sem sair de casa. Pergunte ao cartório quais certidões o seu serviço exige.</p></div>
+      ${linksDados.grupos.map((g) => `<div class="bloco" data-reveal><h3>${esc(g.titulo)}</h3>${g.intro ? `<p>${esc(g.intro)}</p>` : ""}${listaExterna(g.itens)}</div>`).join("")}
+      ${AVISO_EXTERNO}
+      <p class="antes"><strong>Atos de cartório pelo computador:</strong> <a href="${c.u("e-notariado.html")}">Conheça o e-Notariado</a></p>
+    </div>
+  </section>
+
+  <section class="secao secao--suave" id="modelos" aria-labelledby="t-modelos">
     <div class="container">
       <div class="secao__cab" data-reveal><p class="eyebrow">Modelos</p><h2 id="t-modelos">Modelos e formulários</h2></div>
       ${
@@ -941,6 +1007,40 @@ for (const ato of atos.values()) {
     </div>
   </section>`;
   adicionar(c.caminho, layout(c, { ativo: "contato", titulo: "Contato e localização", descricao: `Endereço, horário de atendimento, telefone e rota até o ${site.nome}, ${enderecoRua}, ${end.cidade}/${end.uf}.`, corpo }));
+}
+
+// ---------- e-Notariado (atos pelo computador)
+{
+  const c = ctx("e-notariado.html");
+  const msg = "Olá! Gostaria de fazer uma escritura de forma digital, pelo e-Notariado.";
+  const corpo = `
+  ${faixa(c, {
+    trilha: [{ rotulo: "Início", href: "index.html" }, { rotulo: "e-Notariado" }],
+    eyebrow: "Atos online",
+    titulo: "Atos de cartório pelo computador",
+    lead: "O e-Notariado é a plataforma digital oficial do Colégio Notarial do Brasil que permite realizar atos em cartórios de notas de forma 100% online.",
+  })}
+  <section class="secao">
+    <div class="container container--leitura">
+      <div class="secao__cab" data-reveal><h2>O que é o e-Notariado</h2><p>É a plataforma digital gerida pelo Colégio Notarial do Brasil (Conselho Federal), que conecta as pessoas aos serviços oferecidos pelos cartórios de notas em todo o Brasil.</p></div>
+
+      <div class="bloco" data-reveal>
+        <h3>O que é um ato notarial online</h3>
+        <p>Desde o Provimento nº 100/2020, pessoas de todo o País podem fazer atos notariais de forma online pela plataforma e-Notariado. O ato tem segurança jurídica e os mesmos efeitos de um ato feito presencialmente no cartório de notas.</p>
+        <ul class="lista-pontos">
+          <li>Todo ato notarial online tem <strong>videoconferência</strong> entre quem pede e o tabelião.</li>
+          <li>A parte assina com <strong>certificado digital</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="bloco" data-reveal>
+        <h3>Como pedir no nosso cartório</h3>
+        <p>No Tabelionato de Notas, na hora de solicitar uma escritura, <strong>diga se prefere fazer digitalmente, pelo e-Notariado, ou assinar de forma presencial</strong>. Você pode dizer isso pelo formulário "Fale com o cartório" no fim de cada página (ele pergunta quando o serviço é uma escritura) ou direto no WhatsApp.</p>
+        <p class="antes">${botaoWhats(c, msg, { classe: "btn btn--claro", rotulo: "Pedir de forma digital" })}<a class="btn btn--vidro" href="${c.u("servicos/" + especialidades[0].slug + ".html")}">Ver os serviços de Notas</a></p>
+      </div>
+    </div>
+  </section>`;
+  adicionar(c.caminho, layout(c, { titulo: "e-Notariado: atos de cartório pelo computador", descricao: "Saiba como fazer atos de cartório de notas de forma online, pelo e-Notariado, com videoconferência e certificado digital.", corpo }));
 }
 
 // ---------- Páginas de texto (fragmentos em content/paginas/)
