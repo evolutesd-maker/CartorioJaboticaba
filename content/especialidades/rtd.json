@@ -11,7 +11,7 @@
     "Certidões de registro"
   ],
   "resumo": "Registro e conservação de documentos.",
-  "descricao": "O Registro de Títulos e Documentos, também chamado de RTD, faz parte dos Registros Especiais. É aqui que as atas de condomínios são registradas e que são encaminhadas as notificações extrajudiciais, por exemplo. Registrar um documento dá publicidade, conservação e prova de existência e de data, e em alguns casos é necessário para que ele valha perante terceiros.",
+  "descricao": "O Registro de Títulos e Documentos dá publicidade, conservação e prova de existência e de data a documentos particulares, como contratos, e realiza notificações formais. Registrar um documento ajuda a provar que ele existia em determinada data e, em alguns casos, é necessário para que ele valha perante terceiros.",
   "atos": [
     {
       "slug": "registro-contrato",
@@ -154,5 +154,11 @@
   ],
   "linksOnline": [
     "rtdpj"
+  ],
+  "textoCartorio": [
+    {
+      "titulo": "Registro de Títulos e Documentos"
+    },
+    "Dentre os serviços dos Registros Especiais está o Registro de Títulos e Documentos, também chamado de \"RTD\". É aqui que as atas de condomínios são registradas, que são encaminhadas as notificações extrajudiciais, por exemplo."
   ]
 }

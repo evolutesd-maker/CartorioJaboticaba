@@ -12,7 +12,7 @@
     "Certidões e segunda via"
   ],
   "resumo": "Nascimento, casamento, óbito e certidões.",
-  "descricao": "O Registro Civil das Pessoas Naturais (RCPN) é o cartório responsável por registrar os principais atos da vida civil de uma pessoa: nascimentos (o primeiro registro, que dá origem à certidão de nascimento), casamentos (a habilitação e a celebração do casamento civil) e óbitos (o registro de falecimento, necessário para a certidão de óbito). É daqui que saem as certidões usadas em quase todos os documentos.",
+  "descricao": "O Registro Civil das Pessoas Naturais registra os fatos mais importantes da vida: nascimento, casamento e óbito. É daqui que saem as certidões usadas em quase todos os documentos, como RG, CPF, passaporte, benefícios e herança.",
   "atos": [
     {
       "slug": "registro-nascimento",
@@ -416,5 +416,24 @@
   ],
   "linksOnline": [
     "registro-civil"
+  ],
+  "textoCartorio": [
+    "O Registro Civil das Pessoas Naturais (RCPN) é o cartório responsável por registrar os principais atos da vida civil de uma pessoa no Brasil.",
+    {
+      "lista": [
+        [
+          "Nascimentos",
+          "O primeiro registro oficial que dá origem à certidão de nascimento."
+        ],
+        [
+          "Casamentos",
+          "A habilitação e a celebração do casamento civil."
+        ],
+        [
+          "Óbitos",
+          "O registro de falecimento necessário para a emissão da certidão de óbito."
+        ]
+      ]
+    }
   ]
 }

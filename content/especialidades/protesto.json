@@ -12,7 +12,7 @@
     "Cobrar um devedor"
   ],
   "resumo": "Informações sobre apresentação, pagamento e cancelamento.",
-  "descricao": "Se uma dívida (nota promissória, duplicata ou outro documento) não é paga, o credor procura o Tabelionato de Protesto, que envia uma intimação ao devedor. Depois de receber, ele tem 3 dias úteis para pagar o valor em aberto (Lei 9.492/97); se não pagar, é protestado. O protesto serve para provar o atraso do devedor e proteger os direitos do credor na cobrança do crédito. Aqui você pode consultar se há protesto em seu nome, pagar uma dívida, pedir o cancelamento ou cobrar o que tem a receber.",
+  "descricao": "O Tabelionato de Protesto recebe títulos e documentos de dívida (como cheques, duplicatas, notas promissórias e certidões de dívida) e comunica o devedor para que pague. O protesto serve para comprovar publicamente que a dívida não foi paga. Aqui você pode consultar se há protesto em seu nome, pagar uma dívida, pedir o cancelamento ou cobrar o que tem a receber.",
   "atos": [
     {
       "slug": "consultar-protesto",
@@ -80,7 +80,7 @@
         "nota promissoria",
         "evitar protesto"
       ],
-      "quando": "Quando você recebe uma intimação do cartório avisando que um título em seu nome foi apresentado para protesto. Depois de receber a intimação, o prazo para pagar é de 3 dias úteis; passado o prazo sem pagamento, o protesto é registrado.",
+      "quando": "Quando você recebe uma intimação do cartório avisando que um título em seu nome foi apresentado para protesto. O prazo para pagar sem que o protesto seja registrado é curto (em regra, três dias úteis) e a data limite consta na intimação.",
       "documentos": [
         {
           "grupo": "O que levar",
@@ -251,5 +251,12 @@
   ],
   "linksOnline": [
     "cenprot"
+  ],
+  "textoCartorio": [
+    {
+      "titulo": "Protesto de títulos e documentos de dívida"
+    },
+    "Conforme a Lei 9492/97, no caso de não pagamento de uma dívida, como uma nota promissória, duplicata ou outro documento, o credor deve procurar o Tabelionato de Protesto, que enviará uma intimação ao devedor inadimplente. Após o recebimento ele terá o prazo de 3 dias úteis para o pagamento dos valores em aberto. Se não ocorrer o pagamento, o devedor será protestado.",
+    "Lembre-se que o protesto do título de crédito ou outro documento de dívida possui a finalidade de provar o atraso do devedor e resguardar os direitos do credor na cobrança de seu crédito."
   ]
 }

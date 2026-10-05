@@ -156,3 +156,9 @@ devem ficar em `src/public/`, que é copiado para `docs/` a cada build.
 - Aparece em três lugares: aba **Quem somos** no menu, seção "Conheça o cartório" na página inicial e a página `institucional.html` (missão, "menos burocracia", especialidades, transparência).
 - Na página inicial há também "Sem burocracia: resolva em 3 passos" (encontrar, ver documentos, pedir online).
 - No computador a aba "Início" some do menu (a marca leva ao início) para caber as 5 abas; no celular ela continua.
+
+### Textos do Tabelião (literais)
+
+- `texto` (em cada serviço de Notas) e `textoCartorio` (nas especialidades) guardam, palavra por palavra, o que o Tabelião enviou; aparecem em "Sobre este serviço" e em "Sobre o ...". Idem `content/institucional.json` e a página do e-Notariado. Só correções ortográficas.
+- Correções feitas: "EDUAÇÃO" → "EDUCAÇÃO"; "Direito Hereditários" → "Direitos Hereditários"; "respectivo valores" → "respectivos valores"; espaço antes do ponto em "imóveis) ."; ponto final em frases sem ele; "rviços" → "Serviços". Os títulos de RTD e RCPJ estavam trocados no original (cada texto estava sob o nome do outro) e o texto do RCPJ trazia um "Títulos e Documentos" solto: foram acertados.
+- Pendente do cartório: o texto de **Cessão de Direitos Hereditários – Bem Específico** chegou cortado ("...transferir..."). Aparece com o selo "Texto a completar pelo cartório" e o build recusa publicar enquanto `textoIncompleto` estiver ligado.

@@ -1542,3 +1542,15 @@ kbd {
 .passos3 small { display: block; font-size: 0.95rem; line-height: 1.4; color: #e6f1fb; }
 @media (max-width: 52rem) { .passos3 { grid-template-columns: 1fr; } }
 @media (min-width: 75.0625rem) { .marca__texto small { display: none; } } /* libera espaço para as 5 abas */
+
+/* Textos escritos pelo Tabelião, exibidos como foram enviados */
+.bloco--texto { margin-bottom: 2rem; padding: clamp(1.25rem, 3vw, 2rem); border-radius: var(--r-lg); background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.28); }
+.bloco--texto h2 { margin: 0 0 0.75rem; font-size: 1.5rem; }
+.bloco--texto h3 { margin: 1rem 0 0.5rem; }
+.bloco--texto p, .bloco--texto li { color: #fff; }
+.bloco--texto p:last-child { margin-bottom: 0; }
+.texto-cartorio p { font-size: 1.1rem; line-height: 1.7; color: var(--tinta); }
+.rev-art .texto-cartorio p { color: var(--tinta); }
+.lema__rotulo { margin: 1.25rem 0 0; font-weight: 800; color: #fff; }
+.lema__rotulo + .lema { margin-top: 0.5rem; }
+.lema p { text-transform: none; letter-spacing: 0.01em; }

@@ -471,7 +471,7 @@
     funilEl.querySelector("form").addEventListener("submit", function (e) { e.preventDefault(); });
     d.esps.forEach(function (e, i) { var o = document.createElement("option"); o.value = i; o.textContent = e.nome; fEsp.appendChild(o); });
 
-    function minuscula(t) { return t.charAt(0).toLowerCase() + t.slice(1); }
+    function minuscula(t) { return t.toLowerCase(); }
     function atual() {
       // Só letras, espaços, apóstrofo, ponto e hífen: nada de símbolos, links ou quebras de linha na mensagem.
       var nome = fNome.value.replace(/[^\p{L}\p{M}\s'.-]/gu, "").replace(/\s+/g, " ").trim().slice(0, 80);

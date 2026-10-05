@@ -168,6 +168,12 @@ const obrigatorios = [
 ];
 for (const [falta, descr] of obrigatorios) if (falta) pendencias.push(descr);
 if (!site.whatsapp) pendencias.push("WhatsApp (content/site.json → whatsapp): os botões de WhatsApp levam à página de contato enquanto não houver número");
+for (const a of atos.values()) {
+  if (a.textoIncompleto) {
+    pendencias.push(`texto incompleto do cartório em "${a.nomeTecnico}" (termina em "transferir..."): pedir o texto completo`);
+    if (!rascunho) erros.push(`${a.id}: o texto do cartório está incompleto.`);
+  }
+}
 const naoValidados = [...atos.values()].filter((a) => !a.validado);
 if (naoValidados.length) pendencias.push(`${naoValidados.length} de ${atos.size} atos ainda não validados pelo cartório ("validado": false)`);
 const totalModelos = [...atos.values()].reduce((n, a) => n + (a.modelos || []).length, 0);
@@ -309,12 +315,23 @@ const cartaoOnline = (id) => {
 /** Cartão do e-Notariado (página interna, sem sair do site). */
 const cartaoENotariado = (c) => `<li class="sol" data-reveal>
     <div class="sol__topo"><span class="sol__icone">${icone("tela")}</span><span class="sol__orgao">e-Notariado</span></div>
-    <h3>Escritura e outros atos de Notas pelo computador</h3>
-    <p>Atos de cartório de notas de forma 100% online, com videoconferência e assinatura por certificado digital.</p>
+    <h3>e-Notariado: atos de Notas pelo computador</h3>
+    <p>A plataforma digital oficial do Colégio Notarial do Brasil que permite realizar atos em cartórios de notas de forma 100% online.</p>
     <a class="btn btn--claro" href="${c.u("e-notariado.html")}">Saiba como${icone("seta")}</a>
   </li>`;
 const gradeOnline = (cartoes, classe = "") => `<ul class="sol-grade${classe}">${cartoes.join("")}</ul>`;
 const instTexto = (t) => t.replace(/\{\{nome\}\}/g, esc(site.nome)).replace(/\{\{titular\}\}/g, site.titular ? esc(site.titular) : aConfirmar("a confirmar"));
+/** Textos escritos pelo Tabelião, exibidos como foram enviados. Aceita parágrafos, {titulo} e {lista:[[rótulo, texto]]}. */
+const blocosTexto = (itens, nivel = 3) =>
+  (itens || [])
+    .map((b) =>
+      typeof b === "string"
+        ? `<p>${esc(b)}</p>`
+        : b.titulo
+          ? `<h${nivel}>${esc(b.titulo)}</h${nivel}>`
+          : `<ul class="lista-pontos">${b.lista.map(([r, t]) => `<li><strong>${esc(r)}:</strong> ${esc(t)}</li>`).join("")}</ul>`
+    )
+    .join("");
 const AVISO_EXTERNO = `<p class="nota-pequena">Estes links levam a sites oficiais, fora deste site. Confira o endereço antes de informar dados pessoais.</p>`;
 
 const itemLocalizador = (c, ato, meta) =>
@@ -520,7 +537,7 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld).replace(
 </head>
 <body>
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
-${rascunho ? `<aside class="aviso-rascunho" aria-label="Aviso sobre esta versão"><div class="container"><strong>Site demonstrativo.</strong> Telefones, e-mail e nomes são fictícios, e os documentos e orientações ainda serão validados pelo cartório antes da publicação.</div></aside>` : ""}
+${rascunho ? `<aside class="aviso-rascunho" aria-label="Aviso sobre esta versão"><div class="container"><strong>Site demonstrativo.</strong> Telefones, e-mail e CNS são fictícios, e os documentos e orientações ainda serão validados pelo cartório antes da publicação.</div></aside>` : ""}
 ${cabecalho(c, ativo)}
 <div class="pagina-corpo">
 <main id="conteudo">
@@ -684,7 +701,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
           <p class="eyebrow">Institucional</p>
           <h2 id="t-quem">Conheça o cartório</h2>
           <p>${instTexto(inst.intro)}</p>
-          <blockquote class="lema"><p>${esc(inst.lema)}</p></blockquote>
+          <p class="lema__rotulo">${esc(inst.lemaRotulo)}</p><blockquote class="lema"><p>${esc(inst.lema)}</p></blockquote>
           <p><a class="btn btn--claro" href="${c.u("institucional.html")}">Quem somos e nossa missão${icone("seta")}</a></p>
         </div>
         <ul class="quem__missao" aria-label="Nossa missão">
@@ -797,6 +814,7 @@ for (const esp of especialidades) {
   })}
   <section class="secao">
     <div class="container">
+      ${(esp.textoCartorio || []).length ? `<div class="bloco bloco--texto" data-reveal>${typeof esp.textoCartorio[0] === "object" && esp.textoCartorio[0].titulo ? "" : `<h2>Sobre o ${esc(esp.nomeCompleto)}</h2>`}${blocosTexto(esp.textoCartorio, 2)}</div>` : ""}
       ${esp.aviso ? `<div class="destaque"><p><strong>Qual a diferença?</strong> ${esc(esp.aviso)}</p></div>` : ""}
       <div class="secao__cab" data-reveal>
         <h2>O que você precisa fazer?</h2>
@@ -874,6 +892,7 @@ for (const ato of atos.values()) {
     : `<span class="selo selo--validacao no-print">Em validação pelo cartório</span>`;
 
   const ancoras = [
+    ...((ato.texto || []).length ? [["sobre", "Sobre o serviço"]] : []),
     ["documentos", "Documentos"],
     ...((ato.passos || []).length ? [["como-funciona", "Como funciona"]] : []),
     ["prazo-custo", "Prazo e custo"],
@@ -899,6 +918,8 @@ for (const ato of atos.values()) {
   <div class="container pagina">
     <article class="pagina__principal folha">
       <nav aria-label="Nesta página"><ul class="ancoras">${ancoras.map(([id, r]) => `<li><a href="#${id}">${r}</a></li>`).join("")}</ul></nav>
+
+      ${(ato.texto || []).length ? `<section id="sobre"><h2>Sobre este serviço</h2><div class="texto-cartorio">${blocosTexto(ato.texto)}${ato.textoIncompleto && rascunho ? `<p>${aConfirmar("Texto a completar pelo cartório")}</p>` : ""}</div></section>` : ""}
 
       ${ato.quando ? `<section id="quando"><h2>Quando é necessário</h2><p class="resumo-ato">${esc(ato.quando)}</p></section>` : ""}
 
@@ -1112,22 +1133,19 @@ for (const ato of atos.values()) {
   ${faixa(c, {
     trilha: [{ rotulo: "Início", href: "index.html" }, { rotulo: "e-Notariado" }],
     eyebrow: "Atos online",
-    titulo: "Atos de cartório pelo computador",
+    titulo: "e-Notariado",
     lead: "O e-Notariado é a plataforma digital oficial do Colégio Notarial do Brasil que permite realizar atos em cartórios de notas de forma 100% online.",
   })}
   <section class="secao">
     <div class="container container--leitura">
-      <div class="secao__cab" data-reveal><h2>O que é o e-Notariado</h2><p>É a plataforma digital gerida pelo Colégio Notarial do Brasil (Conselho Federal), que conecta as pessoas aos serviços oferecidos pelos cartórios de notas em todo o Brasil.</p></div>
-
-      <div class="bloco" data-reveal>
-        <h3>O que é um ato notarial online</h3>
-        <p>Desde o Provimento nº 100/2020, pessoas de todo o País podem fazer atos notariais de forma online pela plataforma e-Notariado. O ato tem segurança jurídica e os mesmos efeitos de um ato feito presencialmente no cartório de notas.</p>
-        <ul class="lista-pontos">
-          <li>Todo ato notarial online tem <strong>videoconferência</strong> entre quem pede e o tabelião.</li>
-          <li>A parte assina com <strong>certificado digital</strong>.</li>
-        </ul>
+      <div class="bloco bloco--texto" data-reveal>
+        <h2>Plataforma e-Notariado</h2>
+        <p>O e-Notariado é a plataforma digital gerida pelo Colégio Notarial do Brasil – Conselho Federal, que conecta os usuários aos serviços oferecidos pelos cartórios de notas em todo o Brasil.</p>
       </div>
-
+      <div class="bloco bloco--texto" data-reveal>
+        <h2>O que é um ato notarial online</h2>
+        <p>A partir da publicação do Provimento nº 100/2020, cidadãos de todo o País podem realizar atos notariais de forma online, por meio da plataforma e-Notariado, que oferece segurança jurídica e os mesmos efeitos de um ato realizado de forma presencial no cartório de notas. Todo ato notarial online contará com videoconferência entre o requerente e o tabelião, e a assinatura da parte por meio de certificado digital.</p>
+      </div>
       <div class="bloco" data-reveal>
         <h3>Como pedir no nosso cartório</h3>
         <p>No Tabelionato de Notas, na hora de solicitar uma escritura, <strong>diga se prefere fazer digitalmente, pelo e-Notariado, ou assinar de forma presencial</strong>. Você pode dizer isso pelo formulário "Fale com o cartório" no fim de cada página (ele pergunta quando o serviço é uma escritura) ou direto no WhatsApp.</p>
@@ -1158,14 +1176,15 @@ for (const ato of atos.values()) {
     <div class="container container--leitura">
       ${preencher("{{avisoRevisao}}")}
       <nav aria-label="Nesta página" class="inst-nav"><ul class="ancoras"><li><a href="#cartorio">O cartório</a></li><li><a href="#missao">Missão</a></li><li><a href="#sem-burocracia">Menos burocracia</a></li><li><a href="#especialidades">Especialidades</a></li><li><a href="#transparencia">Transparência</a></li></ul></nav>
-      <div class="secao__cab" data-reveal><h2 id="t-cartorio">O cartório</h2></div>
+      <div class="secao__cab" data-reveal><h2 id="t-cartorio">${esc(inst.titulo)}</h2></div>
       <p class="inst-intro" data-reveal>${instTexto(inst.intro)}</p>
-      <blockquote class="lema lema--grande" data-reveal><p>${esc(inst.lema)}</p><footer>Nosso lema</footer></blockquote>
+      <p class="lema__rotulo" data-reveal>${esc(inst.lemaRotulo)}</p>
+      <blockquote class="lema lema--grande" data-reveal><p>${esc(inst.lema)}</p></blockquote>
     </div>
   </section>
   <section class="secao secao--suave" id="missao" aria-labelledby="t-missao">
     <div class="container">
-      <div class="secao__cab" data-reveal><h2 id="t-missao">Nossa missão</h2><p>${esc(inst.missaoIntro)}</p></div>
+      <div class="secao__cab" data-reveal><h2 id="t-missao">NOSSA MISSÃO</h2><p>${esc(inst.missaoIntro)}</p><p>${esc(inst.missaoLista)}</p></div>
       <ul class="sol-grade sol-grade--quatro">${inst.missao.map((m) => `<li class="sol sol--texto" data-reveal><div class="sol__topo"><span class="sol__icone">${icone(m.icone)}</span></div><h3>${esc(m.titulo)}</h3><p>${esc(m.texto)}</p></li>`).join("")}</ul>
       <p class="inst-fecho" data-reveal>${esc(inst.fecho)}</p>
     </div>
@@ -1237,6 +1256,7 @@ if (rascunho) {
       <article class="rev-art">
         <h3>${esc(a.titulo)} <small class="rev-tec">(${esc(a.nomeTecnico)})</small></h3>
         <p>${esc(a.resumo)}</p>
+        ${(a.texto || []).length ? `<div class="texto-cartorio">${blocosTexto(a.texto)}</div>` : ""}
         ${a.quando ? `<p><strong>Quando:</strong> ${esc(a.quando)}</p>` : ""}
         ${blocoDocumentos(a)}
         <h4>Passo a passo</h4>${blocoPassos(a)}

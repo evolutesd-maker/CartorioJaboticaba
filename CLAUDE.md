@@ -9,7 +9,7 @@ Site estático institucional de um cartório. **Segurança e confiabilidade vêm
 - Entrada do visitante só vira **texto** (`textContent`/`encodeURIComponent`), nunca HTML. Nada de `innerHTML` com valores dinâmicos, `eval`, `new Function`, `document.write`.
 - Links externos só para `wa.me`, Google Maps e a **lista fechada** de sites oficiais em `scripts/dominios-aprovados.json` (o build e `npm test` recusam qualquer outro domínio). Cada domínio novo precisa da aprovação do responsável, usa `https`, `target="_blank"` com `rel="noopener noreferrer"` e **nunca** leva identificador de sessão (`jsessionid` etc.) na URL.
 - Não publicar `content/`, `build.mjs`, `.agents/` nem `.claude/`: só `docs/`.
-- Nunca registrar segredos, tokens ou dados reais de pessoas no repositório.
+- Nunca registrar segredos, tokens ou dados reais de pessoas no repositório. Única exceção autorizada pelo responsável: o nome do Tabelião titular, que consta no texto institucional que ele próprio enviou (`site.json` → `titular`).
 
 ## Skills de design (`.agents/skills`)
 
@@ -21,6 +21,7 @@ Site estático institucional de um cartório. **Segurança e confiabilidade vêm
 ## Conteúdo jurídico
 
 - Documentos, prazos e custos dos atos em `content/especialidades/*.json` só podem ser dados como corretos depois da validação do cartório (`"validado": true`). Não inventar exigências legais.
+- **Textos do Tabelião são literais.** O que ele enviou (campos `texto` e `textoCartorio` nos JSON de `content/especialidades/`, `content/institucional.json`, página `e-notariado`) é exibido como veio: só correções ortográficas, sem reescrever nem resumir. Mudança de conteúdo só com texto novo vindo do cartório. Resumos e títulos "em linguagem simples" ficam em campos separados (`resumo`, `titulo`) e nunca substituem o texto dele.
 - Dados de contato atuais são **fictícios** (demonstração): trocar antes de publicar (ver README).
 
 ## Fluxo de trabalho

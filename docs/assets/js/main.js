@@ -411,7 +411,7 @@ var bZap = funilEl.querySelector("[data-f-whats]"), bMail = funilEl.querySelecto
 var ultimaMsg = "";
 funilEl.querySelector("form").addEventListener("submit", function (e) { e.preventDefault(); });
 d.esps.forEach(function (e, i) { var o = document.createElement("option"); o.value = i; o.textContent = e.nome; fEsp.appendChild(o); });
-function minuscula(t) { return t.charAt(0).toLowerCase() + t.slice(1); }
+function minuscula(t) { return t.toLowerCase(); }
 function atual() {
 var nome = fNome.value.replace(/[^\p{L}\p{M}\s'.-]/gu, "").replace(/\s+/g, " ").trim().slice(0, 80);
 var e = fEsp.value !== "" ? d.esps[+fEsp.value] : null;

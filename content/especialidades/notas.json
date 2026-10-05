@@ -9,16 +9,16 @@
     "Escrituras de imóveis",
     "Procurações",
     "Reconhecimento de firma",
-    "Atas notariais"
+    "Cópias autenticadas"
   ],
-  "resumo": "Escrituras, procurações, atas notariais e outros atos notariais.",
+  "resumo": "Escrituras, procurações e outros atos notariais.",
   "descricao": "O Tabelionato de Notas formaliza a vontade das pessoas em documentos com fé pública. O tabelião confere a identidade de quem assina, orienta sobre o que a lei exige e redige o ato, que passa a ter valor de prova e segurança jurídica. É aqui que se fazem escrituras, procurações, reconhecimentos de firma e autenticações.",
   "atos": [
     {
       "slug": "escritura-compra-venda",
       "titulo": "Comprar ou vender um imóvel",
-      "nomeTecnico": "Escritura pública de compra e venda",
-      "resumo": "A escritura de compra e venda é feita quando uma pessoa vende um bem (móvel ou imóvel) a outra, pagando o preço em dinheiro. É obrigatória para transferir imóveis de valor superior a 30 salários mínimos e, depois de lavrada, deve ser registrada no Registro de Imóveis.",
+      "nomeTecnico": "Escrituras Públicas de Compra e Venda",
+      "resumo": "A escritura é o documento em que quem compra e quem vende formalizam a negociação de um imóvel, com a conferência do tabelião.",
       "palavras": [
         "casa",
         "terreno",
@@ -107,13 +107,16 @@
         "ccir",
         "cndt",
         "sefaz-rs"
+      ],
+      "texto": [
+        "A escritura de compra e venda é realizada quando uma pessoa vende determinado bem (móvel/imóvel) para outra, pagando o preço em dinheiro. A documentação poderá ser entregue pessoalmente pelas partes no Cartório ou por meios eletrônicos. Após o recebimento dos documentos, encaminhamento e pagamento do Imposto de Transmissão incidente, será agendada data para que os interessados compareçam ao cartório, de posse de seus documentos pessoais originais, para a assinatura da escritura. Lembre-se que a escritura pública é obrigatória para a transferência de bens imóveis de valor superior a 30 salários mínimos e que, após lavrada, a escritura de compra e venda deve ser registrada no Cartório de Registro de Imóveis competente."
       ]
     },
     {
       "slug": "doacao-usufruto",
       "titulo": "Doar um bem mantendo o usufruto",
-      "nomeTecnico": "Doação com reserva de usufruto",
-      "resumo": "A doação com reserva de usufruto (ou doação com usufruto vitalício) é muito usada no planejamento sucessório e patrimonial: o doador passa a propriedade do bem ao donatário, mas mantém o direito de usar, gozar e fruir do bem durante toda a vida (ou por um prazo determinado).",
+      "nomeTecnico": "Doação com Reserva de Usufruto",
+      "resumo": "A doação com reserva de usufruto (também chamada de doação com usufruto vitalício) é um negócio jurídico muito utilizado no planejamento sucessório e patrimonial.",
       "palavras": [
         "doacao",
         "usufruto",
@@ -123,7 +126,6 @@
         "filhos",
         "imovel"
       ],
-      "quando": "Quando você quer passar um bem a alguém, em vida, mas continuar usando ou recebendo os frutos dele.",
       "documentos": [],
       "passos": [],
       "perguntas": [],
@@ -135,13 +137,16 @@
       "escritura": true,
       "links": [
         "doacao-rs"
+      ],
+      "texto": [
+        "A doação com reserva de usufruto (também chamada de doação com usufruto vitalício) é um negócio jurídico muito utilizado no planejamento sucessório e patrimonial. Nela, o doador transfere a propriedade do bem para o donatário, mas mantém para si o direito de usar, gozar e fruir daquele bem durante toda a sua vida (ou por um prazo determinado)."
       ]
     },
     {
       "slug": "doacao-simples",
       "titulo": "Doar um bem (doação pura e simples)",
       "nomeTecnico": "Doação pura e simples",
-      "resumo": "A doação pura e simples é dar um bem sem pedir nada em troca e sem impor regras. É a forma mais comum, sobretudo entre familiares, e a única possível para doar a pessoas incapazes, como crianças e adolescentes.",
+      "resumo": "A doação pura e simples é o ato de dar um bem sem pedir nada em troca nem impor regras.",
       "palavras": [
         "doacao",
         "doar",
@@ -151,7 +156,6 @@
         "dinheiro",
         "imovel"
       ],
-      "quando": "Para transferir bens entre familiares, por exemplo. Deve ser feita com cuidado para não prejudicar os direitos dos herdeiros necessários nem a subsistência de quem doa.",
       "documentos": [],
       "passos": [],
       "perguntas": [],
@@ -163,13 +167,16 @@
       "escritura": true,
       "links": [
         "doacao-rs"
+      ],
+      "texto": [
+        "A doação pura e simples é o ato de dar um bem sem pedir nada em troca nem impor regras. É a forma mais comum, especialmente para transferir bens entre familiares, mas deve ser feita com cuidado para não prejudicar os direitos dos herdeiros necessários ou a própria subsistência do doador. É também a única forma possível para doar a pessoas incapazes, como crianças e adolescentes."
       ]
     },
     {
       "slug": "procuracao",
       "titulo": "Fazer uma procuração",
-      "nomeTecnico": "Procuração pública",
-      "resumo": "A procuração é uma escritura pública usada como instrumento do mandato: o mandante (outorgante) transfere ao mandatário (outorgado) poderes para representá-lo em determinados atos ou negócios.",
+      "nomeTecnico": "Procurações",
+      "resumo": "Documento pelo qual você autoriza outra pessoa a agir em seu nome, por exemplo para vender um bem, receber um valor ou resolver um assunto em um órgão.",
       "palavras": [
         "procurador",
         "outorgante",
@@ -181,7 +188,7 @@
         "em meu nome",
         "procuracao"
       ],
-      "quando": "Quando você não pode ou não quer comparecer pessoalmente para resolver um assunto. O mandante indica o mandatário de sua confiança e os poderes que dá a ele, e é identificado pelo tabelião ou seu preposto na hora da assinatura. A procuração pública costuma ser aceita com mais segurança por bancos, órgãos públicos e outros cartórios.",
+      "quando": "Quando você não pode ou não quer comparecer pessoalmente para resolver um assunto. A procuração pública é feita no cartório e costuma ser aceita com mais segurança por bancos, órgãos públicos e outros cartórios.",
       "documentos": [
         {
           "grupo": "De quem concede a procuração",
@@ -236,13 +243,17 @@
         "notas/escritura-compra-venda"
       ],
       "validado": false,
-      "escritura": true
+      "escritura": true,
+      "texto": [
+        "A Procuração é também uma escritura pública utilizada como instrumento do mandato, o contrato através do qual o mandante (outorgante) transfere ao mandatário (outorgado) poderes para representá-lo em determinados atos ou negócios.",
+        "O mandante, que deverá indicar o mandatário de sua confiança, bem como os poderes a ele outorgados, será devidamente identificado, no ato da assinatura da escritura pública de procuração, pelo Tabelião ou seu preposto."
+      ]
     },
     {
       "slug": "reconhecimento-firma",
       "titulo": "Reconhecer firma (confirmar uma assinatura)",
-      "nomeTecnico": "Reconhecimento de firma",
-      "resumo": "É o ato em que o tabelião declara a autoria de uma assinatura em um documento.",
+      "nomeTecnico": "Reconhecimento de Firmas",
+      "resumo": "O cartório confirma que a assinatura em um documento é mesmo da pessoa indicada.",
       "palavras": [
         "assinatura",
         "assinar",
@@ -303,7 +314,10 @@
         "notas/procuracao"
       ],
       "validado": false,
-      "escritura": false
+      "escritura": false,
+      "texto": [
+        "É o ato através do qual o Tabelião declara a autoria de uma assinatura em um documento."
+      ]
     },
     {
       "slug": "autenticacao-copias",
@@ -354,8 +368,8 @@
     {
       "slug": "ata-notarial-usucapiao",
       "titulo": "Regularizar um imóvel por usucapião (ata notarial)",
-      "nomeTecnico": "Ata notarial para usucapião",
-      "resumo": "A ata notarial para usucapião é um documento público, feito por um tabelião de notas, que registra e descreve fatos que comprovam a posse de um imóvel, para que ele possa ser regularizado pela via extrajudicial (direto no Registro de Imóveis).",
+      "nomeTecnico": "Ata Notarial – Usucapião",
+      "resumo": "A Ata Notarial para Usucapião é um documento público, lavrado por um tabelião de notas, que tem como função principal registrar e descrever fatos que comprovem a posse de um imóvel, para que esse imóvel possa ser regularizado pela via extrajudicial (diretamente no cartório de registro de imóveis).",
       "palavras": [
         "usucapiao",
         "posse",
@@ -365,7 +379,6 @@
         "casa",
         "escritura"
       ],
-      "quando": "É uma peça-chave do usucapião extrajudicial: serve como um retrato da situação do imóvel e da posse exercida pelo requerente em determinado momento.",
       "documentos": [],
       "passos": [],
       "perguntas": [],
@@ -374,13 +387,17 @@
         "notas/atas-notariais"
       ],
       "validado": false,
-      "escritura": false
+      "escritura": false,
+      "texto": [
+        "A Ata Notarial para Usucapião é um documento público, lavrado por um tabelião de notas, que tem como função principal registrar e descrever fatos que comprovem a posse de um imóvel, para que esse imóvel possa ser regularizado pela via extrajudicial (diretamente no cartório de registro de imóveis).",
+        "Ela é uma peça-chave no processo de usucapião extrajudicial e serve como um \"retrato\" da situação do imóvel e da posse exercida pelo requerente em um determinado momento."
+      ]
     },
     {
       "slug": "atas-notariais",
       "titulo": "Registrar um fato por escrito (ata notarial)",
-      "nomeTecnico": "Ata notarial",
-      "resumo": "A ata notarial é um instrumento público em que o tabelião documenta, de forma imparcial, um fato, uma situação ou uma circunstância que ele ou seus prepostos presenciaram.",
+      "nomeTecnico": "Atas Notariais",
+      "resumo": "A ata notarial é um instrumento público no qual o tabelião documenta, de forma imparcial, um fato, uma situação ou uma circunstância presenciada por ele ou seus prepostos.",
       "palavras": [
         "ata",
         "fato",
@@ -389,7 +406,6 @@
         "constatar",
         "testemunho"
       ],
-      "quando": "A ata tem eficácia de prova: os fatos nela contidos são presumidos verdadeiros e ela pode ser usada em processos judiciais, nos termos do artigo 384 do Código de Processo Civil (Lei 13.105/2015).",
       "documentos": [],
       "passos": [],
       "perguntas": [],
@@ -398,7 +414,10 @@
         "notas/reconhecimento-firma"
       ],
       "validado": false,
-      "escritura": false
+      "escritura": false,
+      "texto": [
+        "A ata notarial é um instrumento público no qual o tabelião documenta, de forma imparcial, um fato, uma situação ou uma circunstância presenciada por ele ou seus prepostos. A ata notarial tem eficácia probatória, presumindo-se verdadeiros os fatos nela contidos, podendo ser utilizada em processos judiciais, nos termos do artigo 384 do Código de Processo Civil (Lei 13.105/2015)."
+      ]
     },
     {
       "slug": "autorizacao-viagem-menor",
@@ -469,8 +488,8 @@
     {
       "slug": "inventario-partilha",
       "titulo": "Inventário e partilha de herança em cartório",
-      "nomeTecnico": "Escritura de inventário e partilha extrajudicial",
-      "resumo": "O inventário apura os bens, direitos e dívidas de quem faleceu; a partilha transfere a propriedade dos bens aos herdeiros. Desde a Lei 11.441/07, isso pode ser feito em cartório, por escritura pública.",
+      "nomeTecnico": "Inventário e Partilha",
+      "resumo": "Formalização da divisão dos bens de quem faleceu, feita em cartório quando todos os herdeiros estão de acordo.",
       "palavras": [
         "heranca",
         "herdeiro",
@@ -484,7 +503,7 @@
         "morte",
         "morreu"
       ],
-      "quando": "Para fazer em cartório: 1) deve haver consenso entre os herdeiros quanto à partilha dos bens; 2) as partes devem estar representadas por advogado, que envia o pedido de abertura do inventário e a documentação e acompanha a assinatura da escritura. Havendo herdeiro menor ou incapaz, ou desacordo, o caso pode precisar ir à Justiça; o cartório avalia cada situação.",
+      "quando": "Em geral, quando todos os herdeiros são maiores de idade e capazes e estão de acordo. Havendo herdeiro menor ou incapaz, ou desacordo entre os herdeiros, o caso pode precisar ir à Justiça. A presença de advogado é obrigatória, e o cartório avalia cada situação.",
       "documentos": [
         {
           "grupo": "De quem faleceu",
@@ -548,13 +567,16 @@
         "rcpn/registro-obito"
       ],
       "validado": false,
-      "escritura": true
+      "escritura": true,
+      "texto": [
+        "O inventário é o procedimento utilizado para apuração dos bens, direitos e dívidas do falecido. Através da realização da partilha é feita a transferência da propriedade dos bens aos herdeiros. Desde a edição da Lei 11.441/07 é permitido que o procedimento de inventário seja realizado em cartório, por meio de escritura pública, de forma rápida, simples e segura. Para que o inventário possa ser feito em cartório, é necessário observar os seguintes requisitos: 1) Deve haver consenso entre os herdeiros quanto à partilha dos bens; 2) as partes deverão estar representadas por advogado, que enviará o pedido de abertura de inventário e respectiva documentação, bem como acompanhará a assinatura da respectiva Escritura Pública de Inventário e Partilha para assessoramento das partes."
+      ]
     },
     {
       "slug": "cessao-heranca-toda",
       "titulo": "Ceder a parte da herança inteira",
-      "nomeTecnico": "Cessão de direitos hereditários — toda a herança",
-      "resumo": "A cessão de direitos hereditários sobre a herança toda (o quinhão hereditário) permite a um herdeiro transferir, antes da partilha, a sua quota-parte ideal sobre todo o patrimônio deixado pelo falecido.",
+      "nomeTecnico": "Cessão de Direitos Hereditários – Toda Herança",
+      "resumo": "A cessão de direitos hereditários sobre a herança toda (o quinhão hereditário) é o instituto jurídico que permite a um herdeiro transferir, antes da partilha, a sua quota-parte ideal sobre a totalidade do patrimônio deixado pelo falecido.",
       "palavras": [
         "heranca",
         "herdeiro",
@@ -563,7 +585,6 @@
         "partilha",
         "ceder"
       ],
-      "quando": "Antes da partilha, quando um herdeiro quer transferir a sua parte da herança a outra pessoa.",
       "documentos": [],
       "passos": [],
       "perguntas": [],
@@ -572,13 +593,16 @@
         "notas/cessao-heranca-bem"
       ],
       "validado": false,
-      "escritura": true
+      "escritura": true,
+      "texto": [
+        "A cessão de direitos hereditários sobre a herança toda (o quinhão hereditário) é o instituto jurídico que permite a um herdeiro transferir, antes da partilha, a sua quota-parte ideal sobre a totalidade do patrimônio deixado pelo falecido."
+      ]
     },
     {
       "slug": "cessao-heranca-bem",
       "titulo": "Ceder direitos da herança sobre um bem específico",
-      "nomeTecnico": "Cessão de direitos hereditários — bem específico",
-      "resumo": "Cessão de direitos hereditários sobre um bem específico da herança, feita por um herdeiro.",
+      "nomeTecnico": "Cessão de Direitos Hereditários – Bem Específico",
+      "resumo": "Cessão de direitos hereditários sobre um bem específico da herança.",
       "palavras": [
         "heranca",
         "herdeiro",
@@ -586,7 +610,6 @@
         "bem",
         "ceder"
       ],
-      "quando": "Quando um herdeiro quer ceder os seus direitos sobre um bem determinado da herança. O cartório orienta se e como isso pode ser feito no seu caso.",
       "documentos": [],
       "passos": [],
       "perguntas": [],
@@ -595,13 +618,17 @@
         "notas/inventario-partilha"
       ],
       "validado": false,
-      "escritura": true
+      "escritura": true,
+      "texto": [
+        "A cessão de direitos hereditários sobre a herança é o instituto jurídico que permite a um herdeiro transferir..."
+      ],
+      "textoIncompleto": true
     },
     {
       "slug": "testamento",
       "titulo": "Fazer um testamento",
-      "nomeTecnico": "Testamento público",
-      "resumo": "Declaração de última vontade em que o testador, respeitados os limites legais, dispõe do seu patrimônio para depois do falecimento.",
+      "nomeTecnico": "Testamentos",
+      "resumo": "Documento em que você registra, com segurança, como deseja que seus bens sejam distribuídos depois do seu falecimento.",
       "palavras": [
         "testamento",
         "testar",
@@ -613,7 +640,7 @@
         "doar bens",
         "legitima"
       ],
-      "quando": "Quando você quer deixar registrada a sua vontade sobre o destino dos seus bens. A declaração pode ser alterada ou revogada pelo testador a qualquer tempo, pois só tem efeito jurídico depois da morte. O testamento público é feito no cartório, lido ao testador na presença de testemunhas.",
+      "quando": "Quando você quer deixar registrada a sua vontade sobre o destino de parte dos seus bens. O testamento público é feito no cartório, lido ao testador na presença de duas testemunhas, e pode ser alterado ou revogado quando você quiser.",
       "documentos": [
         {
           "grupo": "De quem faz o testamento (testador)",
@@ -665,26 +692,31 @@
         "notas/procuracao"
       ],
       "validado": false,
-      "escritura": true
+      "escritura": true,
+      "texto": [
+        "Testamento é a declaração de última vontade através da qual o testador, respeitados os limites legais, dispõe de seu patrimônio para depois de seu falecimento. Esta declaração poderá ser alterada ou revogada pelo testador a qualquer tempo, pois somente terá efeito jurídico após a sua morte."
+      ]
     },
     {
       "slug": "divorcio-extrajudicial",
-      "titulo": "Divórcio ou fim de união estável em cartório",
-      "nomeTecnico": "Escritura de divórcio e dissolução de união estável",
-      "resumo": "Divórcio e dissolução de união estável feitos diretamente no cartório, quando as partes estão de acordo.",
+      "titulo": "Divórcio em cartório",
+      "nomeTecnico": "Divórcio e Dissolução de União Estável",
+      "resumo": "Divórcio feito diretamente no cartório quando o casal está de acordo.",
       "palavras": [
-        "casal",
-        "desfazer casamento",
-        "dissolucao",
-        "dissolver casamento",
         "divorcio",
-        "ex esposa",
-        "ex marido",
         "separacao",
         "separar",
-        "uniao estavel"
+        "casal",
+        "ex marido",
+        "ex esposa",
+        "dissolver casamento",
+        "desfazer casamento",
+        "dissolucao",
+        "uniao estavel",
+        "separacao",
+        "separar"
       ],
-      "quando": "Requisitos: i) as partes estão de acordo com todos os termos da escritura; ii) não há filhos menores ou incapazes, ou as questões dos menores já foram resolvidas judicialmente; iii) há acompanhamento de pelo menos um advogado, que envia petição com a qualificação das partes, a data da separação de fato, a indicação dos bens e seus valores e a forma de partilha.",
+      "quando": "Quando os dois estão de acordo com o divórcio e com a divisão dos bens. Existem regras específicas quando há filhos menores ou incapazes, e o cartório orienta cada caso. A presença de advogado é obrigatória.",
       "documentos": [
         {
           "grupo": "De cada cônjuge",
@@ -739,7 +771,10 @@
         "notas/uniao-estavel"
       ],
       "validado": false,
-      "escritura": true
+      "escritura": true,
+      "texto": [
+        "Requisitos: i) que as partes estejam de acordo com todos os termos da escritura, ii) inexistência de filhos menores ou incapazes; OU questões relativas aos menores já resolvidas judicialmente; e iii) acompanhamento de, pelo menos, um advogado que deverá enviar petição com a qualificação das partes, data da separação de fato, indicação dos bens e respectivos valores bem como indicar a forma de partilha."
+      ]
     },
     {
       "slug": "uniao-estavel",
