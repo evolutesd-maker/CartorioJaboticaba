@@ -4,6 +4,38 @@
 // Uso: node scripts/captura.mjs [cena ...]   (sem argumentos grava todas)
 import { abrir, gravar, SITE, sleep, deslizar, irPara, clicar, digitar, rolar, pos } from "./lib.mjs";
 
+
+// O pop-up nativo de um <select> não é capturado pela gravação de tela. Para mostrar a lista de opções
+// (especialidades e serviços), desenhamos, só durante a filmagem, uma réplica visual das opções reais.
+async function escolherNaLista(page, m, seguir, nome, sel, indice) {
+  m(nome);
+  await irPara(page, sel, 800);
+  await sleep(250);
+  await page.evaluate((sl) => {
+    const s = document.querySelector(sl), r = s.getBoundingClientRect();
+    const d = document.createElement("div"); d.id = "__dd";
+    d.style.cssText = `position:fixed;left:${r.left}px;width:${r.width}px;background:#fff;border:1px solid #8fb0d3;border-radius:12px;box-shadow:0 16px 38px rgba(0,30,60,.4);z-index:2147483645;font:500 17px/1.3 "Plus Jakarta Sans",system-ui,sans-serif;color:#14202b;padding:6px;opacity:0;transition:opacity .18s`;
+    [...s.options].forEach((o, i) => { if (!o.value) return; const it = document.createElement("div"); it.textContent = o.textContent; it.dataset.i = i; it.style.cssText = "padding:11px 14px;border-radius:8px"; d.appendChild(it); });
+    document.body.appendChild(d);
+    const h = d.offsetHeight; d.style.top = (r.bottom + 6 + h > 752 ? Math.max(8, r.top - 6 - h) : r.bottom + 6) + "px";
+    requestAnimationFrame(() => (d.style.opacity = 1));
+  }, sel);
+  const parar = seguir("dd", "#__dd");
+  m(nome + "-lista");
+  await sleep(700);
+  const rects = await page.evaluate(() => [...document.querySelectorAll("#__dd div")].map((e) => { const b = e.getBoundingClientRect(); return [b.x + b.width / 2, b.y + b.height / 2]; }));
+  const alvo = Math.min(indice, rects.length - 1);
+  for (let k = 0; k <= alvo; k++) {
+    await deslizar(page, rects[k][0] - 40, rects[k][1], k === 0 ? 600 : 380);
+    await page.evaluate((k) => { document.querySelectorAll("#__dd div").forEach((e, i) => { e.style.background = i === k ? "#0078d7" : ""; e.style.color = i === k ? "#fff" : ""; }); }, k);
+    await sleep(k === alvo ? 700 : 120);
+  }
+  await page.mouse.down(); await sleep(70); await page.mouse.up();
+  await page.evaluate(() => document.getElementById("__dd")?.remove());
+  parar();
+  m(nome + "-ok");
+}
+
 const rolarPara = async (page, y) => { await rolar(page, y, 0.01); await sleep(250); };
 
 const cenas = {
@@ -133,6 +165,7 @@ const cenas = {
     await page.goto(SITE); await sleep(1500);
     await gravar(page, "abas", async (m, seguir) => {
       seguir("menu", ".menu ul"); seguir("aberto", ".cartao-info [data-expediente], [data-expediente]");
+      seguir("rota", ".atend__acoes a:nth-child(1)"); seguir("ligar", ".atend__acoes a:nth-child(2)"); seguir("zap", ".atend__acoes a:nth-child(3)"); seguir("btns", ".atend__acoes");
       await sleep(900);
       m("servicos");
       await clicar(page, '.menu a[href="servicos.html"]', 1100);
@@ -150,8 +183,12 @@ const cenas = {
       await clicar(page, '.menu a[href="contato.html"]', 1000);
       await sleep(2300);
       m("contato-ok");
-      await rolar(page, 300, 1400);
-      await sleep(1000);
+      await rolar(page, 440, 1400);
+      await sleep(900);
+      m("btns");
+      await irPara(page, ".atend__acoes a:nth-child(1)", 900); m("rota"); await sleep(900);
+      await irPara(page, ".atend__acoes a:nth-child(2)", 700); m("ligar"); await sleep(900);
+      await irPara(page, ".atend__acoes a:nth-child(3)", 700); m("zap"); await sleep(1100);
       m("fim");
     });
   },
@@ -200,21 +237,17 @@ const cenas = {
       seguir("msg", "[data-f-msg]"); seguir("canais", ".funil__canais"); seguir("copiar", "[data-f-copiar]"); seguir("whats", "[data-f-whats]");
       seguir("mail", "[data-f-email]"); seguir("aviso", ".aviso"); seguir("topo", ".topo-voltar");
       await sleep(400);
-      await rolar(page, "#falar", 1900);
+      await rolar(page, await page.evaluate(() => document.querySelector("[data-funil]").getBoundingClientRect().top + scrollY - 110), 1900);
       await sleep(1300);
       m("nome");
       await clicar(page, "[data-f-nome]", 1000);
       await sleep(250);
       await digitar(page, "Maria da Silva", 95);
       await sleep(600);
-      m("esp");
-      await irPara(page, "[data-f-esp]", 800);
-      await sleep(250);
+      await escolherNaLista(page, m, seguir, "esp", "[data-f-esp]", 0);
       await page.locator("[data-f-esp]").selectOption({ label: "Notas" });
-      await sleep(1000);
-      m("ato");
-      await irPara(page, "[data-f-ato]", 700);
-      await sleep(250);
+      await sleep(900);
+      await escolherNaLista(page, m, seguir, "ato", "[data-f-ato]", 1);
       await page.locator("[data-f-ato]").selectOption({ index: 2 });
       m("msg");
       await sleep(1700);

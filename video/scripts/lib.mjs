@@ -70,7 +70,7 @@ export async function gravar(page, nome, fn, { fps = 60, qualidade = 94, largura
   cdp.on("Page.screencastFrame", async (f) => {
     const i = n++;
     writeFileSync(join(dir, "raw", String(i).padStart(5, "0") + ".jpg"), Buffer.from(f.data, "base64"));
-    quadros.push({ i, t: f.metadata.timestamp });
+    quadros.push({ i, t: f.metadata.timestamp, w: Date.now() / 1000 });
     cdp.send("Page.screencastFrameAck", { sessionId: f.sessionId }).catch(() => {});
   });
   await cdp.send("Page.startScreencast", { format: "jpeg", quality: qualidade, maxWidth: largura, maxHeight: altura, everyNthFrame: 1 });
@@ -95,8 +95,15 @@ export async function gravar(page, nome, fn, { fps = 60, qualidade = 94, largura
   await sleep(200);
   await cdp.detach();
   if (!quadros.length) throw new Error("sem quadros");
-  // concat com durações reais
-  const ini = quadros[0].t;
+  // Alinha o relógio dos quadros (carimbo do navegador) ao relógio dos eventos (Date.now): o primeiro quadro
+  // pode vir com carimbo antigo (página parada antes da gravação), então usamos o menor (chegada - carimbo), isto é, o quadro entregue com menos atraso.
+  const difs = quadros.slice(Math.min(5, quadros.length - 1)).map((q) => q.w - q.t).sort((x, y) => x - y);
+  const desloc = difs[Math.min(difs.length - 1, Math.floor(difs.length * 0.02))]; // quadro com menor atraso de entrega
+  const origem = t0 / 1000 - 0.25;
+  quadros.forEach((q) => { q.t = Math.max(0, q.t + desloc - origem); });
+  quadros[0].t = 0;
+  for (let k = 1; k < quadros.length; k++) if (quadros[k].t <= quadros[k - 1].t) quadros[k].t = quadros[k - 1].t + 0.001;
+  const ini = 0;
   const fim = quadros[quadros.length - 1].t + 0.05;
   let lista = "";
   quadros.forEach((q, k) => {

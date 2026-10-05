@@ -333,22 +333,26 @@ cenaClipe({
 
 // 6. Abas
 cenaClipe({
-  id: "abas", n: "06", cap: "Navegação", titulo: "Troca de páginas com <u>transição suave</u>", dur: 11,
+  id: "abas", n: "06", cap: "Navegação", titulo: "Troca de páginas com <u>transição suave</u>", dur: 12,
   texto: "Quatro abas no menu levam a todo o conteúdo, sem complicação.",
-  clip: "abas", from: 0.8, speed: 2.1,
+  clip: "abas", from: 0.8, speed: 2.4,
   def: (h) => ({
     bullets: [
       { t: h.L("servicos", 0.2), txt: "<u>Serviços</u>: tudo organizado por assunto" },
       { t: h.L("documentos", 0.2), txt: "<u>Documentos</u>: o que levar ao cartório" },
       { t: h.L("contato", 0.2), txt: "<u>Contato</u>: endereço, horário e rota no mapa" },
+      { t: h.L("ligar", -0.3), txt: "Botões para <u>ligar</u> e falar no <u>WhatsApp</u>" },
     ],
     marks: [
       { track: "menu", t0: h.L("servicos", 0.0), t1: h.L("documentos", -0.3), text: "Aba Serviços", n: 1, pos: "bottom", pad: 8 },
       { track: "menu", t0: h.L("documentos", 0.0), t1: h.L("contato", -0.3), text: "Aba Documentos", n: 2, pos: "bottom", pad: 8 },
       { track: "menu", t0: h.L("contato", 0.0), t1: h.L("contato-ok", -0.2), text: "Aba Contato", n: 3, pos: "bottom", pad: 8 },
-      { track: "aberto", t0: h.L("contato-ok", 0.3), t1: h.L("fim", 0.1), text: "“Aberto agora”: horário em tempo real", n: 4, pos: "top", pad: 8 },
+      { track: "aberto", t0: h.L("contato-ok", 0.3), t1: h.L("btns", 0.2), text: "“Aberto agora”: horário em tempo real", n: 4, pos: "top", pad: 8 },
+      { track: "rota", t0: h.L("rota", -0.3), t1: h.L("ligar", -0.2), text: "Abrir a rota no mapa", n: 5, pos: "top", pad: 8 },
+      { track: "ligar", t0: h.L("ligar", -0.3), t1: h.L("zap", -0.2), text: "Ligar para o cartório", n: 6, pos: "top", pad: 8 },
+      { track: "zap", t0: h.L("zap", -0.3), t1: h.L("fim", 0.3), text: "Falar pelo WhatsApp", n: 7, pos: "top", pad: 8 },
     ],
-    cam: [{ t: 0, cx: 683, cy: 384, s: 1 }, { t: 1.0, cx: 683, cy: 300, s: 1.1 }, { t: 10, cx: 683, cy: 300, s: 1.1 }],
+    cam: [{ t: 0, cx: 683, cy: 384, s: 1 }, { t: 1.0, cx: 683, cy: 300, s: 1.1 }, { t: h.L("contato-ok", 0), cx: 683, cy: 330, s: 1.1 }, { t: 12, cx: 683, cy: 330, s: 1.0 }],
   }),
 });
 
@@ -475,23 +479,25 @@ cenaClipe({
 
 // 10. Funil de contato
 cenaClipe({
-  id: "funil", n: "08", cap: "Fale com o cartório", titulo: "Atendimento em <u>três passos</u>", dur: 16.5,
+  id: "funil", n: "08", cap: "Fale com o cartório", titulo: "Atendimento em <u>três passos</u>", dur: 18.5,
   texto: "O cidadão responde a três perguntas e a mensagem sai pronta, por WhatsApp, e-mail ou copiada.",
-  clip: "funil", from: 1.4, speed: 1.2,
+  clip: "funil", from: 1.4, speed: 1.5,
   def: (h) => ({
     bullets: [
       { t: h.L("nome", 0.5), txt: "Nome, setor e serviço: <u>três passos</u>" },
+      { t: h.L("esp-lista", 0.2), txt: "As listas mostram <u>todas as opções</u>" },
       { t: h.L("msg", 0.2), txt: "A mensagem é <u>montada sozinha</u>" },
-      { t: h.L("copiar-ini", 0.2), txt: "<u>Copiar</u>, WhatsApp ou e-mail, como preferir" },
       { t: h.L("topo", -0.6), txt: "Botão <u>voltar ao topo</u> com anel de leitura" },
     ],
     marks: [
-      { track: "nome", t0: h.L("nome", 0.2), t1: h.L("esp", 0.2), text: "1 · Seu nome", n: 1, pos: "right", pad: 6 },
-      { track: "esp", t0: h.L("esp", 0.2), t1: h.L("ato", 0.2), text: "2 · Setor", n: 2, pos: "right", pad: 6 },
-      { track: "ato", t0: h.L("ato", 0.2), t1: h.L("msg", 0.4), text: "3 · Serviço", n: 3, pos: "right", pad: 6 },
+      { track: "nome", t0: h.L("nome", 0.2), t1: h.L("esp", 0.1), text: "1 · Seu nome", n: 1, pos: "right", pad: 6 },
+      { track: "esp", t0: h.L("esp", 0.0), t1: h.L("esp-lista", 0.1), text: "2 · Setor", n: 2, pos: "right", pad: 6 },
+      { track: "dd", t0: h.L("esp-lista", 0.1), t1: h.L("esp-ok", 0.1), text: "Escolha a especialidade", n: 2, pos: "right", pad: 4 },
+      { track: "ato", t0: h.L("ato", 0.0), t1: h.L("ato-lista", 0.1), text: "3 · Serviço", n: 3, pos: "right", pad: 6 },
+      { track: "dd", t0: h.L("ato-lista", 0.1), t1: h.L("ato-ok", 0.1), text: "Escolha o serviço", n: 3, pos: "right", pad: 4 },
       { track: "msg", t0: h.L("msg", 0.3), t1: h.L("copiar-ini", 0.3), text: "Mensagem pronta", n: 4, pos: "top", pad: 8 },
       { track: "copiar", t0: h.L("copiar-ini", 0.0), t1: h.L("copiar-fim", -0.2), text: "Copiar mensagem", n: 5, pos: "top", pad: 8 },
-      { track: "aviso", t0: h.L("copiar-ini", 0.9), t1: h.L("copiar-fim", -0.2), text: "Copiada!", n: "✓", pos: "bottom", pad: 8 },
+      { track: "aviso", t0: h.L("copiar-ini", 0.9), t1: h.L("copiar-fim", -0.2), text: "Copiada!", n: "✓", pos: "top", pad: 8 },
       { track: "canais", t0: h.L("canais-ini", 0.0), t1: h.L("canais-fim", 0.0), text: "WhatsApp ou e-mail", n: 6, pos: "top", pad: 8 },
       { track: "topo", t0: h.L("topo", 0.0), t1: h.L("topo", 1.8), text: "Voltar ao topo", n: 7, pos: "left", pad: 8 },
     ],
