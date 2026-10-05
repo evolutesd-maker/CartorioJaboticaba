@@ -3,7 +3,7 @@
 **Data:** 05/10/2026 · **Escopo:** home, página de especialidade, página de ato (exemplo: procuração), documentos e contato · **Foco pedido:** achar informação fácil, menos "tudo em cartão", mais minimalista, preparar o site para receber **muitos dados e links**.
 
 > **Como foi feita.** Olhei capturas de tela atuais (1280 px) e contei os blocos no HTML gerado. Usei `impeccable` e `web-design-guidelines` só como lista de verificação mental: **não** executei os scripts da `impeccable` e **não** baixei a lista de regras remota da `web-design-guidelines` (é uma URL de terceiros; fica para quando você autorizar). A skill `sites-incriveis` constrói páginas de rolagem narrativa (cenas, trechos presos na tela, entrevista inicial). Isso vai na direção oposta do que você pediu (informação direta, mais simples), então **não a apliquei** nem copiei o motor dela. Aproveitei só o critério de "ver a página rolando antes de aprovar".
-> Nenhum arquivo do site foi alterado nesta etapa.
+> **Atualização (05/10/2026):** os passos A a E da seção 5 foram aplicados e testados. Ver "Resultado" no fim.
 
 ## 1. Diagnóstico em uma frase
 
@@ -86,3 +86,13 @@ Cada passo passa por: `npm test`, axe, teste de largura (320–1440 px), e eu ol
 - **Aprovar a ordem A→E** ou escolher por onde começar. Sugestão: A e C primeiro (menor risco), depois B para você ver a home nova.
 - **Lista de domínios externos** que você pretende linkar.
 - Quando for mandar os dados: de preferência **por especialidade**, no formato "ato → documentos → prazo → custo → links/modelos", em texto simples. Eu organizo em `content/`.
+
+## 7. Resultado (aplicado)
+
+- **A. Página de serviço:** uma folha branca com linhas no lugar de caixas (documentos, prazo e custo, perguntas, "Veja também"); a lateral ficou só com o contato.
+- **B. Início:** "Mais procurados" em lista (sem carrossel); especialidades em lista aberta; "Antes de vir" virou uma linha de links; a faixa escura extra saiu.
+- **C. Contato:** horário e canais direto sobre o azul; rodapé em 3 colunas, com contato uma única vez.
+- **D. Listas grandes:** filtro e contagem nas especialidades com 8+ serviços; Documentos de A a Z com letras; linha padrão de arquivo (tipo, tamanho, data).
+- **E. Movimento:** saíram o brilho que varre os botões, o desenho dos ícones e o brilho que seguia o mouse nos cartões. Ficam: entrada do hero, troca de página, levantar no hover, chips flutuantes e barra de leitura.
+- CSS: cerca de 13 KB de regras antigas (cartões e carrossel) removidas; o JS do carrossel também.
+- Testes: `npm test`, axe (0 violações em 37 páginas × 2 larguras), sem estouro de 320 a 1440 px, e os testes de comportamento (busca, funil, "aberto agora", topo ao navegar, troca de página, filtros e A–Z).

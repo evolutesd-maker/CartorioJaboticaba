@@ -65,59 +65,6 @@ limpar(en.target);
 }, { rootMargin: "0px 0px -6% 0px", threshold: 0.06 });
 revelaveis.forEach(function (el) { io.observe(el); });
 }
-document.querySelectorAll("[data-carrossel]").forEach(function (car) {
-var pista = car.querySelector(".carrossel__pista");
-var anterior = car.querySelector("[data-car-prev]");
-var proximo = car.querySelector("[data-car-next]");
-if (!pista) return;
-var agendado = false;
-function atualizar() {
-agendado = false;
-var max = pista.scrollWidth - pista.clientWidth;
-var esq = pista.scrollLeft > 4;
-var dir = pista.scrollLeft < max - 4;
-pista.setAttribute("data-fade", (esq ? "esq " : "") + (dir ? "dir" : ""));
-if (anterior) anterior.disabled = !esq;
-if (proximo) proximo.disabled = !dir;
-}
-function agendar() { if (!agendado) { agendado = true; requestAnimationFrame(atualizar); } }
-function mover(sentido) {
-pista.scrollBy({ left: sentido * pista.clientWidth * 0.85, behavior: semMovimento ? "auto" : "smooth" });
-}
-pista.addEventListener("scroll", agendar, { passive: true });
-window.addEventListener("resize", agendar);
-if (anterior) anterior.addEventListener("click", function () { mover(-1); });
-if (proximo) proximo.addEventListener("click", function () { mover(1); });
-pista.addEventListener("keydown", function (e) {
-if (e.target !== pista) return;
-if (e.key === "ArrowRight") { e.preventDefault(); mover(1); }
-if (e.key === "ArrowLeft") { e.preventDefault(); mover(-1); }
-});
-var inicioX = 0, inicioScroll = 0, apertado = false, arrastou = false;
-pista.addEventListener("pointerdown", function (e) {
-if (e.pointerType !== "mouse" || e.button !== 0) return;
-apertado = true; arrastou = false;
-inicioX = e.clientX; inicioScroll = pista.scrollLeft;
-});
-pista.addEventListener("pointermove", function (e) {
-if (!apertado) return;
-var dx = e.clientX - inicioX;
-if (!arrastou && Math.abs(dx) > 6) {
-arrastou = true;
-pista.classList.add("is-arrastando");
-try { pista.setPointerCapture(e.pointerId); } catch (_) {  }
-}
-if (arrastou) pista.scrollLeft = inicioScroll - dx;
-});
-function soltar() {
-if (!apertado) return;
-apertado = false;
-if (arrastou) setTimeout(function () { pista.classList.remove("is-arrastando"); agendar(); }, 0);
-}
-pista.addEventListener("pointerup", soltar);
-pista.addEventListener("pointercancel", soltar);
-atualizar();
-});
 var areaAvisos = null;
 function aviso(texto) {
 if (!areaAvisos) {
@@ -387,18 +334,6 @@ fotoEl.style.setProperty("--mx", ((e.clientX - r.left) / r.width - 0.5) * 2);
 fotoEl.style.setProperty("--my", ((e.clientY - r.top) / r.height - 0.5) * 2);
 });
 fotoEl.addEventListener("pointerleave", function () { fotoEl.style.setProperty("--mx", 0); fotoEl.style.setProperty("--my", 0); });
-}
-if (mouseFino) {
-document.querySelectorAll(".esp-card, .ato-card, .cr-card").forEach(function (card) {
-card.addEventListener("pointermove", function (e) {
-var r = card.getBoundingClientRect();
-card.style.setProperty("--sx", (e.clientX - r.left).toFixed(0) + "px");
-card.style.setProperty("--sy", (e.clientY - r.top).toFixed(0) + "px");
-});
-card.addEventListener("pointerleave", function () {
-["--sx", "--sy"].forEach(function (v) { card.style.removeProperty(v); });
-});
-});
 }
 }
 var funilEl = document.querySelector("[data-funil]");

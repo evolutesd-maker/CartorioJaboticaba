@@ -5,10 +5,10 @@ Foi pensado para que a pessoa **encontre o serviço pelo assunto**, sem precisar
 
 - Azul `#0078d7` predominante, branco e detalhes discretos em dourado. Fonte Plus Jakarta Sans (licença OFL), hospedada no próprio site.
 - Leve: cerca de 50 KB compactados no primeiro acesso (HTML, CSS, JS e fonte; a foto da fachada tem versão menor para celular), sem nenhuma requisição a terceiros. CSS e JS são minificados no build, com versão na URL para cache longo.
-- Interface: cabeçalho translúcido, painel de busca flutuante sobre o hero, carrossel "Mais procurados" (setas, arrastar, teclado e toque), cartões com hover, chips flutuantes sobre a foto, lista de documentos que o visitante vai marcando.
+- Interface: cabeçalho translúcido, painel de busca flutuante sobre o hero, lista "Mais procurados", listas abertas com linha fina (sem cartões) e folha de leitura nas páginas de serviço, chips flutuantes sobre a foto, lista de documentos que o visitante vai marcando.
 - Movimento só para quem não pede "reduzir movimento" no sistema.
 - Busca de serviços em qualquer página (`/` ou `Ctrl/⌘+K`), botão "Copiar mensagem" no funil e selo "Aberto agora" (usa `expediente` de `content/site.json`: dias da semana 0=domingo, turnos em HH:MM e fuso; não considera feriados).
-- Funciona sem JavaScript (busca, carrossel por botões, revelar ao rolar e menu recolhível são melhorias).
+- Funciona sem JavaScript (busca, filtros, revelar ao rolar e menu recolhível são melhorias).
 - Passa na auditoria automática de acessibilidade (axe-core, WCAG 2.1 AA) em todas as páginas.
 
 ## Como funciona
@@ -20,7 +20,7 @@ O conteúdo fica em `content/` e o gerador (`build.mjs`, sem dependências) escr
 content/
   site.json              dados do cartório (telefone, horário, titular, CNS...) e o modo rascunho
   temas.json             os 5 assuntos da página "Todos os serviços" (e do índice de busca)
-  destaques.json         os serviços do carrossel "Mais procurados" da página inicial
+  destaques.json         os serviços da lista "Mais procurados" da página inicial
   especialidades/*.json  as 5 especialidades e, dentro de cada, os atos (serviços) com os documentos
   paginas/*.html         textos de "Institucional" e "Privacidade"
   modelos/               PDFs para download (opcional)
@@ -57,7 +57,7 @@ bloqueia buscadores (`noindex` + `robots.txt`) e gera `docs/revisao.html`.
 | **Foto da fachada** | `src/img/fachada.webp` (1441 px) e `src/img/fachada-720.webp` (versão para celular, usada automaticamente). O original fica em `content/originais/`, que não é publicado. |
 | Logotipo | hoje é um selo "J" provisório (`SELO` em `build.mjs` e `src/img/favicon.svg`) |
 | Endereço público do site | `content/site.json` → `url` (gera `sitemap.xml` e links canônicos) |
-| Modelos em PDF | coloque o arquivo em `content/modelos/` e liste no ato: `"modelos": [{"titulo": "Modelo de procuração", "arquivo": "procuracao.pdf"}]` |
+| Modelos em PDF | coloque o arquivo em `content/modelos/` e liste no ato: `"modelos": [{"titulo": "Modelo de procuração", "arquivo": "procuracao.pdf", "atualizadoEm": "2026-10-01"}]` (o site mostra tipo, tamanho e data; `atualizadoEm` e `descricao` são opcionais) |
 
 ## Validação do conteúdo pelo cartório (obrigatória antes de publicar)
 
@@ -76,9 +76,9 @@ e aparece no site com o selo "Em validação pelo cartório".
 
 Aparece no fim de todas as páginas, antes do rodapé: nome → especialidade → documento/serviço → WhatsApp ou e-mail. A mensagem é montada no navegador ("Olá, sou ... Gostaria de falar com o setor de ..., pois preciso de ... Aguardo atendimento."). As opções vêm das especialidades e atos de `content/especialidades/`. O WhatsApp usa `whatsapp` e o e-mail usa `emailFormulario` (ou `email`) de `content/site.json`. Hoje `emailFormulario` é um endereço de teste: troque pelo do cartório antes de publicar.
 
-### Cartões da página inicial
+### Lista de especialidades da página inicial
 
-Cada especialidade (`content/especialidades/*.json`) tem `tagline` (uma linha) e `opcoes` (3 a 4 itens curtos). São só isso que aparece no cartão da home; todo o resto fica na página da especialidade. O build recusa uma especialidade sem esses dois campos.
+Cada especialidade (`content/especialidades/*.json`) tem `tagline` (uma linha) e `opcoes` (3 a 4 itens curtos). São só isso que aparece na linha da home; todo o resto fica na página da especialidade. O build recusa uma especialidade sem esses dois campos.
 
 ### Como editar um ato
 
@@ -123,3 +123,10 @@ devem ficar em `src/public/`, que é copiado para `docs/` a cada build.
 - Fontes do sistema (Segoe UI no Windows, Georgia nos títulos): nada é baixado de terceiros.
 - O mapa é apenas um botão que abre a rota no Google Maps em outra aba; nenhum mapa é incorporado.
 - Os botões do WhatsApp levam uma mensagem inicial com o nome do serviço consultado.
+
+### Listas grandes (muitos serviços e links)
+
+- Página de especialidade: com **8 ou mais** serviços aparece um filtro e a contagem ("9 serviços"); com menos, só a lista.
+- `documentos.html`: lista **de A a Z** com barra de letras, filtro e a especialidade de cada serviço. `servicos.html`: por assunto (`content/temas.json`).
+- Todo serviço novo precisa estar em um tema de `temas.json` (o build avisa se faltar).
+- Arquivos para baixar usam sempre a mesma linha: título, tipo, tamanho, data (opcional).

@@ -11,8 +11,8 @@
  * marcadores "a confirmar" e bloqueado para buscadores. Com "rascunho": false o
  * build FALHA se faltarem dados obrigatórios ou se algum ato não estiver validado.
  */
-import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync, readdirSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync, readdirSync, statSync } from "node:fs";
+import { dirname, extname, join } from "node:path";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 
@@ -268,46 +268,54 @@ const seloAberto = () =>
     ? `<p class="aberto" data-expediente="${esc(EXPEDIENTE)}"><span class="aberto__ponto" aria-hidden="true"></span><strong data-aberto-titulo>Atendimento</strong><span data-aberto-detalhe>${esc(horasTexto)}</span></p>`
     : "";
 
-function itemLocalizador(c, ato, meta) {
-  return (
-    `<li data-finder-item data-busca="${esc(buscaIndexada(ato))}"><a href="${c.u(ato.caminho)}">` +
-    `<span class="lista-links__texto"><span class="lista-links__titulo">${esc(ato.titulo)}</span>` +
-    (meta ? `<span class="lista-links__meta">${esc(meta)}</span>` : "") +
-    `</span>${icone("seta")}</a></li>`
-  );
-}
+/** Linha de uma lista aberta: título, uma linha de apoio e seta (sem cartão). */
+const linhaLista = (href, titulo, apoio, extra = "") =>
+  `<li${extra}><a href="${href}"><span class="lista-aberta__texto"><strong>${esc(titulo)}</strong>${apoio ? `<span>${esc(apoio)}</span>` : ""}</span>${icone("seta")}</a></li>`;
+
+const itemLocalizador = (c, ato, meta) =>
+  linhaLista(c.u(ato.caminho), ato.titulo, meta, ` data-finder-item data-busca="${esc(buscaIndexada(ato))}"`);
+
+const rotuloServicos = (n) => `${n} ${n === 1 ? "serviço" : "serviços"}`;
 
 /** Lista de serviços com filtro (funciona sem JavaScript: a busca some, a lista fica). */
 function localizador(c, { agrupar, id }) {
   let grupos;
-  if (agrupar === "tema") {
+  if (agrupar === "az") {
+    const ordenados = [...atos.values()].sort((x, y) => x.titulo.localeCompare(y.titulo, "pt-BR"));
+    const porLetra = new Map();
+    for (const a of ordenados) {
+      const letra = norm(a.titulo).charAt(0).toUpperCase();
+      if (!porLetra.has(letra)) porLetra.set(letra, []);
+      porLetra.get(letra).push(a);
+    }
+    grupos = [...porLetra].map(([letra, lista]) => ({
+      id: `az-${letra}`,
+      titulo: letra,
+      letra: true,
+      itens: lista.map((a) => itemLocalizador(c, a, a.esp.nome)),
+    }));
+  } else {
     grupos = temas.map((t) => ({
       id: `tema-${t.id}`,
       titulo: t.titulo,
-      icone: t.icone,
       descricao: t.descricao,
       itens: t.atos.map((ref) => itemLocalizador(c, atos.get(ref), atos.get(ref).esp.nome)),
-    }));
-  } else {
-    grupos = especialidades.map((e) => ({
-      id: `esp-${e.id}`,
-      titulo: e.nome,
-      icone: e.icone,
-      descricao: e.resumo,
-      href: c.u(e.caminho),
-      itens: e.atos.map((a) => itemLocalizador(c, a, a.nomeTecnico)),
     }));
   }
   const html = grupos
     .map(
-      (g, i) => `
-      <section class="grupo" data-finder-grupo aria-labelledby="${id}-${g.id}" data-reveal>
-        <h3 id="${id}-${g.id}">${icone(g.icone)}<span>${g.href ? `<a href="${g.href}">${esc(g.titulo)}</a>` : esc(g.titulo)}</span></h3>
-        <p class="grupo__desc">${esc(g.descricao)}</p>
-        <ul class="lista-links">${g.itens.join("")}</ul>
+      (g) => `
+      <section class="grupo${g.letra ? " grupo--letra" : ""}" data-finder-grupo aria-labelledby="${id}-${g.id}">
+        <h3 id="${id}-${g.id}">${esc(g.titulo)}</h3>
+        ${g.descricao ? `<p class="grupo__desc">${esc(g.descricao)}</p>` : ""}
+        <ul class="lista-aberta">${g.itens.join("")}</ul>
       </section>`
     )
     .join("");
+  const letras =
+    agrupar === "az"
+      ? `<nav class="az" aria-label="Ir para a letra"><ul>${grupos.map((g) => `<li><a href="#${id}-${g.id}">${esc(g.titulo)}</a></li>`).join("")}</ul></nav>`
+      : "";
 
   return `
     <div class="finder" data-finder>
@@ -316,11 +324,26 @@ function localizador(c, { agrupar, id }) {
         <div class="campo">${icone("lupa")}<input id="${id}-busca" type="search" autocomplete="off" placeholder="Ex.: certidão, procuração, casar" data-finder-input></div>
         <p class="finder__status" role="status" aria-live="polite" data-finder-status></p>
       </div>
+      <p class="finder__total">${rotuloServicos(atos.size)}</p>
+      ${letras}
       <div class="finder__grupos">${html}</div>
       <div class="finder__vazio" hidden data-finder-vazio>
         <p><strong>Não encontramos esse assunto.</strong> Tente outras palavras (por exemplo: certidão, casamento, imóvel, dívida) ou fale com o cartório, que orienta qual serviço é o certo.</p>
-        <p>${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--contorno", rotulo: "Falar com o cartório" })}</p>
+        <p>${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--claro", rotulo: "Falar com o cartório" })}</p>
       </div>
+    </div>`;
+}
+
+/** Lista dos serviços de uma especialidade; com 8 ou mais, ganha filtro e contagem. */
+function listaAtos(c, esp) {
+  const linhas = esp.atos.map((a) => itemLocalizador(c, a, a.resumo)).join("");
+  const filtro = esp.atos.length >= 8;
+  return `
+    <div class="finder" data-finder>
+      ${filtro ? `<div class="finder__busca"><label for="esp-busca">Filtrar os serviços desta especialidade</label><div class="campo">${icone("lupa")}<input id="esp-busca" type="search" autocomplete="off" placeholder="Ex.: certidão, procuração" data-finder-input></div><p class="finder__status" role="status" aria-live="polite" data-finder-status></p></div>` : ""}
+      <p class="finder__total">${rotuloServicos(esp.atos.length)}</p>
+      <section class="grupo" data-finder-grupo aria-label="Serviços de ${esc(esp.nome)}"><ul class="lista-aberta">${linhas}</ul></section>
+      <div class="finder__vazio" hidden data-finder-vazio><p><strong>Não encontramos esse assunto nesta especialidade.</strong> Tente outras palavras ou <a href="${c.u("servicos.html")}">veja todos os serviços</a>.</p></div>
     </div>`;
 }
 
@@ -380,15 +403,10 @@ function rodape(c) {
     <div class="container rodape__grade">
       <div>
         <p class="rodape__nome">${esc(site.nome)}</p>
-        <p>Serventia extrajudicial: Notas, Protesto de Títulos, Registro de Títulos e Documentos, Registro Civil das Pessoas Jurídicas e Registro Civil das Pessoas Naturais.</p>
         <p>${esc(enderecoRua)}<br>${esc(enderecoCidade)}</p>
+        <ul class="rodape__canais">${rodapeCanais()}</ul>
         ${site.titular ? `<p>Titular: ${esc(site.titular)}</p>` : rascunho ? `<p>Titular: ${aConfirmar("a confirmar")}</p>` : ""}
         ${site.cns ? `<p>CNS: ${esc(site.cns)}</p>` : rascunho ? `<p>CNS: ${aConfirmar("a confirmar")}</p>` : ""}
-      </div>
-      <div>
-        <h2>Canais oficiais</h2>
-        <ul>${rodapeCanais()}</ul>
-        <p>Confira sempre se o contato é um dos canais oficiais listados aqui.</p>
       </div>
       <div>
         <h2>Especialidades</h2>
@@ -405,7 +423,7 @@ function rodape(c) {
       </div>
     </div>
     <div class="container rodape__fim">
-      <p>© ${new Date().getFullYear()} ${esc(site.nome)}. As orientações deste site são informativas e não substituem o atendimento: os requisitos podem variar conforme o caso.</p>
+      <p>© ${new Date().getFullYear()} ${esc(site.nome)}. As orientações deste site são informativas e não substituem o atendimento: os requisitos podem variar conforme o caso. Confira sempre se o contato é um dos canais oficiais listados aqui.</p>
     </div>
   </footer>`;
 }
@@ -519,20 +537,8 @@ function funilContato(c) {
   </section>`;
 }
 
-/** Cartão minimalista de especialidade: nome, uma linha e opções curtas; o cartão todo leva à página. */
-function cartaoEspecialidade(c, esp, i) {
-  return `
-        <li class="esp-card" data-reveal>
-          <div class="esp-card__topo">
-            <span class="esp-card__icone">${icone(esp.icone)}</span>
-            <span class="esp-card__seta" aria-hidden="true">${icone("diagonal")}</span>
-          </div>
-          <h3>${esc(esp.nomeCompleto)}</h3>
-          <p class="esp-card__tag">${esc(esp.tagline)}</p>
-          <ul class="esp-card__lista">${esp.opcoes.map((o) => `<li>${esc(o)}</li>`).join("")}</ul>
-          <a class="esp-card__ver" href="${c.u(esp.caminho)}">Ver serviços e documentos<span class="sr-only"> de ${esc(esp.nome)}</span>${icone("seta")}</a>
-        </li>`;
-}
+/** Linha de especialidade na página inicial: nome e o que se resolve ali. */
+const linhaEspecialidade = (c, esp) => linhaLista(c.u(esp.caminho), esp.nomeCompleto, esp.opcoes.join(" · "));
 
 /* ===================================================================== páginas */
 
@@ -566,16 +572,9 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
     </div>
   </section>`;
 
-  const carrossel = destaques
+  const maisProcurados = destaques
     .map((ref) => atos.get(ref))
-    .map(
-      (a) => `
-          <li class="carrossel__item"><a class="cr-card" href="${c.u(a.caminho)}" draggable="false">
-            <span class="cr-card__topo"><span class="cr-card__icone">${icone(a.esp.icone)}</span><span class="cr-card__seta" aria-hidden="true">${icone("seta")}</span></span>
-            <strong>${esc(a.titulo)}</strong>
-            <span class="tag">${esc(a.esp.nome)}</span>
-          </a></li>`
-    )
+    .map((a) => linhaLista(c.u(a.caminho), a.titulo, a.esp.nome))
     .join("");
 
   const indiceBusca = JSON.stringify(INDICE.map((x) => ({ ...x, u: c.u(x.u) }))).replace(/</g, "\\u003c");
@@ -585,7 +584,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
     <div class="painel">
       <div class="painel__cab">
         <h2>O que você precisa fazer?</h2>
-        <p>Escreva com suas palavras ou escolha um dos serviços mais procurados.</p>
+        <p>Escreva com suas palavras ou escolha um serviço abaixo.</p>
       </div>
       <div class="busca" data-busca-servicos>
         <label class="sr-only" for="busca-hero">Escreva o que você precisa fazer</label>
@@ -602,16 +601,9 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
         </div>
         <p class="sr-only" role="status" aria-live="polite" data-busca-status></p>
       </div>
-      <section class="carrossel" data-carrossel aria-roledescription="carrossel" aria-label="Serviços mais procurados">
-        <div class="carrossel__cab">
-          <h3>Mais procurados</h3>
-          <div class="carrossel__ctl">
-            <button type="button" data-car-prev aria-label="Ver serviços anteriores">${icone("seta")}</button>
-            <button type="button" data-car-next aria-label="Ver mais serviços">${icone("seta")}</button>
-          </div>
-        </div>
-        <ul class="carrossel__pista" tabindex="0" data-fade="dir" aria-label="Serviços mais procurados. Use as setas do teclado para rolar.">${carrossel}
-        </ul>
+      <section class="mais" aria-labelledby="t-mais">
+        <h3 id="t-mais">Mais procurados</h3>
+        <ul class="lista-aberta lista-aberta--duas">${maisProcurados}</ul>
       </section>
     </div>
     <script type="application/json" id="indice-busca">${indiceBusca}</script>
@@ -619,60 +611,34 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
 
   const servicos = `
   <section class="secao" id="servicos" aria-labelledby="t-servicos">
-    <div class="container">
-      <div class="secao__cab secao__cab--centro" data-reveal>
+    <div class="container container--estreito">
+      <div class="secao__cab" data-reveal>
         <p class="eyebrow">Serviços</p>
         <h2 id="t-servicos">Escolha a especialidade</h2>
-        <p>Cinco atendimentos no mesmo endereço. Toque em um deles para ver os serviços e os documentos.</p>
       </div>
-      <ul class="esp-grade">${especialidades.map((e, i) => cartaoEspecialidade(c, e, i)).join("")}
-      </ul>
-    </div>
-  </section>`;
-
-  const antes = `
-  <section class="secao secao--azul" id="antes-de-vir" aria-labelledby="t-antes">
-    <div class="container">
-      <div class="secao__cab secao__cab--centro" data-reveal>
-        <p class="eyebrow">Antes de vir ao cartório</p>
-        <h2 id="t-antes">Venha preparado e evite idas e vindas</h2>
-        <p>Consulte os documentos necessários, as orientações e os modelos disponíveis.</p>
-      </div>
-      <ul class="atalhos">
-        <li class="atalho" data-reveal>
-          <span class="atalho__icone">${icone("documento")}</span>
-          <span class="atalho__texto"><a href="${c.u("documentos.html#consultar")}">Documentos necessários</a><span>Veja o que levar, serviço por serviço</span></span>
-          ${icone("seta")}
-        </li>
-        <li class="atalho" data-reveal>
-          <span class="atalho__icone">${icone("check")}</span>
-          <span class="atalho__texto"><a href="${c.u("documentos.html#orientacoes")}">Orientações</a><span>O que conferir antes de sair de casa</span></span>
-          ${icone("seta")}
-        </li>
-        <li class="atalho" data-reveal>
-          <span class="atalho__icone">${icone("baixar")}</span>
-          <span class="atalho__texto"><a href="${c.u("documentos.html#modelos")}">Modelos e formulários</a><span>${totalModelos ? "Baixe e preencha antes do atendimento" : "Em breve, para baixar e preencher"}</span></span>
-          ${icone("seta")}
-        </li>
-      </ul>
+      <ul class="lista-aberta lista-aberta--grande" data-reveal>${especialidades.map((e) => linhaEspecialidade(c, e)).join("")}</ul>
+      <p class="antes" id="antes-de-vir" data-reveal><strong>Antes de vir ao cartório:</strong>
+        <a href="${c.u("documentos.html#consultar")}">Documentos necessários</a>
+        <a href="${c.u("documentos.html#orientacoes")}">Orientações</a>
+        <a href="${c.u("documentos.html#modelos")}">Modelos e formulários</a>
+      </p>
     </div>
   </section>`;
 
   const atendimento = `
-  <section class="secao" id="atendimento" aria-labelledby="t-atendimento">
+  <section class="secao secao--suave" id="atendimento" aria-labelledby="t-atendimento">
     <div class="container">
       <div class="secao__cab" data-reveal>
         <p class="eyebrow">Localização e atendimento</p>
         <h2 id="t-atendimento">Como chegar e quando ir</h2>
       </div>
       <div class="atend">
-        <div class="cartao-info" data-reveal>
+        <div class="info-aberta" data-reveal>
           ${dadosContato()}
           <div class="atend__acoes">
-            ${botaoRota("btn btn--primario")}
-            ${botaoLigar("btn btn--contorno")}
+            ${botaoRota("btn btn--claro")}
+            ${botaoLigar("btn btn--vidro")}
           </div>
-          <p class="nota-pequena">Confira sempre se o contato é um dos canais oficiais divulgados neste site.</p>
         </div>
         <figure class="atend__foto" data-reveal>
           ${imgFachada(c, { sizes: "(max-width: 52rem) 100vw, 50vw" })}
@@ -707,7 +673,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
       titulo: site.nome,
       descricao: `${site.nome}: Notas, Protesto de Títulos, Registro de Títulos e Documentos, Registro Civil das Pessoas Jurídicas e Registro Civil das Pessoas Naturais. ${enderecoRua}, ${end.cidade}/${end.uf}.`,
       jsonld,
-      corpo: hero + painel + servicos + antes + atendimento,
+      corpo: hero + painel + servicos + atendimento,
     })
   );
 }
@@ -753,29 +719,17 @@ for (const esp of especialidades) {
         <h2>O que você precisa fazer?</h2>
         <p>Escolha o serviço para ver os documentos e como funciona.</p>
       </div>
-      <ul class="ato-grade">
-        ${esp.atos
-          .map(
-            (a, i) => `
-        <li class="ato-card" data-reveal>
-          <span class="ato-card__icone">${icone(esp.icone)}</span>
-          <h3><a href="${c.u(a.caminho)}">${esc(a.titulo)}</a></h3>
-          <p class="ato-card__resumo">${esc(a.resumo)}</p>
-          <p class="ato-card__ir">Ver documentos ${icone("seta")}</p>
-        </li>`
-          )
-          .join("")}
-      </ul>
+      ${listaAtos(c, esp)}
       <div class="duas-colunas duas-colunas--espaco">
-        <div class="caixa" data-reveal>
+        <div class="bloco" data-reveal>
           <h3>Não encontrou o que procura?</h3>
           <p>Fale com o cartório. O atendimento indica qual serviço atende o seu caso.</p>
-          ${botaoWhats(c, `Olá! Preciso de informação sobre ${esp.nome}.`, { classe: "btn btn--primario", rotulo: "Falar com o cartório" })}
+          ${botaoWhats(c, `Olá! Preciso de informação sobre ${esp.nome}.`, { classe: "btn btn--claro", rotulo: "Falar com o cartório" })}
         </div>
-        <div class="caixa" data-reveal>
+        <div class="bloco" data-reveal>
           <h3>Outras especialidades</h3>
-          <ul class="lista-links">
-            ${outras.map((e) => `<li><a href="${c.u(e.caminho)}"><span class="lista-links__texto"><span class="lista-links__titulo">${esc(e.nomeCompleto)}</span><span class="lista-links__meta">${esc(e.tagline)}</span></span>${icone("seta")}</a></li>`).join("")}
+          <ul class="lista-aberta">
+            ${outras.map((e) => linhaLista(c.u(e.caminho), e.nomeCompleto, e.tagline)).join("")}
           </ul>
         </div>
       </div>
@@ -787,6 +741,19 @@ for (const esp of especialidades) {
 // ---------- Páginas de ato (com requisitos)
 const DEFAULT_PRAZO = "O cartório informa o prazo no atendimento, conforme o ato e a documentação apresentada.";
 const DEFAULT_CUSTO = "Os valores (emolumentos) são fixados por lei e variam conforme o ato. O cartório informa o valor exato antes de você iniciar.";
+
+const tamanhoArquivo = (arq) => {
+  const kb = statSync(join(RAIZ, "content/modelos", arq)).size / 1024;
+  return kb < 1024 ? `${Math.max(1, Math.round(kb))} KB` : `${(kb / 1024).toFixed(1).replace(".", ",")} MB`;
+};
+/** Linha padrão de arquivo para baixar: título, tipo, tamanho, data e (opcional) onde se aplica. */
+const linhaModelo = (c, m, onde) => {
+  const partes = [extname(m.arquivo).slice(1).toUpperCase(), tamanhoArquivo(m.arquivo)];
+  if (m.atualizadoEm) partes.push(`atualizado em ${dataBr(m.atualizadoEm)}`);
+  if (m.descricao) partes.push(m.descricao);
+  if (onde) partes.push(onde);
+  return `<li><a href="${c.u("modelos/" + m.arquivo)}" download>${icone("baixar")}<span>${esc(m.titulo)}<small>${esc(partes.join(" · "))}</small></span></a></li>`;
+};
 
 const itemDoc = (i) =>
   typeof i === "string"
@@ -833,7 +800,7 @@ for (const ato of atos.values()) {
     lead: ato.resumo,
   })}
   <div class="container pagina">
-    <article class="pagina__principal">
+    <article class="pagina__principal folha">
       <nav aria-label="Nesta página"><ul class="ancoras">${ancoras.map(([id, r]) => `<li><a href="#${id}">${r}</a></li>`).join("")}</ul></nav>
 
       ${ato.quando ? `<section id="quando"><h2>Quando é necessário</h2><p class="resumo-ato">${esc(ato.quando)}</p></section>` : ""}
@@ -853,18 +820,25 @@ for (const ato of atos.values()) {
 
       <section id="prazo-custo">
         <h2>Prazo e custo</h2>
-        <div class="info-duas">
-          <div class="caixa"><h3>Prazo</h3><p>${esc(ato.prazo || DEFAULT_PRAZO)}</p></div>
-          <div class="caixa"><h3>Custo</h3><p>${esc(ato.custo || DEFAULT_CUSTO)}</p></div>
-        </div>
+        <dl class="prazo-custo">
+          <div><dt>Prazo</dt><dd>${esc(ato.prazo || DEFAULT_PRAZO)}</dd></div>
+          <div><dt>Custo</dt><dd>${esc(ato.custo || DEFAULT_CUSTO)}</dd></div>
+        </dl>
       </section>
 
       ${(ato.perguntas || []).length ? `<section id="duvidas"><h2>Perguntas frequentes</h2>${blocoFaq(ato)}</section>` : ""}
 
       ${
         (ato.modelos || []).length
-          ? `<section id="modelos"><h2>Modelos e formulários</h2><ul class="downloads">${ato.modelos
-              .map((m) => `<li><a href="${c.u("modelos/" + m.arquivo)}" download>${icone("baixar")}<span>${esc(m.titulo)}<small>PDF${m.descricao ? ` · ${esc(m.descricao)}` : ""}</small></span></a></li>`)
+          ? `<section id="modelos"><h2>Modelos e formulários</h2><ul class="downloads">${ato.modelos.map((m) => linhaModelo(c, m)).join("")}</ul></section>`
+          : ""
+      }
+
+      ${
+        (ato.verTambem || []).length
+          ? `<section id="relacionados" class="no-print"><h2>Veja também</h2><ul class="lista-aberta">${ato.verTambem
+              .map((ref) => atos.get(ref))
+              .map((o) => linhaLista(c.u(o.caminho), o.titulo, o.esp.nome))
               .join("")}</ul></section>`
           : ""
       }
@@ -872,7 +846,7 @@ for (const ato of atos.values()) {
       <div class="imprimir-rodape">${esc(site.nome)} · ${esc(enderecoRua)}, ${esc(enderecoCidade)}. Lista informativa: o cartório pode pedir documentos adicionais.</div>
     </article>
 
-    <aside class="pagina__lateral" aria-label="Ajuda e serviços relacionados">
+    <aside class="pagina__lateral" aria-label="Ajuda">
       <div class="lateral-card lateral-card--ajuda">
         <h2>Ficou com dúvida?</h2>
         <p>Fale com o cartório antes de vir. É rápido e evita uma viagem perdida.</p>
@@ -880,14 +854,6 @@ for (const ato of atos.values()) {
         ${botaoLigar("btn btn--vidro btn--cheio")}
         <p class="nota-pequena">${esc(enderecoRua)}<br>${esc(enderecoCidade)}</p>
       </div>
-      ${
-        (ato.verTambem || []).length
-          ? `<div class="lateral-card lateral-card--branco"><h2>Veja também</h2><ul class="lista-links">${ato.verTambem
-              .map((ref) => atos.get(ref))
-              .map((o) => `<li><a href="${c.u(o.caminho)}"><span class="lista-links__texto"><span class="lista-links__titulo">${esc(o.titulo)}</span><span class="lista-links__meta">${esc(o.esp.nome)}</span></span>${icone("seta")}</a></li>`)
-              .join("")}</ul></div>`
-          : ""
-      }
     </aside>
   </div>`;
 
@@ -918,8 +884,8 @@ for (const ato of atos.values()) {
     <div class="container">
       <div class="secao__cab" data-reveal><p class="eyebrow">Orientações</p><h2 id="t-gerais">O que quase sempre é pedido</h2><p>Cada serviço tem a sua lista própria, mas estes itens aparecem em quase todos os atendimentos.</p></div>
       <div class="duas-colunas">
-        <div class="caixa" data-reveal>
-          <h3>${icone("check")}Documentos mais comuns</h3>
+        <div class="bloco" data-reveal>
+          <h3>Documentos mais comuns</h3>
           <ul class="lista-pontos">
             <li>Documento de identificação oficial com foto, original (RG, CNH ou outro aceito em lei).</li>
             <li>CPF.</li>
@@ -928,8 +894,8 @@ for (const ato of atos.values()) {
             <li>Procuração, se for representar outra pessoa.</li>
           </ul>
         </div>
-        <div class="caixa" data-reveal>
-          <h3>${icone("documento")}Antes de sair de casa</h3>
+        <div class="bloco" data-reveal>
+          <h3>Antes de sair de casa</h3>
           <ul class="lista-pontos">
             <li>Leve os documentos originais. Cópias só quando o cartório pedir.</li>
             <li>Confira se nomes, datas e números estão corretos.</li>
@@ -943,8 +909,8 @@ for (const ato of atos.values()) {
 
   <section class="secao secao--suave" id="consultar" aria-labelledby="t-consultar">
     <div class="container">
-      <div class="secao__cab" data-reveal><p class="eyebrow">Consultar por serviço</p><h2 id="t-consultar">Qual serviço você precisa?</h2><p>Escolha a especialidade e o serviço para ver a lista exata de documentos. Exemplo: Notas → Procuração.</p></div>
-      ${localizador(c, { agrupar: "esp", id: "docs" })}
+      <div class="secao__cab" data-reveal><p class="eyebrow">Consultar por serviço</p><h2 id="t-consultar">Qual serviço você precisa?</h2><p>De A a Z, com a especialidade de cada um. Escolha o serviço para ver a lista exata de documentos.</p></div>
+      ${localizador(c, { agrupar: "az", id: "docs" })}
     </div>
   </section>
 
@@ -953,9 +919,7 @@ for (const ato of atos.values()) {
       <div class="secao__cab" data-reveal><p class="eyebrow">Modelos</p><h2 id="t-modelos">Modelos e formulários</h2></div>
       ${
         todosModelos.length
-          ? `<ul class="downloads downloads--estreito">${todosModelos
-              .map((m) => `<li><a href="${c.u("modelos/" + m.arquivo)}" download>${icone("baixar")}<span>${esc(m.titulo)}<small>PDF · ${esc(m.ato.esp.nome)} → ${esc(m.ato.titulo)}</small></span></a></li>`)
-              .join("")}</ul>`
+          ? `<ul class="downloads downloads--estreito">${todosModelos.map((m) => linhaModelo(c, m, `${m.ato.esp.nome} → ${m.ato.titulo}`)).join("")}</ul>`
           : `<div class="destaque destaque--estreito"><p>Os modelos e formulários em PDF serão disponibilizados aqui assim que o cartório validar o conteúdo. Enquanto isso, fale com o atendimento para receber o modelo do seu caso.</p></div>`
       }
     </div>
@@ -975,12 +939,12 @@ for (const ato of atos.values()) {
   })}
   <section class="secao">
     <div class="container atend">
-      <div class="cartao-info">
+      <div class="info-aberta">
         ${dadosContato()}
         <div class="atend__acoes">
-          ${botaoRota("btn btn--primario")}
-          ${botaoLigar("btn btn--contorno")}
-          ${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--contorno", rotulo: "Falar pelo WhatsApp" })}
+          ${botaoRota("btn btn--claro")}
+          ${botaoLigar("btn btn--vidro")}
+          ${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--vidro", rotulo: "Falar pelo WhatsApp" })}
         </div>
         <p class="nota-pequena">Confira sempre se o contato é um dos canais oficiais divulgados neste site.</p>
       </div>
