@@ -1498,3 +1498,47 @@ kbd {
 @media (min-width: 62rem) { .sol-grade--tres { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .sol-grade + .nota-pequena { margin-top: 1.5rem; }
 .sol-grade ~ .bloco { margin-top: 2rem; }
+
+/* ============================================================ Institucional (Quem somos) e passos da página inicial */
+
+@media (min-width: 75.0625rem) { .menu__inicio { display: none; } } /* no computador, a marca já leva ao início */
+
+.lema { margin: 1.5rem 0; padding: 1.25rem 1.5rem; border-left: 4px solid var(--ouro-claro); border-radius: 0 var(--r-md) var(--r-md) 0; background: rgba(255, 255, 255, 0.1); color: #fff; }
+.lema p { margin: 0; font-size: 1.2rem; font-weight: 700; line-height: 1.45; }
+.lema--grande { padding: 1.75rem 2rem; }
+.lema--grande p { font-size: clamp(1.3rem, 1.5vw + 1rem, 1.7rem); }
+.lema footer { margin-top: 0.6rem; font: 800 0.8rem/1.3 var(--fonte); letter-spacing: 0.12em; text-transform: uppercase; color: #fff; }
+.lema footer::before { content: ""; display: inline-block; width: 1.5rem; height: 2px; margin-right: 0.6rem; vertical-align: middle; background: var(--ouro-claro); }
+.inst-intro { font-size: 1.25rem; line-height: 1.6; color: #fff; }
+.inst-fecho { max-width: 52rem; margin-top: 2rem; color: #e6f1fb; }
+.inst-nav { margin-bottom: 2rem; }
+.inst-nav .ancoras a { color: #fff; border-color: rgba(255, 255, 255, 0.4); background: none; }
+.inst-nav .ancoras a:hover { background: rgba(255, 255, 255, 0.14); border-color: #fff; color: #fff; transform: none; }
+.prosa--inst h2 { font-size: 1.35rem; }
+
+.sol--texto { padding-bottom: 1.75rem; }
+.sol-grade--quatro { grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); }
+@media (min-width: 62rem) { .sol-grade--quatro { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* Faixa da página inicial: Conheça o cartório */
+.quem { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: center; padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: var(--r-lg); background: linear-gradient(145deg, rgba(255, 255, 255, 0.17), rgba(255, 255, 255, 0.05)), rgba(0, 30, 70, 0.26); border: 1px solid rgba(255, 255, 255, 0.3); -webkit-backdrop-filter: blur(14px) saturate(1.25); backdrop-filter: blur(14px) saturate(1.25); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 20px 40px -22px rgba(0, 15, 40, 0.55); }
+.quem h2 { margin-bottom: 0.5rem; }
+.quem__missao { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.quem__missao li { display: flex; gap: 0.9rem; align-items: flex-start; }
+.quem__icone { display: grid; place-items: center; flex: none; width: 2.8rem; height: 2.8rem; border-radius: 14px; background: rgba(255, 255, 255, 0.16); }
+.quem__icone .icone { width: 1.4rem; height: 1.4rem; }
+.quem__missao strong { display: block; font-size: 1.1rem; }
+.quem__missao small { display: block; font-size: 0.95rem; line-height: 1.45; color: #e6f1fb; }
+@media (max-width: 52rem) { .quem { grid-template-columns: 1fr; } }
+
+/* Três passos */
+.secao--passos { padding-block: clamp(1.5rem, 3vw, 2.5rem); }
+.passos3__tit { margin: 0 0 1rem; font-size: clamp(1.3rem, 1.4vw + 1rem, 1.7rem); }
+.passos3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; list-style: none; margin: 0; padding: 0; }
+.passos3 a { display: flex; gap: 0.9rem; align-items: center; height: 100%; padding: 1.1rem 1.25rem; border-radius: 20px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.28); color: #fff; text-decoration: none; transition: transform 0.3s var(--ease), background-color 0.3s; }
+.passos3 a:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.16); color: #fff; }
+.passos3__n { display: grid; place-items: center; flex: none; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: #fff; color: var(--azul-2); font: 800 1.2rem/1 var(--fonte); }
+.passos3 strong { display: block; font-size: 1.1rem; }
+.passos3 small { display: block; font-size: 0.95rem; line-height: 1.4; color: #e6f1fb; }
+@media (max-width: 52rem) { .passos3 { grid-template-columns: 1fr; } }
+@media (min-width: 75.0625rem) { .marca__texto small { display: none; } } /* libera espaço para as 5 abas */

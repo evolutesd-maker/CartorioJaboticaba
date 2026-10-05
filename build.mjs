@@ -27,6 +27,7 @@ const site = lerJson("content/site.json");
 const temas = lerJson("content/temas.json");
 const destaques = lerJson("content/destaques.json");
 const linksDados = lerJson("content/links.json");
+const inst = lerJson("content/institucional.json");
 // Lista FECHADA de sites externos além de wa.me e Google Maps. Só entra aqui o que o responsável aprovou.
 const DOMINIOS_APROVADOS = lerJson("scripts/dominios-aprovados.json");
 const ORDEM_ESPECIALIDADES = ["notas", "protesto", "rtd", "rcpj", "rcpn"];
@@ -117,6 +118,7 @@ const ICONES = {
   tela: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>',
   terra: '<path d="M12 21V9"/><path d="M12 13c-4 0-6-2.5-6-6 4 0 6 2 6 6z"/><path d="M12 16c4 0 6-2.5 6-6-4 0-6 2-6 6z"/>',
   moeda: '<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5c-.5-1-1.5-1.5-2.7-1.5-1.6 0-2.8.9-2.8 2.1 0 3 5.5 1.6 5.5 4.3 0 1.2-1.2 2.1-2.8 2.1-1.4 0-2.4-.6-3-1.6M12 6v2M12 16v2"/>',
+  escudo: '<path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6z"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/>',
   rota: '<path d="M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M7 17h7a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h7"/>',
 };
 const icone = (nome) =>
@@ -312,6 +314,7 @@ const cartaoENotariado = (c) => `<li class="sol" data-reveal>
     <a class="btn btn--claro" href="${c.u("e-notariado.html")}">Saiba como${icone("seta")}</a>
   </li>`;
 const gradeOnline = (cartoes, classe = "") => `<ul class="sol-grade${classe}">${cartoes.join("")}</ul>`;
+const instTexto = (t) => t.replace(/\{\{nome\}\}/g, esc(site.nome)).replace(/\{\{titular\}\}/g, site.titular ? esc(site.titular) : aConfirmar("a confirmar"));
 const AVISO_EXTERNO = `<p class="nota-pequena">Estes links levam a sites oficiais, fora deste site. Confira o endereço antes de informar dados pessoais.</p>`;
 
 const itemLocalizador = (c, ato, meta) =>
@@ -392,8 +395,8 @@ const rodapeCanais = () => {
 };
 
 function cabecalho(c, ativo) {
-  const item = (chave, rotulo, href, extra = "") =>
-    `<li><a class="menu__link${extra}" href="${c.u(href)}"${ativo === chave ? ' aria-current="page"' : ""}>${rotulo}</a></li>`;
+  const item = (chave, rotulo, href, extra = "", liClasse = "") =>
+    `<li${liClasse ? ` class="${liClasse}"` : ""}><a class="menu__link${extra}" href="${c.u(href)}"${ativo === chave ? ' aria-current="page"' : ""}>${rotulo}</a></li>`;
   // Submenu "O que você procura?": serviços mais procurados e as especialidades (sem JavaScript, o item é um link para Serviços).
   const procura = `
           <li class="menu__sub" data-sub>
@@ -420,9 +423,10 @@ function cabecalho(c, ativo) {
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-principal">${icone("menu")}Menu</button>
       <nav class="menu" id="menu-principal" aria-label="Principal">
         <ul>
-          ${item("inicio", "Início", "index.html")}${procura}
+          ${item("inicio", "Início", "index.html", "", "menu__inicio")}${procura}
           ${item("online", "Solicite online", "solicite-online.html", " menu__link--destaque")}
           ${item("documentos", "Documentos", "documentos.html")}
+          ${item("institucional", "Quem somos", "institucional.html")}
           ${item("contato", "Contato", "contato.html")}
         </ul>
         <button class="busca-btn" type="button" hidden data-abrir-paleta aria-label="Buscar serviço ou documento">${icone("lupa")}<span>Buscar</span></button>
@@ -660,6 +664,36 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
     </div>
   </section>`;
 
+  const passos = `
+  <section class="secao secao--passos" id="como-funciona-home" aria-labelledby="t-passos">
+    <div class="container">
+      <h2 class="passos3__tit" id="t-passos" data-reveal>Sem burocracia: resolva em 3 passos</h2>
+      <ol class="passos3" data-reveal>
+        <li><a href="#encontrar"><span class="passos3__n">1</span><span><strong>Encontre o serviço</strong><small>Escreva o que você precisa, sem saber o nome técnico.</small></span></a></li>
+        <li><a href="${c.u("documentos.html")}"><span class="passos3__n">2</span><span><strong>Veja os documentos</strong><small>Confira a lista antes de sair de casa.</small></span></a></li>
+        <li><a href="${c.u("solicite-online.html")}"><span class="passos3__n">3</span><span><strong>Peça online ou venha</strong><small>Solicite pela internet ou fale com o cartório.</small></span></a></li>
+      </ol>
+    </div>
+  </section>`;
+
+  const quem = `
+  <section class="secao" id="quem-somos" aria-labelledby="t-quem">
+    <div class="container">
+      <div class="quem" data-reveal>
+        <div class="quem__texto">
+          <p class="eyebrow">Institucional</p>
+          <h2 id="t-quem">Conheça o cartório</h2>
+          <p>${instTexto(inst.intro)}</p>
+          <blockquote class="lema"><p>${esc(inst.lema)}</p></blockquote>
+          <p><a class="btn btn--claro" href="${c.u("institucional.html")}">Quem somos e nossa missão${icone("seta")}</a></p>
+        </div>
+        <ul class="quem__missao" aria-label="Nossa missão">
+          ${inst.missao.map((m) => `<li><span class="quem__icone">${icone(m.icone)}</span><span><strong>${esc(m.titulo)}</strong><small>${esc(m.texto)}</small></span></li>`).join("")}
+        </ul>
+      </div>
+    </div>
+  </section>`;
+
   const servicos = `
   <section class="secao" id="servicos" aria-labelledby="t-servicos">
     <div class="container">
@@ -726,7 +760,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
       titulo: site.nome,
       descricao: `${site.nome}: Notas, Protesto de Títulos, Registro de Títulos e Documentos, Registro Civil das Pessoas Jurídicas e Registro Civil das Pessoas Naturais. ${enderecoRua}, ${end.cidade}/${end.uf}.`,
       jsonld,
-      corpo: hero + painel + online + servicos + atendimento,
+      corpo: hero + painel + passos + online + servicos + quem + atendimento,
     })
   );
 }
@@ -1104,6 +1138,59 @@ for (const ato of atos.values()) {
   adicionar(c.caminho, layout(c, { titulo: "e-Notariado: atos de cartório pelo computador", descricao: "Saiba como fazer atos de cartório de notas de forma online, pelo e-Notariado, com videoconferência e certificado digital.", corpo }));
 }
 
+// ---------- Institucional / Quem somos
+{
+  const c = ctx("institucional.html");
+  const facilita = [
+    ["documento", "Veja os documentos antes de vir", "Cada serviço tem a lista do que levar, para você não fazer duas viagens.", "documentos.html", "Ver documentos"],
+    ["tela", "Peça certidões pela internet", "Registro civil, protestos, títulos e documentos e outros, nos sites oficiais.", "solicite-online.html", "Solicite online"],
+    ["chat", "Fale pelo WhatsApp", "Tire a dúvida antes de vir. A mensagem já sai pronta pelo formulário.", "index.html#falar", "Falar com o cartório"],
+    ["pin", "Saiba como chegar e o horário", "Endereço, mapa com a rota e se o cartório está aberto agora.", "contato.html", "Ver localização"],
+  ];
+  const corpo = `
+  ${faixa(c, {
+    trilha: [{ rotulo: "Início", href: "index.html" }, { rotulo: "Quem somos" }],
+    eyebrow: "Institucional",
+    titulo: "Quem somos",
+    lead: inst.chamada,
+  })}
+  <section class="secao" id="cartorio" aria-labelledby="t-cartorio">
+    <div class="container container--leitura">
+      ${preencher("{{avisoRevisao}}")}
+      <nav aria-label="Nesta página" class="inst-nav"><ul class="ancoras"><li><a href="#cartorio">O cartório</a></li><li><a href="#missao">Missão</a></li><li><a href="#sem-burocracia">Menos burocracia</a></li><li><a href="#especialidades">Especialidades</a></li><li><a href="#transparencia">Transparência</a></li></ul></nav>
+      <div class="secao__cab" data-reveal><h2 id="t-cartorio">O cartório</h2></div>
+      <p class="inst-intro" data-reveal>${instTexto(inst.intro)}</p>
+      <blockquote class="lema lema--grande" data-reveal><p>${esc(inst.lema)}</p><footer>Nosso lema</footer></blockquote>
+    </div>
+  </section>
+  <section class="secao secao--suave" id="missao" aria-labelledby="t-missao">
+    <div class="container">
+      <div class="secao__cab" data-reveal><h2 id="t-missao">Nossa missão</h2><p>${esc(inst.missaoIntro)}</p></div>
+      <ul class="sol-grade sol-grade--quatro">${inst.missao.map((m) => `<li class="sol sol--texto" data-reveal><div class="sol__topo"><span class="sol__icone">${icone(m.icone)}</span></div><h3>${esc(m.titulo)}</h3><p>${esc(m.texto)}</p></li>`).join("")}</ul>
+      <p class="inst-fecho" data-reveal>${esc(inst.fecho)}</p>
+    </div>
+  </section>
+  <section class="secao" id="sem-burocracia" aria-labelledby="t-sem">
+    <div class="container">
+      <div class="secao__cab" data-reveal><p class="eyebrow">Para você</p><h2 id="t-sem">Menos burocracia, mais clareza</h2><p>Cartório não precisa ser complicado. Este site existe para você saber o que fazer, o que levar e como pedir, antes de sair de casa.</p></div>
+      <ul class="sol-grade sol-grade--quatro">${facilita.map(([ic, t, d, href, bt]) => `<li class="sol" data-reveal><div class="sol__topo"><span class="sol__icone">${icone(ic)}</span></div><h3>${esc(t)}</h3><p>${esc(d)}</p><a class="btn btn--claro" href="${c.u(href)}">${esc(bt)}${icone("seta")}</a></li>`).join("")}</ul>
+    </div>
+  </section>
+  <section class="secao secao--suave" id="especialidades" aria-labelledby="t-esps">
+    <div class="container container--leitura">
+      <div class="secao__cab" data-reveal><h2 id="t-esps">Cinco especialidades no mesmo endereço</h2><p>${esc(enderecoRua)}, ${esc(enderecoCidade)}.</p></div>
+      <ul class="lista-aberta" data-reveal>${especialidades.map((e) => linhaLista(c.u(e.caminho), e.nomeCompleto, e.resumo)).join("")}</ul>
+    </div>
+  </section>
+  <section class="secao" id="transparencia" aria-labelledby="t-transp">
+    <div class="container container--leitura">
+      <div class="secao__cab" data-reveal><h2 id="t-transp">Transparência e atendimento</h2></div>
+      <div class="prosa prosa--inst">${preencher(lerTexto("content/paginas/institucional.html").replace("{{avisoRevisao}}", ""))}</div>
+    </div>
+  </section>`;
+  adicionar(c.caminho, layout(c, { ativo: "institucional", titulo: "Quem somos (Institucional)", descricao: `Conheça o ${site.nome}: quem somos, nossa missão, as cinco especialidades, transparência e atendimento.`, corpo }));
+}
+
 // ---------- Páginas de texto (fragmentos em content/paginas/)
 function preencher(html) {
   const encarregado = site.encarregadoLgpd && site.encarregadoLgpd.email
@@ -1127,7 +1214,6 @@ function preencher(html) {
   });
 }
 for (const [arquivo, titulo, descricao] of [
-  ["institucional", "Institucional", `Informações institucionais do ${site.nome}: especialidades, responsável, emolumentos e atendimento.`],
   ["privacidade", "Política de privacidade", `Como o ${site.nome} trata dados pessoais neste site e no atendimento.`],
 ]) {
   const c = ctx(`${arquivo}.html`);

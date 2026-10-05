@@ -1,0 +1,13 @@
+{
+  "chamada": "Serviços notariais e de registro com excelência, agilidade e segurança jurídica.",
+  "intro": "O {{nome}} presta serviços notariais e registrais com excelência, agilidade e segurança jurídica, sob a liderança do Tabelião e Registrador {{titular}}.",
+  "lema": "Devemos sempre ajudar, resolver, solucionar, atender e ter compaixão com o próximo, com educação e empatia.",
+  "missaoIntro": "A missão deste cartório é garantir a segurança jurídica, a autenticidade, a publicidade e a eficácia dos atos jurídicos. Como prestadores de um serviço público delegado pelo Estado, os cartórios funcionam como guardiões dos direitos civis e de propriedade dos cidadãos.",
+  "missao": [
+    { "titulo": "Segurança jurídica", "icone": "escudo", "texto": "Prevenir litígios e fraudes, assegurando que contratos, testamentos, casamentos e compras de imóveis sigam estritamente a lei." },
+    { "titulo": "Fé pública", "icone": "check", "texto": "Conferir presunção de verdade legal aos documentos e atos declarados perante o tabelião ou registrador." },
+    { "titulo": "Publicidade", "icone": "lupa", "texto": "Tornar os atos e registros de conhecimento público, permitindo que qualquer pessoa consulte a situação de um bem ou o estado civil de alguém." },
+    { "titulo": "Perpetuidade", "icone": "arquivo", "texto": "Preservar e arquivar permanentemente o histórico dos atos civis e patrimoniais da sociedade brasileira." }
+  ],
+  "fecho": "O cartório garante a estabilidade, a autenticidade e a validade jurídica dos negócios e atos da sociedade por meio de delegação do Estado. Segundo a Lei dos Cartórios (Lei 8.935/94), a atuação notarial e registral assegura a publicidade, a autenticidade, a segurança e a eficácia dos atos jurídicos."
+}

@@ -149,3 +149,10 @@ devem ficar em `src/public/`, que é copiado para `docs/` a cada build.
 - Aba própria no menu ("Solicite online", destacada em dourado) e página `solicite-online.html`, com cartões grandes: órgão, o que é e um botão claro. Também há uma faixa "Solicite online" na página inicial e cartões nas páginas das especialidades que têm `linksOnline`.
 - Os cartões vêm de `content/links.json`: cada item tem `titulo`, `orgao`, `descricao`, `url`, `icone` (documento, casa, terra, protesto, pessoas, arquivo, moeda, tela) e `botao` (texto do botão). Só domínios de `scripts/dominios-aprovados.json`.
 - Para mudar quais cartões aparecem e em qual ordem, edite `grupos` em `links.json`.
+
+### Institucional ("Quem somos")
+
+- O texto vem de `content/institucional.json` (apresentação, lema, missão com 4 pilares, fecho) e de `content/paginas/institucional.html` (responsável, custos, atendimento prioritário, fiscalização). `{{nome}}` e `{{titular}}` são preenchidos a partir de `site.json`.
+- Aparece em três lugares: aba **Quem somos** no menu, seção "Conheça o cartório" na página inicial e a página `institucional.html` (missão, "menos burocracia", especialidades, transparência).
+- Na página inicial há também "Sem burocracia: resolva em 3 passos" (encontrar, ver documentos, pedir online).
+- No computador a aba "Início" some do menu (a marca leva ao início) para caber as 5 abas; no celular ela continua.
