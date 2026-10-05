@@ -25,8 +25,8 @@
       "titulo": "Peça certidões pela internet",
       "intro": "Pedidos digitais de certidão, em portais nacionais dos cartórios.",
       "itens": [
-        "cenprot",
         "registro-civil",
+        "cenprot",
         "rtdpj"
       ]
     }
@@ -36,55 +36,73 @@
       "titulo": "Certidão do CPF",
       "orgao": "Receita Federal",
       "descricao": "Emita a certidão do CPF no site da Receita Federal.",
-      "url": "https://servicos.receitafederal.gov.br/servico/certidoes/#/home/cpf"
+      "url": "https://servicos.receitafederal.gov.br/servico/certidoes/#/home/cpf",
+      "icone": "documento",
+      "botao": "Emitir certidão"
     },
     "cib": {
       "titulo": "Certidão do CIB (Cadastro Imobiliário Brasileiro)",
       "orgao": "Receita Federal",
       "descricao": "Emita a certidão do CIB no site da Receita Federal.",
-      "url": "https://servicos.receitafederal.gov.br/servico/certidoes/#/home/cib"
+      "url": "https://servicos.receitafederal.gov.br/servico/certidoes/#/home/cib",
+      "icone": "casa",
+      "botao": "Emitir certidão"
     },
     "ccir": {
       "titulo": "CCIR (Certificado de Cadastro de Imóvel Rural)",
       "orgao": "SNCR / Serpro",
       "descricao": "Emissão do CCIR, usado em negócios com imóvel rural.",
-      "url": "https://sncr.serpro.gov.br/ccir/emissao"
+      "url": "https://sncr.serpro.gov.br/ccir/emissao",
+      "icone": "terra",
+      "botao": "Emitir CCIR"
     },
     "cndt": {
       "titulo": "Certidão Negativa de Débitos Trabalhistas (CNDT)",
       "orgao": "Tribunal Superior do Trabalho",
       "descricao": "Emita a certidão no site do TST.",
-      "url": "https://www.tst.jus.br/certidao1"
+      "url": "https://www.tst.jus.br/certidao1",
+      "icone": "documento",
+      "botao": "Emitir certidão"
     },
     "sefaz-rs": {
       "titulo": "Certidão de Situação Fiscal do RS",
       "orgao": "Receita Estadual do RS (Sefaz)",
       "descricao": "Solicite a certidão de situação fiscal no site da Sefaz-RS.",
-      "url": "https://www.sefaz.rs.gov.br/sat/CertidaoSitFiscalSolic.aspx"
+      "url": "https://www.sefaz.rs.gov.br/sat/CertidaoSitFiscalSolic.aspx",
+      "icone": "arquivo",
+      "botao": "Solicitar certidão"
     },
     "doacao-rs": {
       "titulo": "Doação em dinheiro para filhos",
       "orgao": "Receita Estadual do RS",
       "descricao": "Serviço da Receita Estadual do RS para doação em dinheiro para filhos.",
-      "url": "https://receita.fazenda.rs.gov.br/servicos-a-empresas/servicos?servico=1798"
+      "url": "https://receita.fazenda.rs.gov.br/servicos-a-empresas/servicos?servico=1798",
+      "icone": "moeda",
+      "botao": "Abrir o serviço"
     },
     "cenprot": {
       "titulo": "CENPROT: certidões e pesquisa de protestos",
       "orgao": "Central Nacional de Protesto",
       "descricao": "Pedidos de certidões e protestos pela internet.",
-      "url": "https://www.pesquisaprotesto.com.br/"
+      "url": "https://www.pesquisaprotesto.com.br/",
+      "icone": "protesto",
+      "botao": "Pedir ou consultar"
     },
     "registro-civil": {
       "titulo": "Certidão de nascimento, casamento ou óbito pela internet",
       "orgao": "Portal do Registro Civil",
       "descricao": "Pedido de certidão pela internet, de forma digital, do Registro Civil das Pessoas Naturais.",
-      "url": "https://www.registrocivil.org.br/"
+      "url": "https://www.registrocivil.org.br/",
+      "icone": "pessoas",
+      "botao": "Pedir certidão"
     },
     "rtdpj": {
       "titulo": "Certidões e registros de Títulos e Documentos e Pessoas Jurídicas",
       "orgao": "RTDPJ Brasil",
       "descricao": "Pedidos digitais de certidões e registros de Títulos e Documentos (RTD) e de Pessoas Jurídicas (RCPJ).",
-      "url": "https://www.rtdbrasil.org.br/onrtdpj/pedido/cartorios/busca"
+      "url": "https://www.rtdbrasil.org.br/onrtdpj/pedido/cartorios/busca",
+      "icone": "arquivo",
+      "botao": "Fazer o pedido"
     }
   }
 }

@@ -114,6 +114,9 @@ const ICONES = {
   check: '<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>',
   baixar: '<path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/>',
   menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  tela: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>',
+  terra: '<path d="M12 21V9"/><path d="M12 13c-4 0-6-2.5-6-6 4 0 6 2 6 6z"/><path d="M12 16c4 0 6-2.5 6-6-4 0-6 2-6 6z"/>',
+  moeda: '<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5c-.5-1-1.5-1.5-2.7-1.5-1.6 0-2.8.9-2.8 2.1 0 3 5.5 1.6 5.5 4.3 0 1.2-1.2 2.1-2.8 2.1-1.4 0-2.4-.6-3-1.6M12 6v2M12 16v2"/>',
   rota: '<path d="M5 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M19 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M7 17h7a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h7"/>',
 };
 const icone = (nome) =>
@@ -291,6 +294,24 @@ const linhaExterna = (id) => {
   return `<li><a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer"><span class="lista-aberta__texto"><strong>${esc(l.titulo)}</strong><span>${esc(l.orgao)}. ${esc(l.descricao)}</span></span>${icone("diagonal")}<span class="sr-only"> (abre em nova aba, site externo)</span></a></li>`;
 };
 const listaExterna = (ids) => `<ul class="lista-aberta lista-aberta--externa">${ids.map(linhaExterna).join("")}</ul>`;
+/** Cartão grande e simples para pedir algo pela internet: ícone, nome do órgão, o que é e um botão claro. */
+const cartaoOnline = (id) => {
+  const l = linksDados.itens[id];
+  return `<li class="sol" data-reveal>
+    <div class="sol__topo"><span class="sol__icone">${icone(l.icone || "tela")}</span><span class="sol__orgao">${esc(l.orgao)}</span></div>
+    <h3>${esc(l.titulo)}</h3>
+    <p>${esc(l.descricao)}</p>
+    <a class="btn btn--claro" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.botao || "Abrir o site oficial")}${icone("diagonal")}<span class="sr-only"> (abre em nova aba, site externo)</span></a>
+  </li>`;
+};
+/** Cartão do e-Notariado (página interna, sem sair do site). */
+const cartaoENotariado = (c) => `<li class="sol" data-reveal>
+    <div class="sol__topo"><span class="sol__icone">${icone("tela")}</span><span class="sol__orgao">e-Notariado</span></div>
+    <h3>Escritura e outros atos de Notas pelo computador</h3>
+    <p>Atos de cartório de notas de forma 100% online, com videoconferência e assinatura por certificado digital.</p>
+    <a class="btn btn--claro" href="${c.u("e-notariado.html")}">Saiba como${icone("seta")}</a>
+  </li>`;
+const gradeOnline = (cartoes, classe = "") => `<ul class="sol-grade${classe}">${cartoes.join("")}</ul>`;
 const AVISO_EXTERNO = `<p class="nota-pequena">Estes links levam a sites oficiais, fora deste site. Confira o endereço antes de informar dados pessoais.</p>`;
 
 const itemLocalizador = (c, ato, meta) =>
@@ -371,8 +392,8 @@ const rodapeCanais = () => {
 };
 
 function cabecalho(c, ativo) {
-  const item = (chave, rotulo, href) =>
-    `<li><a class="menu__link" href="${c.u(href)}"${ativo === chave ? ' aria-current="page"' : ""}>${rotulo}</a></li>`;
+  const item = (chave, rotulo, href, extra = "") =>
+    `<li><a class="menu__link${extra}" href="${c.u(href)}"${ativo === chave ? ' aria-current="page"' : ""}>${rotulo}</a></li>`;
   // Submenu "O que você procura?": serviços mais procurados e as especialidades (sem JavaScript, o item é um link para Serviços).
   const procura = `
           <li class="menu__sub" data-sub>
@@ -400,6 +421,7 @@ function cabecalho(c, ativo) {
       <nav class="menu" id="menu-principal" aria-label="Principal">
         <ul>
           ${item("inicio", "Início", "index.html")}${procura}
+          ${item("online", "Solicite online", "solicite-online.html", " menu__link--destaque")}
           ${item("documentos", "Documentos", "documentos.html")}
           ${item("contato", "Contato", "contato.html")}
         </ul>
@@ -429,7 +451,7 @@ function rodape(c) {
         <h2>Informações</h2>
         <ul>
           <li><a href="${c.u("documentos.html")}">Documentos e orientações</a></li>
-          <li><a href="${c.u("documentos.html#online")}">Certidões online</a></li>
+          <li><a href="${c.u("solicite-online.html")}">Solicite online</a></li>
           <li><a href="${c.u("e-notariado.html")}">Atos online (e-Notariado)</a></li>
           <li><a href="${c.u("contato.html")}">Localização e atendimento</a></li>
           <li><a href="${c.u("institucional.html")}">Institucional</a></li>
@@ -625,6 +647,19 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
     <script type="application/json" id="indice-busca">${indiceBusca}</script>
   </div>`;
 
+  const online = `
+  <section class="secao" id="online-home" aria-labelledby="t-online-home">
+    <div class="container">
+      <div class="secao__cab" data-reveal>
+        <p class="eyebrow">Sem sair de casa</p>
+        <h2 id="t-online-home">Solicite online</h2>
+        <p>Peça certidões e faça atos de cartório pela internet. Escolha o que você precisa.</p>
+      </div>
+      ${gradeOnline([cartaoOnline("registro-civil"), cartaoOnline("cenprot"), cartaoOnline("rtdpj"), cartaoENotariado(c)])}
+      <p class="sol__todos" data-reveal><a class="btn btn--vidro" href="${c.u("solicite-online.html")}">Ver todas as opções online${icone("seta")}</a></p>
+    </div>
+  </section>`;
+
   const servicos = `
   <section class="secao" id="servicos" aria-labelledby="t-servicos">
     <div class="container">
@@ -638,8 +673,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
         <a href="${c.u("documentos.html#consultar")}">Documentos necessários</a>
         <a href="${c.u("documentos.html#orientacoes")}">Orientações</a>
         <a href="${c.u("documentos.html#modelos")}">Modelos e formulários</a>
-        <a href="${c.u("documentos.html#online")}">Certidões online</a>
-        <a href="${c.u("e-notariado.html")}">Atos online (e-Notariado)</a>
+        <a href="${c.u("solicite-online.html")}">Solicite online</a>
       </p>
     </div>
   </section>`;
@@ -692,7 +726,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
       titulo: site.nome,
       descricao: `${site.nome}: Notas, Protesto de Títulos, Registro de Títulos e Documentos, Registro Civil das Pessoas Jurídicas e Registro Civil das Pessoas Naturais. ${enderecoRua}, ${end.cidade}/${end.uf}.`,
       jsonld,
-      corpo: hero + painel + servicos + atendimento,
+      corpo: hero + painel + online + servicos + atendimento,
     })
   );
 }
@@ -743,7 +777,7 @@ for (const esp of especialidades) {
                 : ""
             }${
               (esp.linksOnline || []).length
-                ? `<div class="bloco" data-reveal><h3>Peça pela internet</h3>${listaExterna(esp.linksOnline)}${AVISO_EXTERNO}</div>`
+                ? `<div class="bloco bloco--online" data-reveal><h3>Solicite online</h3>${gradeOnline(esp.linksOnline.map(cartaoOnline))}<p class="sol__todos"><a href="${c.u("solicite-online.html")}">Ver todas as opções online</a></p></div>`
                 : ""
             }</div>`
           : ""
@@ -959,10 +993,8 @@ for (const ato of atos.values()) {
 
   <section class="secao" id="online" aria-labelledby="t-online">
     <div class="container container--leitura">
-      <div class="secao__cab" data-reveal><p class="eyebrow">Emita online</p><h2 id="t-online">Certidões e consultas na internet</h2><p>Sites oficiais onde você pode emitir certidões e fazer pedidos sem sair de casa. Pergunte ao cartório quais certidões o seu serviço exige.</p></div>
-      ${linksDados.grupos.map((g) => `<div class="bloco" data-reveal><h3>${esc(g.titulo)}</h3>${g.intro ? `<p>${esc(g.intro)}</p>` : ""}${listaExterna(g.itens)}</div>`).join("")}
-      ${AVISO_EXTERNO}
-      <p class="antes"><strong>Atos de cartório pelo computador:</strong> <a href="${c.u("e-notariado.html")}">Conheça o e-Notariado</a></p>
+      <div class="secao__cab" data-reveal><p class="eyebrow">Sem sair de casa</p><h2 id="t-online">Certidões e pedidos na internet</h2><p>Os pedidos online têm uma página própria, com botões diretos para cada site oficial.</p></div>
+      <p data-reveal><a class="btn btn--claro" href="${c.u("solicite-online.html")}">Ir para Solicite online${icone("seta")}</a></p>
     </div>
   </section>
 
@@ -1007,6 +1039,35 @@ for (const ato of atos.values()) {
     </div>
   </section>`;
   adicionar(c.caminho, layout(c, { ativo: "contato", titulo: "Contato e localização", descricao: `Endereço, horário de atendimento, telefone e rota até o ${site.nome}, ${enderecoRua}, ${end.cidade}/${end.uf}.`, corpo }));
+}
+
+// ---------- Solicite online (todas as opções pela internet)
+{
+  const c = ctx("solicite-online.html");
+  const msg = "Olá! Gostaria de ajuda para solicitar um serviço pela internet.";
+  const g = (id) => linksDados.grupos.find((x) => x.id === id);
+  const corpo = `
+  ${faixa(c, {
+    trilha: [{ rotulo: "Início", href: "index.html" }, { rotulo: "Solicite online" }],
+    eyebrow: "Sem sair de casa",
+    titulo: "Solicite online",
+    lead: "Peça certidões e faça atos de cartório pela internet, nos sites oficiais. Escolha o que você precisa e toque no botão.",
+  })}
+  <section class="secao" id="certidoes-cartorio" aria-labelledby="t-sol-1">
+    <div class="container">
+      <div class="secao__cab" data-reveal><h2 id="t-sol-1">Peça uma certidão ou faça um ato</h2><p>Certidões de nascimento, casamento e óbito, protestos, títulos e documentos, e atos de notas pelo computador.</p></div>
+      ${gradeOnline([...g("pedidos").itens.map(cartaoOnline), cartaoENotariado(c)])}
+    </div>
+  </section>
+  <section class="secao secao--suave" id="imoveis-negocios" aria-labelledby="t-sol-2">
+    <div class="container">
+      <div class="secao__cab" data-reveal><h2 id="t-sol-2">Certidões e serviços para imóveis, negócios e doações</h2><p>${esc(g("certidoes").intro)}</p></div>
+      ${gradeOnline([...g("certidoes").itens, ...g("impostos").itens].map(cartaoOnline), " sol-grade--tres")}
+      ${AVISO_EXTERNO}
+      <div class="bloco" data-reveal><h3>Não achou o que procura?</h3><p>Fale com o cartório. O atendimento indica o caminho certo.</p><p>${botaoWhats(c, msg, { classe: "btn btn--claro", rotulo: "Falar com o cartório" })}</p></div>
+    </div>
+  </section>`;
+  adicionar(c.caminho, layout(c, { ativo: "online", titulo: "Solicite online: certidões e atos pela internet", descricao: "Peça certidões de nascimento, casamento e óbito, protestos, títulos e documentos e outros serviços de cartório pela internet, nos sites oficiais.", corpo }));
 }
 
 // ---------- e-Notariado (atos pelo computador)

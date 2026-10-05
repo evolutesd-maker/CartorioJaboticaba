@@ -288,7 +288,7 @@ a:hover { color: var(--azul-3); }
 .menu__link[aria-current="page"] { color: var(--azul-2); }
 .menu .btn { min-height: 3rem; padding: 0.55rem 1.25rem; font-size: 1.0625rem; }
 
-@media (max-width: 62rem) {
+@media (max-width: 75rem) {
   .topo__linha { flex-wrap: wrap; padding: 0.5rem 0; }
   .marca { flex: 1 1 0; }
   .menu-btn { flex: none; }
@@ -880,7 +880,7 @@ a:hover { color: var(--ouro-claro); } /* só para fundo azul */
 .menu__link:not(.btn):hover { color: #fff; background: rgba(255, 255, 255, 0.12); }
 .menu__link[aria-current="page"] { color: var(--ouro-claro); }
 .menu__link:not(.btn)::after { background: var(--ouro-claro); }
-@media (max-width: 62rem) {
+@media (max-width: 75rem) {
   .menu__link:not(.btn) { border-bottom-color: rgba(255, 255, 255, 0.14); }
   .js .menu-btn { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.4); color: #fff; }
 }
@@ -1147,7 +1147,7 @@ kbd {
 .busca-btn[hidden] { display: none; }
 .busca-btn:hover { background: rgba(255, 255, 255, 0.18); border-color: #fff; }
 .busca-btn .icone { width: 1.2rem; height: 1.2rem; }
-@media (max-width: 62rem) { .busca-btn { justify-content: flex-start; } }
+@media (max-width: 75rem) { .busca-btn { justify-content: flex-start; } }
 
 .paleta { margin: 10vh auto 0; padding: 0; width: min(40rem, calc(100% - 2rem)); border: 0; background: transparent; color: var(--tinta); overflow: visible; }
 .paleta::backdrop { background: rgba(0, 24, 48, 0.62); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); }
@@ -1414,11 +1414,11 @@ kbd {
 .submenu__buscar[hidden] { display: none; }
 .submenu__buscar:hover { background: rgba(255, 255, 255, 0.12); border-color: #fff; }
 .submenu__buscar .icone { width: 1.1rem; height: 1.1rem; }
-@media (min-width: 62.0625rem) {
+@media (min-width: 75.0625rem) {
   .submenu { position: absolute; top: calc(100% + 0.75rem); left: 0; z-index: 60; width: min(42rem, calc(100vw - 2rem)); grid-template-columns: 1.15fr 1fr; gap: 1rem 2rem; padding: 1.5rem; background: rgba(0, 38, 72, 0.93); -webkit-backdrop-filter: blur(22px) saturate(1.3); backdrop-filter: blur(22px) saturate(1.3); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 20px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 30px 60px -20px rgba(0, 10, 30, 0.7); }
 }
-@media (min-width: 62.0625rem) and (prefers-reduced-motion: no-preference) { .js .menu__sub.is-aberto .submenu { animation: sobe 0.3s var(--ease) both; } }
-@media (max-width: 62rem) {
+@media (min-width: 75.0625rem) and (prefers-reduced-motion: no-preference) { .js .menu__sub.is-aberto .submenu { animation: sobe 0.3s var(--ease) both; } }
+@media (max-width: 75rem) {
   .menu__sub .menu__link:not(.btn) { width: 100%; justify-content: space-between; }
   .submenu { grid-template-columns: 1fr; gap: 1rem; margin: 0.25rem 0 0.5rem; padding: 1rem 0.85rem; background: rgba(255, 255, 255, 0.07); border-radius: 14px; }
 }
@@ -1449,3 +1449,52 @@ kbd {
 .destaque a.btn--primario { color: #fff; }
 .destaque a.btn--primario:hover { color: #fff; }
 .destaque .btn { margin-top: 0.25rem; }
+
+/* ============================================================ Solicite online: cartões grandes e fáceis de ler (vidro) */
+
+.menu__link--destaque:not(.btn) { border: 1px solid var(--ouro-claro); background: rgba(240, 214, 143, 0.12); color: #fff; }
+.menu__link--destaque:not(.btn):hover { background: rgba(240, 214, 143, 0.24); border-color: #fff; }
+.menu__link--destaque:not(.btn)::after { display: none; }
+.menu__link--destaque[aria-current="page"] { background: var(--ouro-claro); color: var(--azul-4); }
+
+.sol-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr)); gap: 1.25rem; list-style: none; margin: 0; padding: 0; }
+.sol {
+  display: flex; flex-direction: column; gap: 0.75rem;
+  padding: 1.5rem;
+  border-radius: var(--r-lg);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.17), rgba(255, 255, 255, 0.05)), rgba(0, 30, 70, 0.26);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+  backdrop-filter: blur(14px) saturate(1.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 20px 40px -22px rgba(0, 15, 40, 0.55);
+  color: #fff;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s;
+}
+.sol:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.5); }
+.sol__topo { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.sol__icone { display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 16px; background: rgba(255, 255, 255, 0.16); }
+.sol__icone .icone { width: 1.6rem; height: 1.6rem; }
+.sol__orgao { padding: 0.2rem 0.7rem; border-radius: 999px; background: rgba(255, 255, 255, 0.14); font: 700 0.8rem/1.3 var(--fonte); color: #e6f1fb; text-align: right; }
+.sol h3 { margin: 0.25rem 0 0; font-size: 1.3rem; line-height: 1.25; }
+.sol p { margin: 0; color: #e6f1fb; font-size: 1rem; flex: 1; }
+.sol .btn { margin-top: 0.5rem; align-self: stretch; }
+.sol .btn .icone { width: 1.1rem; height: 1.1rem; stroke-width: 2.6; }
+.sol__todos { margin: 1.5rem 0 0; }
+.bloco--online .sol-grade { margin-top: 0.75rem; }
+@media (max-width: 75rem) { .menu__link--destaque:not(.btn) { border-radius: 12px; } }
+
+
+/* Cabeçalho compacto no computador: cabe numa linha com a aba "Solicite online" */
+.menu__link:not(.btn) { white-space: nowrap; }
+@media (min-width: 75.0625rem) {
+  .menu { gap: 0.6rem; }
+  .menu__link:not(.btn) { padding-inline: 0.8rem; }
+  .busca-btn { padding: 0.5rem 0.75rem; }
+  .busca-btn span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .marca__texto strong { font-size: 1.05rem; }
+  .topo__linha { gap: 0.75rem; }
+}
+.sol-grade--tres { grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr)); }
+@media (min-width: 62rem) { .sol-grade--tres { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.sol-grade + .nota-pequena { margin-top: 1.5rem; }
+.sol-grade ~ .bloco { margin-top: 2rem; }

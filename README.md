@@ -143,3 +143,9 @@ devem ficar em `src/public/`, que é copiado para `docs/` a cada build.
 - Atos novos sem lista de documentos aparecem com o aviso "a lista será confirmada pelo cartório": preencha `documentos` e `passos` e só então marque `"validado": true`.
 - `"escritura": true` no ato faz o formulário de contato perguntar "presencial ou digital (e-Notariado)?". Desligue com `false` nos serviços que não são escritura.
 - `titular` (site.json) aparece na página Institucional ("sob a liderança do Tabelião e Registrador ..."): trocar o nome fictício pelo real antes de publicar.
+
+### Solicite online
+
+- Aba própria no menu ("Solicite online", destacada em dourado) e página `solicite-online.html`, com cartões grandes: órgão, o que é e um botão claro. Também há uma faixa "Solicite online" na página inicial e cartões nas páginas das especialidades que têm `linksOnline`.
+- Os cartões vêm de `content/links.json`: cada item tem `titulo`, `orgao`, `descricao`, `url`, `icone` (documento, casa, terra, protesto, pessoas, arquivo, moeda, tela) e `botao` (texto do botão). Só domínios de `scripts/dominios-aprovados.json`.
+- Para mudar quais cartões aparecem e em qual ordem, edite `grupos` em `links.json`.
