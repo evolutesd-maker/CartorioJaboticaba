@@ -118,7 +118,7 @@ devem ficar em `src/public/`, que é copiado para `docs/` a cada build.
 
 ## Notas de projeto
 
-- Cores: `#0078d7` (azul), `#005a9e` para links e texto azul pequeno (7,1:1 sobre branco), dourado só decorativo.
+- Cores: `#0078d7` (azul), `#005a9e` para links e texto azul pequeno (7,1:1 sobre branco), dourado claro (`--ouro-claro`) só sobre fundo azul; sobre branco, texto dourado usa `--ouro-texto` (`#7d5a10`, legível). Sem efeitos que sigam o mouse (botões e cartões só levantam).
   Botões usam negrito 700 em ~18,8 px porque branco sobre `#0078d7` é 4,49:1, o que passa em AA como texto grande.
 - Fontes do sistema (Segoe UI no Windows, Georgia nos títulos): nada é baixado de terceiros.
 - O mapa é apenas um botão que abre a rota no Google Maps em outra aba; nenhum mapa é incorporado.

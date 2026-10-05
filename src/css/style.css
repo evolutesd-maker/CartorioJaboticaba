@@ -425,7 +425,7 @@ a:hover { color: var(--azul-3); }
 .flutuante__icone .icone { width: 1.35rem; height: 1.35rem; }
 .flutuante strong { display: block; font-size: 0.98rem; font-weight: 800; }
 .flutuante small { font-size: 0.82rem; color: var(--suave); }
-.flutuante--b { right: -1.25rem; bottom: 18%; }
+.flutuante--b { right: 1rem; bottom: 1rem; }
 @media (prefers-reduced-motion: no-preference) {
   .flutuante { animation: flutuar 7s ease-in-out infinite; }
   .flutuante--b { animation-duration: 8.5s; animation-delay: -3s; }
@@ -440,7 +440,7 @@ a:hover { color: var(--azul-3); }
   .hero__foto { margin-right: 1.1rem; }
   .hero__foto::before { inset: 0.8rem -0.8rem -0.8rem 0.8rem; }
   .hero__acoes .btn { flex: 1 1 14rem; }
-  .flutuante--b { right: -0.5rem; bottom: 0.75rem; }
+  .flutuante--b { right: 0.75rem; bottom: 0.75rem; }
 }
 
 /* ============================================================ Painel flutuante de busca + carrossel */
@@ -583,7 +583,7 @@ a:hover { color: var(--azul-3); }
   color: var(--azul-2);
   transition: background-color 0.3s, color 0.3s, transform 0.3s var(--ease);
 }
-.cr-card:hover .cr-card__icone { background: var(--azul); color: #fff; transform: rotate(-6deg); }
+.cr-card:hover .cr-card__icone { background: var(--azul); color: #fff; }
 .cr-card__icone .icone { width: 1.45rem; height: 1.45rem; }
 .cr-card__seta { color: var(--ouro); transition: transform 0.3s var(--ease); }
 .cr-card__seta .icone { width: 1.3rem; height: 1.3rem; stroke-width: 2.4; }
@@ -634,7 +634,7 @@ a:hover { color: var(--azul-3); }
   transition: background-color 0.35s, color 0.35s, transform 0.35s var(--ease), box-shadow 0.35s;
 }
 .esp-card__icone .icone { width: 1.75rem; height: 1.75rem; }
-.esp-card:hover .esp-card__icone { background: var(--azul); color: #fff; transform: rotate(-6deg) scale(1.05); box-shadow: 0 10px 22px -8px rgba(0, 120, 215, 0.7); }
+.esp-card:hover .esp-card__icone { background: var(--azul); color: #fff; box-shadow: 0 10px 22px -8px rgba(0, 120, 215, 0.7); }
 
 .esp-card__seta {
   display: grid; place-items: center;
@@ -1105,7 +1105,7 @@ a:hover { color: var(--azul-3); }
 body { background: var(--azul-2); color: #fff; }
 h1, h2, h3, h4 { color: #fff; }
 a { color: #fff; }
-a:hover { color: var(--ouro-claro); }
+a:hover { color: var(--ouro-claro); } /* só para fundo azul */
 :focus-visible { outline-color: var(--ouro-claro); }
 :is(.esp-card, .ato-card, .caixa, .grupo, .cartao-info, .painel, .checklist, .faq, .lateral-card--branco, .finder__vazio, .destaque, .atalho) :focus-visible { outline-color: var(--azul); }
 
@@ -1114,6 +1114,8 @@ a:hover { color: var(--ouro-claro); }
 :is(.esp-card, .ato-card, .caixa, .grupo, .cartao-info, .painel, .lateral-card--branco) :is(h2, h3) { color: var(--azul-4); }
 :is(.cartao-info, .caixa, .dados, .busca__painel, .finder__vazio, .destaque, .painel) a:not(.btn) { color: var(--azul-2); }
 :is(.cartao-info, .caixa, .dados, .busca__painel, .finder__vazio, .destaque, .painel) a:not(.btn):hover { color: var(--azul-3); }
+/* Links sobre superfícies brancas: dourado escuro (contraste ≥ 6:1), nunca o claro */
+:is(.esp-card, .ato-card, .atalho, .cr-card, .caixa, .grupo, .cartao-info, .painel, .lateral-card--branco, .faq, .checklist, .finder__vazio, .destaque, .busca__painel) a:not(.btn):hover { color: var(--ouro-texto); }
 .downloads a { color: var(--azul-4); }
 .downloads a:hover { color: var(--azul-2); }
 .lista-links a { color: var(--azul-2); }
@@ -1204,12 +1206,8 @@ a:hover { color: var(--ouro-claro); }
 /* Cartões de serviço com ícone */
 .ato-card__icone { display: grid; place-items: center; width: 2.9rem; height: 2.9rem; border-radius: 14px; background: var(--azul-100); color: var(--azul-2); margin-bottom: 0.4rem; transition: background-color 0.3s, color 0.3s, transform 0.3s var(--ease); }
 .ato-card__icone .icone { width: 1.45rem; height: 1.45rem; }
-.ato-card:hover .ato-card__icone { background: var(--azul); color: #fff; transform: rotate(-6deg) scale(1.06); }
+.ato-card:hover .ato-card__icone { background: var(--azul); color: #fff; }
 
-/* Inclinação 3D que acompanha o mouse (JS define --rx/--ry) */
-.esp-card:hover, .ato-card:hover, .cr-card:hover { transform: perspective(900px) translateY(-8px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
-.ato-card:hover, .cr-card:hover { transform: perspective(900px) translateY(-5px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
-.is-inclinando { transition: transform 0.12s ease-out, box-shadow 0.35s var(--ease), border-color 0.35s !important; }
 
 @media (prefers-reduced-motion: no-preference) {
   /* Entrada do hero */
@@ -1224,7 +1222,6 @@ a:hover { color: var(--ouro-claro); }
   .hero::after { content: ""; position: absolute; z-index: -1; width: 38rem; height: 38rem; right: -12rem; top: -14rem; border-radius: 50%; background: radial-gradient(circle, rgba(0, 120, 215, 0.75), transparent 65%); animation: deriva 16s ease-in-out infinite alternate; }
   .faixa__deco { animation: flutuar 9s ease-in-out infinite; }
   .esp-card__icone .icone, .cr-card__icone .icone { transition: transform 0.5s var(--ease); }
-  .esp-card:hover .esp-card__icone .icone { transform: scale(1.12); }
   .marca__selo { animation: gira-entrada 1s var(--ease) 0.1s both; }
 }
 @keyframes sobe { from { opacity: 0; translate: 0 26px; } to { opacity: 1; translate: 0 0; } }
@@ -1362,8 +1359,6 @@ a:hover { color: var(--ouro-claro); }
   .btn--primario, .btn--claro { position: relative; overflow: hidden; }
   .btn--primario::after, .btn--claro::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%); translate: -130% 0; transition: translate 0.8s var(--ease); pointer-events: none; }
   .btn--primario:hover::after, .btn--claro:hover::after { translate: 130% 0; }
-  /* Botões "magnéticos": o JS define o translate; aqui só a suavização */
-  .hero__acoes .btn, .funil__canais .btn { transition-property: transform, box-shadow, background-color, color, border-color, translate; }
   /* Ícones dos cartões se desenham ao aparecer */
   .esp-card__icone :is(path, circle, rect) { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 1.2s var(--ease) 0.3s; }
   .js .esp-card[data-reveal]:not(.is-visivel) :is(path, circle, rect) { stroke-dashoffset: 1; }

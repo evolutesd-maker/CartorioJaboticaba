@@ -442,32 +442,16 @@
       fotoEl.addEventListener("pointerleave", function () { fotoEl.style.setProperty("--mx", 0); fotoEl.style.setProperty("--my", 0); });
     }
 
-    // Botões principais "puxam" levemente na direção do mouse.
-    if (mouseFino) {
-      document.querySelectorAll(".hero__acoes .btn, .funil__canais .btn").forEach(function (btn) {
-        btn.addEventListener("pointermove", function (e) {
-          var r = btn.getBoundingClientRect();
-          btn.style.translate = ((e.clientX - r.left - r.width / 2) * 0.14).toFixed(1) + "px " + ((e.clientY - r.top - r.height / 2) * 0.22).toFixed(1) + "px";
-        });
-        btn.addEventListener("pointerleave", function () { btn.style.translate = ""; });
-      });
-    }
-
-    // Cartões se inclinam em 3D acompanhando o mouse.
+    // Cartões: só o brilho (holofote) acompanha o mouse; não há inclinação.
     if (mouseFino) {
       document.querySelectorAll(".esp-card, .ato-card, .cr-card").forEach(function (card) {
         card.addEventListener("pointermove", function (e) {
           var r = card.getBoundingClientRect();
-          var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-          card.classList.add("is-inclinando");
-          card.style.setProperty("--ry", (x * 7).toFixed(2) + "deg");
-          card.style.setProperty("--rx", (-y * 7).toFixed(2) + "deg");
           card.style.setProperty("--sx", (e.clientX - r.left).toFixed(0) + "px");
           card.style.setProperty("--sy", (e.clientY - r.top).toFixed(0) + "px");
         });
         card.addEventListener("pointerleave", function () {
-          card.classList.remove("is-inclinando");
-          ["--rx", "--ry", "--sx", "--sy"].forEach(function (v) { card.style.removeProperty(v); });
+          ["--sx", "--sy"].forEach(function (v) { card.style.removeProperty(v); });
         });
       });
     }
