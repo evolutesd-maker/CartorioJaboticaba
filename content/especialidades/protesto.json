@@ -35,7 +35,11 @@
         "protesto/pagar-titulo",
         "protesto/cancelar-protesto"
       ],
-      "validado": false
+      "validado": false,
+      "links": [
+        "edital",
+        "certidao-protesto"
+      ]
     },
     {
       "slug": "pagar-titulo",
@@ -92,7 +96,10 @@
         "protesto/consultar-protesto",
         "protesto/pagar-titulo"
       ],
-      "validado": false
+      "validado": false,
+      "links": [
+        "anuencia-eletronica"
+      ]
     },
     {
       "slug": "apresentar-titulo",
@@ -118,11 +125,18 @@
         "protesto/pagar-titulo",
         "rtd/notificacao-extrajudicial"
       ],
-      "validado": false
+      "validado": false,
+      "links": [
+        "envio-titulo"
+      ]
     }
   ],
   "linksOnline": [
-    "cenprot"
+    "cenprot",
+    "envio-titulo",
+    "anuencia-eletronica",
+    "edital",
+    "certidao-protesto"
   ],
   "textoCartorio": [
     {

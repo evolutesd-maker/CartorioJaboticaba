@@ -27,7 +27,11 @@
       "itens": [
         "registro-civil",
         "cenprot",
-        "rtdpj"
+        "rtdpj",
+        "envio-titulo",
+        "anuencia-eletronica",
+        "edital",
+        "certidao-protesto"
       ]
     }
   ],
@@ -119,6 +123,38 @@
       "url": "https://www.e-notariado.org.br/",
       "icone": "tela",
       "botao": "Acessar o e-Notariado"
+    },
+    "envio-titulo": {
+      "titulo": "Enviar títulos a protesto",
+      "orgao": "CENPROT",
+      "descricao": "Serviço online da Central Nacional de Protesto.",
+      "url": "https://www.pesquisaprotesto.com.br/servico/envio-de-titulo",
+      "icone": "protesto",
+      "botao": "Enviar títulos"
+    },
+    "anuencia-eletronica": {
+      "titulo": "Gerar anuência eletrônica (CENPROT)",
+      "orgao": "CENPROT",
+      "descricao": "Serviço online da Central Nacional de Protesto.",
+      "url": "https://www.pesquisaprotesto.com.br/servico/pedido-anuencia",
+      "icone": "protesto",
+      "botao": "Gerar anuência"
+    },
+    "edital": {
+      "titulo": "Consultar edital eletrônico",
+      "orgao": "CENPROT",
+      "descricao": "Serviço online da Central Nacional de Protesto.",
+      "url": "https://www.pesquisaprotesto.com.br/servico/consulta-edital",
+      "icone": "protesto",
+      "botao": "Consultar edital"
+    },
+    "certidao-protesto": {
+      "titulo": "Pedido de certidão de protesto",
+      "orgao": "CENPROT",
+      "descricao": "Serviço online da Central Nacional de Protesto.",
+      "url": "https://www.pesquisaprotesto.com.br/servico/pedido-certidao",
+      "icone": "protesto",
+      "botao": "Pedir certidão"
     }
   }
 }
