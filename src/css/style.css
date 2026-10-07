@@ -1588,3 +1588,22 @@ kbd {
 @media (pointer: coarse) {
   .antes a, .trilha a, .rodape li a, .rodape__canais a, .rodape__fim a { display: inline-flex; align-items: center; min-height: 2.75rem; }
 }
+
+
+/* Detalhe futurista na página inteira: rede fina de pontos e linhas (fixa) e brilhos que acendem aos poucos.
+   Arquivos próprios em assets/img; sem script. Com "reduzir movimento", os brilhos ficam parados. */
+html::before, body::before, body::after, html::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-repeat: repeat; background-size: 1000px 900px;
+}
+html::before { background-image: url("../img/rede-fundo.svg"); }
+body::before { background-image: url("../img/brilho-a.svg"); opacity: 0.55; }
+body::after { background-image: url("../img/brilho-b.svg"); opacity: 0.55; }
+html::after { background-image: url("../img/brilho-c.svg"); opacity: 0.55; }
+@media (prefers-reduced-motion: no-preference) {
+  body::before { opacity: 0; animation: brilha 7s ease-in-out infinite; }
+  body::after { opacity: 0; animation: brilha 9s ease-in-out 3s infinite; }
+  html::after { opacity: 0; animation: brilha 11s ease-in-out 6s infinite; }
+}
+@keyframes brilha { 0%, 100% { opacity: 0; } 45%, 55% { opacity: 0.9; } }
+@media print { html::before, body::before, body::after, html::after { display: none; } }
