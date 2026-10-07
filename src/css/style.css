@@ -312,7 +312,8 @@ a:hover { color: var(--azul-3); }
     cursor: pointer;
   }
   .js .menu { display: none; }
-  .js .menu.is-aberto { display: flex; }
+  .js .menu.is-aberto { display: flex; max-height: calc(100vh - 5.5rem); max-height: calc(100dvh - 5.5rem); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  html:not(.js) .topo { position: static; } /* sem JS o menu fica aberto e alto: o cabeçalho rola junto com a página */
 }
 
 /* ============================================================ Seções */
