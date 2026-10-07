@@ -1261,10 +1261,6 @@ kbd {
 .checklist label:hover { background: var(--azul-50); border-color: var(--linha); box-shadow: none; }
 .checklist label:has(input:checked) { background: none; border-color: var(--linha); }
 
-.prazo-custo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); gap: 1rem 2rem; margin: 0; }
-.prazo-custo > div { border-top: 2px solid var(--azul-200); padding-top: 0.75rem; }
-.prazo-custo dt { margin-bottom: 0.35rem; font: 800 0.85rem/1.3 var(--fonte); letter-spacing: 0.1em; text-transform: uppercase; color: var(--azul-2); }
-.prazo-custo dd { margin: 0; }
 
 .faq details { margin: 0; background: none; border: 0; border-bottom: 1px solid var(--linha); border-radius: 0; box-shadow: none; }
 .faq details:first-child { border-top: 1px solid var(--linha); }

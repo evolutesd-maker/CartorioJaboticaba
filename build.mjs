@@ -868,8 +868,6 @@ for (const esp of especialidades) {
 }
 
 // ---------- Páginas de ato (com requisitos)
-const DEFAULT_PRAZO = "Verificar com o cartório.";
-const DEFAULT_CUSTO = "Verificar com o cartório.";
 
 const tamanhoArquivo = (arq) => {
   const kb = statSync(join(RAIZ, "content/modelos", arq)).size / 1024;
@@ -910,7 +908,6 @@ for (const ato of atos.values()) {
     ...((ato.texto || []).length ? [["sobre", "Sobre o serviço"]] : []),
     ["documentos", "Documentos"],
     ...((ato.passos || []).length ? [["como-funciona", "Como funciona"]] : []),
-    ["prazo-custo", "Prazo e custo"],
     ...((ato.links || []).length ? [["online", "Emitir online"]] : []),
     ...((ato.perguntas || []).length ? [["duvidas", "Dúvidas"]] : []),
     ...((ato.modelos || []).length ? [["modelos", "Modelos"]] : []),
@@ -949,7 +946,7 @@ for (const ato of atos.values()) {
       </section>`
           : `<section id="documentos">
         <h2>Documentos necessários ${selo}</h2>
-        <div class="destaque"><p><strong>A lista de documentos deste serviço será confirmada pelo cartório.</strong> Enquanto isso, fale com o atendimento para saber o que levar no seu caso.</p>${botaoWhats(c, msg, { classe: "btn btn--primario", rotulo: "Perguntar ao cartório" })}</div>
+        <div class="destaque"><p><strong>Este serviço é feito diretamente com o atendimento do cartório.</strong> Fale com o atendimento para saber como proceder e o que levar.</p>${botaoWhats(c, msg, { classe: "btn btn--primario", rotulo: "Perguntar ao cartório" })}</div>
       </section>`
       }
 
@@ -963,13 +960,6 @@ for (const ato of atos.values()) {
           : ""
       }
 
-      <section id="prazo-custo">
-        <h2>Prazo e custo</h2>
-        <dl class="prazo-custo">
-          <div><dt>Prazo</dt><dd>${esc(ato.prazo || DEFAULT_PRAZO)}</dd></div>
-          <div><dt>Custo</dt><dd>${esc(ato.custo || DEFAULT_CUSTO)}</dd></div>
-        </dl>
-      </section>
 
       ${(ato.links || []).length ? `<section id="online"><h2>Emita online</h2><p>Certidões e serviços que você mesmo pode pedir na internet. Pergunte ao cartório quais deles o seu caso exige.</p>${listaExterna(ato.links)}${AVISO_EXTERNO}</section>` : ""}
 
@@ -1298,7 +1288,6 @@ if (rascunho) {
         ${a.quando ? `<p><strong>Quando:</strong> ${esc(a.quando)}</p>` : ""}
         ${blocoDocumentos(a)}
         <h4>Passo a passo</h4>${blocoPassos(a)}
-        <p><strong>Prazo:</strong> ${esc(a.prazo || DEFAULT_PRAZO)}<br><strong>Custo:</strong> ${esc(a.custo || DEFAULT_CUSTO)}</p>
         ${blocoFaq(a) ? `<h4>Perguntas frequentes</h4>${a.perguntas.map((q) => `<p><strong>${esc(q.p)}</strong><br>${esc(q.r)}</p>`).join("")}` : ""}
         <p class="destaque"><strong>Validação do cartório:</strong> ☐ Aprovado &nbsp; ☐ Aprovado com ajustes &nbsp; ☐ Reprovado<br>Ajustes:${linha}${linha}</p>
       </article>`

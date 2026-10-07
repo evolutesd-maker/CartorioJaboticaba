@@ -10,7 +10,7 @@
 | "Quando é necessário" | `quando` (20 serviços) | Não | Removido |
 | "Como funciona" (passo a passo) | `passos` (78 passos) | Não | Removido |
 | Perguntas frequentes | `perguntas` (42 perguntas) | Não | Removido |
-| Prazo e custo próprios de cada serviço | `prazo`, `custo` | Não | Removidos. Todos mostram "Verificar com o cartório." |
+| Prazo e custo próprios de cada serviço | `prazo`, `custo` | Não | Removidos, junto com a seção "Prazo e custo" das páginas |
 | Descrição longa das 5 especialidades | `descricao` | Não (quatro têm texto dele, em `textoCartorio`) | Removida. A página usa o resumo curto |
 | Aviso "Qual a diferença?" (Junta Comercial) | `aviso` do RCPJ | Não | Removido |
 | Resumos dos serviços | `resumo` | Parcial | Reescritos com palavras do Tabelião nos casos em que afirmavam algo a mais |
@@ -33,7 +33,7 @@
 
 ## 3. Serviços mantidos sem lista de documentos
 
-Mostram o texto do Tabelião (quando existe), o resumo e o aviso "A lista de documentos deste serviço será confirmada pelo cartório": reconhecimento de firma, atas notariais, cessões de herança, inventário, testamento, divórcio, consultar/pagar/apresentar protesto, notificação extrajudicial, certidões de RTD e de RCPJ, casamento.
+Mostram o texto do Tabelião (quando existe), o resumo e o aviso "Este serviço é feito diretamente com o atendimento do cartório": reconhecimento de firma, atas notariais, cessões de herança, inventário, testamento, divórcio, consultar/pagar/apresentar protesto, notificação extrajudicial, certidões de RTD e de RCPJ, casamento.
 
 ## 4. O que ainda falta pedir ao Tabelião
 
