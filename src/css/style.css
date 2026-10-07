@@ -1554,14 +1554,9 @@ kbd {
 .lema__rotulo + .lema { margin-top: 0.5rem; }
 .lema p { text-transform: none; letter-spacing: 0.01em; }
 
-/* Computador: marca, busca e WhatsApp na primeira linha; abas com folga na segunda */
+/* Submenu curto (Informações): uma coluna, alinhado à direita da aba */
+.submenu--curto { grid-template-columns: 1fr; }
 @media (min-width: 75.0625rem) {
-  html { scroll-padding-top: 9rem; }
-  .topo__linha { flex-wrap: wrap; min-height: 0; padding-top: 0.5rem; row-gap: 0; }
-  .marca { order: 1; margin-right: auto; }
-  .menu { display: contents; }
-  .menu .busca-btn { order: 2; }
-  .menu > .btn { order: 3; }
-  .menu > ul { order: 4; width: 100%; justify-content: center; gap: 0.5rem; padding: 0.35rem 0 0.5rem; border-top: 1px solid rgba(255, 255, 255, 0.14); }
-  .menu__link:not(.btn) { padding: 0.55rem 1rem; }
+  .menu__sub--info { position: relative; }
+  .submenu--curto { left: auto; right: 0; width: 19rem; }
 }

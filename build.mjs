@@ -430,6 +430,21 @@ function cabecalho(c, ativo) {
               <p class="submenu__rodape"><a href="${c.u("servicos.html")}">Ver todos os serviços</a><a href="${c.u("modelos/tabela-de-emolumentos-2026.pdf")}" download>${icone("baixar")}Tabela de Emolumentos</a><button class="submenu__buscar" type="button" hidden data-abrir-paleta>${icone("lupa")}Buscar pelo nome</button></p>
             </div>
           </li>`;
+  // Submenu "Informações": Quem somos e Contato (sem JavaScript, o item é um link para Quem somos).
+  const infoAtivo = ativo === "institucional" || ativo === "contato";
+  const informacoes = `
+          <li class="menu__sub menu__sub--info" data-sub>
+            <a class="menu__link" href="${c.u("institucional.html")}"${infoAtivo ? ' aria-current="page"' : ""} data-sub-link>Informações${icone("seta")}</a>
+            <div class="submenu submenu--curto" id="submenu-info" role="group" aria-label="Informações">
+              <div class="submenu__col">
+                <ul>
+                  <li><a href="${c.u("institucional.html")}">${icone("predio")}<span>Quem somos</span></a></li>
+                  <li><a href="${c.u("contato.html")}">${icone("pin")}<span>Contato e localização</span></a></li>
+                  <li><a href="${c.u("privacidade.html")}">${icone("escudo")}<span>Política de privacidade</span></a></li>
+                </ul>
+              </div>
+            </div>
+          </li>`;
   return `
   <header class="topo">
     <div class="container topo__linha">
@@ -442,10 +457,7 @@ function cabecalho(c, ativo) {
         <ul>
           ${item("inicio", "Início", "index.html", "", "menu__inicio")}${procura}
           ${item("online", "Solicite online", "solicite-online.html", " menu__link--destaque")}
-          ${item("documentos", "Documentos", "documentos.html")}
-          ${item("terceiros", "Solicitações por terceiros", "solicitacoes-terceiros.html")}
-          ${item("institucional", "Quem somos", "institucional.html")}
-          ${item("contato", "Contato", "contato.html")}
+          ${item("documentos", "Documentos", "documentos.html")}${informacoes}
         </ul>
         <button class="busca-btn" type="button" hidden data-abrir-paleta aria-label="Buscar serviço ou documento">${icone("lupa")}<span>Buscar</span></button>
         ${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--claro", rotulo: "WhatsApp" })}
@@ -727,6 +739,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
         <a href="${c.u("documentos.html#consultar")}">Documentos necessários</a>
         <a href="${c.u("documentos.html#orientacoes")}">Orientações</a>
         <a href="${c.u("documentos.html#modelos")}">Modelos e formulários</a>
+        <a href="${c.u("solicitacoes-terceiros.html")}">Solicitações por terceiros</a>
         <a href="${c.u("solicite-online.html")}">Solicite online</a>
       </p>
     </div>
@@ -1056,6 +1069,13 @@ for (const ato of atos.values()) {
     </div>
   </section>
 
+  <section class="secao" id="terceiros" aria-labelledby="t-terceiros">
+    <div class="container container--leitura">
+      <div class="secao__cab" data-reveal><p class="eyebrow">Certidões pedidas por outra pessoa</p><h2 id="t-terceiros">Solicitações por terceiros</h2><p>Precisa de uma certidão de outra pessoa? Baixe o requerimento, preencha e assine.</p></div>
+      <p data-reveal><a class="btn btn--claro" href="${c.u("solicitacoes-terceiros.html")}">Ver os requerimentos${icone("seta")}</a></p>
+    </div>
+  </section>
+
   <section class="secao secao--suave" id="modelos" aria-labelledby="t-modelos">
     <div class="container">
       <div class="secao__cab" data-reveal><p class="eyebrow">Modelos</p><h2 id="t-modelos">Modelos e formulários</h2></div>
@@ -1122,6 +1142,7 @@ for (const ato of atos.values()) {
       <div class="secao__cab" data-reveal><h2 id="t-sol-2">Certidões e serviços para imóveis, negócios e doações</h2><p>${esc(g("certidoes").intro)}</p></div>
       ${gradeOnline([...g("certidoes").itens, ...g("impostos").itens].map(cartaoOnline), " sol-grade--tres")}
       ${AVISO_EXTERNO}
+      <div class="bloco" data-reveal><h3>Pedir certidão de outra pessoa?</h3><p>Baixe o requerimento de solicitação por terceiros, preencha e assine.</p><p><a class="btn btn--claro" href="${c.u("solicitacoes-terceiros.html")}">Solicitações por terceiros${icone("seta")}</a></p></div>
       <div class="bloco" data-reveal><h3>Não achou o que procura?</h3><p>Fale com o cartório. O atendimento indica o caminho certo.</p><p>${botaoWhats(c, msg, { classe: "btn btn--claro", rotulo: "Falar com o cartório" })}</p></div>
     </div>
   </section>`;
@@ -1284,7 +1305,7 @@ function preencher(html, extras = {}) {
       <p data-reveal>${botaoWhats(c, "Olá! Gostaria de ajuda com um requerimento de certidão.", { classe: "btn btn--claro", rotulo: "Falar com o cartório" })}</p>
     </div>
   </section>`;
-  adicionar(c.caminho, layout(c, { ativo: "terceiros", titulo: sol.titulo, descricao: "Requerimentos para pedir certidão em nome de outra pessoa: baixe, preencha e assine.", corpo }));
+  adicionar(c.caminho, layout(c, { titulo: sol.titulo, descricao: "Requerimentos para pedir certidão em nome de outra pessoa: baixe, preencha e assine.", corpo }));
 }
 
 // ---------- Folha de revisão (só em rascunho): reúne todo o conteúdo para o cartório validar
