@@ -618,20 +618,11 @@
         }
       });
     });
-    // E-mail: se nenhum programa de e-mail abrir (computador sem aplicativo configurado), copia a mensagem e mostra o endereço.
+    // E-mail: o navegador não avisa quando não há programa de e-mail. Por isso a mensagem é copiada na hora e o endereço fica à vista.
     bMail.addEventListener("click", function () {
-      if (bMail.getAttribute("aria-disabled") === "true") return;
-      var saiu = false;
-      var marcar = function () { saiu = true; };
-      window.addEventListener("blur", marcar, { once: true });
-      document.addEventListener("visibilitychange", marcar, { once: true });
-      setTimeout(function () {
-        window.removeEventListener("blur", marcar);
-        document.removeEventListener("visibilitychange", marcar);
-        if (saiu || !ultimaMsg) return;
-        fDica.textContent = "Seu programa de e-mail não abriu. Copiamos a mensagem: envie para " + d.mail + ".";
-        bCopiar.click();
-      }, 1500);
+      if (bMail.getAttribute("aria-disabled") === "true" || !ultimaMsg) return;
+      fDica.textContent = "Abrindo o seu e-mail. Se não abrir, a mensagem já foi copiada: envie para " + d.mail + ".";
+      bCopiar.click();
     });
     bCopiar.addEventListener("click", function () {
       if (!ultimaMsg) { fDica.textContent = "Preencha os passos para copiar a mensagem."; return; }
