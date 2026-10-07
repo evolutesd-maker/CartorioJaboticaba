@@ -553,7 +553,7 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld).replace(
 </head>
 <body>
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
-${rascunho ? `<aside class="aviso-rascunho" aria-label="Aviso sobre esta versão"><div class="container"><strong>Site demonstrativo.</strong> O CNS é fictício, e os documentos e orientações ainda serão validados pelo cartório antes da publicação.</div></aside>` : ""}
+${rascunho ? `<aside class="aviso-rascunho" aria-label="Aviso sobre esta versão"><div class="container"><strong>Site demonstrativo.</strong> Os documentos e orientações ainda serão validados pelo cartório antes da publicação.</div></aside>` : ""}
 ${cabecalho(c, ativo)}
 <div class="pagina-corpo">
 <main id="conteudo">
@@ -889,7 +889,11 @@ const itemDoc = (i) =>
     : `<li><label><input type="checkbox"><span class="checklist__texto">${esc(i.texto)}${i.obs ? `<span class="checklist__obs">${esc(i.obs)}</span>` : ""}</span></label></li>`;
 const blocoDocumentos = (a) =>
   (a.documentos || [])
-    .map((g) => `<div class="checklist-grupo"><h3>${esc(g.grupo)}</h3><ul class="checklist">${g.itens.map(itemDoc).join("")}</ul></div>`)
+    .map((g) =>
+      g.colapsavel
+        ? `<div class="faq"><details><summary>${esc(g.grupo)}</summary><div><ul class="lista-pontos">${g.itens.map((i) => `<li>${esc(typeof i === "string" ? i : i.texto)}</li>`).join("")}</ul></div></details></div>`
+        : `<div class="checklist-grupo"><h3>${esc(g.grupo)}</h3><ul class="checklist">${g.itens.map(itemDoc).join("")}</ul></div>`
+    )
     .join("");
 const blocoPassos = (a) => ((a.passos || []).length ? `<ol class="passos">${a.passos.map((p) => `<li>${esc(p)}</li>`).join("")}</ol>` : "");
 const blocoFaq = (a) =>

@@ -339,7 +339,8 @@
             "Informar endereço.",
             "Informar profissão.",
             "Certidão negativa de débitos trabalhistas."
-          ]
+          ],
+          "colapsavel": true
         },
         {
           "grupo": "Documentos das partes: se pessoa jurídica",
@@ -350,7 +351,8 @@
             "RG, CPF, profissão, estado civil e residência do diretor(es), sócio(s) ou procurador(es) que assinará(ão) a escritura.",
             "Certidão da junta comercial de que não há outras alterações.",
             "Certidão da Justiça do Trabalho (TRT)."
-          ]
+          ],
+          "colapsavel": true
         },
         {
           "grupo": "Documentos das partes: confrontantes tabulares ou de fato",
@@ -362,7 +364,8 @@
             "Informar endereço.",
             "Informar profissão.",
             "Certidão de matrícula ou transcrição atualizada (prazo de 30 dias a partir da data de expedição)."
-          ]
+          ],
+          "colapsavel": true
         },
         {
           "grupo": "Documentos das partes: advogado",
@@ -370,7 +373,8 @@
             "Cópia da carteira profissional – OAB (e apresentação do original).",
             "Informar nacionalidade, estado civil e endereço profissional.",
             "Telefone e e-mail."
-          ]
+          ],
+          "colapsavel": true
         },
         {
           "grupo": "Documentos das partes: engenheiro",
@@ -378,7 +382,8 @@
             "Cópia da carteira profissional – ART/CREA (e apresentação do original).",
             "Telefone e e-mail.",
             "Informar nacionalidade, estado civil e endereço profissional."
-          ]
+          ],
+          "colapsavel": true
         }
       ],
       "verTambem": [

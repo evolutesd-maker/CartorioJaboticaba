@@ -101,7 +101,7 @@ O site é estático (sem servidor, banco ou login) e não usa nenhuma biblioteca
 
 `npm run seguranca` (também parte de `npm test`) reprova o build se aparecer: página sem CSP ou com `unsafe-*`, script/estilo/evento inline, link `http://` ou para domínio fora da lista, `target=_blank` sem `noopener noreferrer`, `eval`/`innerHTML` dinâmico no JS ou cabeçalhos ausentes.
 
-Antes de publicar: use HTTPS (os cabeçalhos assumem isso), mantenha `docs/` como única pasta publicada (não publique `content/` nem `build.mjs`), troque o CNS e os demais dados de demonstração e, se o endereço do site mudar de domínio, preencha `url` em `content/site.json`.
+Antes de publicar: use HTTPS (os cabeçalhos assumem isso), mantenha `docs/` como única pasta publicada (não publique `content/` nem `build.mjs`), troque os demais dados de demonstração e, se o endereço do site mudar de domínio, preencha `url` em `content/site.json`.
 
 ## Skills de design e avaliação
 
