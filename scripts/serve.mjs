@@ -22,7 +22,9 @@ createServer(async (req, res) => {
     res.writeHead(200, { "Content-Type": TIPOS[extname(arquivo)] || "application/octet-stream" });
     res.end(dados);
   } catch {
-    res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
-    res.end("Não encontrado");
+    // Como na hospedagem: endereço inexistente mostra a página 404 do site, com status 404.
+    const pagina = await readFile(join(RAIZ, "404.html")).catch(() => null);
+    res.writeHead(404, { "Content-Type": pagina ? "text/html; charset=utf-8" : "text/plain; charset=utf-8" });
+    res.end(pagina || "Não encontrado");
   }
 }).listen(PORTA, () => console.log(`Pré-visualização em http://localhost:${PORTA}/`));

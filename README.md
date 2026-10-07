@@ -162,3 +162,12 @@ devem ficar em `src/public/`, que é copiado para `docs/` a cada build.
 - `texto` (em cada serviço de Notas) e `textoCartorio` (nas especialidades) guardam, palavra por palavra, o que o Tabelião enviou; aparecem em "Sobre este serviço" e em "Sobre o ...". Idem `content/institucional.json` e a página do e-Notariado. Só correções ortográficas.
 - Correções feitas: "EDUAÇÃO" → "EDUCAÇÃO"; "Direito Hereditários" → "Direitos Hereditários"; "respectivo valores" → "respectivos valores"; espaço antes do ponto em "imóveis) ."; ponto final em frases sem ele; "rviços" → "Serviços". Os títulos de RTD e RCPJ estavam trocados no original (cada texto estava sob o nome do outro) e o texto do RCPJ trazia um "Títulos e Documentos" solto: foram acertados.
 - Pendente do cartório: o texto de **Cessão de Direitos Hereditários – Bem Específico** chegou cortado ("...transferir..."). Aparece com o selo "Texto a completar pelo cartório" e o build recusa publicar enquanto `textoIncompleto` estiver ligado.
+
+
+## Depois de publicar: conferência automática
+
+```
+node scripts/conferir-publicado.mjs https://enderecodosite.com.br/
+```
+
+Percorre todos os links e arquivos internos (status 200), confere se os PDFs baixam como PDF, os cabeçalhos de segurança (CSP, nosniff, referrer, HSTS), se um endereço inexistente mostra a página 404 com status 404 e se `robots.txt` e `sitemap.xml` abrem. Sem dependências. Os cabeçalhos vêm da hospedagem (`docs/_headers` ou `docs/.htaccess`), por isso não aparecem na pré-visualização local.

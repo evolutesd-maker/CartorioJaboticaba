@@ -564,6 +564,15 @@ if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.wr
 });
 atualizar();
 }
+document.addEventListener("click", function (e) {
+var a = e.target.closest && e.target.closest('a[href^="mailto:"]');
+if (!a || a.hasAttribute("data-f-email")) return;
+var endereco = a.getAttribute("href").slice(7).split("?")[0];
+if (!endereco) return;
+var ok = function () { aviso("Se o e-mail não abrir, o endereço foi copiado: " + endereco); };
+if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(endereco).then(ok, function () { aviso("Se o e-mail não abrir, escreva para " + endereco); });
+else aviso("Se o e-mail não abrir, escreva para " + endereco);
+});
 var voltar = document.querySelector(".topo-voltar");
 if (voltar) {
 var anel = voltar;

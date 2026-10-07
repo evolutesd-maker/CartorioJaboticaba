@@ -111,6 +111,14 @@
       "url": "https://www.e-notariado.org.br/customer/certificate-request",
       "icone": "escudo",
       "botao": "Solicitar certificado"
+    },
+    "enotariado": {
+      "titulo": "Plataforma e-Notariado",
+      "orgao": "e-Notariado",
+      "descricao": "Site oficial do e-Notariado, a plataforma do Colégio Notarial do Brasil para atos de cartórios de notas pela internet.",
+      "url": "https://www.e-notariado.org.br/",
+      "icone": "tela",
+      "botao": "Acessar o e-Notariado"
     }
   }
 }

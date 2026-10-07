@@ -640,6 +640,17 @@
     atualizar();
   }
 
+  // ---- Links de e-mail: o navegador não avisa quando não há programa de e-mail; copia o endereço e mostra um aviso ------
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="mailto:"]');
+    if (!a || a.hasAttribute("data-f-email")) return;
+    var endereco = a.getAttribute("href").slice(7).split("?")[0];
+    if (!endereco) return;
+    var ok = function () { aviso("Se o e-mail não abrir, o endereço foi copiado: " + endereco); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(endereco).then(ok, function () { aviso("Se o e-mail não abrir, escreva para " + endereco); });
+    else aviso("Se o e-mail não abrir, escreva para " + endereco);
+  });
+
   // ---- Voltar ao topo (com anel de progresso de leitura) ---------------------------
   var voltar = document.querySelector(".topo-voltar");
   if (voltar) {

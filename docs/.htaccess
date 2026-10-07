@@ -1,5 +1,6 @@
 # Gerado por build.mjs. Requer mod_headers e mod_rewrite.
 Options -Indexes
+ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteCond %{HTTPS} off

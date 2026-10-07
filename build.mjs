@@ -1143,6 +1143,11 @@ for (const ato of atos.values()) {
         <p class="antes">${botaoWhats(c, msg, { classe: "btn btn--claro", rotulo: "Pedir de forma digital" })}<a class="btn btn--vidro" href="${c.u("servicos/" + especialidades[0].slug + ".html")}">Ver os serviços de Notas</a></p>
       </div>
       <div class="bloco" data-reveal>
+        <h3>Plataforma oficial</h3>
+        <p>O atendimento digital é feito pela plataforma do e-Notariado.</p>
+        <p class="antes">${(() => { const l = linksDados.itens.enotariado; return `<a class="btn btn--claro" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.botao)}${icone("diagonal")}<span class="sr-only"> (abre em nova aba, site externo)</span></a>`; })()}</p>
+      </div>
+      <div class="bloco" data-reveal>
         <h3>Certificado digital</h3>
         <p>Para assinar de forma online, é preciso ter o certificado digital do e-Notariado.</p>
         <p class="antes">${(() => { const l = linksDados.itens["certificado-enotariado"]; return `<a class="btn btn--claro" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.botao)}${icone("diagonal")}<span class="sr-only"> (abre em nova aba, site externo)</span></a>`; })()}</p>
@@ -1276,6 +1281,40 @@ function preencher(html, extras = {}) {
   adicionar(c.caminho, layout(c, { titulo: sol.titulo, descricao: "Requerimentos para pedir certidão em nome de outra pessoa: baixe, preencha e assine.", corpo }));
 }
 
+// ---------- Página de erro 404 (links a partir da raiz do site, pois ela é servida em qualquer endereço)
+{
+  const baseUrl = site.url ? new URL(site.url).pathname.replace(/\/?$/, "/") : "/";
+  const c = { caminho: "404.html", raiz: baseUrl, u: (p) => baseUrl + p };
+  const corpo = `
+  ${faixa(c, { trilha: [{ rotulo: "Início", href: "index.html" }, { rotulo: "Página não encontrada" }], eyebrow: "Erro 404", titulo: "Página não encontrada", lead: "O endereço que você abriu não existe ou foi trocado." })}
+  <section class="secao">
+    <div class="container container--leitura">
+      <div class="bloco" data-reveal>
+        <h2>Como continuar</h2>
+        <p class="antes"><a class="btn btn--claro" href="${c.u("index.html")}">Voltar ao início${icone("seta")}</a><a class="btn btn--vidro" href="${c.u("servicos.html")}">Ver todos os serviços</a>${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--vidro", rotulo: "Falar com o cartório" })}</p>
+      </div>
+    </div>
+  </section>`;
+  adicionar(c.caminho, layout(c, { titulo: "Página não encontrada", descricao: "A página que você procura não existe.", corpo, noindex: true }), { noindex: true });
+}
+
+// ---------- Página de erro 404 (links a partir da raiz do site, pois ela é servida em qualquer endereço)
+{
+  const baseUrl = site.url ? new URL(site.url).pathname.replace(/\/?$/, "/") : "/";
+  const c = { caminho: "404.html", raiz: baseUrl, u: (p) => baseUrl + p };
+  const corpo = `
+  ${faixa(c, { trilha: [{ rotulo: "Início", href: "index.html" }, { rotulo: "Página não encontrada" }], eyebrow: "Erro 404", titulo: "Página não encontrada", lead: "O endereço que você abriu não existe ou foi trocado." })}
+  <section class="secao">
+    <div class="container container--leitura">
+      <div class="bloco" data-reveal>
+        <h2>Como continuar</h2>
+        <p class="antes"><a class="btn btn--claro" href="${c.u("index.html")}">Voltar ao início${icone("seta")}</a><a class="btn btn--vidro" href="${c.u("servicos.html")}">Ver todos os serviços</a>${botaoWhats(c, MSG_PADRAO, { classe: "btn btn--vidro", rotulo: "Falar com o cartório" })}</p>
+      </div>
+    </div>
+  </section>`;
+  adicionar(c.caminho, layout(c, { titulo: "Página não encontrada", descricao: "A página que você procura não existe.", corpo, noindex: true }), { noindex: true });
+}
+
 // ---------- Folha de revisão (só em rascunho): reúne todo o conteúdo para o cartório validar
 if (rascunho) {
   const c = ctx("revisao.html");
@@ -1356,7 +1395,7 @@ writeFileSync(
 );
 writeFileSync(
   join(SAIDA, ".htaccess"),
-  `# Gerado por build.mjs. Requer mod_headers e mod_rewrite.\nOptions -Indexes\n<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteCond %{HTTP_HOST} !^localhost(:\\d+)?$\nRewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\nRewriteRule (^|/)\\.(?!well-known) - [F]\n</IfModule>\n<IfModule mod_headers.c>\n${Object.entries(CABECALHOS).map(([k, v]) => `Header always set ${k} "${v}"`).join("\n")}\n<FilesMatch "\\.(css|js|woff2)$">\nHeader set Cache-Control "public, max-age=31536000, immutable"\n</FilesMatch>\n<FilesMatch "\\.(webp|svg|png|jpe?g)$">\nHeader set Cache-Control "public, max-age=2592000"\n</FilesMatch>\n</IfModule>\n`
+  `# Gerado por build.mjs. Requer mod_headers e mod_rewrite.\nOptions -Indexes\nErrorDocument 404 /404.html\n<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteCond %{HTTP_HOST} !^localhost(:\\d+)?$\nRewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\nRewriteRule (^|/)\\.(?!well-known) - [F]\n</IfModule>\n<IfModule mod_headers.c>\n${Object.entries(CABECALHOS).map(([k, v]) => `Header always set ${k} "${v}"`).join("\n")}\n<FilesMatch "\\.(css|js|woff2)$">\nHeader set Cache-Control "public, max-age=31536000, immutable"\n</FilesMatch>\n<FilesMatch "\\.(webp|svg|png|jpe?g)$">\nHeader set Cache-Control "public, max-age=2592000"\n</FilesMatch>\n</IfModule>\n`
 );
 writeFileSync(join(SAIDA, ".nojekyll"), "");
 const contatoSeg = site.emailSeguranca || site.email;
