@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" fill="none">
-<defs><radialGradient id="h"><stop offset="0" stop-color="#fff" stop-opacity=".30"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
+<defs><radialGradient id="h"><stop offset="0" stop-color="#fff" stop-opacity=".34"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
 <g stroke="#fff" stroke-opacity=".10" stroke-width="1" stroke-linecap="round">
 <line x1="150" y1="120" x2="430" y2="300"></line>
 <line x1="150" y1="120" x2="260" y2="560"></line>
@@ -19,22 +19,24 @@
 <line x1="1150" y1="640" x2="1430" y2="780"></line>
 <line x1="1150" y1="640" x2="1000" y2="860"></line>
 <line x1="1430" y1="780" x2="1000" y2="860"></line>
-</g><g fill="#fff">
-<circle cx="150" cy="120" r="2.2" fill-opacity=".38"></circle>
-<circle cx="430" cy="300" r="2.2" fill-opacity=".38"></circle>
-<circle cx="700" cy="110" r="2.2" fill-opacity=".38"></circle>
-<circle cx="980" cy="260" r="2.2" fill-opacity=".38"></circle>
-<circle cx="1250" cy="120" r="2.2" fill-opacity=".38"></circle>
-<circle cx="1480" cy="330" r="2.2" fill-opacity=".38"></circle>
-<circle cx="260" cy="560" r="2.2" fill-opacity=".38"></circle>
-<circle cx="560" cy="680" r="2.2" fill-opacity=".38"></circle>
-<circle cx="860" cy="520" r="2.2" fill-opacity=".38"></circle>
-<circle cx="1150" cy="640" r="2.2" fill-opacity=".38"></circle>
-<circle cx="1430" cy="780" r="2.2" fill-opacity=".38"></circle>
-<circle cx="120" cy="820" r="2.2" fill-opacity=".38"></circle>
-<circle cx="1000" cy="860" r="2.2" fill-opacity=".38"></circle>
 </g>
-<circle cx="700" cy="110" r="26" fill="url(#h)" opacity=".6"></circle>
-<circle cx="860" cy="520" r="26" fill="url(#h)" opacity=".6"></circle>
-<circle cx="1430" cy="780" r="26" fill="url(#h)" opacity=".6"></circle>
+<g fill="#fff">
+<circle cx="150" cy="120" r="2.4" fill-opacity=".45"></circle>
+<circle cx="430" cy="300" r="2.4" fill-opacity=".45"></circle>
+<circle cx="700" cy="110" r="2.4" fill-opacity=".45"></circle>
+<circle cx="980" cy="260" r="2.4" fill-opacity=".45"></circle>
+<circle cx="1250" cy="120" r="2.4" fill-opacity=".45"></circle>
+<circle cx="1480" cy="330" r="2.4" fill-opacity=".45"></circle>
+<circle cx="260" cy="560" r="2.4" fill-opacity=".45"></circle>
+<circle cx="560" cy="680" r="2.4" fill-opacity=".45"></circle>
+<circle cx="860" cy="520" r="2.4" fill-opacity=".45"></circle>
+<circle cx="1150" cy="640" r="2.4" fill-opacity=".45"></circle>
+<circle cx="1430" cy="780" r="2.4" fill-opacity=".45"></circle>
+<circle cx="120" cy="820" r="2.4" fill-opacity=".45"></circle>
+<circle cx="1000" cy="860" r="2.4" fill-opacity=".45"></circle>
+</g>
+<circle cx="700" cy="110" r="28" fill="url(#h)" opacity=".6"></circle>
+<circle cx="860" cy="520" r="28" fill="url(#h)" opacity=".6"></circle>
+<circle cx="1430" cy="780" r="28" fill="url(#h)" opacity=".6"></circle>
+<circle cx="1250" cy="120" r="28" fill="url(#h)" opacity=".6"></circle>
 </svg>

@@ -27,10 +27,10 @@
   --azul-4: #00305a;
   --rede: url("../img/rede-fundo.svg");
   /* Azuis de fundo: tom da imagem de referência do Tabelião (azul vivo, média #0c64b5) */
-  --f-azul: #0e8ad0;
-  --f-azul-2: #0c64b5;
-  --f-azul-3: #0a58a0;
-  --f-azul-4: #0a3f85;
+  --f-azul: #1a98e3;
+  --f-azul-2: #0d6cc5;
+  --f-azul-3: #0b62b0;
+  --f-azul-4: #0b4a99;
   --azul-50: #f1f8fe;
   --azul-100: #e1effb;
   --azul-200: #c4def5;
@@ -817,7 +817,7 @@ a:hover { color: var(--azul-3); }
 .rodape {
   position: relative;
   color: #f5faff;
-  background: radial-gradient(700px 300px at 100% 0%, rgba(14, 145, 208, 0.35), transparent 70%), var(--f-azul-4);
+  background: radial-gradient(700px 300px at 100% 0%, rgba(26, 152, 227, 0.35), transparent 70%), var(--f-azul-4);
   border-top: 4px solid var(--ouro);
 }
 .rodape a { color: #fff; text-decoration-color: rgba(255, 255, 255, 0.35); }
@@ -881,8 +881,8 @@ a:hover { color: var(--ouro-claro); } /* só para fundo azul */
 .downloads a:hover { color: var(--azul-2); }
 
 /* Cabeçalho azul */
-.topo { background: rgba(10, 63, 133, 0.92); border-bottom-color: rgba(255, 255, 255, 0.12); }
-.topo--rolou { background: rgba(9, 57, 120, 0.97); box-shadow: 0 8px 30px -12px rgba(0, 10, 30, 0.6); }
+.topo { background: rgba(11, 74, 153, 0.92); border-bottom-color: rgba(255, 255, 255, 0.12); }
+.topo--rolou { background: rgba(10, 66, 138, 0.97); box-shadow: 0 8px 30px -12px rgba(0, 10, 30, 0.6); }
 .marca, .marca:hover { color: #fff; }
 .marca__texto small { color: #c4def5; }
 .menu__link:not(.btn) { color: #fff; }
@@ -897,18 +897,19 @@ a:hover { color: var(--ouro-claro); } /* só para fundo azul */
 /* Hero: mesma cor de base da página, com brilho no azul da marca */
 .hero {
   background:
-    radial-gradient(900px 520px at 90% 0%, rgba(14, 145, 208, 0.95), transparent 65%),
+    radial-gradient(900px 520px at 90% 0%, rgba(26, 152, 227, 0.95), transparent 65%),
     radial-gradient(700px 420px at -5% 105%, rgba(240, 214, 143, 0.14), transparent 62%),
     linear-gradient(170deg, var(--f-azul-4) 0%, var(--f-azul-2) 85%);
   /* Detalhe futurista discreto: rede de pontos e linhas finas (arquivos próprios, assets/img/rede-*.svg) */
   background-image:
+    linear-gradient(180deg, transparent 62%, var(--f-azul-2) 100%),
     var(--rede),
-    radial-gradient(900px 520px at 90% 0%, rgba(14, 145, 208, 0.95), transparent 65%),
+    radial-gradient(900px 520px at 90% 0%, rgba(26, 152, 227, 0.95), transparent 65%),
     radial-gradient(700px 420px at -5% 105%, rgba(240, 214, 143, 0.14), transparent 62%),
     linear-gradient(170deg, var(--f-azul-4) 0%, var(--f-azul-2) 85%);
   background-repeat: no-repeat;
-  background-position: right center, 0 0, 0 0, 0 0;
-  background-size: auto 115%, auto, auto, auto;
+  background-position: 0 0, right center, 0 0, 0 0, 0 0;
+  background-size: auto, auto 115%, auto, auto, auto;
 }
 
 /* Seções em tons de azul */
@@ -925,7 +926,7 @@ a:hover { color: var(--ouro-claro); } /* só para fundo azul */
     linear-gradient(135deg, var(--f-azul-4) 0%, var(--f-azul-2) 100%);
   background-image:
     var(--rede),
-    radial-gradient(700px 320px at 92% -20%, rgba(14, 145, 208, 0.9), transparent 62%),
+    radial-gradient(700px 320px at 92% -20%, rgba(26, 152, 227, 0.9), transparent 62%),
     radial-gradient(500px 260px at 0% 120%, rgba(240, 214, 143, 0.14), transparent 62%),
     linear-gradient(135deg, var(--f-azul-4) 0%, var(--f-azul-2) 100%);
   background-repeat: no-repeat;
@@ -1438,7 +1439,7 @@ kbd {
 .submenu__buscar:hover { background: rgba(255, 255, 255, 0.12); border-color: #fff; }
 .submenu__buscar .icone { width: 1.1rem; height: 1.1rem; }
 @media (min-width: 75.0625rem) {
-  .submenu { position: absolute; top: calc(100% + 0.75rem); left: 0; z-index: 60; width: min(42rem, calc(100vw - 2rem)); grid-template-columns: 1.15fr 1fr; gap: 1rem 2rem; padding: 1.5rem; background: rgba(9, 57, 120, 0.93); -webkit-backdrop-filter: blur(22px) saturate(1.3); backdrop-filter: blur(22px) saturate(1.3); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 20px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 30px 60px -20px rgba(0, 10, 30, 0.7); }
+  .submenu { position: absolute; top: calc(100% + 0.75rem); left: 0; z-index: 60; width: min(42rem, calc(100vw - 2rem)); grid-template-columns: 1.15fr 1fr; gap: 1rem 2rem; padding: 1.5rem; background: rgba(10, 66, 138, 0.93); -webkit-backdrop-filter: blur(22px) saturate(1.3); backdrop-filter: blur(22px) saturate(1.3); border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 20px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 30px 60px -20px rgba(0, 10, 30, 0.7); }
 }
 @media (min-width: 75.0625rem) and (prefers-reduced-motion: no-preference) { .js .menu__sub.is-aberto .submenu { animation: sobe 0.3s var(--ease) both; } }
 @media (max-width: 75rem) {
