@@ -1397,7 +1397,7 @@ kbd {
 /* ============================================================ Submenu "O que você procura?" */
 
 .menu__sub { position: relative; }
-.menu__sub .menu__link:not(.btn) { display: inline-flex; align-items: center; gap: 0.4rem; border: 0; background: none; font-family: var(--fonte); cursor: pointer; text-align: left; }
+.menu__sub .menu__link:not(.btn) { display: inline-flex; line-height: inherit; align-items: center; gap: 0.4rem; border: 0; background: none; font-family: var(--fonte); cursor: pointer; text-align: left; }
 .menu__sub .menu__link .icone { width: 0.95rem; height: 0.95rem; stroke-width: 2.8; transform: rotate(90deg); transition: transform 0.25s var(--ease); }
 .menu__sub.is-aberto .menu__link .icone { transform: rotate(-90deg); }
 .submenu { display: none; }
@@ -1560,3 +1560,4 @@ kbd {
   .menu__sub--info { position: relative; }
   .submenu--curto { left: auto; right: 0; width: 19rem; }
 }
+@media (min-width: 75.0625rem) { .menu > ul { align-items: center; } }
