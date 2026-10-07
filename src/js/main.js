@@ -426,24 +426,30 @@
 
     // Animação "FLIP": mede antes, aplica o estado novo e anima cada cartão da posição/tamanho antigo para o novo.
     function medir() {
+      // Mede o estado visual atual (inclusive no meio de outra animação) e só então cancela as animações em curso.
+      var medidas = { itens: itens.map(function (it) { return it.getBoundingClientRect(); }), grade: grade ? grade.getBoundingClientRect().height : 0 };
       itens.forEach(function (it) { it.getAnimations().forEach(function (a) { a.cancel(); }); });
       if (grade) grade.getAnimations().forEach(function (a) { a.cancel(); });
-      return { itens: itens.map(function (it) { return it.getBoundingClientRect(); }), grade: grade ? grade.getBoundingClientRect().height : 0 };
+      return medidas;
     }
     function animar(antes) {
+      // Todos os cartões recebem altura/largura explícitas (mesmo os que não mudam) e ficam sem "esticar" com a linha da grade.
+      var anims = [];
+      var depois = itens.map(function (it) { return it.getBoundingClientRect(); });
+      var hGrade = grade ? grade.getBoundingClientRect().height : 0;
+      eb.classList.add("eb--anima");
       itens.forEach(function (it, i) {
-        var a = antes.itens[i], d = it.getBoundingClientRect();
-        var dx = a.left - d.left, dy = a.top - d.top;
-        if (Math.abs(dx) < 1 && Math.abs(dy) < 1 && Math.abs(a.width - d.width) < 1 && Math.abs(a.height - d.height) < 1) return;
-        it.animate([
-          { transform: "translate(" + dx + "px," + dy + "px)", width: a.width + "px", height: a.height + "px", boxSizing: "border-box", overflow: "hidden" },
+        var a = antes.itens[i], d = depois[i];
+        anims.push(it.animate([
+          { transform: "translate(" + (a.left - d.left) + "px," + (a.top - d.top) + "px)", width: a.width + "px", height: a.height + "px", boxSizing: "border-box", overflow: "hidden" },
           { transform: "translate(0px,0px)", width: d.width + "px", height: d.height + "px", boxSizing: "border-box", overflow: "hidden" }
-        ], { duration: 460, easing: suave });
+        ], { duration: 460, easing: suave }));
       });
       if (grade) {
-        var h = grade.getBoundingClientRect().height;
-        if (Math.abs(h - antes.grade) > 1) grade.animate([{ height: antes.grade + "px" }, { height: h + "px" }], { duration: 460, easing: suave });
+        if (Math.abs(hGrade - antes.grade) > 1) anims.push(grade.animate([{ height: antes.grade + "px" }, { height: hGrade + "px" }], { duration: 460, easing: suave }));
       }
+      var fim = function () { eb.classList.remove("eb--anima"); };
+      Promise.all(anims.map(function (x) { return x.finished; })).then(fim, fim);
     }
 
     function aplicar(item, rolar, animado) {
