@@ -317,8 +317,9 @@
         {
           "grupo": "Certidões de feitos ajuizados da situação do imóvel e do domicílio do(s) solicitante(s)",
           "itens": [
-            "Certidão do distribuidor cível, com prazo de vinte anos, em nome (na comarca do imóvel, que não existem ações de litígio ou de quaisquer ações do imóvel caracterizado) do(s) solicitante(s); e/ou do(s) antecessor(es) na posse, se o(s) autor(es) requerer(em) que o tempo deles seja computado com o seu, para atingir o prazo de usucapião; e dos titulares de domínio.",
-            "Quanto aos titulares de domínio, a certidão de distribuição tem de abranger, também, inventários e arrolamentos. A certidão de objeto deve constar: ação referente à posse ou à propriedade; ação de despejo; inventário ou arrolamento de titular de domínio."
+            "a. Certidão do distribuidor cível, com prazo de vinte anos, em nome (na comarca do imóvel, que não existem ações de litígio ou de quaisquer ações do imóvel caracterizado):",
+            "b. Do(s) solicitante(s); e/ou do(s) antecessor(es) na posse, se o(s) autor(es) requerer(em) que o tempo deles seja computado com o seu, para atingir o prazo de usucapião; e dos titulares de domínio.",
+            "Quanto aos titulares de domínio, a certidão de distribuição tem de abranger, também, inventários e arrolamentos. A certidão de objeto constar: a. Ação referente à posse ou à propriedade; b. Ação de despejo; c. Inventário ou arrolamento de titular de domínio."
           ]
         },
         {
@@ -332,12 +333,11 @@
         {
           "grupo": "Documentos das partes: se pessoa física",
           "itens": [
-            "Fotocópia do RG e CPF, inclusive dos cônjuges (e apresentação do original).",
-            "Fotocópia da certidão de casamento (se casado, separado, divorciado ou viúvo).",
-            "Pacto antenupcial registrado, se houver.",
-            "Fotocópia da certidão de óbito (se viúvo).",
-            "Informar endereço.",
-            "Informar profissão.",
+            "Fotocópia do RG e CPF, inclusive dos cônjuges (e apresentação do original);",
+            "Fotocópia da certidão de casamento (se casado, separado, divorciado ou viúvo);",
+            "Pacto antenupcial registrado, se houver;",
+            "Fotocópia da certidão de óbito (se viúvo);",
+            "Informar endereço; informar profissão;",
             "Certidão negativa de débitos trabalhistas."
           ],
           "colapsavel": true
@@ -357,12 +357,10 @@
         {
           "grupo": "Documentos das partes: confrontantes tabulares ou de fato",
           "itens": [
-            "Fotocópia do RG e CPF, inclusive dos cônjuges (e apresentação do original).",
-            "Fotocópia da certidão de casamento (se casado, separado, divorciado ou viúvo).",
-            "Pacto antenupcial registrado, se houver.",
-            "Fotocópia da certidão de óbito (se viúvo).",
-            "Informar endereço.",
-            "Informar profissão.",
+            "Fotocópia do RG e CPF, inclusive dos cônjuges (e apresentação do original);",
+            "Fotocópia da certidão de casamento (se casado, separado, divorciado ou viúvo);",
+            "Pacto antenupcial registrado, se houver; fotocópia da certidão de óbito (se viúvo);",
+            "Informar endereço; informar profissão;",
             "Certidão de matrícula ou transcrição atualizada (prazo de 30 dias a partir da data de expedição)."
           ],
           "colapsavel": true
