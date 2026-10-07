@@ -899,6 +899,15 @@ a:hover { color: var(--ouro-claro); } /* só para fundo azul */
     radial-gradient(900px 520px at 90% 0%, rgba(14, 145, 208, 0.95), transparent 65%),
     radial-gradient(700px 420px at -5% 105%, rgba(240, 214, 143, 0.14), transparent 62%),
     linear-gradient(170deg, var(--f-azul-4) 0%, var(--f-azul-2) 85%);
+  /* Detalhe futurista discreto: rede de pontos e linhas finas (arquivo próprio, assets/img/rede.svg) */
+  background-image:
+    url("../img/rede.svg"),
+    radial-gradient(900px 520px at 90% 0%, rgba(14, 145, 208, 0.95), transparent 65%),
+    radial-gradient(700px 420px at -5% 105%, rgba(240, 214, 143, 0.14), transparent 62%),
+    linear-gradient(170deg, var(--f-azul-4) 0%, var(--f-azul-2) 85%);
+  background-repeat: no-repeat;
+  background-position: right center, 0 0, 0 0, 0 0;
+  background-size: auto 115%, auto, auto, auto;
 }
 
 /* Seções em tons de azul */
@@ -912,7 +921,15 @@ a:hover { color: var(--ouro-claro); } /* só para fundo azul */
 .faixa { background:
     radial-gradient(700px 320px at 92% -20%, rgba(0, 120, 215, 0.9), transparent 62%),
     radial-gradient(500px 260px at 0% 120%, rgba(240, 214, 143, 0.14), transparent 62%),
-    linear-gradient(135deg, var(--f-azul-4) 0%, var(--f-azul-2) 100%); }
+    linear-gradient(135deg, var(--f-azul-4) 0%, var(--f-azul-2) 100%);
+  background-image:
+    url("../img/rede.svg"),
+    radial-gradient(700px 320px at 92% -20%, rgba(14, 145, 208, 0.9), transparent 62%),
+    radial-gradient(500px 260px at 0% 120%, rgba(240, 214, 143, 0.14), transparent 62%),
+    linear-gradient(135deg, var(--f-azul-4) 0%, var(--f-azul-2) 100%);
+  background-repeat: no-repeat;
+  background-position: right center, 0 0, 0 0, 0 0;
+  background-size: auto 190%, auto, auto, auto; }
 
 /* Textos soltos sobre o azul */
 .resumo-ato, .prosa { color: #fff; }
