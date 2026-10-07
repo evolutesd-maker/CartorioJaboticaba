@@ -33,27 +33,71 @@
   }
 
   // ---- Menu (celular) --------------------------------------------------
+  // Fecha ao tocar no botão, fora do menu, ao arrastar para o lado, com Esc e com o "voltar" do celular.
   var botao = document.querySelector(".menu-btn");
   var menu = document.getElementById("menu-principal");
   if (botao && menu) {
-    var alternar = function (abrir) {
+    var noHistorico = false; // true quando o menu aberto tem uma entrada própria no histórico
+    var estaAberto = function () { return botao.getAttribute("aria-expanded") === "true"; };
+    var alternar = function (abrir, viaHistorico) {
       botao.setAttribute("aria-expanded", String(abrir));
       menu.classList.toggle("is-aberto", abrir);
       var topo = menu.closest(".topo");
-      if (abrir && topo) {
-        var y = topo.getBoundingClientRect().top;
-        if (y > 0) window.scrollBy({ top: y, behavior: "instant" });
+      if (abrir) {
+        if (topo) {
+          var y = topo.getBoundingClientRect().top;
+          if (y > 0) window.scrollBy({ top: y, behavior: "instant" });
+        }
+        if (!noHistorico) {
+          try { history.pushState({ menu: 1 }, ""); noHistorico = true; } catch (_) { /* sem histórico: só não fecha com "voltar" */ }
+        }
+      } else if (noHistorico && !viaHistorico) {
+        noHistorico = false;
+        history.back();
       }
     };
-    botao.addEventListener("click", function () {
-      alternar(botao.getAttribute("aria-expanded") !== "true");
+    botao.addEventListener("click", function () { alternar(!estaAberto()); });
+    // "Voltar" (botão ou gesto do sistema) fecha o menu em vez de sair da página.
+    window.addEventListener("popstate", function () {
+      noHistorico = false;
+      if (estaAberto()) alternar(false, true);
     });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && botao.getAttribute("aria-expanded") === "true") {
+      if (e.key === "Escape" && estaAberto()) {
         alternar(false);
         botao.focus();
       }
     });
+    // Toque fora do cabeçalho: só fecha o menu, sem acionar o que estava embaixo.
+    document.addEventListener("click", function (e) {
+      if (estaAberto() && !e.target.closest(".topo")) {
+        e.preventDefault();
+        e.stopPropagation();
+        alternar(false);
+      }
+    }, true);
+    // Link do menu: desfaz a entrada do histórico antes de navegar, para o "voltar" da próxima página não precisar de dois toques.
+    menu.addEventListener("click", function (e) {
+      var a = e.target.closest("a[href]");
+      if (!a || !noHistorico || a.target || a.hasAttribute("download") || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var destino = a.href;
+      e.preventDefault();
+      var ir = function () { window.removeEventListener("popstate", ir); location.href = destino; };
+      window.addEventListener("popstate", ir);
+      setTimeout(ir, 400);
+      noHistorico = false;
+      history.back();
+    });
+    // Arrastar para o lado fecha o menu.
+    var toqueX = 0, toqueY = 0;
+    document.addEventListener("touchstart", function (e) {
+      if (e.touches.length === 1) { toqueX = e.touches[0].clientX; toqueY = e.touches[0].clientY; }
+    }, { passive: true });
+    document.addEventListener("touchend", function (e) {
+      if (!estaAberto() || !e.changedTouches.length) return;
+      var dx = e.changedTouches[0].clientX - toqueX, dy = e.changedTouches[0].clientY - toqueY;
+      if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) alternar(false);
+    }, { passive: true });
   }
 
   // ---- Submenu "O que você procura?" -------------------------------------------

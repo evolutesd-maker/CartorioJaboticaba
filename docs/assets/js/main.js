@@ -25,24 +25,63 @@ return termos.filter(function (t) { return indice.indexOf(t) !== -1; }).length;
 var botao = document.querySelector(".menu-btn");
 var menu = document.getElementById("menu-principal");
 if (botao && menu) {
-var alternar = function (abrir) {
+var noHistorico = false; // true quando o menu aberto tem uma entrada própria no histórico
+var estaAberto = function () { return botao.getAttribute("aria-expanded") === "true"; };
+var alternar = function (abrir, viaHistorico) {
 botao.setAttribute("aria-expanded", String(abrir));
 menu.classList.toggle("is-aberto", abrir);
 var topo = menu.closest(".topo");
-if (abrir && topo) {
+if (abrir) {
+if (topo) {
 var y = topo.getBoundingClientRect().top;
 if (y > 0) window.scrollBy({ top: y, behavior: "instant" });
 }
+if (!noHistorico) {
+try { history.pushState({ menu: 1 }, ""); noHistorico = true; } catch (_) {  }
+}
+} else if (noHistorico && !viaHistorico) {
+noHistorico = false;
+history.back();
+}
 };
-botao.addEventListener("click", function () {
-alternar(botao.getAttribute("aria-expanded") !== "true");
+botao.addEventListener("click", function () { alternar(!estaAberto()); });
+window.addEventListener("popstate", function () {
+noHistorico = false;
+if (estaAberto()) alternar(false, true);
 });
 document.addEventListener("keydown", function (e) {
-if (e.key === "Escape" && botao.getAttribute("aria-expanded") === "true") {
+if (e.key === "Escape" && estaAberto()) {
 alternar(false);
 botao.focus();
 }
 });
+document.addEventListener("click", function (e) {
+if (estaAberto() && !e.target.closest(".topo")) {
+e.preventDefault();
+e.stopPropagation();
+alternar(false);
+}
+}, true);
+menu.addEventListener("click", function (e) {
+var a = e.target.closest("a[href]");
+if (!a || !noHistorico || a.target || a.hasAttribute("download") || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+var destino = a.href;
+e.preventDefault();
+var ir = function () { window.removeEventListener("popstate", ir); location.href = destino; };
+window.addEventListener("popstate", ir);
+setTimeout(ir, 400);
+noHistorico = false;
+history.back();
+});
+var toqueX = 0, toqueY = 0;
+document.addEventListener("touchstart", function (e) {
+if (e.touches.length === 1) { toqueX = e.touches[0].clientX; toqueY = e.touches[0].clientY; }
+}, { passive: true });
+document.addEventListener("touchend", function (e) {
+if (!estaAberto() || !e.changedTouches.length) return;
+var dx = e.changedTouches[0].clientX - toqueX, dy = e.changedTouches[0].clientY - toqueY;
+if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) alternar(false);
+}, { passive: true });
 }
 document.querySelectorAll("[data-sub]").forEach(function (sub) {
 var link = sub.querySelector("[data-sub-link]");
