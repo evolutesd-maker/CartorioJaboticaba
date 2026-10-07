@@ -856,8 +856,8 @@ for (const esp of especialidades) {
 }
 
 // ---------- Páginas de ato (com requisitos)
-const DEFAULT_PRAZO = "O cartório informa o prazo no atendimento, conforme o ato e a documentação apresentada.";
-const DEFAULT_CUSTO = "Os valores (emolumentos) são fixados por lei e variam conforme o ato. O cartório informa o valor exato antes de você iniciar.";
+const DEFAULT_PRAZO = "Verificar com o cartório.";
+const DEFAULT_CUSTO = "Verificar com o cartório.";
 
 const tamanhoArquivo = (arq) => {
   const kb = statSync(join(RAIZ, "content/modelos", arq)).size / 1024;

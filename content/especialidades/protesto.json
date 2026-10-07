@@ -45,7 +45,6 @@
         "Escolha entre a consulta e a certidão formal de protesto.",
         "Retire o resultado no prazo informado pelo cartório."
       ],
-      "prazo": "A lei fixa prazo máximo para a emissão de certidões. O cartório informa quando ficará pronta.",
       "perguntas": [
         {
           "p": "A consulta é gratuita?",
@@ -168,7 +167,6 @@
         "O cartório analisa e efetua o cancelamento.",
         "Peça a certidão de cancelamento, se precisar comprovar."
       ],
-      "custo": "Em regra, quem pede o cancelamento paga os emolumentos. O cartório informa o valor.",
       "perguntas": [
         {
           "p": "Paguei direto ao credor. O nome sai sozinho?",
@@ -243,7 +241,6 @@
         "O cartório intima o devedor para pagar.",
         "Se o devedor pagar, o valor é repassado a você. Se não pagar no prazo, o protesto é registrado."
       ],
-      "custo": "O cartório informa quem paga os emolumentos e em que momento, conforme o caso.",
       "perguntas": [
         {
           "p": "O cartório cobra a dívida?",

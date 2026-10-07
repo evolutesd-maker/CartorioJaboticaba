@@ -65,8 +65,6 @@
         "Informe o nome escolhido e confira os dados antes de assinar.",
         "Retire a primeira certidão de nascimento, gratuita."
       ],
-      "custo": "O registro de nascimento e a primeira certidão são gratuitos.",
-      "prazo": "Em geral, a certidão é entregue no próprio atendimento. O cartório confirma.",
       "perguntas": [
         {
           "p": "Quem pode fazer o registro?",
@@ -138,7 +136,6 @@
         "Pague os emolumentos, se houver, e aguarde a emissão.",
         "Retire a certidão ou combine a entrega."
       ],
-      "custo": "A primeira certidão de nascimento e de óbito é gratuita. Segundas vias e certidões de casamento são cobradas conforme a tabela de emolumentos. Quem não pode pagar pode declarar essa condição, conforme a lei.",
       "perguntas": [
         {
           "p": "A certidão de inteiro teor é diferente?",
@@ -282,7 +279,6 @@
         "Informe os dados e confira tudo antes de assinar.",
         "Retire a certidão de óbito, gratuita na primeira via."
       ],
-      "custo": "O registro de óbito e a primeira certidão são gratuitos.",
       "perguntas": [
         {
           "p": "Onde fazer o registro?",
