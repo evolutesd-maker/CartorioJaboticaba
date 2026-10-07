@@ -264,7 +264,7 @@ function dadosContato({ email = true } = {}) {
   const zap = site.whatsapp
     ? `<a href="${esc(waUrl(MSG_PADRAO))}" target="_blank" rel="noopener noreferrer">${esc(site.whatsapp)}</a>`
     : aConfirmar("WhatsApp a confirmar");
-  if (zap) linhas.push(`<div><dt>${icone("chat")}WhatsApp</dt><dd>${zap}</dd></div>`);
+  if (zap) linhas.push(`<div><dt>${icone("chat")}WhatsApp</dt><dd>${zap}${site.whatsapp && site.whatsappHorario ? `<br><span class="nota-pequena">Responde ${esc(site.whatsappHorario)}</span>` : ""}</dd></div>`);
 
   if (email) {
     const mail = site.email ? `<a href="mailto:${esc(site.email)}">${esc(site.email)}</a>` : aConfirmar("E-mail a confirmar");
@@ -407,7 +407,7 @@ function faixa(c, { trilha, eyebrow, titulo, sub, lead, deco }) {
 const rodapeCanais = () => {
   const l = [];
   l.push(site.telefone ? `<li>Telefone: <a href="${telHref}">${esc(site.telefone)}</a></li>` : rascunho ? `<li>${aConfirmar("Telefone a confirmar")}</li>` : "");
-  l.push(site.whatsapp ? `<li>WhatsApp: <a href="${esc(waUrl(MSG_PADRAO))}" target="_blank" rel="noopener noreferrer">${esc(site.whatsapp)}</a></li>` : rascunho ? `<li>${aConfirmar("WhatsApp a confirmar")}</li>` : "");
+  l.push(site.whatsapp ? `<li>WhatsApp: <a href="${esc(waUrl(MSG_PADRAO))}" target="_blank" rel="noopener noreferrer">${esc(site.whatsapp)}</a>${site.whatsappHorario ? ` (responde ${esc(site.whatsappHorario)})` : ""}</li>` : rascunho ? `<li>${aConfirmar("WhatsApp a confirmar")}</li>` : "");
   l.push(site.email ? `<li>E-mail: <a href="mailto:${esc(site.email)}">${esc(site.email)}</a></li>` : rascunho ? `<li>${aConfirmar("E-mail a confirmar")}</li>` : "");
   return l.join("");
 };
@@ -1216,7 +1216,7 @@ function preencher(html, extras = {}) {
   const dpo = site.encarregadoLgpd || {};
   const mailto = (e) => `<a href="mailto:${esc(e)}">${esc(e)}</a>`;
   const encarregado = dpo.email
-    ? `${dpo.nome ? esc(dpo.nome) + ", " : ""}${mailto(dpo.email)}${dpo.telefone ? `, ${esc(dpo.telefone)}` : ""}`
+    ? `${dpo.nome ? esc(dpo.nome) + ", " : ""}${mailto(dpo.email)}${dpo.emailAdicional ? ` e ${mailto(dpo.emailAdicional)}` : ""}${dpo.telefone ? `, ${esc(dpo.telefone)}` : ""}`
     : aConfirmar("a confirmar com o cartório");
   const vars = {
     avisoRevisao: rascunho
@@ -1229,7 +1229,7 @@ function preencher(html, extras = {}) {
     encarregado,
     emailCartorio: site.email ? mailto(site.email) : aConfirmar("e-mail a confirmar"),
     telefoneCartorio: site.telefone && telHref ? `<a href="${telHref}">${esc(site.telefone)}</a>` : aConfirmar("telefone a confirmar"),
-    emailDpo: dpo.email ? mailto(dpo.email) : aConfirmar("a confirmar"),
+    emailDpo: dpo.email ? mailto(dpo.email) + (dpo.emailAdicional ? ` e ${mailto(dpo.emailAdicional)}` : "") : aConfirmar("a confirmar"),
     telefoneDpo: dpo.telefone ? esc(dpo.telefone) : aConfirmar("a confirmar"),
     atualizadoEm: site.privacidadeAtualizadaEm ? dataBr(site.privacidadeAtualizadaEm) : aConfirmar("data a confirmar"),
     especialidades: `<ul>${especialidades.map((e) => `<li><strong>${esc(e.nomeCompleto)}:</strong> ${esc(e.resumo)}</li>`).join("")}</ul>`,

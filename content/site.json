@@ -4,7 +4,7 @@
   "chamada": "Cartório · Jaboticaba/RS",
   "url": null,
   "endereco": {
-    "logradouro": "Rua Victielo Bisognin",
+    "logradouro": "Rua Victelio Bisognin",
     "numero": "227",
     "bairro": "Centro",
     "cidade": "Jaboticaba",
@@ -17,7 +17,11 @@
   "horario": [
     {
       "dias": "Segunda a sexta",
-      "horas": "8h30 às 11h45 e 13h30 às 17h15"
+      "horas": "9h às 17h"
+    },
+    {
+      "dias": "Registro de óbitos, inclusive em feriados",
+      "horas": "8h às 20h"
     }
   ],
   "horarioObservacao": null,
@@ -26,7 +30,8 @@
   "encarregadoLgpd": {
     "nome": "Ceprotec – Processamento de Dados",
     "email": "dpo@ceprotec.com.br",
-    "telefone": "54 99918-5207"
+    "telefone": "54 99918-5207",
+    "emailAdicional": "jaimeloe@gmail.com"
   },
   "privacidadeAtualizadaEm": "2026-04-20",
   "emailFormulario": "cartorio.jaboticaba@gmail.com",
@@ -40,14 +45,11 @@
     ],
     "turnos": [
       [
-        "08:30",
-        "11:45"
-      ],
-      [
-        "13:30",
-        "17:15"
+        "09:00",
+        "17:00"
       ]
     ],
     "fuso": "America/Sao_Paulo"
-  }
+  },
+  "whatsappHorario": "das 9h às 17h"
 }
