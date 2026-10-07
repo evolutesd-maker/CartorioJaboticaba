@@ -74,7 +74,7 @@ e aparece no site com o selo "Em validação pelo cartório".
 
 ### Funil "Fale com o cartório"
 
-Aparece no fim de todas as páginas, antes do rodapé: nome → especialidade → documento/serviço → WhatsApp ou e-mail. A mensagem é montada no navegador ("Olá, sou ... Gostaria de falar com o setor de ..., pois preciso de ... Aguardo atendimento."). As opções vêm das especialidades e atos de `content/especialidades/`. O WhatsApp usa `whatsapp` e o e-mail usa `emailFormulario` (ou `email`) de `content/site.json`. Hoje `emailFormulario` é um endereço de teste: troque pelo do cartório antes de publicar.
+Aparece no fim de todas as páginas, antes do rodapé: nome → especialidade → documento/serviço → WhatsApp ou e-mail. A mensagem é montada no navegador ("Olá, sou ... Gostaria de falar com o setor de ..., pois preciso de ... Aguardo atendimento."). As opções vêm das especialidades e atos de `content/especialidades/`. O WhatsApp usa `whatsapp` e o e-mail usa `emailFormulario` (ou `email`) de `content/site.json`. Hoje `emailFormulario` é o e-mail do cartório (o mesmo de `email`).
 
 ### Lista de especialidades da página inicial
 
@@ -101,7 +101,7 @@ O site é estático (sem servidor, banco ou login) e não usa nenhuma biblioteca
 
 `npm run seguranca` (também parte de `npm test`) reprova o build se aparecer: página sem CSP ou com `unsafe-*`, script/estilo/evento inline, link `http://` ou para domínio fora da lista, `target=_blank` sem `noopener noreferrer`, `eval`/`innerHTML` dinâmico no JS ou cabeçalhos ausentes.
 
-Antes de publicar: use HTTPS (os cabeçalhos assumem isso), mantenha `docs/` como única pasta publicada (não publique `content/` nem `build.mjs`), troque `emailFormulario` e os dados de demonstração e, se o endereço do site mudar de domínio, preencha `url` em `content/site.json`.
+Antes de publicar: use HTTPS (os cabeçalhos assumem isso), mantenha `docs/` como única pasta publicada (não publique `content/` nem `build.mjs`), troque o CNS e os demais dados de demonstração e, se o endereço do site mudar de domínio, preencha `url` em `content/site.json`.
 
 ## Skills de design e avaliação
 

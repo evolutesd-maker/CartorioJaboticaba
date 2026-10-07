@@ -312,7 +312,9 @@ a:hover { color: var(--azul-3); }
     cursor: pointer;
   }
   .js .menu { display: none; }
-  .js .menu.is-aberto { display: flex; max-height: calc(100vh - 5.5rem); max-height: calc(100dvh - 5.5rem); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .js .menu.is-aberto { display: flex; }
+  /* Menu aberto mais alto que a tela: o cabeçalho inteiro rola por dentro, sem depender da altura da marca */
+  .js .topo:has(.menu.is-aberto) { max-height: 100vh; max-height: 100dvh; overflow-y: auto; overscroll-behavior: contain; }
   html:not(.js) .topo { position: static; } /* sem JS o menu fica aberto e alto: o cabeçalho rola junto com a página */
 }
 
@@ -1562,3 +1564,8 @@ kbd {
   .submenu--curto { left: auto; right: 0; width: 19rem; }
 }
 @media (min-width: 75.0625rem) { .menu > ul { align-items: center; } }
+
+/* Telas de toque: links de texto com área de toque confortável */
+@media (pointer: coarse) {
+  .antes a, .trilha a, .rodape li a, .rodape__canais a, .rodape__fim a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+}

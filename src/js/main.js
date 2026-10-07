@@ -39,6 +39,11 @@
     var alternar = function (abrir) {
       botao.setAttribute("aria-expanded", String(abrir));
       menu.classList.toggle("is-aberto", abrir);
+      var topo = menu.closest(".topo");
+      if (abrir && topo) {
+        var y = topo.getBoundingClientRect().top;
+        if (y > 0) window.scrollBy({ top: y, behavior: "instant" });
+      }
     };
     botao.addEventListener("click", function () {
       alternar(botao.getAttribute("aria-expanded") !== "true");

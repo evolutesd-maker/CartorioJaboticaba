@@ -1256,7 +1256,7 @@ function preencher(html, extras = {}) {
     cns: site.cns ? esc(site.cns) : aConfirmar("a confirmar"),
     encarregado,
     emailCartorio: site.email ? mailto(site.email) : aConfirmar("e-mail a confirmar"),
-    telefoneCartorio: site.whatsapp ? esc(site.whatsapp) : aConfirmar("telefone a confirmar"),
+    telefoneCartorio: site.telefone && telHref ? `<a href="${telHref}">${esc(site.telefone)}</a>` : aConfirmar("telefone a confirmar"),
     emailDpo: dpo.email ? mailto(dpo.email) : aConfirmar("a confirmar"),
     telefoneDpo: dpo.telefone ? esc(dpo.telefone) : aConfirmar("a confirmar"),
     atualizadoEm: site.privacidadeAtualizadaEm ? dataBr(site.privacidadeAtualizadaEm) : aConfirmar("data a confirmar"),
