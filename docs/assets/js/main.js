@@ -545,6 +545,20 @@ fDica.textContent = !x.nome ? "Diga primeiro o seu nome." : !x.esp ? "Escolha o 
 }
 });
 });
+bMail.addEventListener("click", function () {
+if (bMail.getAttribute("aria-disabled") === "true") return;
+var saiu = false;
+var marcar = function () { saiu = true; };
+window.addEventListener("blur", marcar, { once: true });
+document.addEventListener("visibilitychange", marcar, { once: true });
+setTimeout(function () {
+window.removeEventListener("blur", marcar);
+document.removeEventListener("visibilitychange", marcar);
+if (saiu || !ultimaMsg) return;
+fDica.textContent = "Seu programa de e-mail não abriu. Copiamos a mensagem: envie para " + d.mail + ".";
+bCopiar.click();
+}, 1500);
+});
 bCopiar.addEventListener("click", function () {
 if (!ultimaMsg) { fDica.textContent = "Preencha os passos para copiar a mensagem."; return; }
 var ok = function () { aviso("Mensagem copiada"); };
