@@ -421,7 +421,33 @@
     var itens = Array.prototype.slice.call(eb.querySelectorAll("[data-eb-item]"));
     var atual = null;
 
-    function aplicar(item, rolar) {
+    var grade = eb.querySelector(".eb__grade");
+    var suave = "cubic-bezier(0.22, 1, 0.36, 1)";
+
+    // Animação "FLIP": mede antes, aplica o estado novo e anima cada cartão da posição/tamanho antigo para o novo.
+    function medir() {
+      itens.forEach(function (it) { it.getAnimations().forEach(function (a) { a.cancel(); }); });
+      if (grade) grade.getAnimations().forEach(function (a) { a.cancel(); });
+      return { itens: itens.map(function (it) { return it.getBoundingClientRect(); }), grade: grade ? grade.getBoundingClientRect().height : 0 };
+    }
+    function animar(antes) {
+      itens.forEach(function (it, i) {
+        var a = antes.itens[i], d = it.getBoundingClientRect();
+        var dx = a.left - d.left, dy = a.top - d.top;
+        if (Math.abs(dx) < 1 && Math.abs(dy) < 1 && Math.abs(a.width - d.width) < 1 && Math.abs(a.height - d.height) < 1) return;
+        it.animate([
+          { transform: "translate(" + dx + "px," + dy + "px)", width: a.width + "px", height: a.height + "px", boxSizing: "border-box", overflow: "hidden" },
+          { transform: "translate(0px,0px)", width: d.width + "px", height: d.height + "px", boxSizing: "border-box", overflow: "hidden" }
+        ], { duration: 460, easing: suave });
+      });
+      if (grade) {
+        var h = grade.getBoundingClientRect().height;
+        if (Math.abs(h - antes.grade) > 1) grade.animate([{ height: antes.grade + "px" }, { height: h + "px" }], { duration: 460, easing: suave });
+      }
+    }
+
+    function aplicar(item, rolar, animado) {
+      var antes = animado && !semMovimento && itens[0].animate ? medir() : null;
       atual = item;
       eb.classList.toggle("eb--aberto", !!item);
       itens.forEach(function (it) {
@@ -433,6 +459,7 @@
       try {
         history.replaceState(null, "", item ? "#" + item.id : location.pathname + location.search);
       } catch (_) { /* sem histórico: segue funcionando */ }
+      if (antes) animar(antes);
       if (rolar) eb.scrollIntoView({ behavior: semMovimento ? "auto" : "smooth", block: "start" });
     }
 
@@ -448,13 +475,13 @@
       while (link.firstChild) botao.appendChild(link.firstChild);
       link.replaceWith(botao);
       painel.hidden = true;
-      botao.addEventListener("click", function () { aplicar(atual === item ? null : item, true); });
+      botao.addEventListener("click", function () { aplicar(atual === item ? null : item, true, true); });
     });
     eb.querySelectorAll("[data-eb-fechar]").forEach(function (b) {
-      b.addEventListener("click", function () { aplicar(null, true); });
+      b.addEventListener("click", function () { aplicar(null, true, true); });
     });
     eb.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && atual) { var ant = atual; aplicar(null, false); ant.querySelector("[data-eb-cartao]").focus(); }
+      if (e.key === "Escape" && atual) { var ant = atual; aplicar(null, false, true); ant.querySelector("[data-eb-cartao]").focus(); }
     });
 
     var alvo = location.hash && itens.filter(function (it) { return "#" + it.id === location.hash; })[0];
