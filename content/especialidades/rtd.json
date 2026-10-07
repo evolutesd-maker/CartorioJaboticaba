@@ -58,7 +58,12 @@
           "r": "O cartório confere os requisitos formais. Ele não julga se o negócio é bom ou justo para uma das partes."
         }
       ],
-      "modelos": [],
+      "modelos": [
+        {
+          "titulo": "Requerimento de registro (RTD)",
+          "arquivo": "requerimento-rtd.pdf"
+        }
+      ],
       "verTambem": [
         "rtd/certidao-rtd",
         "rtd/notificacao-extrajudicial"

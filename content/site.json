@@ -11,9 +11,9 @@
     "uf": "RS",
     "cep": "98350-000"
   },
-  "telefone": "(55) 3000-1234",
-  "whatsapp": "(55) 99999-0000",
-  "email": "contato@tabelionatojaboticaba.exemplo",
+  "telefone": "(55) 98409-1301",
+  "whatsapp": "(55) 98409-1301",
+  "email": "cartorio.jaboticaba@gmail.com",
   "horario": [
     {
       "dias": "Segunda a sexta",
@@ -24,10 +24,11 @@
   "titular": "Jaime Luiz Loeblein",
   "cns": "00.000-0",
   "encarregadoLgpd": {
-    "nome": "Fulano de Tal (fictício)",
-    "email": "privacidade@tabelionatojaboticaba.exemplo"
+    "nome": "Ceprotec – Processamento de Dados",
+    "email": "dpo@ceprotec.com.br",
+    "telefone": "54 99918-5207"
   },
-  "privacidadeAtualizadaEm": "2026-10-03",
+  "privacidadeAtualizadaEm": "2026-04-20",
   "emailFormulario": "jg.fridhein@gmail.com",
   "expediente": {
     "dias": [

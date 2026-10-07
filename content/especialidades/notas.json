@@ -39,37 +39,30 @@
       "quando": "Em regra, a lei exige escritura pública para a compra e venda de imóveis de valor superior a 30 salários mínimos. Para valores menores, consulte o cartório.",
       "documentos": [
         {
-          "grupo": "De quem vende e de quem compra (de cada pessoa)",
+          "grupo": "Documentos do comprador e do vendedor (pessoa física)",
           "itens": [
-            "Documento de identificação oficial com foto (RG ou CNH), original",
-            "CPF",
-            {
-              "texto": "Certidão de estado civil atualizada (nascimento, se solteiro; casamento, se casado; casamento com averbação, se divorciado; óbito do cônjuge, se viúvo)",
-              "obs": "O cartório informa o prazo de validade aceito."
-            },
-            "Comprovante de residência recente",
-            "Se for casado(a) ou viver em união estável: documentos do cônjuge ou companheiro(a) e pacto antenupcial, quando houver"
+            "Identificação: RG e CPF ou CNH originais.",
+            "Estado civil, solteiros: certidão de nascimento.",
+            "Estado civil, casados: certidão de casamento e documentos de identidade do cônjuge (CPF e RG).",
+            "Estado civil, divorciados ou viúvos: certidão de casamento com a respectiva averbação de divórcio ou certidão de óbito do cônjuge.",
+            "Profissão e endereço: informar profissão atual e apresentar comprovante de residência.",
+            "Pacto antenupcial: obrigatório para regimes de bens que o exijam (como separação total de bens e comunhão universal de bens)."
           ]
         },
         {
-          "grupo": "Do imóvel",
+          "grupo": "Documentos do imóvel (urbano)",
           "itens": [
-            {
-              "texto": "Certidão de matrícula atualizada do imóvel, emitida pelo Registro de Imóveis",
-              "obs": "Deve ter data recente; o cartório informa a validade aceita."
-            },
-            "Certidão negativa de débitos de IPTU e outros tributos municipais do imóvel (imóvel urbano)",
-            {
-              "texto": "Comprovante de pagamento do ITBI (imposto municipal sobre a transferência)",
-              "obs": "O cartório orienta se o pagamento deve ser feito antes ou depois da escritura."
-            },
-            "Imóvel rural: CCIR atualizado, comprovantes do ITR e outros documentos. O cartório informa a lista completa."
+            "Matrícula atualizada: certidão de teor da matrícula emitida pelo Cartório de Registro de Imóveis (com validade de até 30 dias).",
+            "Regularidade fiscal (municipal): certidão negativa de débitos de IPTU ou guias de recolhimento quitadas do ano vigente.",
+            "Declaração de quitação condominial: se o imóvel for apartamento, declaração assinada pelo síndico atestando a ausência de débitos condominiais."
           ]
         },
         {
-          "grupo": "Se alguém for representado por procurador",
+          "grupo": "Observações",
           "itens": [
-            "Procuração com poderes específicos para comprar ou vender, e documentos do procurador"
+            "Nota: caso uma das partes seja pessoa jurídica ou o imóvel seja rural, há exigências extras, como contrato social, CCIR e ITR e CAR.",
+            "Matrícula atualizada do imóvel e certidão de estado civil atualizada das partes: verificar com o cartório.",
+            "Informar se a escritura será assinada digitalmente ou presencialmente."
           ]
         }
       ],
@@ -126,7 +119,36 @@
         "filhos",
         "imovel"
       ],
-      "documentos": [],
+      "documentos": [
+        {
+          "grupo": "Documentos dos doadores e dos donatários (pessoa física)",
+          "itens": [
+            "Identificação: RG e CPF ou CNH originais.",
+            "Estado civil, solteiros: certidão de nascimento.",
+            "Estado civil, casados: certidão de casamento e documentos de identidade do cônjuge (CPF e RG).",
+            "Estado civil, divorciados ou viúvos: certidão de casamento com a respectiva averbação de divórcio ou certidão de óbito do cônjuge.",
+            "Profissão e endereço: informar profissão atual e apresentar comprovante de residência.",
+            "Pacto antenupcial: obrigatório para regimes de bens que o exijam (como separação total de bens e comunhão universal de bens)."
+          ]
+        },
+        {
+          "grupo": "Documentos do imóvel (urbano)",
+          "itens": [
+            "Matrícula atualizada: certidão de teor da matrícula emitida pelo Cartório de Registro de Imóveis (com validade de até 30 dias).",
+            "Regularidade fiscal (municipal): certidão negativa de débitos de IPTU ou guias de recolhimento quitadas do ano vigente.",
+            "Declaração de quitação condominial: se o imóvel for apartamento, declaração assinada pelo síndico atestando a ausência de débitos condominiais."
+          ]
+        },
+        {
+          "grupo": "Observações",
+          "itens": [
+            "Nota: caso uma das partes seja pessoa jurídica ou o imóvel seja rural, há exigências extras, como contrato social, CCIR e ITR e CAR.",
+            "Doação com ou sem usufruto; com ou sem reversão; com ou sem adiantamento de legítima; ainda, com cláusulas de incomunicabilidade, impenhorabilidade e inalienabilidade.",
+            "Matrícula atualizada do imóvel e certidão de estado civil atualizada das partes: verificar com o cartório.",
+            "Informar se a escritura será assinada digitalmente ou presencialmente."
+          ]
+        }
+      ],
       "passos": [],
       "perguntas": [],
       "verTambem": [
@@ -156,7 +178,36 @@
         "dinheiro",
         "imovel"
       ],
-      "documentos": [],
+      "documentos": [
+        {
+          "grupo": "Documentos dos doadores e dos donatários (pessoa física)",
+          "itens": [
+            "Identificação: RG e CPF ou CNH originais.",
+            "Estado civil, solteiros: certidão de nascimento.",
+            "Estado civil, casados: certidão de casamento e documentos de identidade do cônjuge (CPF e RG).",
+            "Estado civil, divorciados ou viúvos: certidão de casamento com a respectiva averbação de divórcio ou certidão de óbito do cônjuge.",
+            "Profissão e endereço: informar profissão atual e apresentar comprovante de residência.",
+            "Pacto antenupcial: obrigatório para regimes de bens que o exijam (como separação total de bens e comunhão universal de bens)."
+          ]
+        },
+        {
+          "grupo": "Documentos do imóvel (urbano)",
+          "itens": [
+            "Matrícula atualizada: certidão de teor da matrícula emitida pelo Cartório de Registro de Imóveis (com validade de até 30 dias).",
+            "Regularidade fiscal (municipal): certidão negativa de débitos de IPTU ou guias de recolhimento quitadas do ano vigente.",
+            "Declaração de quitação condominial: se o imóvel for apartamento, declaração assinada pelo síndico atestando a ausência de débitos condominiais."
+          ]
+        },
+        {
+          "grupo": "Observações",
+          "itens": [
+            "Nota: caso uma das partes seja pessoa jurídica ou o imóvel seja rural, há exigências extras, como contrato social, CCIR e ITR e CAR.",
+            "Doação com ou sem usufruto; com ou sem reversão; com ou sem adiantamento de legítima; ainda, com cláusulas de incomunicabilidade, impenhorabilidade e inalienabilidade.",
+            "Matrícula atualizada do imóvel e certidão de estado civil atualizada das partes: verificar com o cartório.",
+            "Informar se a escritura será assinada digitalmente ou presencialmente."
+          ]
+        }
+      ],
       "passos": [],
       "perguntas": [],
       "verTambem": [
@@ -191,29 +242,37 @@
       "quando": "Quando você não pode ou não quer comparecer pessoalmente para resolver um assunto. A procuração pública é feita no cartório e costuma ser aceita com mais segurança por bancos, órgãos públicos e outros cartórios.",
       "documentos": [
         {
-          "grupo": "De quem concede a procuração",
+          "grupo": "Documentos da pessoa física (outorgante)",
           "itens": [
-            "Documento de identificação oficial com foto (RG ou CNH), original",
-            "CPF",
-            "Comprovante de residência recente",
-            "Estado civil e profissão (informações que constam no texto da procuração)",
-            {
-              "texto": "Certidão de casamento atualizada, quando o poder concedido exigir",
-              "obs": "Por exemplo, para vender imóvel."
-            }
+            "Documento de identificação com foto válido (RG, CNH, passaporte ou carteira profissional).",
+            "CPF.",
+            "Certidão de estado civil (certidão de nascimento se solteiro, ou de casamento).",
+            "Comprovante de residência.",
+            "Profissão e endereço completo."
           ]
         },
         {
-          "grupo": "De quem vai receber os poderes (procurador)",
+          "grupo": "Dados do procurador (outorgado)",
           "itens": [
-            "Nome completo, CPF, RG ou CNH, estado civil, profissão e endereço (uma cópia do documento ajuda a evitar erros)"
+            "Não é obrigatória a presença do procurador no cartório, mas você deve informar todos os dados dele: nome completo, RG, CPF, estado civil, profissão e endereço (enviar documento). Caso seja necessário o mesmo assinar, deve informar isso ao Tabelionato.",
+            "Recomenda-se levar cópias dos documentos do procurador para conferência."
           ]
         },
         {
-          "grupo": "Sobre o que o procurador poderá fazer",
+          "grupo": "Documentos da pessoa jurídica (se a empresa for a outorgante)",
           "itens": [
-            "Descrição clara dos poderes: por exemplo, vender um imóvel, receber um benefício, movimentar uma conta ou representar você em um cartório",
-            "Se envolver um bem específico: dados do bem (matrícula do imóvel, placa e RENAVAM do veículo)"
+            "Cartão CNPJ.",
+            "Contrato social ou estatuto social consolidados com a última alteração.",
+            "Ata de eleição/nomeação da diretoria (se aplicável).",
+            "Certidão simplificada da Junta Comercial ou do Cartório de Pessoa Jurídica (recente), se aplicável.",
+            "RG e CPF do representante legal que assinará o ato, com qualificação completa."
+          ]
+        },
+        {
+          "grupo": "Casos específicos",
+          "itens": [
+            "Bens imóveis: levar a certidão de matrícula do imóvel.",
+            "Veículos: documento que comprove a titularidade do bem (CRV/CRLV)."
           ]
         }
       ],
@@ -379,7 +438,85 @@
         "casa",
         "escritura"
       ],
-      "documentos": [],
+      "documentos": [
+        {
+          "grupo": "Imóvel",
+          "itens": [
+            "Certidão de matrícula ou transcrição (se tiver) atualizada no momento da assinatura da escritura (prazo de 30 dias a partir da data de expedição).",
+            "Justo título ou quaisquer outros documentos que demonstrem a origem, a continuidade, a natureza e o tempo da posse, tais como o pagamento dos impostos e das taxas que incidirem sobre o imóvel (escrituras públicas, instrumentos particulares, v.g.).",
+            "IPTU e seus comprovantes (se urbano), contas de consumo, recibos com reformas, correspondências antigas, tudo em nome do solicitante, etc. Basta apresentar dois documentos mais antigos e dois mais recentes.",
+            "Planta e memorial descritivo assinados pelo responsável técnico e pelos titulares de direitos reais e de outros direitos registrados ou averbados na matrícula do imóvel usucapiendo e na matrícula dos imóveis confinantes (se for possível).",
+            "CCIR do INCRA, e ITR, CAR (um deles é obrigatório).",
+            "Atribuir valor (razoável, fiscal ou venal) ao bem."
+          ]
+        },
+        {
+          "grupo": "Certidões de feitos ajuizados da situação do imóvel e do domicílio do(s) solicitante(s)",
+          "itens": [
+            "Certidão do distribuidor cível, com prazo de vinte anos, em nome (na comarca do imóvel, que não existem ações de litígio ou de quaisquer ações do imóvel caracterizado) do(s) solicitante(s); e/ou do(s) antecessor(es) na posse, se o(s) autor(es) requerer(em) que o tempo deles seja computado com o seu, para atingir o prazo de usucapião; e dos titulares de domínio.",
+            "Quanto aos titulares de domínio, a certidão de distribuição tem de abranger, também, inventários e arrolamentos. A certidão de objeto deve constar: ação referente à posse ou à propriedade; ação de despejo; inventário ou arrolamento de titular de domínio."
+          ]
+        },
+        {
+          "grupo": "Outros documentos",
+          "itens": [
+            "Se houver procurador, ou qualquer outro representante, é necessário apresentar RG, CPF, informar estado civil, profissão e residência.",
+            "Procuração, se pública: certidão atualizada.",
+            "Quando o casal é casado sob o regime da comunhão universal, da separação total ou de aquestos, é necessário o registro do pacto antenupcial no registro de imóveis do domicílio dos cônjuges."
+          ]
+        },
+        {
+          "grupo": "Documentos das partes: se pessoa física",
+          "itens": [
+            "Fotocópia do RG e CPF, inclusive dos cônjuges (e apresentação do original).",
+            "Fotocópia da certidão de casamento (se casado, separado, divorciado ou viúvo).",
+            "Pacto antenupcial registrado, se houver.",
+            "Fotocópia da certidão de óbito (se viúvo).",
+            "Informar endereço.",
+            "Informar profissão.",
+            "Certidão negativa de débitos trabalhistas."
+          ]
+        },
+        {
+          "grupo": "Documentos das partes: se pessoa jurídica",
+          "itens": [
+            "Número do CNPJ.",
+            "Fotocópia autenticada do contrato social, última alteração e alteração em que conste modificação de diretoria, ou consolidação do contrato social. Se estatuto social, sua fotocópia autenticada e a ata de eleição da diretoria.",
+            "Certidão Conjunta de Débitos da Receita Federal (PGFN e INSS).",
+            "RG, CPF, profissão, estado civil e residência do diretor(es), sócio(s) ou procurador(es) que assinará(ão) a escritura.",
+            "Certidão da junta comercial de que não há outras alterações.",
+            "Certidão da Justiça do Trabalho (TRT)."
+          ]
+        },
+        {
+          "grupo": "Documentos das partes: confrontantes tabulares ou de fato",
+          "itens": [
+            "Fotocópia do RG e CPF, inclusive dos cônjuges (e apresentação do original).",
+            "Fotocópia da certidão de casamento (se casado, separado, divorciado ou viúvo).",
+            "Pacto antenupcial registrado, se houver.",
+            "Fotocópia da certidão de óbito (se viúvo).",
+            "Informar endereço.",
+            "Informar profissão.",
+            "Certidão de matrícula ou transcrição atualizada (prazo de 30 dias a partir da data de expedição)."
+          ]
+        },
+        {
+          "grupo": "Documentos das partes: advogado",
+          "itens": [
+            "Cópia da carteira profissional – OAB (e apresentação do original).",
+            "Informar nacionalidade, estado civil e endereço profissional.",
+            "Telefone e e-mail."
+          ]
+        },
+        {
+          "grupo": "Documentos das partes: engenheiro",
+          "itens": [
+            "Cópia da carteira profissional – ART/CREA (e apresentação do original).",
+            "Telefone e e-mail.",
+            "Informar nacionalidade, estado civil e endereço profissional."
+          ]
+        }
+      ],
       "passos": [],
       "perguntas": [],
       "verTambem": [

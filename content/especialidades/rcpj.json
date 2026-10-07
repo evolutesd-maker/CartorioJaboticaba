@@ -78,7 +78,12 @@
           "r": "Fundações dependem de aprovação prévia do Ministério Público. Peça orientação ao cartório antes de começar."
         }
       ],
-      "modelos": [],
+      "modelos": [
+        {
+          "titulo": "Requerimento de registro (RCPJ)",
+          "arquivo": "requerimento-rcpj.pdf"
+        }
+      ],
       "verTambem": [
         "rcpj/alteracao-estatuto-ata",
         "rcpj/certidao-pj"
@@ -127,7 +132,12 @@
         "O cartório confere e, se tudo estiver certo, faz o registro.",
         "Retire a ata registrada e, se precisar, uma certidão atualizada."
       ],
-      "modelos": [],
+      "modelos": [
+        {
+          "titulo": "Requerimento de registro (RCPJ)",
+          "arquivo": "requerimento-rcpj.pdf"
+        }
+      ],
       "verTambem": [
         "rcpj/registrar-associacao",
         "rcpj/certidao-pj"

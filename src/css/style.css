@@ -1491,7 +1491,7 @@ kbd {
   .menu__link:not(.btn) { padding-inline: 0.8rem; }
   .busca-btn { padding: 0.5rem 0.75rem; }
   .busca-btn span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .marca__texto strong { font-size: 1.05rem; }
+  .marca__texto strong { font-size: 1rem; max-width: 7.5rem; }
   .topo__linha { gap: 0.75rem; }
 }
 .sol-grade--tres { grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr)); }
@@ -1554,3 +1554,15 @@ kbd {
 .lema__rotulo { margin: 1.25rem 0 0; font-weight: 800; color: #fff; }
 .lema__rotulo + .lema { margin-top: 0.5rem; }
 .lema p { text-transform: none; letter-spacing: 0.01em; }
+
+/* Menu compacto em telas largas, para caberem todas as abas */
+@media (min-width: 75.0625rem) {
+  .menu { gap: 0.3rem; }
+  .menu > ul { gap: 0; }
+  .menu__link:not(.btn) { padding: 0.5rem 0.3rem; font-size: 0.9rem; }
+  .menu .btn { padding-inline: 0.75rem; }
+  .menu .busca-btn { padding-inline: 0.65rem; }
+  .marca { flex: none; }
+  .marca__texto strong { font-size: 1rem; max-width: 7.5rem; }
+  .marca__texto small { display: none; }
+}

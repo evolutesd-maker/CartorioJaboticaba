@@ -179,7 +179,16 @@
           "r": "O cartório trata apenas do protesto. Outros cadastros de proteção ao crédito têm regras e prazos próprios."
         }
       ],
-      "modelos": [],
+      "modelos": [
+        {
+          "titulo": "Carta de anuência: pessoa física",
+          "arquivo": "carta-anuencia-pessoa-fisica.pdf"
+        },
+        {
+          "titulo": "Carta de anuência: pessoa jurídica",
+          "arquivo": "carta-anuencia-pessoa-juridica.pdf"
+        }
+      ],
       "verTambem": [
         "protesto/consultar-protesto",
         "protesto/pagar-titulo"

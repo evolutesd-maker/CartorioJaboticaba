@@ -22,7 +22,8 @@ Site estático institucional de um cartório. **Segurança e confiabilidade vêm
 
 - Documentos, prazos e custos dos atos em `content/especialidades/*.json` só podem ser dados como corretos depois da validação do cartório (`"validado": true`). Não inventar exigências legais.
 - **Textos do Tabelião são literais.** O que ele enviou (campos `texto` e `textoCartorio` nos JSON de `content/especialidades/`, `content/institucional.json`, página `e-notariado`) é exibido como veio: só correções ortográficas, sem reescrever nem resumir. Mudança de conteúdo só com texto novo vindo do cartório. Resumos e títulos "em linguagem simples" ficam em campos separados (`resumo`, `titulo`) e nunca substituem o texto dele.
-- Dados de contato atuais são **fictícios** (demonstração): trocar antes de publicar (ver README).
+- E-mail, telefone/WhatsApp, controlador e encarregado (Ceprotec) vêm da política de privacidade enviada pelo Tabelião (autorizado pelo responsável). O **CNS** e o e-mail do formulário (`emailFormulario`) ainda são de demonstração: trocar antes de publicar (ver README).
+- A Tabela de Emolumentos é só um PDF para baixar (`content/modelos/`); **nunca** colocar valores de emolumentos nas páginas dos serviços.
 
 ## Fluxo de trabalho
 

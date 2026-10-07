@@ -427,7 +427,7 @@ function cabecalho(c, ativo) {
                 <p class="submenu__tit">Especialidades</p>
                 <ul>${especialidades.map((e) => `<li><a href="${c.u("servicos.html")}#esp-${e.id}">${icone(e.icone)}<span>${esc(e.nomeCompleto)}</span></a></li>`).join("")}</ul>
               </div>
-              <p class="submenu__rodape"><a href="${c.u("servicos.html")}">Ver todos os serviços</a><button class="submenu__buscar" type="button" hidden data-abrir-paleta>${icone("lupa")}Buscar pelo nome</button></p>
+              <p class="submenu__rodape"><a href="${c.u("servicos.html")}">Ver todos os serviços</a><a href="${c.u("modelos/tabela-de-emolumentos-2026.pdf")}" download>${icone("baixar")}Tabela de Emolumentos</a><button class="submenu__buscar" type="button" hidden data-abrir-paleta>${icone("lupa")}Buscar pelo nome</button></p>
             </div>
           </li>`;
   return `
@@ -443,6 +443,7 @@ function cabecalho(c, ativo) {
           ${item("inicio", "Início", "index.html", "", "menu__inicio")}${procura}
           ${item("online", "Solicite online", "solicite-online.html", " menu__link--destaque")}
           ${item("documentos", "Documentos", "documentos.html")}
+          ${item("terceiros", "Solicitações por terceiros", "solicitacoes-terceiros.html")}
           ${item("institucional", "Quem somos", "institucional.html")}
           ${item("contato", "Contato", "contato.html")}
         </ul>
@@ -472,6 +473,8 @@ function rodape(c) {
         <h2>Informações</h2>
         <ul>
           <li><a href="${c.u("documentos.html")}">Documentos e orientações</a></li>
+          <li><a href="${c.u("solicitacoes-terceiros.html")}">Solicitações por terceiros</a></li>
+          <li><a href="${c.u("modelos/tabela-de-emolumentos-2026.pdf")}" download>Tabela de Emolumentos</a></li>
           <li><a href="${c.u("solicite-online.html")}">Solicite online</a></li>
           <li><a href="${c.u("e-notariado.html")}">Atos online (e-Notariado)</a></li>
           <li><a href="${c.u("contato.html")}">Localização e atendimento</a></li>
@@ -537,7 +540,7 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld).replace(
 </head>
 <body>
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
-${rascunho ? `<aside class="aviso-rascunho" aria-label="Aviso sobre esta versão"><div class="container"><strong>Site demonstrativo.</strong> Telefones, e-mail e CNS são fictícios, e os documentos e orientações ainda serão validados pelo cartório antes da publicação.</div></aside>` : ""}
+${rascunho ? `<aside class="aviso-rascunho" aria-label="Aviso sobre esta versão"><div class="container"><strong>Site demonstrativo.</strong> O CNS é fictício, e os documentos e orientações ainda serão validados pelo cartório antes da publicação.</div></aside>` : ""}
 ${cabecalho(c, ativo)}
 <div class="pagina-corpo">
 <main id="conteudo">
@@ -1211,9 +1214,11 @@ for (const ato of atos.values()) {
 }
 
 // ---------- Páginas de texto (fragmentos em content/paginas/)
-function preencher(html) {
-  const encarregado = site.encarregadoLgpd && site.encarregadoLgpd.email
-    ? `${site.encarregadoLgpd.nome ? esc(site.encarregadoLgpd.nome) + ", " : ""}<a href="mailto:${esc(site.encarregadoLgpd.email)}">${esc(site.encarregadoLgpd.email)}</a>`
+function preencher(html, extras = {}) {
+  const dpo = site.encarregadoLgpd || {};
+  const mailto = (e) => `<a href="mailto:${esc(e)}">${esc(e)}</a>`;
+  const encarregado = dpo.email
+    ? `${dpo.nome ? esc(dpo.nome) + ", " : ""}${mailto(dpo.email)}${dpo.telefone ? `, ${esc(dpo.telefone)}` : ""}`
     : aConfirmar("a confirmar com o cartório");
   const vars = {
     avisoRevisao: rascunho
@@ -1224,22 +1229,57 @@ function preencher(html) {
     titular: site.titular ? esc(site.titular) : aConfirmar("a confirmar"),
     cns: site.cns ? esc(site.cns) : aConfirmar("a confirmar"),
     encarregado,
+    emailCartorio: site.email ? mailto(site.email) : aConfirmar("e-mail a confirmar"),
+    telefoneCartorio: site.whatsapp ? esc(site.whatsapp) : aConfirmar("telefone a confirmar"),
+    emailDpo: dpo.email ? mailto(dpo.email) : aConfirmar("a confirmar"),
+    telefoneDpo: dpo.telefone ? esc(dpo.telefone) : aConfirmar("a confirmar"),
     atualizadoEm: site.privacidadeAtualizadaEm ? dataBr(site.privacidadeAtualizadaEm) : aConfirmar("data a confirmar"),
     especialidades: `<ul>${especialidades.map((e) => `<li><strong>${esc(e.nomeCompleto)}:</strong> ${esc(e.resumo)}</li>`).join("")}</ul>`,
   };
+  Object.assign(vars, extras);
   return html.replace(/\{\{(\w+)\}\}/g, (_, k) => {
     if (!(k in vars)) { erros.push(`Fragmento usa {{${k}}}, que não existe.`); return ""; }
     return vars[k];
   });
 }
-for (const [arquivo, titulo, descricao] of [
-  ["privacidade", "Política de privacidade", `Como o ${site.nome} trata dados pessoais neste site e no atendimento.`],
-]) {
-  const c = ctx(`${arquivo}.html`);
+{
+  const c = ctx("privacidade.html");
+  const titulo = "Política de privacidade";
   const corpo = `
   ${faixa(c, { trilha: [{ rotulo: "Início", href: "index.html" }, { rotulo: titulo }], titulo })}
-  <section class="secao"><div class="container prosa">${preencher(lerTexto(`content/paginas/${arquivo}.html`))}</div></section>`;
-  adicionar(c.caminho, layout(c, { titulo, descricao, corpo }));
+  <section class="secao"><div class="container prosa">${preencher(lerTexto("content/paginas/privacidade.html"), { linkPolitica: c.u("politica-lgpd.html") })}</div></section>`;
+  adicionar(c.caminho, layout(c, { titulo, descricao: `Como o ${site.nome} trata dados pessoais: resumo e link para a política completa.`, corpo }));
+}
+{
+  const c = ctx("politica-lgpd.html");
+  const titulo = "Política de privacidade e LGPD";
+  const corpo = `
+  ${faixa(c, { trilha: [{ rotulo: "Início", href: "index.html" }, { rotulo: "Política de privacidade", href: "privacidade.html" }, { rotulo: titulo }], titulo })}
+  <section class="secao"><div class="container prosa">${preencher(lerTexto("content/paginas/politica-lgpd.html"))}</div></section>`;
+  adicionar(c.caminho, layout(c, { titulo, descricao: `Política de privacidade e LGPD completa do ${site.nome}.`, corpo }));
+}
+
+// ---------- Solicitações por terceiros (requerimentos para baixar)
+{
+  const c = ctx("solicitacoes-terceiros.html");
+  const sol = lerJson("content/solicitacoes.json");
+  for (const i of sol.itens) if (!existsSync(join(RAIZ, "content/modelos", i.arquivo))) erros.push(`solicitacoes.json: "${i.arquivo}" não existe em content/modelos/.`);
+  const corpo = `
+  ${faixa(c, {
+    trilha: [{ rotulo: "Início", href: "index.html" }, { rotulo: sol.titulo }],
+    eyebrow: sol.eyebrow,
+    titulo: sol.titulo,
+    lead: sol.lead,
+  })}
+  <section class="secao" id="requerimentos" aria-labelledby="t-req">
+    <div class="container container--leitura">
+      <div class="secao__cab" data-reveal><h2 id="t-req">Baixe, preencha e assine</h2><p>${esc(sol.intro)}</p></div>
+      <ul class="downloads downloads--estreito">${sol.itens.map((m) => linhaModelo(c, m)).join("")}</ul>
+      ${sol.avisos.map((a) => `<div class="destaque destaque--estreito" data-reveal><p>${esc(a)}</p></div>`).join("")}
+      <p data-reveal>${botaoWhats(c, "Olá! Gostaria de ajuda com um requerimento de certidão.", { classe: "btn btn--claro", rotulo: "Falar com o cartório" })}</p>
+    </div>
+  </section>`;
+  adicionar(c.caminho, layout(c, { ativo: "terceiros", titulo: sol.titulo, descricao: "Requerimentos para pedir certidão em nome de outra pessoa: baixe, preencha e assine.", corpo }));
 }
 
 // ---------- Folha de revisão (só em rascunho): reúne todo o conteúdo para o cartório validar

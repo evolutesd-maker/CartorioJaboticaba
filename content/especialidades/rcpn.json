@@ -85,7 +85,12 @@
           "r": "Sim. É o chamado registro tardio. O cartório informa os documentos adicionais que podem ser necessários."
         }
       ],
-      "modelos": [],
+      "modelos": [
+        {
+          "titulo": "Requerimento para registro de nascimento",
+          "arquivo": "requerimento-registro-nascimento.pdf"
+        }
+      ],
       "verTambem": [
         "rcpn/reconhecimento-paternidade",
         "rcpn/segunda-via-certidao"
@@ -144,7 +149,12 @@
           "r": "Em geral, não. O cartório pode solicitar por sistema eletrônico. Pergunte ao atendimento como funciona."
         }
       ],
-      "modelos": [],
+      "modelos": [
+        {
+          "titulo": "Requerimento para certidão em inteiro teor",
+          "arquivo": "requerimento-certidao-inteiro-teor.pdf"
+        }
+      ],
       "verTambem": [
         "rcpn/registro-nascimento",
         "rcpn/retificacao-averbacao"
@@ -283,7 +293,12 @@
           "r": "Dependendo do caso: inventário, benefícios previdenciários, baixa de documentos e contas. Fale com o cartório e, se necessário, com um advogado."
         }
       ],
-      "modelos": [],
+      "modelos": [
+        {
+          "titulo": "Requerimento para registro de óbito",
+          "arquivo": "requerimento-registro-obito.pdf"
+        }
+      ],
       "verTambem": [
         "notas/inventario-partilha",
         "rcpn/segunda-via-certidao"
