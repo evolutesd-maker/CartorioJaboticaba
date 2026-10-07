@@ -332,6 +332,7 @@ const blocosTexto = (itens, nivel = 3) =>
           : `<ul class="lista-pontos">${b.lista.map(([r, t]) => `<li><strong>${esc(r)}:</strong> ${esc(t)}</li>`).join("")}</ul>`
     )
     .join("");
+const OBS_REQUERIMENTO = `<div class="destaque"><p><strong>Este serviço é resolvido diretamente com o cartório.</strong> Aproveite para enviar o requerimento preenchido ao cartório, para facilitar e agilizar o atendimento.</p></div>`;
 const AVISO_EXTERNO = `<p class="nota-pequena">Estes links levam a sites oficiais, fora deste site. Confira o endereço antes de informar dados pessoais.</p>`;
 
 const itemLocalizador = (c, ato, meta) =>
@@ -967,7 +968,7 @@ for (const ato of atos.values()) {
 
       ${
         (ato.modelos || []).length
-          ? `<section id="modelos"><h2>Modelos e formulários</h2><ul class="downloads">${ato.modelos.map((m) => linhaModelo(c, m)).join("")}</ul></section>`
+          ? `<section id="modelos"><h2>Modelos e formulários</h2><ul class="downloads">${ato.modelos.map((m) => linhaModelo(c, m)).join("")}</ul>${OBS_REQUERIMENTO}<p class="no-print">${botaoWhats(c, `Olá! Segue o requerimento preenchido para: ${ato.titulo}.`, { classe: "btn btn--primario", rotulo: "Enviar pelo WhatsApp" })}</p></section>`
           : ""
       }
 
@@ -1263,6 +1264,7 @@ function preencher(html, extras = {}) {
     <div class="container container--leitura">
       <div class="secao__cab" data-reveal><h2 id="t-req">Baixe, preencha e assine</h2><p>${esc(sol.intro)}</p></div>
       <ul class="downloads downloads--estreito">${sol.itens.map((m) => linhaModelo(c, m)).join("")}</ul>
+      <div class="destaque destaque--estreito" data-reveal><p><strong>Este serviço é resolvido diretamente com o cartório.</strong> Aproveite para enviar o requerimento preenchido ao cartório, para facilitar e agilizar o atendimento.</p></div>
       ${sol.avisos.map((a) => `<div class="destaque destaque--estreito" data-reveal><p>${esc(a)}</p></div>`).join("")}
       <p data-reveal>${botaoWhats(c, "Olá! Gostaria de ajuda com um requerimento de certidão.", { classe: "btn btn--claro", rotulo: "Falar com o cartório" })}</p>
     </div>

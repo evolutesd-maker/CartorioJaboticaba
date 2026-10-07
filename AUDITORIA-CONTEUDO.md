@@ -38,3 +38,7 @@ Mostram o texto do Tabelião (quando existe), o resumo e o aviso "Este serviço 
 ## 4. O que ainda falta pedir ao Tabelião
 
 Documentos de cada serviço do item 3, e o texto completo da Cessão de Direitos Hereditários (Bem Específico).
+
+## 5. Serviços com requerimento
+
+Nas páginas com requerimento para baixar e na página Solicitações por terceiros, aparece a observação "Este serviço é resolvido diretamente com o cartório. Aproveite para enviar o requerimento preenchido ao cartório, para facilitar e agilizar o atendimento." Os serviços têm também o botão "Enviar pelo WhatsApp".
