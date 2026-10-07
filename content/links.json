@@ -103,6 +103,14 @@
       "url": "https://www.rtdbrasil.org.br/onrtdpj/pedido/cartorios/busca",
       "icone": "arquivo",
       "botao": "Fazer o pedido"
+    },
+    "certificado-enotariado": {
+      "titulo": "Solicitar certificado digital do e-Notariado",
+      "orgao": "e-Notariado",
+      "descricao": "O certificado digital é necessário para assinar atos de forma online. Peça o seu pelo site oficial do e-Notariado.",
+      "url": "https://www.e-notariado.org.br/customer/certificate-request",
+      "icone": "escudo",
+      "botao": "Solicitar certificado"
     }
   }
 }

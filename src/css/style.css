@@ -1501,7 +1501,6 @@ kbd {
 
 /* ============================================================ Institucional (Quem somos) e passos da página inicial */
 
-@media (min-width: 75.0625rem) { .menu__inicio { display: none; } } /* no computador, a marca já leva ao início */
 
 .lema { margin: 1.5rem 0; padding: 1.25rem 1.5rem; border-left: 4px solid var(--ouro-claro); border-radius: 0 var(--r-md) var(--r-md) 0; background: rgba(255, 255, 255, 0.1); color: #fff; }
 .lema p { margin: 0; font-size: 1.2rem; font-weight: 700; line-height: 1.45; }
@@ -1555,14 +1554,14 @@ kbd {
 .lema__rotulo + .lema { margin-top: 0.5rem; }
 .lema p { text-transform: none; letter-spacing: 0.01em; }
 
-/* Menu compacto em telas largas, para caberem todas as abas */
+/* Computador: marca, busca e WhatsApp na primeira linha; abas com folga na segunda */
 @media (min-width: 75.0625rem) {
-  .menu { gap: 0.3rem; }
-  .menu > ul { gap: 0; }
-  .menu__link:not(.btn) { padding: 0.5rem 0.3rem; font-size: 0.9rem; }
-  .menu .btn { padding-inline: 0.75rem; }
-  .menu .busca-btn { padding-inline: 0.65rem; }
-  .marca { flex: none; }
-  .marca__texto strong { font-size: 1rem; max-width: 7.5rem; }
-  .marca__texto small { display: none; }
+  html { scroll-padding-top: 9rem; }
+  .topo__linha { flex-wrap: wrap; min-height: 0; padding-top: 0.5rem; row-gap: 0; }
+  .marca { order: 1; margin-right: auto; }
+  .menu { display: contents; }
+  .menu .busca-btn { order: 2; }
+  .menu > .btn { order: 3; }
+  .menu > ul { order: 4; width: 100%; justify-content: center; gap: 0.5rem; padding: 0.35rem 0 0.5rem; border-top: 1px solid rgba(255, 255, 255, 0.14); }
+  .menu__link:not(.btn) { padding: 0.55rem 1rem; }
 }

@@ -679,7 +679,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
         <h2 id="t-online-home">Solicite online</h2>
         <p>Peça certidões e faça atos de cartório pela internet. Escolha o que você precisa.</p>
       </div>
-      ${gradeOnline([cartaoOnline("registro-civil"), cartaoOnline("cenprot"), cartaoOnline("rtdpj"), cartaoENotariado(c)])}
+      ${gradeOnline([cartaoOnline("registro-civil"), cartaoOnline("cenprot"), cartaoOnline("rtdpj"), cartaoENotariado(c), cartaoOnline("certificado-enotariado")], " sol-grade--tres")}
       <p class="sol__todos" data-reveal><a class="btn btn--vidro" href="${c.u("solicite-online.html")}">Ver todas as opções online${icone("seta")}</a></p>
     </div>
   </section>`;
@@ -1114,7 +1114,7 @@ for (const ato of atos.values()) {
   <section class="secao" id="certidoes-cartorio" aria-labelledby="t-sol-1">
     <div class="container">
       <div class="secao__cab" data-reveal><h2 id="t-sol-1">Peça uma certidão ou faça um ato</h2><p>Certidões de nascimento, casamento e óbito, protestos, títulos e documentos, e atos de notas pelo computador.</p></div>
-      ${gradeOnline([...g("pedidos").itens.map(cartaoOnline), cartaoENotariado(c)])}
+      ${gradeOnline([...g("pedidos").itens.map(cartaoOnline), cartaoENotariado(c), cartaoOnline("certificado-enotariado")], " sol-grade--tres")}
     </div>
   </section>
   <section class="secao secao--suave" id="imoveis-negocios" aria-labelledby="t-sol-2">
@@ -1153,6 +1153,11 @@ for (const ato of atos.values()) {
         <h3>Como pedir no nosso cartório</h3>
         <p>No Tabelionato de Notas, na hora de solicitar uma escritura, <strong>diga se prefere fazer digitalmente, pelo e-Notariado, ou assinar de forma presencial</strong>. Você pode dizer isso pelo formulário "Fale com o cartório" no fim de cada página (ele pergunta quando o serviço é uma escritura) ou direto no WhatsApp.</p>
         <p class="antes">${botaoWhats(c, msg, { classe: "btn btn--claro", rotulo: "Pedir de forma digital" })}<a class="btn btn--vidro" href="${c.u("servicos/" + especialidades[0].slug + ".html")}">Ver os serviços de Notas</a></p>
+      </div>
+      <div class="bloco" data-reveal>
+        <h3>Certificado digital</h3>
+        <p>Para assinar de forma online, é preciso ter o certificado digital do e-Notariado.</p>
+        <p class="antes">${(() => { const l = linksDados.itens["certificado-enotariado"]; return `<a class="btn btn--claro" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.botao)}${icone("diagonal")}<span class="sr-only"> (abre em nova aba, site externo)</span></a>`; })()}</p>
       </div>
     </div>
   </section>`;
