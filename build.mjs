@@ -737,8 +737,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
       <div data-reveal>${espBento(c)}</div>
       <p class="antes" id="antes-de-vir" data-reveal><strong>Antes de vir ao cartório:</strong>
         <a href="${c.u("documentos.html#consultar")}">Documentos necessários</a>
-        <a href="${c.u("documentos.html#orientacoes")}">Orientações</a>
-        <a href="${c.u("documentos.html#modelos")}">Modelos e formulários</a>
+                <a href="${c.u("documentos.html#modelos")}">Modelos e formulários</a>
         <a href="${c.u("solicitacoes-terceiros.html")}">Solicitações por terceiros</a>
         <a href="${c.u("solicite-online.html")}">Solicite online</a>
       </p>
@@ -826,7 +825,7 @@ for (const esp of especialidades) {
     eyebrow: "Especialidade",
     deco: esp.icone,
     titulo: esp.nomeCompleto,
-    lead: esp.descricao,
+    lead: esp.resumo,
   })}
   <section class="secao">
     <div class="container">
@@ -1025,35 +1024,8 @@ for (const ato of atos.values()) {
     trilha: [{ rotulo: "Início", href: "index.html" }, { rotulo: "Documentos" }],
     eyebrow: "Antes de vir ao cartório",
     titulo: "Documentos e orientações",
-    lead: "Consulte o que levar para cada serviço, leia as orientações e baixe os modelos disponíveis.",
+    lead: "Consulte o que levar para cada serviço e baixe os modelos disponíveis.",
   })}
-
-  <section class="secao" id="orientacoes" aria-labelledby="t-gerais">
-    <div class="container">
-      <div class="secao__cab" data-reveal><p class="eyebrow">Orientações</p><h2 id="t-gerais">O que quase sempre é pedido</h2><p>Cada serviço tem a sua lista própria, mas estes itens aparecem em quase todos os atendimentos.</p></div>
-      <div class="duas-colunas">
-        <div class="bloco" data-reveal>
-          <h3>Documentos mais comuns</h3>
-          <ul class="lista-pontos">
-            <li>Documento de identificação oficial com foto, original (RG, CNH ou outro aceito em lei).</li>
-            <li>CPF.</li>
-            <li>Comprovante de residência recente.</li>
-            <li>Certidões de estado civil atualizadas (nascimento, casamento, óbito), conforme o caso.</li>
-            <li>Procuração, se for representar outra pessoa.</li>
-          </ul>
-        </div>
-        <div class="bloco" data-reveal>
-          <h3>Antes de sair de casa</h3>
-          <ul class="lista-pontos">
-            <li>Leve os documentos originais. Cópias só quando o cartório pedir.</li>
-            <li>Confira se nomes, datas e números estão corretos.</li>
-            <li>Pergunte se todas as pessoas envolvidas precisam comparecer.</li>
-            <li>Se houver dúvida, fale com o cartório antes de vir.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section class="secao secao--suave" id="consultar" aria-labelledby="t-consultar">
     <div class="container">

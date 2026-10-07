@@ -11,14 +11,12 @@
     "Certidões"
   ],
   "resumo": "Atos relativos às pessoas jurídicas atendidas pela especialidade.",
-  "descricao": "O Registro Civil das Pessoas Jurídicas dá existência legal a associações, fundações, organizações religiosas, partidos políticos e sociedades simples. Também registra as alterações (como mudança de diretoria ou de estatuto) e emite certidões.",
-  "aviso": "Empresas comerciais (como MEI, empresário individual e sociedade limitada) normalmente são registradas na Junta Comercial ou pelo Portal do Empreendedor, e não aqui. Se tiver dúvida, fale com o atendimento.",
   "atos": [
     {
       "slug": "registrar-associacao",
       "titulo": "Registrar uma associação, igreja ou ONG",
       "nomeTecnico": "Registro de estatuto de pessoa jurídica",
-      "resumo": "Dê existência legal a uma associação, organização religiosa, fundação ou outra entidade sem fins lucrativos.",
+      "resumo": "Registro dos atos de constituição de associações, fundações e entidades religiosas.",
       "palavras": [
         "associacao",
         "igreja",
@@ -35,49 +33,7 @@
         "organizacao religiosa",
         "sociedade simples"
       ],
-      "quando": "Quando um grupo de pessoas quer constituir uma associação, igreja, ONG, clube ou outra entidade, e precisa registrar o estatuto para que ela exista legalmente e possa, por exemplo, obter CNPJ.",
-      "documentos": [
-        {
-          "grupo": "Da entidade",
-          "itens": [
-            "Requerimento de registro, assinado pelo representante legal. O cartório pode fornecer o modelo.",
-            {
-              "texto": "Estatuto social, assinado pelo presidente e com visto de advogado (OAB)",
-              "obs": "O cartório informa o número de vias."
-            },
-            "Ata de fundação (assembleia de constituição), com a lista de presentes e as assinaturas",
-            "Ata de eleição e posse da diretoria",
-            "Endereço da sede (o cartório informa se exige comprovante)"
-          ]
-        },
-        {
-          "grupo": "Dos dirigentes",
-          "itens": [
-            "Documento de identificação oficial com foto e CPF do presidente e dos demais dirigentes que assinam"
-          ]
-        }
-      ],
-      "passos": [
-        "Elabore o estatuto e a ata de fundação (conte com o apoio de um advogado).",
-        "Apresente os documentos ao cartório.",
-        "O cartório confere. Se houver pendências, informa o que ajustar.",
-        "Após o registro, retire as vias registradas e a certidão.",
-        "Providencie a inscrição da entidade no CNPJ, na Receita Federal."
-      ],
-      "perguntas": [
-        {
-          "p": "Preciso de advogado?",
-          "r": "A lei exige o visto de advogado nos atos constitutivos de pessoas jurídicas, como o estatuto. Fale com um advogado de sua confiança."
-        },
-        {
-          "p": "Qual o próximo passo depois do registro?",
-          "r": "Inscrever a entidade no CNPJ, na Receita Federal, e providenciar as demais licenças conforme a atividade."
-        },
-        {
-          "p": "E se for uma fundação?",
-          "r": "Fundações dependem de aprovação prévia do Ministério Público. Peça orientação ao cartório antes de começar."
-        }
-      ],
+      "documentos": [],
       "modelos": [
         {
           "titulo": "Requerimento de registro (RCPJ)",
@@ -94,7 +50,7 @@
       "slug": "alteracao-estatuto-ata",
       "titulo": "Registrar mudança de diretoria ou alteração de estatuto",
       "nomeTecnico": "Registro de atas e alterações",
-      "resumo": "Atualize o registro da entidade quando mudar a diretoria, o endereço, o nome ou o estatuto.",
+      "resumo": "Registro das alterações dos atos de constituição da entidade.",
       "palavras": [
         "ata",
         "diretoria",
@@ -107,31 +63,7 @@
         "assembleia",
         "presidente"
       ],
-      "quando": "Depois de uma assembleia que elegeu uma nova diretoria ou que aprovou alterações no estatuto, para que a mudança passe a constar no registro da entidade.",
-      "documentos": [
-        {
-          "grupo": "Da entidade",
-          "itens": [
-            "Requerimento, assinado pelo representante legal",
-            "Ata da assembleia, assinada, com a lista de presentes",
-            "Estatuto consolidado com visto de advogado, se o estatuto foi alterado",
-            "Edital de convocação ou prova da convocação, quando exigido",
-            "Certidão atualizada da entidade, se o registro original foi feito em outro cartório"
-          ]
-        },
-        {
-          "grupo": "De quem apresenta",
-          "itens": [
-            "Documento de identificação oficial com foto e CPF"
-          ]
-        }
-      ],
-      "passos": [
-        "Realize a assembleia e redija a ata.",
-        "Apresente os documentos ao cartório.",
-        "O cartório confere e, se tudo estiver certo, faz o registro.",
-        "Retire a ata registrada e, se precisar, uma certidão atualizada."
-      ],
+      "documentos": [],
       "modelos": [
         {
           "titulo": "Requerimento de registro (RCPJ)",
@@ -148,7 +80,7 @@
       "slug": "certidao-pj",
       "titulo": "Pedir certidão de entidade registrada",
       "nomeTecnico": "Certidão de pessoa jurídica",
-      "resumo": "Comprove a existência, a diretoria ou o estatuto de uma entidade registrada no cartório.",
+      "resumo": "Certidão de entidade registrada no cartório.",
       "palavras": [
         "certidao",
         "existencia",
@@ -158,22 +90,7 @@
         "entidade",
         "associacao"
       ],
-      "quando": "Quando um banco, órgão público ou outra instituição pede um documento que comprove a existência ou a situação da entidade.",
-      "documentos": [
-        {
-          "grupo": "O que informar",
-          "itens": [
-            "Nome (razão social) ou CNPJ da entidade",
-            "O tipo de certidão que você precisa (de existência, de diretoria, de inteiro teor). O atendente orienta.",
-            "Documento de identificação de quem pede"
-          ]
-        }
-      ],
-      "passos": [
-        "Informe o nome ou CNPJ e o tipo de certidão.",
-        "Pague os emolumentos.",
-        "Retire a certidão no prazo informado."
-      ],
+      "documentos": [],
       "modelos": [],
       "verTambem": [
         "rcpj/alteracao-estatuto-ata"

@@ -12,13 +12,12 @@
     "Certidões e segunda via"
   ],
   "resumo": "Nascimento, casamento, óbito e certidões.",
-  "descricao": "O Registro Civil das Pessoas Naturais registra os fatos mais importantes da vida: nascimento, casamento e óbito. É daqui que saem as certidões usadas em quase todos os documentos, como RG, CPF, passaporte, benefícios e herança.",
   "atos": [
     {
       "slug": "registro-nascimento",
       "titulo": "Registrar um filho recém-nascido",
       "nomeTecnico": "Registro de nascimento",
-      "resumo": "Registro do nascimento e emissão da primeira certidão de nascimento, que é gratuita.",
+      "resumo": "Registro de nascimento e emissão da certidão de nascimento.",
       "palavras": [
         "bebe",
         "recem nascido",
@@ -31,58 +30,9 @@
         "nome do filho",
         "registrar crianca",
         "filho",
-        "filha",
-        "paternidade",
-        "registro tardio"
+        "filha"
       ],
-      "quando": "O prazo legal para registrar o nascimento é de 15 dias, ampliado em até três meses para quem mora a mais de 30 km do cartório. Mesmo depois do prazo é possível registrar. Fale com o cartório que ele orienta.",
-      "documentos": [
-        {
-          "grupo": "Da criança",
-          "itens": [
-            "DNV: Declaração de Nascido Vivo, entregue pelo hospital ou por quem acompanhou o parto"
-          ]
-        },
-        {
-          "grupo": "Dos pais",
-          "itens": [
-            "Documento de identificação oficial com foto, original, de quem faz o registro",
-            "Certidão de casamento dos pais, se forem casados",
-            "CPF dos pais, quando houver",
-            "Nome escolhido para a criança"
-          ]
-        },
-        {
-          "grupo": "Se os pais não são casados",
-          "itens": [
-            "Para constar o nome do pai, ele deve comparecer ou apresentar a declaração prevista nas normas. O cartório orienta cada situação."
-          ]
-        }
-      ],
-      "passos": [
-        "Peça a Declaração de Nascido Vivo ao hospital ou a quem fez o parto.",
-        "Leve a DNV e os documentos dos pais ao cartório.",
-        "Informe o nome escolhido e confira os dados antes de assinar.",
-        "Retire a primeira certidão de nascimento, gratuita."
-      ],
-      "perguntas": [
-        {
-          "p": "Quem pode fazer o registro?",
-          "r": "Em regra, o pai ou a mãe. Em situações previstas em lei, outras pessoas também podem. Quando os pais não são casados, o cartório orienta como incluir o pai no registro."
-        },
-        {
-          "p": "Posso escolher qualquer nome?",
-          "r": "O nome deve respeitar a lei. O oficial não registra nomes que possam expor a criança ao ridículo."
-        },
-        {
-          "p": "Onde posso registrar?",
-          "r": "No cartório do local do parto ou no da residência dos pais."
-        },
-        {
-          "p": "Passou do prazo. Ainda posso registrar?",
-          "r": "Sim. É o chamado registro tardio. O cartório informa os documentos adicionais que podem ser necessários."
-        }
-      ],
+      "documentos": [],
       "modelos": [
         {
           "titulo": "Requerimento para registro de nascimento",
@@ -90,7 +40,6 @@
         }
       ],
       "verTambem": [
-        "rcpn/reconhecimento-paternidade",
         "rcpn/segunda-via-certidao"
       ],
       "validado": false
@@ -99,7 +48,7 @@
       "slug": "segunda-via-certidao",
       "titulo": "Pedir segunda via de certidão",
       "nomeTecnico": "Certidão de nascimento, casamento ou óbito",
-      "resumo": "Nova cópia de certidão de nascimento, casamento ou óbito, inclusive de registros feitos em outras cidades.",
+      "resumo": "Certidão de nascimento, casamento ou óbito, inclusive em inteiro teor.",
       "palavras": [
         "certidao",
         "segunda via",
@@ -113,39 +62,7 @@
         "nova certidao",
         "outra cidade"
       ],
-      "quando": "Quando você perdeu a certidão, precisa de uma versão mais recente ou de uma cópia para algum órgão. Se o registro foi feito neste cartório, a emissão é direta. Se foi em outra cidade, em geral é possível pedir por sistema eletrônico. Pergunte ao atendimento.",
-      "documentos": [
-        {
-          "grupo": "Informações sobre o registro",
-          "itens": [
-            "Nome completo da pessoa que consta na certidão",
-            "Data do nascimento, casamento ou óbito, e nomes dos pais ou dos cônjuges",
-            "Cidade e cartório do registro, se souber. Se tiver, leve a certidão antiga ou os dados de livro, folha e termo."
-          ]
-        },
-        {
-          "grupo": "De quem pede",
-          "itens": [
-            "Documento de identificação oficial com foto, original"
-          ]
-        }
-      ],
-      "passos": [
-        "Informe ao atendimento de qual registro você precisa.",
-        "Confirme o tipo de certidão (resumida ou inteiro teor).",
-        "Pague os emolumentos, se houver, e aguarde a emissão.",
-        "Retire a certidão ou combine a entrega."
-      ],
-      "perguntas": [
-        {
-          "p": "A certidão de inteiro teor é diferente?",
-          "r": "Sim. A de inteiro teor reproduz tudo o que consta no registro e costuma ter regras de acesso. Consulte o cartório."
-        },
-        {
-          "p": "Meu registro foi feito em outra cidade. Preciso ir até lá?",
-          "r": "Em geral, não. O cartório pode solicitar por sistema eletrônico. Pergunte ao atendimento como funciona."
-        }
-      ],
+      "documentos": [],
       "modelos": [
         {
           "titulo": "Requerimento para certidão em inteiro teor",
@@ -153,8 +70,7 @@
         }
       ],
       "verTambem": [
-        "rcpn/registro-nascimento",
-        "rcpn/retificacao-averbacao"
+        "rcpn/registro-nascimento"
       ],
       "validado": false
     },
@@ -162,7 +78,7 @@
       "slug": "casamento",
       "titulo": "Casar (habilitação e casamento civil)",
       "nomeTecnico": "Habilitação e celebração de casamento",
-      "resumo": "Passo a passo para se casar no civil: os documentos da habilitação e como funciona a cerimônia.",
+      "resumo": "Habilitação e celebração do casamento civil.",
       "palavras": [
         "casar",
         "casamento",
@@ -176,57 +92,9 @@
         "noiva",
         "noivo"
       ],
-      "quando": "Quando duas pessoas querem se casar no civil. Primeiro é feita a habilitação, depois a cerimônia. A habilitação aprovada vale por 90 dias.",
-      "documentos": [
-        {
-          "grupo": "De cada noivo(a)",
-          "itens": [
-            "Documento de identificação oficial com foto, original",
-            "CPF",
-            "Certidão de nascimento atualizada. Se já foi casado(a): certidão de casamento com averbação do divórcio ou do óbito do cônjuge.",
-            "Comprovante de residência",
-            "Menores de 18 anos (a partir de 16): autorização dos pais ou responsáveis"
-          ]
-        },
-        {
-          "grupo": "Sobre o regime de bens",
-          "itens": [
-            {
-              "texto": "Se quiserem um regime diferente da comunhão parcial, que é a regra geral: pacto antenupcial",
-              "obs": "O pacto é feito em escritura, no Tabelionato de Notas."
-            }
-          ]
-        },
-        {
-          "grupo": "Para a cerimônia",
-          "itens": [
-            "Testemunhas, conforme orientação do cartório, com documento de identificação"
-          ]
-        }
-      ],
-      "passos": [
-        "Os noivos levam os documentos ao cartório para a habilitação.",
-        "O cartório confere e cumpre as etapas legais da habilitação.",
-        "Com a habilitação aprovada, combinam data e local da cerimônia.",
-        "Realizam o casamento e recebem a certidão."
-      ],
-      "perguntas": [
-        {
-          "p": "Quanto tempo leva?",
-          "r": "Depende da análise da documentação e das etapas legais da habilitação. O cartório informa o prazo no atendimento."
-        },
-        {
-          "p": "Casar custa algo?",
-          "r": "Em regra, a habilitação e a cerimônia são cobradas conforme a tabela de emolumentos. A lei prevê isenção para quem declara não poder pagar."
-        },
-        {
-          "p": "Posso casar fora do cartório?",
-          "r": "A cerimônia pode ser realizada em outro local combinado, conforme as regras e os custos informados pelo cartório."
-        }
-      ],
+      "documentos": [],
       "modelos": [],
       "verTambem": [
-        "notas/uniao-estavel",
         "rcpn/segunda-via-certidao"
       ],
       "validado": false
@@ -235,7 +103,7 @@
       "slug": "registro-obito",
       "titulo": "Registrar um óbito",
       "nomeTecnico": "Registro de óbito",
-      "resumo": "Registro do falecimento e emissão da certidão de óbito, necessária para o sepultamento e outras providências.",
+      "resumo": "Registro de falecimento e emissão da certidão de óbito.",
       "palavras": [
         "morte",
         "faleceu",
@@ -249,46 +117,7 @@
         "do",
         "morreu"
       ],
-      "quando": "Logo após o falecimento, pois a certidão de óbito é exigida para o sepultamento. Em regra, o registro é feito no cartório do local do falecimento. A lei prevê outras possibilidades, por isso pergunte ao atendimento.",
-      "documentos": [
-        {
-          "grupo": "Do falecimento",
-          "itens": [
-            "Declaração de Óbito (DO), emitida pelo médico, hospital ou IML",
-            "Se não houve atestado médico: duas testemunhas qualificadas e documentos, conforme orientação do cartório"
-          ]
-        },
-        {
-          "grupo": "Da pessoa que faleceu",
-          "itens": [
-            "Documento de identificação e CPF",
-            "Certidão de nascimento ou de casamento, original",
-            "Informações sobre o falecido: estado civil, filhos, e se deixou bens ou testamento (o cartório pergunta no registro)"
-          ]
-        },
-        {
-          "grupo": "De quem declara o óbito",
-          "itens": [
-            "Documento de identificação oficial com foto, original (familiar ou pessoa próxima)"
-          ]
-        }
-      ],
-      "passos": [
-        "Peça a Declaração de Óbito ao médico, hospital ou IML.",
-        "Leve a DO e os documentos ao cartório.",
-        "Informe os dados e confira tudo antes de assinar.",
-        "Retire a certidão de óbito, gratuita na primeira via."
-      ],
-      "perguntas": [
-        {
-          "p": "Onde fazer o registro?",
-          "r": "Em regra, no cartório do local do falecimento. Pergunte ao atendimento se há outras opções para o seu caso."
-        },
-        {
-          "p": "Depois do óbito, o que mais preciso providenciar?",
-          "r": "Dependendo do caso: inventário, benefícios previdenciários, baixa de documentos e contas. Fale com o cartório e, se necessário, com um advogado."
-        }
-      ],
+      "documentos": [],
       "modelos": [
         {
           "titulo": "Requerimento para registro de óbito",
@@ -298,129 +127,6 @@
       "verTambem": [
         "notas/inventario-partilha",
         "rcpn/segunda-via-certidao"
-      ],
-      "validado": false
-    },
-    {
-      "slug": "reconhecimento-paternidade",
-      "titulo": "Reconhecer um filho (incluir o nome do pai no registro)",
-      "nomeTecnico": "Reconhecimento de paternidade",
-      "resumo": "O pai declara no cartório que é pai da criança ou do adulto, e passa a constar no registro de nascimento.",
-      "palavras": [
-        "pai",
-        "paternidade",
-        "reconhecer filho",
-        "incluir pai",
-        "nome do pai",
-        "pai na certidao",
-        "reconhecimento",
-        "dna",
-        "sobrenome do pai"
-      ],
-      "quando": "Pode ser feito para filhos de qualquer idade. Se o filho for maior de idade, é preciso o consentimento dele. Se for menor, o cartório orienta sobre a participação da mãe ou do responsável.",
-      "documentos": [
-        {
-          "grupo": "Do pai",
-          "itens": [
-            "Documento de identificação oficial com foto, original",
-            "CPF"
-          ]
-        },
-        {
-          "grupo": "Do filho",
-          "itens": [
-            "Certidão de nascimento, original, ou os dados do registro",
-            "Se for maior de idade: documento de identificação e consentimento do próprio filho"
-          ]
-        },
-        {
-          "grupo": "Da mãe ou do responsável",
-          "itens": [
-            "Documento de identificação oficial com foto, quando o cartório exigir a presença ou a concordância"
-          ]
-        }
-      ],
-      "passos": [
-        "O pai comparece ao cartório com os documentos.",
-        "O cartório confere a situação (idade do filho, estado civil dos pais) e orienta.",
-        "O pai assina o termo de reconhecimento.",
-        "O registro de nascimento é atualizado e o filho pode pedir a nova certidão."
-      ],
-      "perguntas": [
-        {
-          "p": "Preciso fazer exame de DNA?",
-          "r": "O reconhecimento voluntário não exige exame de DNA. Se houver recusa do suposto pai, o caminho costuma ser judicial. Procure a Defensoria Pública ou um advogado."
-        },
-        {
-          "p": "O reconhecimento pode ser desfeito?",
-          "r": "Em regra, o reconhecimento de filho é irrevogável. Em casos excepcionais, depende de decisão da Justiça."
-        }
-      ],
-      "modelos": [],
-      "verTambem": [
-        "rcpn/registro-nascimento",
-        "rcpn/retificacao-averbacao"
-      ],
-      "validado": false
-    },
-    {
-      "slug": "retificacao-averbacao",
-      "titulo": "Corrigir ou atualizar um registro civil",
-      "nomeTecnico": "Retificação e averbação",
-      "resumo": "Erros de grafia, mudança de nome após casamento ou divórcio e outras atualizações nas certidões.",
-      "palavras": [
-        "corrigir",
-        "erro",
-        "nome errado",
-        "mudar nome",
-        "alterar nome",
-        "sobrenome",
-        "retificar",
-        "averbar",
-        "divorcio",
-        "estado civil",
-        "grafia",
-        "atualizar certidao",
-        "troca de nome"
-      ],
-      "quando": "Alguns ajustes podem ser feitos diretamente no cartório, sem processo judicial: por exemplo, erros evidentes de grafia, anotação de divórcio ou de casamento e, em certos casos, alteração de nome. Outros dependem de decisão da Justiça. O cartório avalia o seu caso.",
-      "documentos": [
-        {
-          "grupo": "De quem pede",
-          "itens": [
-            "Documento de identificação oficial com foto, original, e CPF",
-            "Certidão do registro que será corrigido ou atualizado"
-          ]
-        },
-        {
-          "grupo": "Que comprovem o que será ajustado",
-          "itens": [
-            "Documentos que mostrem a informação correta (por exemplo, certidões e documentos pessoais com a grafia correta)",
-            "Para anotar divórcio: a escritura ou a sentença de divórcio, com a certidão de trânsito em julgado, quando for o caso",
-            "Para mudança de nome: documentos e justificativa conforme o caso. O cartório orienta."
-          ]
-        }
-      ],
-      "passos": [
-        "Leve ao cartório a certidão atual e os documentos que comprovam o ajuste.",
-        "O cartório analisa se o pedido pode ser resolvido no próprio cartório.",
-        "Se puder, faz a retificação ou averbação. Se não puder, orienta o caminho judicial.",
-        "Peça a nova certidão já atualizada."
-      ],
-      "perguntas": [
-        {
-          "p": "O cartório pode mudar qualquer informação?",
-          "r": "Não. Mudanças que a lei reserva à Justiça precisam de ação judicial. Nesses casos procure advogado ou Defensoria Pública."
-        },
-        {
-          "p": "Depois do divórcio, preciso anotar na certidão de casamento?",
-          "r": "Sim. O divórcio precisa ser averbado na certidão de casamento para que o estado civil conste atualizado."
-        }
-      ],
-      "modelos": [],
-      "verTambem": [
-        "rcpn/segunda-via-certidao",
-        "notas/divorcio-extrajudicial"
       ],
       "validado": false
     }

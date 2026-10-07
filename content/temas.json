@@ -3,17 +3,13 @@
     "id": "familia",
     "titulo": "Família e pessoas",
     "icone": "pessoas",
-    "descricao": "Nascimento, casamento, óbito, certidões, união estável e divórcio.",
+    "descricao": "Nascimento, casamento, óbito, certidões e divórcio.",
     "atos": [
       "rcpn/registro-nascimento",
       "rcpn/segunda-via-certidao",
       "rcpn/casamento",
       "rcpn/registro-obito",
-      "rcpn/reconhecimento-paternidade",
-      "rcpn/retificacao-averbacao",
-      "notas/uniao-estavel",
-      "notas/divorcio-extrajudicial",
-      "notas/autorizacao-viagem-menor"
+      "notas/divorcio-extrajudicial"
     ]
   },
   {
@@ -36,11 +32,10 @@
     "id": "documentos",
     "titulo": "Documentos e assinaturas",
     "icone": "documento",
-    "descricao": "Procurações, reconhecimento de firma, cópias autenticadas, atas notariais, contratos e notificações.",
+    "descricao": "Procurações, reconhecimento de firma, atas notariais, contratos e notificações.",
     "atos": [
       "notas/procuracao",
       "notas/reconhecimento-firma",
-      "notas/autenticacao-copias",
       "notas/atas-notariais",
       "rtd/registro-contrato",
       "rtd/notificacao-extrajudicial",
@@ -63,7 +58,7 @@
     "id": "entidades",
     "titulo": "Associações e entidades",
     "icone": "predio",
-    "descricao": "Associações, igrejas, ONGs e outras pessoas jurídicas que não são empresas comerciais.",
+    "descricao": "Associações, igrejas, ONGs e outras entidades.",
     "atos": [
       "rcpj/registrar-associacao",
       "rcpj/alteracao-estatuto-ata",
