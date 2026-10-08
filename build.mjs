@@ -658,8 +658,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
   <section class="hero escuro">
     <div class="container hero__grade">
       <div class="hero__texto">
-        <p class="eyebrow">${esc(site.chamadaInicio || site.nome)}</p>
-        <h1>Serviços de cartório, de um jeito simples</h1>
+        <h1 class="eyebrow">${esc(site.chamadaInicio || site.nome)}</h1>
         <p>Tabelionato de Notas, Protestos, Registro Civil Pessoas Naturais, Registro Títulos e Documentos, Registro Civil Pessoas Jurídicas.</p>
         <div class="hero__acoes">
           <a class="btn btn--claro" href="#encontrar">${icone("lupa")}Encontrar um serviço</a>
