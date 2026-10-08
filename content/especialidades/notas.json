@@ -551,6 +551,87 @@
       "texto": [
         "Requisitos: i) que as partes estejam de acordo com todos os termos da escritura, ii) inexistência de filhos menores ou incapazes; OU questões relativas aos menores já resolvidas judicialmente; e iii) acompanhamento de, pelo menos, um advogado que deverá enviar petição com a qualificação das partes, data da separação de fato, indicação dos bens e respectivos valores bem como indicar a forma de partilha."
       ]
+    },
+    {
+      "slug": "emancipacao-menores",
+      "titulo": "Emancipação de filhos menores",
+      "nomeTecnico": "Emancipação de filhos menores",
+      "resumo": "Emancipação de filhos menores.",
+      "palavras": [
+        "emancipacao",
+        "emancipar",
+        "filho",
+        "filhos",
+        "menor",
+        "menores",
+        "maioridade"
+      ],
+      "documentos": [],
+      "verTambem": [],
+      "validado": false,
+      "escritura": false
+    },
+    {
+      "slug": "pacto-uniao-estavel",
+      "titulo": "Pacto antenupcial ou união estável convencional",
+      "nomeTecnico": "Pactos antenupciais e união estável convencional",
+      "resumo": "Pacto antenupcial ou união estável convencional.",
+      "palavras": [
+        "pacto",
+        "antenupcial",
+        "uniao estavel",
+        "convivencia",
+        "casamento",
+        "regime de bens",
+        "bens",
+        "casal"
+      ],
+      "documentos": [],
+      "verTambem": [
+        "notas/divorcio-extrajudicial"
+      ],
+      "validado": false,
+      "escritura": false
+    },
+    {
+      "slug": "nomeacao-inventariante",
+      "titulo": "Nomeação de inventariante, conjunta ou separadamente",
+      "nomeTecnico": "Nomeação de inventariante",
+      "resumo": "Nomeação de inventariante, conjunta ou separadamente.",
+      "palavras": [
+        "inventariante",
+        "inventario",
+        "heranca",
+        "herdeiros",
+        "falecimento",
+        "nomeacao"
+      ],
+      "documentos": [],
+      "verTambem": [
+        "notas/inventario-partilha"
+      ],
+      "validado": false,
+      "escritura": false
+    },
+    {
+      "slug": "desapropriacao-dacao-acordos",
+      "titulo": "Desapropriação, dação em pagamento e acordos extrajudiciais",
+      "nomeTecnico": "Desapropriação, Dação em Pagamento, Acordos Extrajudiciais",
+      "resumo": "Desapropriação, dação em pagamento e acordos extrajudiciais.",
+      "palavras": [
+        "desapropriacao",
+        "dacao",
+        "dacao em pagamento",
+        "acordo",
+        "acordos",
+        "extrajudicial",
+        "pagamento",
+        "divida"
+      ],
+      "documentos": [],
+      "verTambem": [],
+      "validado": false,
+      "escritura": false
     }
   ],
   "linksOnline": []

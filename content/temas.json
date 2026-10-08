@@ -9,7 +9,9 @@
       "rcpn/segunda-via-certidao",
       "rcpn/casamento",
       "rcpn/registro-obito",
-      "notas/divorcio-extrajudicial"
+      "notas/divorcio-extrajudicial",
+      "notas/emancipacao-menores",
+      "notas/pacto-uniao-estavel"
     ]
   },
   {
@@ -25,7 +27,8 @@
       "notas/inventario-partilha",
       "notas/cessao-heranca-toda",
       "notas/cessao-heranca-bem",
-      "notas/testamento"
+      "notas/testamento",
+      "notas/nomeacao-inventariante"
     ]
   },
   {
@@ -39,7 +42,8 @@
       "notas/atas-notariais",
       "rtd/registro-contrato",
       "rtd/notificacao-extrajudicial",
-      "rtd/certidao-rtd"
+      "rtd/certidao-rtd",
+      "notas/desapropriacao-dacao-acordos"
     ]
   },
   {
