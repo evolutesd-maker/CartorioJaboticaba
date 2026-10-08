@@ -257,10 +257,8 @@ a:hover { color: var(--azul-3); }
   min-width: 0;
 }
 .marca:hover { color: var(--azul-4); }
-.marca__selo { width: 2.9rem; height: 2.9rem; flex: none; transition: transform 0.4s var(--ease); }
-.marca:hover .marca__selo { transform: rotate(-8deg) scale(1.05); }
 .marca__texto { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
-.marca__texto strong { font: 800 1.15rem/1.2 var(--fonte); letter-spacing: -0.02em; }
+.marca__texto strong { font: 800 1.45rem/1.15 var(--fonte); letter-spacing: -0.025em; }
 .marca__texto small { font-size: 0.8rem; font-weight: 500; color: var(--suave); letter-spacing: 0.02em; }
 
 .menu-btn { display: none; }
@@ -992,7 +990,6 @@ a:hover { color: var(--ouro-claro); } /* só para fundo azul */
   .hero::after { content: ""; position: absolute; z-index: -1; width: 38rem; height: 38rem; right: -12rem; top: -14rem; border-radius: 50%; background: radial-gradient(circle, rgba(0, 120, 215, 0.75), transparent 65%); animation: deriva 16s ease-in-out infinite alternate; }
   .faixa__deco { animation: flutuar 9s ease-in-out infinite; }
   
-  .marca__selo { animation: gira-entrada 1s var(--ease) 0.1s both; }
 }
 @keyframes sobe { from { opacity: 0; translate: 0 26px; } to { opacity: 1; translate: 0 0; } }
 @keyframes foto-entra { from { opacity: 0; scale: 0.94; } to { opacity: 1; scale: 1; } }
@@ -1512,7 +1509,8 @@ kbd {
   .menu__link:not(.btn) { padding-inline: 0.8rem; }
   .busca-btn { padding: 0.5rem 0.75rem; }
   .busca-btn span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .marca__texto strong { font-size: 1rem; max-width: 7.5rem; }
+  .marca { margin-right: 1.25rem; }
+  .marca__texto strong { font-size: 1.2rem; white-space: nowrap; }
   .topo__linha { gap: 0.75rem; }
 }
 .sol-grade--tres { grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr)); }

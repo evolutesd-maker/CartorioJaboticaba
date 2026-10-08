@@ -135,7 +135,6 @@ const ICONES = {
 const icone = (nome) =>
   `<svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${(ICONES[nome] || "").replace(/<(path|circle|rect)\b/g, '<$1 pathLength="1"')}</svg>`;
 
-const SELO = `<svg class="marca__selo" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="22" fill="#0078d7"/><circle cx="24" cy="24" r="19" fill="none" stroke="#e3c277" stroke-width="1.5"/><text x="24" y="32" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="23" font-weight="700" fill="#fff">J</text></svg>`;
 
 /* ===================================================================== dados do cartório */
 
@@ -482,8 +481,7 @@ function cabecalho(c, ativo) {
   <header class="topo">
     <div class="container topo__linha">
       <a class="marca" href="${c.u("index.html")}" aria-label="${esc(site.nome)} — página inicial">
-        ${SELO}
-        <span class="marca__texto"><strong>${esc(site.nome)}</strong><small>${esc(site.chamada)}</small></span>
+        <span class="marca__texto"><strong>${esc(site.marca || site.nome)}</strong></span>
       </a>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-principal">${icone("menu")}Menu</button>
       <nav class="menu" id="menu-principal" aria-label="Principal">
@@ -660,9 +658,9 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
   <section class="hero escuro">
     <div class="container hero__grade">
       <div class="hero__texto">
-        <p class="eyebrow">${esc(site.nome)}</p>
+        <p class="eyebrow">${esc(site.chamadaInicio || site.nome)}</p>
         <h1>Serviços de cartório, de um jeito simples</h1>
-        <p>Notas, protesto e registros civis e de documentos em um só endereço. Diga o que você precisa e veja os documentos antes de vir.</p>
+        <p>Tabelionato de Notas, Protestos, Registro Civil Pessoas Naturais, Registro Títulos e Documentos, Registro Civil Pessoas Jurídicas.</p>
         <div class="hero__acoes">
           <a class="btn btn--claro" href="#encontrar">${icone("lupa")}Encontrar um serviço</a>
           <a class="btn btn--vidro" href="#falar">${icone("chat")}Falar com o cartório</a>
