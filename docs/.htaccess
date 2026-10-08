@@ -1,5 +1,6 @@
 # Gerado por build.mjs. Requer mod_headers e mod_rewrite.
 Options -Indexes
+DirectorySlash Off
 ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
 RewriteEngine On
@@ -7,6 +8,8 @@ RewriteCond %{HTTPS} off
 RewriteCond %{HTTP_HOST} !^localhost(:\d+)?$
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteRule (^|/)\.(?!well-known) - [F]
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/?$ $1.html [L]
 </IfModule>
 <IfModule mod_headers.c>
 Header always set Content-Security-Policy "default-src 'none'; script-src 'self' 'sha256-aaQiBAYqN6jVpW7ybWVoSK9x6UpzN6wIg1wuvd/xDl8=' 'sha256-d4bT/6OpDGnIXBTr/SxPhvE4PrJjdmchMBJYaVh8els='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'; upgrade-insecure-requests"

@@ -175,3 +175,7 @@ Percorre todos os links e arquivos internos (status 200), confere se os PDFs bai
 ## Publicar na Vercel
 
 O repositório já traz um `vercel.json` (gerado por `build.mjs`) que manda a Vercel publicar só a pasta `docs/`, sem rodar build, e aplica os cabeçalhos de segurança (a Vercel não lê `_headers`). Basta importar o repositório, deixar o preset como "Other" e fazer o deploy da branch. Sem esse arquivo, a Vercel procura uma pasta `public` e o deploy falha com "Nenhum diretório de saída chamado public". Antes de cada deploy, rode `npm test` e envie também o `docs/` e o `vercel.json` atualizados.
+
+## Endereços sem ".html"
+
+Os links e o sitemap usam endereços limpos (`/servicos/notas/procuracao`, e a página inicial é só o domínio). Os arquivos continuam sendo `.html` em `docs/`; a hospedagem entrega o arquivo quando o endereço vem sem extensão: na Vercel, por `cleanUrls: true` no `vercel.json` (os endereços antigos com `.html` redirecionam sozinhos); no Apache, pelas regras do `.htaccess` gerado; em Netlify/Cloudflare Pages, por padrão. O `scripts/serve.mjs` e o `scripts/check.mjs` seguem a mesma regra.

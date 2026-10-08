@@ -38,7 +38,9 @@ for (const arq of paginas) {
     const [caminhoBruto, ancora] = alvo.split("#").map((x, i) => (i === 0 ? x.split("?")[0] : x));
     // Links começados por "/" (só a página 404) valem a partir da raiz do site.
     const destino = caminhoBruto ? (caminhoBruto.startsWith("/") ? join(DOCS, caminhoBruto) : resolve(dirname(arq), caminhoBruto)) : arq;
-    const real = existsSync(destino) && statSync(destino).isDirectory() ? join(destino, "index.html") : destino;
+    // Endereços sem extensão: o servidor entrega "x.html" (ou a pasta, com index.html).
+    const comHtml = destino.endsWith(".html") ? destino : destino + ".html";
+    const real = existsSync(comHtml) && !destino.endsWith("/") && statSync(comHtml).isFile() ? comHtml : existsSync(destino) && statSync(destino).isDirectory() ? join(destino, "index.html") : destino;
     if (!existsSync(real)) { falha(`link quebrado → ${alvo}`); continue; }
     if (ancora && real.endsWith(".html") && !(idsPorPagina.get(real) || new Set()).has(ancora)) falha(`âncora inexistente → ${alvo}`);
   }

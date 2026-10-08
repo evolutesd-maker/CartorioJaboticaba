@@ -17,7 +17,9 @@ createServer(async (req, res) => {
   try {
     let caminho = normalize(decodeURIComponent(new URL(req.url, "http://x").pathname)).replace(/^(\.\.[/\\])+/, "");
     let arquivo = join(RAIZ, caminho);
-    if ((await stat(arquivo).catch(() => null))?.isDirectory()) arquivo = join(arquivo, "index.html");
+    // Como a hospedagem: "/servicos/notas" entrega servicos/notas.html (o arquivo vale mais que a pasta).
+    if (!extname(arquivo) && (await stat(arquivo + ".html").catch(() => null))?.isFile()) arquivo += ".html";
+    else if ((await stat(arquivo).catch(() => null))?.isDirectory()) arquivo = join(arquivo, "index.html");
     const dados = await readFile(arquivo);
     res.writeHead(200, { "Content-Type": TIPOS[extname(arquivo)] || "application/octet-stream" });
     res.end(dados);

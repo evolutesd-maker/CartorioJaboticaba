@@ -4,7 +4,7 @@
   "buildCommand": null,
   "installCommand": null,
   "outputDirectory": "docs",
-  "cleanUrls": false,
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/(.*)",

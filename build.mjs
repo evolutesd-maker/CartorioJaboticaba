@@ -86,6 +86,16 @@ for (const ato of atos.values()) {
 const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const norm = (s) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+// Endereços bonitos: "servicos/notas.html" vira "servicos/notas" e "index.html" vira a pasta ("./", "../").
+// A hospedagem entrega o arquivo .html quando o endereço vem sem extensão (Vercel: cleanUrls; Apache: .htaccess).
+const semHtml = (u) => {
+  const r = u.replace(/(^|\/)index\.html(?=#|$)/, "$1").replace(/\.html(?=#|$)/, "");
+  return r === "" ? "./" : r.startsWith("#") ? "./" + r : r;
+};
+const limparLinks = (html) =>
+  html.replace(/(\shref=")([^"#:]*?\.html|[^"#:]*?\/)?(#[^"]*)?(")/g, (m, a, caminho, ancora, d) =>
+    caminho && /\.html$/.test(caminho) ? a + semHtml(caminho) + (ancora || "") + d : m
+  );
 const soDigitos = (s) => String(s).replace(/\D/g, "");
 // Números com até 11 dígitos são nacionais (DDD + número): acrescenta o 55 do Brasil.
 const comPais = (s) => {
@@ -299,7 +309,8 @@ const INDICE = [
     ["Tabela de Emolumentos (PDF)", "modelos/tabela-de-emolumentos-2026.pdf", "tabela emolumentos custas valores precos quanto custa taxas pdf baixar"],
   ].map(([t, u, b]) => ({ t, e: u.endsWith(".pdf") ? "Arquivo para baixar" : "Página do site", u, d: 0, b: norm(colado(`${t} ${b}`)) })),
 ];
-const INDICE_JS = `window.CJ_INDICE=${JSON.stringify(INDICE)};`;
+const urlIndice = (x) => (x.x || !/\.html$/.test(x.u) ? x.u : semHtml(x.u));
+const INDICE_JS = `window.CJ_INDICE=${JSON.stringify(INDICE.map((x) => ({ ...x, u: urlIndice(x) })))};`;
 const V_INDICE = versao(INDICE_JS);
 
 // "Aberto agora": o navegador compara a hora de Brasília com este expediente (não considera feriados).
@@ -546,7 +557,7 @@ function botaoFlutuante() {
 function layout(c, { titulo, descricao, corpo, ativo = "", noindex = false, jsonld = null, home = false }) {
   const tituloCompleto = home ? `${site.nome} · Serviços de cartório em ${end.cidade}/${end.uf}` : `${titulo} | ${site.nome}`;
   const bloquear = noindex || rascunho;
-  const canonical = site.url ? new URL(c.caminho === "index.html" ? "" : c.caminho, site.url.replace(/\/?$/, "/")).href : null;
+  const canonical = site.url ? new URL(c.caminho === "index.html" ? "" : semHtml(c.caminho), site.url.replace(/\/?$/, "/")).href : null;
   return `<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -673,7 +684,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
     .map((a) => linhaLista(c.u(a.caminho), a.titulo, a.esp.nome))
     .join("");
 
-  const indiceBusca = JSON.stringify(INDICE.map((x) => (x.x ? x : { ...x, u: c.u(x.u) }))).replace(/</g, "\\u003c");
+  const indiceBusca = JSON.stringify(INDICE.map((x) => (x.x ? x : { ...x, u: c.u(urlIndice(x)) }))).replace(/</g, "\\u003c");
 
   const painel = `
   <div class="container painel-flutuante" id="encontrar">
@@ -1377,7 +1388,7 @@ mkdirSync(SAIDA, { recursive: true });
 for (const p of paginas) {
   const destino = join(SAIDA, p.caminho);
   mkdirSync(dirname(destino), { recursive: true });
-  writeFileSync(destino, p.html);
+  writeFileSync(destino, limparLinks(p.html));
 }
 
 // Ativos estáticos
@@ -1413,7 +1424,7 @@ writeFileSync(
 );
 writeFileSync(
   join(SAIDA, ".htaccess"),
-  `# Gerado por build.mjs. Requer mod_headers e mod_rewrite.\nOptions -Indexes\nErrorDocument 404 /404.html\n<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteCond %{HTTP_HOST} !^localhost(:\\d+)?$\nRewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\nRewriteRule (^|/)\\.(?!well-known) - [F]\n</IfModule>\n<IfModule mod_headers.c>\n${Object.entries(CABECALHOS).map(([k, v]) => `Header always set ${k} "${v}"`).join("\n")}\n<FilesMatch "\\.(css|js|woff2)$">\nHeader set Cache-Control "public, max-age=31536000, immutable"\n</FilesMatch>\n<FilesMatch "\\.(webp|svg|png|jpe?g)$">\nHeader set Cache-Control "public, max-age=2592000"\n</FilesMatch>\n</IfModule>\n`
+  `# Gerado por build.mjs. Requer mod_headers e mod_rewrite.\nOptions -Indexes\nDirectorySlash Off\nErrorDocument 404 /404.html\n<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteCond %{HTTP_HOST} !^localhost(:\\d+)?$\nRewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\nRewriteRule (^|/)\\.(?!well-known) - [F]\nRewriteCond %{DOCUMENT_ROOT}/$1.html -f\nRewriteRule ^(.+?)/?$ $1.html [L]\n</IfModule>\n<IfModule mod_headers.c>\n${Object.entries(CABECALHOS).map(([k, v]) => `Header always set ${k} "${v}"`).join("\n")}\n<FilesMatch "\\.(css|js|woff2)$">\nHeader set Cache-Control "public, max-age=31536000, immutable"\n</FilesMatch>\n<FilesMatch "\\.(webp|svg|png|jpe?g)$">\nHeader set Cache-Control "public, max-age=2592000"\n</FilesMatch>\n</IfModule>\n`
 );
 writeFileSync(join(SAIDA, ".nojekyll"), "");
 // Vercel: publica só a pasta docs/ (já gerada) e aplica os mesmos cabeçalhos de segurança (a Vercel não lê _headers).
@@ -1427,7 +1438,7 @@ writeFileSync(
       buildCommand: null,
       installCommand: null,
       outputDirectory: "docs",
-      cleanUrls: false,
+      cleanUrls: true,
       headers: [
         { source: "/(.*)", headers: Object.entries(CABECALHOS).map(([key, value]) => ({ key, value })) },
         cacheVercel("/assets/css/(.*)", "public, max-age=31536000, immutable"),
@@ -1452,7 +1463,7 @@ if (rascunho) {
   writeFileSync(join(SAIDA, "robots.txt"), "User-agent: *\nDisallow: /\n");
 } else {
   const base = site.url.replace(/\/?$/, "/");
-  const urls = paginas.filter((p) => !p.noindex).map((p) => (p.caminho === "index.html" ? base : new URL(p.caminho, base).href));
+  const urls = paginas.filter((p) => !p.noindex).map((p) => (p.caminho === "index.html" ? base : new URL(semHtml(p.caminho), base).href));
   writeFileSync(join(SAIDA, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${u}</loc></url>`).join("\n")}\n</urlset>\n`);
   writeFileSync(join(SAIDA, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${base}sitemap.xml\n`);
 }
