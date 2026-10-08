@@ -647,17 +647,6 @@ a:hover { color: var(--azul-3); }
 
 .resumo-ato { font-size: 1.2rem; line-height: 1.65; color: var(--tinta); }
 
-.selo {
-  display: inline-block;
-  font: 700 0.78rem/1.2 var(--fonte);
-  letter-spacing: 0.02em;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  vertical-align: middle;
-}
-.selo--validacao { background: var(--ouro-fundo); color: var(--ouro-texto); border: 1px solid var(--ouro); }
-.selo--ok { background: var(--azul-100); color: var(--azul-2); border: 1px solid var(--azul-200); }
-
 .progresso { display: none; align-items: center; gap: 0.8rem; margin: -0.25rem 0 1.5rem; font-weight: 700; color: var(--azul-2); font-size: 0.975rem; }
 .js .progresso { display: flex; }
 .progresso__barra { flex: 1; max-width: 16rem; height: 0.55rem; border-radius: 999px; background: var(--azul-100); overflow: hidden; }

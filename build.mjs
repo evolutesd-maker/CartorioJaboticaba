@@ -923,9 +923,6 @@ for (const ato of atos.values()) {
   const esp = ato.esp;
   const c = ctx(ato.caminho);
   const msg = `Olá! Gostaria de informações sobre: ${ato.titulo}.`;
-  const selo = ato.validado
-    ? `<span class="selo selo--ok">Revisado pelo cartório${ato.revisadoEm ? ` em ${dataBr(ato.revisadoEm)}` : ""}</span>`
-    : `<span class="selo selo--validacao no-print">Em validação pelo cartório</span>`;
 
   const ancoras = [
     ...((ato.texto || []).length ? [["sobre", "Sobre o serviço"]] : []),
@@ -961,14 +958,14 @@ for (const ato of atos.values()) {
       ${
         (ato.documentos || []).length
           ? `<section id="documentos" data-checklist>
-        <h2>Documentos necessários ${selo}</h2>
+        <h2>Documentos necessários</h2>
         <div class="progresso"><span data-progresso-texto role="status"></span><span class="progresso__barra"><i data-progresso-barra></i></span></div>
         ${blocoDocumentos(ato)}
         <p class="nota-final">O cartório pode pedir documentos adicionais conforme o caso. Na dúvida, fale com o atendimento antes de vir.</p>
         <p class="no-print"><button class="btn btn--contorno so-js" type="button" data-imprimir>${icone("imprimir")}Imprimir esta lista</button></p>
       </section>`
           : `<section id="documentos">
-        <h2>Documentos necessários ${selo}</h2>
+        <h2>Documentos necessários</h2>
         <div class="destaque"><p><strong>Este serviço é feito diretamente com o atendimento do cartório.</strong> Fale com o atendimento para saber como proceder e o que levar.</p>${botaoWhats(c, msg, { classe: "btn btn--primario", rotulo: "Perguntar ao cartório" })}</div>
       </section>`
       }
