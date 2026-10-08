@@ -1603,3 +1603,7 @@ html::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-even
   .dados .horario dd { overflow-wrap: normal; margin: 0 0 0.7rem; }
   .dados .horario dd:last-of-type { margin-bottom: 0; }
 }
+
+/* Menu aberto no celular: o cabeçalho rola por dentro, então os fios do rodapé dele (dourado e de leitura) sairiam no meio da lista */
+.js .topo:has(.menu.is-aberto)::before,
+.js .topo:has(.menu.is-aberto)::after { display: none; }
