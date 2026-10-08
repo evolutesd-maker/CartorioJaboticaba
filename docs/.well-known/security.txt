@@ -1,4 +1,4 @@
 Contact: mailto:cartorio.jaboticaba@gmail.com
-Expires: 2027-10-08T11:43:58.481Z
+Expires: 2027-10-08T11:46:46.294Z
 Preferred-Languages: pt-BR
 Canonical: https://cartoriojaboticaba.com.br/.well-known/security.txt

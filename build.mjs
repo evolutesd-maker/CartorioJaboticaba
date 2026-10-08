@@ -132,8 +132,10 @@ const SELO = `<svg class="marca__selo" viewBox="0 0 48 48" aria-hidden="true" fo
 const end = site.endereco;
 const enderecoRua = `${end.logradouro}, ${end.numero} — ${end.bairro}`;
 const enderecoCidade = `${end.cidade}/${end.uf} — CEP ${end.cep}`;
-// Só rua, número e cidade: bairro e CEP genérico (o da cidade inteira) atrapalham a busca do Google Maps.
-const consultaMapa = encodeURIComponent(`${end.logradouro}, ${end.numero}, ${end.cidade} - ${end.uf}, Brasil`);
+// Coordenadas do ponto no Google Maps (a busca por nome de rua não acha o cartório); sem elas, cai na busca por endereço.
+const consultaMapa = end.latitude != null && end.longitude != null
+  ? `${end.latitude},${end.longitude}`
+  : encodeURIComponent(`${end.logradouro}, ${end.numero}, ${end.cidade} - ${end.uf}, Brasil`);
 const rotaUrl = `https://www.google.com/maps/dir/?api=1&destination=${consultaMapa}`;
 const telHref = site.telefone ? `tel:+${comPais(site.telefone)}` : null;
 const waUrl = (msg) =>

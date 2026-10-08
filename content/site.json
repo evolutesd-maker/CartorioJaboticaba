@@ -9,7 +9,9 @@
     "bairro": "Centro",
     "cidade": "Jaboticaba",
     "uf": "RS",
-    "cep": "98350-000"
+    "cep": "98350-000",
+    "latitude": -27.6335376,
+    "longitude": -53.2796022
   },
   "telefone": "(55) 98409-1301",
   "whatsapp": "(55) 98409-1301",
