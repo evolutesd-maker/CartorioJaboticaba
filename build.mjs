@@ -1399,6 +1399,30 @@ writeFileSync(
   `# Gerado por build.mjs. Requer mod_headers e mod_rewrite.\nOptions -Indexes\nErrorDocument 404 /404.html\n<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteCond %{HTTP_HOST} !^localhost(:\\d+)?$\nRewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\nRewriteRule (^|/)\\.(?!well-known) - [F]\n</IfModule>\n<IfModule mod_headers.c>\n${Object.entries(CABECALHOS).map(([k, v]) => `Header always set ${k} "${v}"`).join("\n")}\n<FilesMatch "\\.(css|js|woff2)$">\nHeader set Cache-Control "public, max-age=31536000, immutable"\n</FilesMatch>\n<FilesMatch "\\.(webp|svg|png|jpe?g)$">\nHeader set Cache-Control "public, max-age=2592000"\n</FilesMatch>\n</IfModule>\n`
 );
 writeFileSync(join(SAIDA, ".nojekyll"), "");
+// Vercel: publica só a pasta docs/ (já gerada) e aplica os mesmos cabeçalhos de segurança (a Vercel não lê _headers).
+const cacheVercel = (src, valor) => ({ source: src, headers: [{ key: "Cache-Control", value: valor }] });
+writeFileSync(
+  join(RAIZ, "vercel.json"),
+  JSON.stringify(
+    {
+      $schema: "https://openapi.vercel.sh/vercel.json",
+      framework: null,
+      buildCommand: null,
+      installCommand: null,
+      outputDirectory: "docs",
+      cleanUrls: false,
+      headers: [
+        { source: "/(.*)", headers: Object.entries(CABECALHOS).map(([key, value]) => ({ key, value })) },
+        cacheVercel("/assets/css/(.*)", "public, max-age=31536000, immutable"),
+        cacheVercel("/assets/js/(.*)", "public, max-age=31536000, immutable"),
+        cacheVercel("/assets/fonts/(.*)", "public, max-age=31536000, immutable"),
+        cacheVercel("/assets/img/(.*)", "public, max-age=2592000"),
+      ],
+    },
+    null,
+    2
+  ) + "\n"
+);
 const contatoSeg = site.emailSeguranca || site.email;
 if (contatoSeg) {
   mkdirSync(join(SAIDA, ".well-known"), { recursive: true });

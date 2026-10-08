@@ -171,3 +171,7 @@ node scripts/conferir-publicado.mjs https://enderecodosite.com.br/
 ```
 
 Percorre todos os links e arquivos internos (status 200), confere se os PDFs baixam como PDF, os cabeçalhos de segurança (CSP, nosniff, referrer, HSTS), se um endereço inexistente mostra a página 404 com status 404 e se `robots.txt` e `sitemap.xml` abrem. Sem dependências. Os cabeçalhos vêm da hospedagem (`docs/_headers` ou `docs/.htaccess`), por isso não aparecem na pré-visualização local.
+
+## Publicar na Vercel
+
+O repositório já traz um `vercel.json` (gerado por `build.mjs`) que manda a Vercel publicar só a pasta `docs/`, sem rodar build, e aplica os cabeçalhos de segurança (a Vercel não lê `_headers`). Basta importar o repositório, deixar o preset como "Other" e fazer o deploy da branch. Sem esse arquivo, a Vercel procura uma pasta `public` e o deploy falha com "Nenhum diretório de saída chamado public". Antes de cada deploy, rode `npm test` e envie também o `docs/` e o `vercel.json` atualizados.
