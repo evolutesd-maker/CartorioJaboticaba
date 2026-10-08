@@ -153,7 +153,7 @@ var indiceServicos = null;
 var carregandoIndice = false;
 var esperando = [];
 function prepararIndice(lista, raiz) {
-return lista.map(function (s) { return { t: s.t, e: s.e, u: raiz + s.u, d: s.d, i: prepara(s.b).join(" ") }; });
+return lista.map(function (s) { return { t: s.t, e: s.e, u: s.x ? s.u : raiz + s.u, x: s.x, d: s.d, i: prepara(s.b).join(" ") }; });
 }
 function obterIndice(pronto) {
 if (indiceServicos) return pronto(indiceServicos);
@@ -197,7 +197,11 @@ campo.setAttribute("aria-activedescendant", opcoes[i].id);
 opcoes[i].scrollIntoView({ block: "nearest" });
 } else campo.removeAttribute("aria-activedescendant");
 }
-function ir(el) { if (el && el.getAttribute("data-url")) window.location.href = el.getAttribute("data-url"); }
+function ir(el) {
+if (!el || !el.getAttribute("data-url")) return;
+if (el.getAttribute("data-externo")) window.open(el.getAttribute("data-url"), "_blank", "noopener,noreferrer");
+else window.location.href = el.getAttribute("data-url");
+}
 function mostrar(achados, mensagem) {
 lista.innerHTML = "";
 achados.forEach(function (s, i) {
@@ -207,12 +211,15 @@ li.id = prefixo + "-op-" + i;
 li.setAttribute("role", "option");
 li.setAttribute("aria-selected", "false");
 li.setAttribute("data-url", s.u);
+if (s.x) li.setAttribute("data-externo", "1");
 var texto = document.createElement("span");
 var t = document.createElement("strong"); t.textContent = s.t;
 var tag = document.createElement("span"); tag.className = "tag"; tag.textContent = s.e;
 texto.appendChild(t); texto.appendChild(tag);
 li.appendChild(texto);
-li.insertAdjacentHTML("beforeend", '<svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>');
+if (s.x) li.insertAdjacentHTML("beforeend", '<svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>');
+else li.insertAdjacentHTML("beforeend", '<svg class="icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>');
+if (s.x) { var av = document.createElement("span"); av.className = "sr-only"; av.textContent = " (abre em outro site)"; t.appendChild(av); }
 lista.appendChild(li);
 });
 opcoes = Array.prototype.slice.call(lista.children);
@@ -237,7 +244,7 @@ var pontos = indice.map(function (s) { return pontuar(termos, s.i); });
 var melhor = Math.max.apply(null, pontos.concat([0]));
 var achados = [];
 if (melhor > 0) indice.forEach(function (s, i) { if (pontos[i] === melhor) achados.push(s); });
-achados = achados.slice(0, 8);
+achados = achados.slice(0, 10);
 mostrar(achados, achados.length
 ? achados.length + (achados.length === 1 ? " serviço encontrado." : " serviços encontrados.") + " Use as setas para escolher."
 : "Nenhum serviço encontrado.");

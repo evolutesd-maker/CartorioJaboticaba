@@ -278,7 +278,24 @@ const buscaIndexada = (ato) =>
   norm([ato.titulo, ato.nomeTecnico, ato.esp.nome, ato.esp.nomeCompleto, ato.tema && ato.tema.titulo, ...(ato.palavras || [])].filter(Boolean).join(" "));
 
 // Índice de busca (usado pela paleta em todas as páginas e embutido na página inicial)
-const INDICE = [...atos.values()].map((a) => ({ t: a.titulo, e: a.esp.nome, u: a.caminho, d: destaques.includes(a.id) ? 1 : 0, b: buscaIndexada(a) }));
+// Também entram na busca: sites oficiais (x:1, abrem em outra aba) e as demais páginas do site.
+// Cada texto ganha uma versão "colada" (e-notariado → enotariado) para achar como a pessoa digita.
+const colado = (s) => { const c = norm(s).replace(/[^a-z0-9 ]+/g, "").trim(); const j = norm(s).replace(/[-.]/g, ""); return `${s} ${j !== norm(s) ? j : ""} ${c !== norm(s) ? c : ""}`; };
+const INDICE = [
+  ...[...atos.values()].map((a) => ({ t: a.titulo, e: a.esp.nome, u: a.caminho, d: destaques.includes(a.id) ? 1 : 0, b: buscaIndexada(a) })),
+  ...Object.values(linksDados.itens).map((l) => ({ t: l.titulo, e: `Site oficial · ${l.orgao}`, u: l.url, x: 1, d: 0, b: norm(colado([l.titulo, l.orgao, l.descricao, l.palavras].filter(Boolean).join(" "))) })),
+  ...[
+    ["Solicite online", "solicite-online.html", "solicite online pedir certidao pela internet whatsapp e-mail pedido atendimento a distancia"],
+    ["Documentos necessários", "documentos.html", "documentos lista checklist o que levar requisitos exigidos"],
+    ["Solicitações por terceiros", "solicitacoes-terceiros.html", "terceiros outra pessoa procurador familiar solicitar em nome de outra pessoa autorizacao"],
+    ["e-Notariado e atos pela internet", "e-notariado.html", "e-notariado enotariado e notariado certificado digital videoconferencia ato online escritura digital cartorio digital assinatura eletronica"],
+    ["Contato, endereço e horário", "contato.html", "contato telefone whatsapp email endereco horario atendimento onde fica mapa como chegar localizacao funcionamento"],
+    ["Quem somos", "institucional.html", "quem somos instituicao institucional cartorio historia tabeliao titular sobre"],
+    ["Privacidade", "privacidade.html", "privacidade lgpd dados pessoais protecao de dados encarregado dpo"],
+    ["Política de privacidade e LGPD completa", "politica-lgpd.html", "politica privacidade lgpd lei geral protecao dados completa encarregado dpo ceprotec"],
+    ["Tabela de Emolumentos (PDF)", "modelos/tabela-de-emolumentos-2026.pdf", "tabela emolumentos custas valores precos quanto custa taxas pdf baixar"],
+  ].map(([t, u, b]) => ({ t, e: u.endsWith(".pdf") ? "Arquivo para baixar" : "Página do site", u, d: 0, b: norm(colado(`${t} ${b}`)) })),
+];
 const INDICE_JS = `window.CJ_INDICE=${JSON.stringify(INDICE)};`;
 const V_INDICE = versao(INDICE_JS);
 
@@ -653,7 +670,7 @@ const adicionar = (caminho, html, extra = {}) => paginas.push({ caminho, html, .
     .map((a) => linhaLista(c.u(a.caminho), a.titulo, a.esp.nome))
     .join("");
 
-  const indiceBusca = JSON.stringify(INDICE.map((x) => ({ ...x, u: c.u(x.u) }))).replace(/</g, "\\u003c");
+  const indiceBusca = JSON.stringify(INDICE.map((x) => (x.x ? x : { ...x, u: c.u(x.u) }))).replace(/</g, "\\u003c");
 
   const painel = `
   <div class="container painel-flutuante" id="encontrar">
