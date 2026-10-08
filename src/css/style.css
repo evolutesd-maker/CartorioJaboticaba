@@ -847,6 +847,14 @@ a:hover { color: var(--azul-3); }
   .imprimir-rodape { display: block !important; margin-top: 1.5rem; padding-top: 0.75rem; border-top: 1px solid #000; font-size: 0.95rem; }
 }
 .imprimir-rodape { display: none; }
+/* "Imprimir esta lista": só o título do serviço e a lista de documentos */
+@media print {
+  .imprime-lista main > :not(.faixa):not(.pagina) { display: none !important; }
+  .imprime-lista .faixa :is(.trilha, .eyebrow, .faixa__lead, .faixa__sub, .faixa__deco, svg) { display: none !important; }
+  .imprime-lista .pagina__lateral { display: none !important; }
+  .imprime-lista .pagina__principal > :not(#documentos):not(.imprimir-rodape) { display: none !important; }
+  .imprime-lista #documentos .no-print { display: none !important; }
+}
 .so-js { display: none; }
 .js .so-js { display: inline-flex; }
 

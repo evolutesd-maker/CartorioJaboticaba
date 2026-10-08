@@ -601,6 +601,13 @@ if (marca) marca.focus({ preventScroll: true });
 medir();
 }
 document.querySelectorAll("[data-imprimir]").forEach(function (b) {
-b.addEventListener("click", function () { window.print(); });
+b.addEventListener("click", function () {
+var raiz = document.documentElement;
+var limpar = function () { raiz.classList.remove("imprime-lista"); window.removeEventListener("afterprint", limpar); };
+raiz.classList.add("imprime-lista");
+window.addEventListener("afterprint", limpar);
+window.print();
+setTimeout(limpar, 1500);
+});
 });
 })();

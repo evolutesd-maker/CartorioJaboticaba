@@ -682,6 +682,15 @@
 
   // ---- Imprimir ----------------------------------------------------------
   document.querySelectorAll("[data-imprimir]").forEach(function (b) {
-    b.addEventListener("click", function () { window.print(); });
+    b.addEventListener("click", function () {
+      // Imprime só a lista de documentos: a classe esconde o resto da página durante a impressão.
+      var raiz = document.documentElement;
+      var limpar = function () { raiz.classList.remove("imprime-lista"); window.removeEventListener("afterprint", limpar); };
+      raiz.classList.add("imprime-lista");
+      window.addEventListener("afterprint", limpar);
+      window.print();
+      // Navegadores que não disparam "afterprint" (alguns celulares): desfaz pouco depois.
+      setTimeout(limpar, 1500);
+    });
   });
 })();
