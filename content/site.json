@@ -1,8 +1,8 @@
 {
-  "rascunho": true,
+  "rascunho": false,
   "nome": "Tabelionato de Jaboticaba",
   "chamada": "Cartório · Jaboticaba/RS",
-  "url": null,
+  "url": "https://cartoriojaboticaba.com.br",
   "endereco": {
     "logradouro": "Rua Victelio Bisognin",
     "numero": "227",

@@ -1596,3 +1596,10 @@ kbd {
 @media (prefers-reduced-motion: no-preference) { :root { --rede: url("../img/rede-movimento.svg"); } }
 html::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--rede) center / cover no-repeat; }
 @media print { html::before { display: none; } }
+
+/* Horário de atendimento: em telas estreitas, dia e horas empilhados (evita o horário quebrar letra a letra) */
+@media (max-width: 48rem) {
+  .dados .horario { grid-template-columns: 1fr; gap: 0; }
+  .dados .horario dd { overflow-wrap: normal; margin: 0 0 0.7rem; }
+  .dados .horario dd:last-of-type { margin-bottom: 0; }
+}

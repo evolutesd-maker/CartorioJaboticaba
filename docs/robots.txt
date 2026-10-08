@@ -1,2 +1,3 @@
 User-agent: *
-Disallow: /
+Allow: /
+Sitemap: https://cartoriojaboticaba.com.br/sitemap.xml

@@ -12,7 +12,10 @@ import { fileURLToPath } from "node:url";
 const DOCS = join(fileURLToPath(new URL(".", import.meta.url)), "..", "docs");
 // Lista FECHADA: wa.me, Google Maps e os sites oficiais aprovados em scripts/dominios-aprovados.json.
 const APROVADOS = JSON.parse(readFileSync(join(DOCS, "..", "scripts", "dominios-aprovados.json"), "utf8"));
-const DOMINIOS_PERMITIDOS = ["https://wa.me/", "https://www.google.com/maps/", ...APROVADOS.map((h) => `https://${h}/`)];
+const SITE = JSON.parse(readFileSync(join(DOCS, "..", "content", "site.json"), "utf8"));
+// O próprio endereço do site (canonical, og:url) também é permitido.
+const PROPRIO = SITE.url ? [`${SITE.url.replace(/\/+$/, "")}/`] : [];
+const DOMINIOS_PERMITIDOS = ["https://wa.me/", "https://www.google.com/maps/", ...PROPRIO, ...APROVADOS.map((h) => `https://${h}/`)];
 const problemas = [];
 const listar = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? listar(join(d, e.name)) : [join(d, e.name)]));
 const hash = (s) => "sha256-" + createHash("sha256").update(s).digest("base64");
