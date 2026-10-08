@@ -70,7 +70,8 @@ for (const g of linksDados.grupos) for (const id of g.itens) if (!linksDados.ite
 for (const esp of especialidades) for (const id of esp.linksOnline || []) if (!linksDados.itens[id]) erros.push(`${esp.id}: linksOnline cita "${id}", que não existe em links.json.`);
 for (const ato of atos.values()) {
   for (const id of ato.links || []) if (!linksDados.itens[id]) erros.push(`${ato.id}: "links" cita "${id}", que não existe em links.json.`);
-  if (ato.validado && (!(ato.documentos || []).length || !(ato.passos || []).length)) erros.push(`${ato.id}: marcado como validado, mas sem documentos ou passos.`);
+  // Validado precisa ter algo do cartório (documentos, passos, texto, modelo ou link) ou estar marcado como atendimento direto.
+  if (ato.validado && !(ato.documentos || []).length && !(ato.passos || []).length && !(ato.texto || []).length && !(ato.modelos || []).length && !(ato.links || []).length && !ato.atendimentoDireto) erros.push(`${ato.id}: marcado como validado, mas sem conteúdo (use "atendimentoDireto": true se o serviço é feito só no atendimento).`);
   if (!ato.tema) erros.push(`O ato ${ato.id} não aparece em nenhum tema de content/temas.json (ninguém o encontraria pelo localizador).`);
   for (const ref of ato.verTambem || []) {
     if (!atos.has(ref)) erros.push(`${ato.id}: "verTambem" aponta para "${ref}", que não existe.`);
@@ -553,7 +554,7 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld).replace(
 </head>
 <body>
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
-${rascunho ? `<aside class="aviso-rascunho" aria-label="Aviso sobre esta versão"><div class="container"><strong>Site demonstrativo.</strong> Os documentos e orientações ainda serão validados pelo cartório antes da publicação.</div></aside>` : ""}
+${rascunho && [...atos.values()].some((a) => !a.validado) ? `<aside class="aviso-rascunho" aria-label="Aviso sobre esta versão"><div class="container"><strong>Site demonstrativo.</strong> Os documentos e orientações ainda serão validados pelo cartório antes da publicação.</div></aside>` : ""}
 ${cabecalho(c, ativo)}
 <div class="pagina-corpo">
 <main id="conteudo">
@@ -1219,7 +1220,7 @@ function preencher(html, extras = {}) {
     ? `${dpo.nome ? esc(dpo.nome) + ", " : ""}${mailto(dpo.email)}${dpo.emailAdicional ? ` e ${mailto(dpo.emailAdicional)}` : ""}${dpo.telefone ? `, ${esc(dpo.telefone)}` : ""}`
     : aConfirmar("a confirmar com o cartório");
   const vars = {
-    avisoRevisao: rascunho
+    avisoRevisao: rascunho && [...atos.values()].some((a) => !a.validado)
       ? `<div class="destaque"><p><strong>Texto-base em revisão.</strong> Este conteúdo será revisado pelo cartório (e por sua assessoria jurídica) antes da publicação.</p></div>`
       : "",
     nome: esc(site.nome),
@@ -1316,7 +1317,7 @@ function preencher(html, extras = {}) {
 }
 
 // ---------- Folha de revisão (só em rascunho): reúne todo o conteúdo para o cartório validar
-if (rascunho) {
+if (rascunho && [...atos.values()].some((a) => !a.validado)) {
   const c = ctx("revisao.html");
   const linha = '<span class="rev-linha"></span>';
   const blocos = especialidades

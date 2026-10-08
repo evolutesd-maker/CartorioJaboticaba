@@ -68,7 +68,7 @@
         "notas/procuracao",
         "notas/reconhecimento-firma"
       ],
-      "validado": false,
+      "validado": true,
       "escritura": true,
       "links": [
         "cpf",
@@ -129,7 +129,7 @@
         "notas/doacao-simples",
         "notas/testamento"
       ],
-      "validado": false,
+      "validado": true,
       "escritura": true,
       "links": [
         "doacao-rs"
@@ -186,7 +186,7 @@
         "notas/doacao-usufruto",
         "notas/testamento"
       ],
-      "validado": false,
+      "validado": true,
       "escritura": true,
       "links": [
         "doacao-rs"
@@ -252,7 +252,7 @@
         "notas/reconhecimento-firma",
         "notas/escritura-compra-venda"
       ],
-      "validado": false,
+      "validado": true,
       "escritura": true,
       "texto": [
         "A Procuração é também uma escritura pública utilizada como instrumento do mandato, o contrato através do qual o mandante (outorgante) transfere ao mandatário (outorgado) poderes para representá-lo em determinados atos ou negócios.",
@@ -282,7 +282,7 @@
       "verTambem": [
         "notas/procuracao"
       ],
-      "validado": false,
+      "validado": true,
       "escritura": false,
       "texto": [
         "É o ato através do qual o Tabelião declara a autoria de uma assinatura em um documento."
@@ -388,7 +388,7 @@
         "notas/escritura-compra-venda",
         "notas/atas-notariais"
       ],
-      "validado": false,
+      "validado": true,
       "escritura": false,
       "texto": [
         "A Ata Notarial para Usucapião é um documento público, lavrado por um tabelião de notas, que tem como função principal registrar e descrever fatos que comprovem a posse de um imóvel, para que esse imóvel possa ser regularizado pela via extrajudicial (diretamente no cartório de registro de imóveis).",
@@ -413,7 +413,7 @@
         "notas/ata-notarial-usucapiao",
         "notas/reconhecimento-firma"
       ],
-      "validado": false,
+      "validado": true,
       "escritura": false,
       "texto": [
         "A ata notarial é um instrumento público no qual o tabelião documenta, de forma imparcial, um fato, uma situação ou uma circunstância presenciada por ele ou seus prepostos. A ata notarial tem eficácia probatória, presumindo-se verdadeiros os fatos nela contidos, podendo ser utilizada em processos judiciais, nos termos do artigo 384 do Código de Processo Civil (Lei 13.105/2015)."
@@ -443,7 +443,7 @@
         "rcpn/segunda-via-certidao",
         "rcpn/registro-obito"
       ],
-      "validado": false,
+      "validado": true,
       "escritura": true,
       "texto": [
         "O inventário é o procedimento utilizado para apuração dos bens, direitos e dívidas do falecido. Através da realização da partilha é feita a transferência da propriedade dos bens aos herdeiros. Desde a edição da Lei 11.441/07 é permitido que o procedimento de inventário seja realizado em cartório, por meio de escritura pública, de forma rápida, simples e segura. Para que o inventário possa ser feito em cartório, é necessário observar os seguintes requisitos: 1) Deve haver consenso entre os herdeiros quanto à partilha dos bens; 2) as partes deverão estar representadas por advogado, que enviará o pedido de abertura de inventário e respectiva documentação, bem como acompanhará a assinatura da respectiva Escritura Pública de Inventário e Partilha para assessoramento das partes."
@@ -467,7 +467,7 @@
         "notas/inventario-partilha",
         "notas/cessao-heranca-bem"
       ],
-      "validado": false,
+      "validado": true,
       "escritura": true,
       "texto": [
         "A cessão de direitos hereditários sobre a herança toda (o quinhão hereditário) é o instituto jurídico que permite a um herdeiro transferir, antes da partilha, a sua quota-parte ideal sobre a totalidade do patrimônio deixado pelo falecido."
@@ -490,7 +490,7 @@
         "notas/cessao-heranca-toda",
         "notas/inventario-partilha"
       ],
-      "validado": false,
+      "validado": true,
       "escritura": true,
       "texto": [
         "A cessão de direitos hereditários é o instituto jurídico que permite a um herdeiro transferir (de forma onerosa ou gratuita) a sua parte ou quota-parte na herança a outro herdeiro (entre irmãos) ou a um terceiro, antes de ser feita a partilha."
@@ -518,7 +518,7 @@
         "notas/inventario-partilha",
         "notas/procuracao"
       ],
-      "validado": false,
+      "validado": true,
       "escritura": true,
       "texto": [
         "Testamento é a declaração de última vontade através da qual o testador, respeitados os limites legais, dispõe de seu patrimônio para depois de seu falecimento. Esta declaração poderá ser alterada ou revogada pelo testador a qualquer tempo, pois somente terá efeito jurídico após a sua morte."
@@ -546,7 +546,7 @@
       "documentos": [],
       "modelos": [],
       "verTambem": [],
-      "validado": false,
+      "validado": true,
       "escritura": true,
       "texto": [
         "Requisitos: i) que as partes estejam de acordo com todos os termos da escritura, ii) inexistência de filhos menores ou incapazes; OU questões relativas aos menores já resolvidas judicialmente; e iii) acompanhamento de, pelo menos, um advogado que deverá enviar petição com a qualificação das partes, data da separação de fato, indicação dos bens e respectivos valores bem como indicar a forma de partilha."
@@ -568,8 +568,9 @@
       ],
       "documentos": [],
       "verTambem": [],
-      "validado": false,
-      "escritura": false
+      "validado": true,
+      "escritura": false,
+      "atendimentoDireto": true
     },
     {
       "slug": "pacto-uniao-estavel",
@@ -590,8 +591,9 @@
       "verTambem": [
         "notas/divorcio-extrajudicial"
       ],
-      "validado": false,
-      "escritura": false
+      "validado": true,
+      "escritura": false,
+      "atendimentoDireto": true
     },
     {
       "slug": "nomeacao-inventariante",
@@ -610,8 +612,9 @@
       "verTambem": [
         "notas/inventario-partilha"
       ],
-      "validado": false,
-      "escritura": false
+      "validado": true,
+      "escritura": false,
+      "atendimentoDireto": true
     },
     {
       "slug": "desapropriacao-dacao-acordos",
@@ -630,8 +633,9 @@
       ],
       "documentos": [],
       "verTambem": [],
-      "validado": false,
-      "escritura": false
+      "validado": true,
+      "escritura": false,
+      "atendimentoDireto": true
     }
   ],
   "linksOnline": []

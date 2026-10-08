@@ -44,7 +44,7 @@
         "rcpj/alteracao-estatuto-ata",
         "rcpj/certidao-pj"
       ],
-      "validado": false
+      "validado": true
     },
     {
       "slug": "alteracao-estatuto-ata",
@@ -74,7 +74,7 @@
         "rcpj/registrar-associacao",
         "rcpj/certidao-pj"
       ],
-      "validado": false
+      "validado": true
     },
     {
       "slug": "certidao-pj",
@@ -95,7 +95,8 @@
       "verTambem": [
         "rcpj/alteracao-estatuto-ata"
       ],
-      "validado": false
+      "validado": true,
+      "atendimentoDireto": true
     }
   ],
   "linksOnline": [

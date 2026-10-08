@@ -40,7 +40,7 @@
         "rtd/certidao-rtd",
         "rtd/notificacao-extrajudicial"
       ],
-      "validado": false
+      "validado": true
     },
     {
       "slug": "notificacao-extrajudicial",
@@ -65,7 +65,8 @@
         "rtd/registro-contrato",
         "protesto/apresentar-titulo"
       ],
-      "validado": false
+      "validado": true,
+      "atendimentoDireto": true
     },
     {
       "slug": "certidao-rtd",
@@ -84,7 +85,8 @@
       "verTambem": [
         "rtd/registro-contrato"
       ],
-      "validado": false
+      "validado": true,
+      "atendimentoDireto": true
     }
   ],
   "linksOnline": [
