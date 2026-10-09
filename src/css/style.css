@@ -1380,7 +1380,6 @@ kbd {
 .eb__painel .lista-aberta .icone { color: var(--eb-seta); }
 
 /* Estado aberto: a escolhida ocupa a largura toda e as outras encolhem numa fileira */
-.eb--anima .eb__item { align-self: start; }
 .eb--aberto .eb__grade { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
 .eb--aberto .eb__item { grid-column: auto; grid-row: auto; }
 .eb--aberto .eb__item.is-aberto { grid-column: 1 / -1; grid-row: 1; }
@@ -1394,8 +1393,11 @@ kbd {
 .eb--aberto .eb__item.is-aberto .eb__prev { display: none; }
 .eb--aberto .eb__item.is-aberto .eb__rodape { margin-top: 0; }
 @media (prefers-reduced-motion: no-preference) {
-  .eb__item.is-aberto .eb__painel { animation: sobe 0.45s var(--ease) both; }
+  /* Ao abrir/fechar uma especialidade: só um aparecer suave (opacidade), sem mover nem redimensionar nada. É o mais leve para o celular. */
+  .eb--entra .eb__item { animation: eb-entra 0.3s ease-out backwards; animation-delay: calc(var(--i, 0) * 35ms); }
+  .eb--entra .eb__item.is-aberto { animation-delay: 0s; }
 }
+@keyframes eb-entra { from { opacity: 0; } }
 
 @media (max-width: 52rem) {
   .eb__grade { grid-template-columns: 1fr; }
@@ -1590,9 +1592,7 @@ kbd {
 /* Detalhe futurista discreto na página inteira: rede fina que se move devagar, como um motion graphic.
    Arquivos próprios em assets/img, sem script. Sem animação para quem pede "reduzir movimento". */
 @media (prefers-reduced-motion: no-preference) { :root { --rede: url("../img/rede-movimento.svg"); } }
-html::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--rede) center / cover no-repeat; transition: opacity 0.6s ease; }
-/* Enquanto o mosaico anima, o fundo de rede some por um instante (redesenhar o SVG animado a cada quadro pesa); volta suave depois. */
-html.eb-anima::before { opacity: 0; transition-duration: 0.15s; }
+html::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--rede) center / cover no-repeat; }
 @media print { html::before { display: none; } }
 
 /* Horário de atendimento: em telas estreitas, dia e horas empilhados (evita o horário quebrar letra a letra) */

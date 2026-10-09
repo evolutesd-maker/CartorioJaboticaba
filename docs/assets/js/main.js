@@ -377,39 +377,16 @@ campo.addEventListener("keydown", function (e) { if (e.key === "Enter") e.preven
 document.querySelectorAll("[data-eb]").forEach(function (eb) {
 var itens = Array.prototype.slice.call(eb.querySelectorAll("[data-eb-item]"));
 var atual = null;
-var grade = eb.querySelector(".eb__grade");
-var suave = "cubic-bezier(0.22, 1, 0.36, 1)";
-function medir() {
-var medidas = { itens: itens.map(function (it) { return it.getBoundingClientRect(); }), grade: grade ? grade.getBoundingClientRect().height : 0 };
-itens.forEach(function (it) { it.getAnimations().forEach(function (a) { a.cancel(); }); });
-if (grade) grade.getAnimations().forEach(function (a) { a.cancel(); });
-return medidas;
-}
-function animar(antes) {
-var anims = [];
-var depois = itens.map(function (it) { return it.getBoundingClientRect(); });
-var hGrade = grade ? grade.getBoundingClientRect().height : 0;
-eb.classList.add("eb--anima");
-document.documentElement.classList.add("eb-anima");
-itens.forEach(function (it, i) {
-var a = antes.itens[i], d = depois[i];
-var mudaTamanho = Math.abs(a.width - d.width) > 0.5 || Math.abs(a.height - d.height) > 0.5;
-var mover = "translate(" + (a.left - d.left) + "px," + (a.top - d.top) + "px)";
-var de = { transform: mover }, para = { transform: "translate(0px,0px)" };
-if (mudaTamanho) {
-de.width = a.width + "px"; de.height = a.height + "px"; de.boxSizing = "border-box"; de.overflow = "hidden";
-para.width = d.width + "px"; para.height = d.height + "px"; para.boxSizing = "border-box"; para.overflow = "hidden";
-}
-anims.push(it.animate([de, para], { duration: 460, easing: suave }));
-});
-if (grade) {
-if (Math.abs(hGrade - antes.grade) > 1) anims.push(grade.animate([{ height: antes.grade + "px" }, { height: hGrade + "px" }], { duration: 460, easing: suave }));
-}
-var fim = function () { eb.classList.remove("eb--anima"); document.documentElement.classList.remove("eb-anima"); };
-Promise.all(anims.map(function (x) { return x.finished; })).then(fim, fim);
+var tempoEntrada = null;
+function entrar() {
+itens.forEach(function (it, i) { it.style.setProperty("--i", String(i)); });
+eb.classList.remove("eb--entra");
+void eb.offsetWidth; // reinicia a animação se o toque vier no meio de outra
+eb.classList.add("eb--entra");
+clearTimeout(tempoEntrada);
+tempoEntrada = setTimeout(function () { eb.classList.remove("eb--entra"); }, 800);
 }
 function aplicar(item, rolar, animado) {
-var antes = animado && !semMovimento && itens[0].animate ? medir() : null;
 atual = item;
 eb.classList.toggle("eb--aberto", !!item);
 itens.forEach(function (it) {
@@ -421,7 +398,7 @@ it.querySelector(".eb__painel").hidden = !aberto;
 try {
 history.replaceState(null, "", item ? "#" + item.id : location.pathname + location.search);
 } catch (_) {  }
-if (antes) animar(antes);
+if (animado && !semMovimento) entrar();
 if (rolar) eb.scrollIntoView({ behavior: semMovimento ? "auto" : "smooth", block: "start" });
 }
 itens.forEach(function (item) {
