@@ -403,7 +403,7 @@ function espBento(c) {
             </span>
             <span class="eb__rodape"><span class="eb__n">${rotuloServicos(n)}</span>${icone("seta")}</span>
           </a>
-          <div class="eb__painel" id="eb-${e.id}" role="region" aria-labelledby="eb-t-${e.id}">
+          <div class="eb__painel" id="eb-${e.id}">
             <div class="eb__cab">
               <h3 id="eb-t-${e.id}">Serviços de ${esc(e.nome)}</h3>
               <p>${esc(e.resumo)}</p>

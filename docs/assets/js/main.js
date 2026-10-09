@@ -390,17 +390,22 @@ var anims = [];
 var depois = itens.map(function (it) { return it.getBoundingClientRect(); });
 var hGrade = grade ? grade.getBoundingClientRect().height : 0;
 eb.classList.add("eb--anima");
+document.documentElement.classList.add("eb-anima");
 itens.forEach(function (it, i) {
 var a = antes.itens[i], d = depois[i];
-anims.push(it.animate([
-{ transform: "translate(" + (a.left - d.left) + "px," + (a.top - d.top) + "px)", width: a.width + "px", height: a.height + "px", boxSizing: "border-box", overflow: "hidden" },
-{ transform: "translate(0px,0px)", width: d.width + "px", height: d.height + "px", boxSizing: "border-box", overflow: "hidden" }
-], { duration: 460, easing: suave }));
+var mudaTamanho = Math.abs(a.width - d.width) > 0.5 || Math.abs(a.height - d.height) > 0.5;
+var mover = "translate(" + (a.left - d.left) + "px," + (a.top - d.top) + "px)";
+var de = { transform: mover }, para = { transform: "translate(0px,0px)" };
+if (mudaTamanho) {
+de.width = a.width + "px"; de.height = a.height + "px"; de.boxSizing = "border-box"; de.overflow = "hidden";
+para.width = d.width + "px"; para.height = d.height + "px"; para.boxSizing = "border-box"; para.overflow = "hidden";
+}
+anims.push(it.animate([de, para], { duration: 460, easing: suave }));
 });
 if (grade) {
 if (Math.abs(hGrade - antes.grade) > 1) anims.push(grade.animate([{ height: antes.grade + "px" }, { height: hGrade + "px" }], { duration: 460, easing: suave }));
 }
-var fim = function () { eb.classList.remove("eb--anima"); };
+var fim = function () { eb.classList.remove("eb--anima"); document.documentElement.classList.remove("eb-anima"); };
 Promise.all(anims.map(function (x) { return x.finished; })).then(fim, fim);
 }
 function aplicar(item, rolar, animado) {

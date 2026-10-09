@@ -1322,15 +1322,14 @@ kbd {
 
 /* Vidro: todos iguais, translúcidos (o brilho azul atrás do mosaico aparece através); o texto usa estas variáveis */
 .eb { position: relative; isolation: isolate; }
-.eb::before { content: ""; position: absolute; inset: -2rem 0; z-index: -1; pointer-events: none; background: radial-gradient(520px 320px at 12% 8%, rgba(0, 120, 215, 0.42), transparent 70%), radial-gradient(420px 260px at 82% 22%, rgba(0, 150, 255, 0.28), transparent 70%), radial-gradient(460px 300px at 92% 92%, rgba(240, 214, 143, 0.16), transparent 70%); }
+.eb::before { content: ""; position: absolute; top: -2rem; left: 0; right: 0; height: 36rem; max-height: calc(100% + 4rem); z-index: -1; pointer-events: none; background: radial-gradient(520px 320px at 12% 8%, rgba(0, 120, 215, 0.42), transparent 70%), radial-gradient(420px 260px at 82% 22%, rgba(0, 150, 255, 0.28), transparent 70%), radial-gradient(460px 300px at 92% 92%, rgba(240, 214, 143, 0.16), transparent 70%); }
 .eb__item {
   --eb-tinta: #fff; --eb-suave: #f5faff; --eb-linha: rgba(255, 255, 255, 0.26); --eb-icone-bg: rgba(255, 255, 255, 0.16); --eb-icone: #fff; --eb-hover: rgba(255, 255, 255, 0.12); --eb-seta: var(--ouro-claro); --eb-sel: var(--ouro-claro);
   display: flex; flex-direction: column;
   border-radius: var(--r-lg);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.17), rgba(255, 255, 255, 0.05)), rgba(0, 30, 70, 0.4);
+  /* Sem backdrop-filter: o desfoque refeito a cada quadro era o que mais travava a animação; o fundo é suave, então quase não se nota. */
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.17), rgba(255, 255, 255, 0.05)), rgba(0, 38, 86, 0.58);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  -webkit-backdrop-filter: blur(14px) saturate(1.25);
-  backdrop-filter: blur(14px) saturate(1.25);
   color: var(--eb-tinta);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 20px 40px -22px rgba(0, 15, 40, 0.55);
   scroll-margin-top: 7rem;
@@ -1591,7 +1590,9 @@ kbd {
 /* Detalhe futurista discreto na página inteira: rede fina que se move devagar, como um motion graphic.
    Arquivos próprios em assets/img, sem script. Sem animação para quem pede "reduzir movimento". */
 @media (prefers-reduced-motion: no-preference) { :root { --rede: url("../img/rede-movimento.svg"); } }
-html::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--rede) center / cover no-repeat; }
+html::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--rede) center / cover no-repeat; transition: opacity 0.6s ease; }
+/* Enquanto o mosaico anima, o fundo de rede some por um instante (redesenhar o SVG animado a cada quadro pesa); volta suave depois. */
+html.eb-anima::before { opacity: 0; transition-duration: 0.15s; }
 @media print { html::before { display: none; } }
 
 /* Horário de atendimento: em telas estreitas, dia e horas empilhados (evita o horário quebrar letra a letra) */
